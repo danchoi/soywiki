@@ -23,9 +23,9 @@ func! s:list_pages()
 endfunc
 
 " follows a camel case link to a new page 
-func! s:follow_link()
+func! s:follow_link(split)
   let page = expand("<cword>")
-  call s:load_page(page, 0)  
+  call s:load_page(page, a:split)  
 endfunc
 
 func! s:load_page(page, split)
@@ -113,7 +113,8 @@ endfunction
 func! s:main_window_mappings()
   " these are global
   noremap <leader>m :call <SID>list_pages()<CR>
-  noremap <leader>f :call <SID>follow_link()<CR>
+  noremap <leader>f :call <SID>follow_link(0)<CR>
+  noremap <leader>sf :call <SID>follow_link(1)<CR>
   noremap <leader>w :call <SID>save_page()<CR>
 
   " todo mapping for new page (don't just create a new vim buffer)
