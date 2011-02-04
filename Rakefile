@@ -21,6 +21,11 @@ task :create_views do
   end
 end
 
+desc "Start Sinatra webapp"
+task :sinatra do
+# TODO
+end
+
 desc "Run tests"
 task :test do 
   $:.unshift File.expand_path("test")

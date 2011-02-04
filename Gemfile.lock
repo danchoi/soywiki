@@ -5,13 +5,21 @@ GEM
       json (>= 1.4.6)
       mime-types (>= 1.15)
       rest-client (>= 1.5.1)
+    haml (3.0.25)
     json (1.5.1)
     mime-types (1.16)
+    rack (1.2.1)
     rest-client (1.6.1)
       mime-types (>= 1.16)
+    sinatra (1.1.2)
+      rack (~> 1.1)
+      tilt (~> 1.2)
+    tilt (1.2.2)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   couchrest
+  haml
+  sinatra
