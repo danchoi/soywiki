@@ -1,13 +1,10 @@
-_id: _design/couchtasks
+_id: _design/zenwiki
 views: 
-  by_project:
+  recently_touched_pages:
     map: |
       function(doc) {
-        if (doc.type == 'task' && doc.priority && doc.created_at) {
-          var value = doc;
-          for (var i in doc.projects) {
-            var key = [doc.projects[i], doc.priority, doc.created_at]
-            emit(key, value);
-          }
+        if (doc.type == 'page' && doc.updated_at) {
+          var key = [doc.updated_at, doc._id];
+          emit(key, null);
         }
       }

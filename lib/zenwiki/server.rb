@@ -3,6 +3,7 @@ require 'logger'
 
 class Zenwiki
   class Server
+    include Couch
 
     def initialize(config={'logfile' => 'zenwiki.log'})
       @logger = Logger.new(config['logfile'] || STDERR)
@@ -10,8 +11,20 @@ class Zenwiki
     end
 
     def save_page(page)
-      log "Saving page"
-      log page
+      title, body = *(page.strip.split(/\n/,2))
+      log "Saving page '#{title}'"
+      doc = {'_id' => title, 'body' => (body || '').strip, :type => 'page', 'updated_at' => Time.now.utc}
+      create_or_update doc
+    end
+
+    def list_pages
+      log "Listing pages"
+      res = view('zenwiki/recently_touched_pages')['rows'].map {|row|
+        updated_at, title = *row["key"]
+        title
+      }.join("\n")
+    rescue
+      log $!
     end
 
     def log(text)

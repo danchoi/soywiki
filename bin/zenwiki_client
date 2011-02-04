@@ -4,10 +4,14 @@ require 'drb'
 server = DRbObject.new_with_uri ARGV.shift
 method = ARGV.shift
 
-if method == 'save_page' 
-  text = STDIN.read
-  puts server.send(method, text)
-else
-  puts server.send(method, *ARGV)
+begin
+  if method == 'save_page' 
+    text = STDIN.read
+    puts server.send(method, text)
+  else
+    puts server.send(method, *ARGV)
+  end
+rescue
+  puts ["Method: #{method}", $!.inspect, $!.backtrace.join("\n")].join("\n")
 end
 

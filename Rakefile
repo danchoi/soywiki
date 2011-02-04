@@ -5,11 +5,13 @@ require 'json'
 require 'rake'
 require 'rake/testtask'
 require 'bundler'
+require 'zenwiki'
+
 Bundler::GemHelper.install_tasks
 
 desc "Save couchdb views in lib/couchviews.yml"
 task :create_views do
-  db = CouchRest.database! "http://localhost:5984/couchtasks"
+  db = Zenwiki::DB
   views = YAML::load File.read("lib/couchviews.yml")
   begin
     rev = db.get(views['_id'])['_rev']
@@ -17,12 +19,6 @@ task :create_views do
   rescue RestClient::ResourceNotFound
     puts db.save_doc(views)
   end
-end
-
-desc "List feeds with recent entry titles" 
-task :list_feeds do
-  couchtasks = Vnews::Aggregator.new  
-  puts couchtasks.list_feeds.inspect
 end
 
 desc "Run tests"

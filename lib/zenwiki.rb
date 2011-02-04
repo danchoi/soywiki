@@ -5,7 +5,8 @@ require 'zenwiki/options'
 require 'zenwiki/server'
 
 class Zenwiki
-  DB = CouchRest.database!("http://127.0.0.1:5984/zenwiki")
+  DBNAME = 'zenwiki'
+  DB = CouchRest.database!("http://127.0.0.1:5984/#{DBNAME}")
 
   class << self
     def start
@@ -21,7 +22,8 @@ class Zenwiki
       vim_command = "DRB_URI='#{drb_uri}' #{vim} -S #{vimscript} #{buffer_file}"
       STDERR.puts "Starting vim with `#{vim_command}`"
       File.open(buffer_file, "w") do |file|
-        file.puts "Zenwiki"
+        # TODO load ZenWiki home page
+        file.puts "ZenWiki"
       end
       puts system(vim_command)
       if vim == 'mvim'
