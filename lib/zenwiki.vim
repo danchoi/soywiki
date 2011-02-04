@@ -102,7 +102,9 @@ endfun
 function! s:select_page()
   let page = get(split(getline(line('.')), ": "), 1)
   close
-  call s:load_page(page, 0)
+  if page 
+    call s:load_page(page, 0)
+  end
 endfunction
 
 "------------------------------------------------------------------------
