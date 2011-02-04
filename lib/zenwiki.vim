@@ -9,9 +9,7 @@ func! s:create_main_window()
   setlocal modifiable 
   let s:main_window_bufnr = bufnr('%')
   call s:main_window_mappings()
-  write
 endfunction
-
 
 func! s:save_page()
   let page = join(getline(1,'$'), "\n")
@@ -24,32 +22,34 @@ func! s:list_pages()
   call s:page_list_window()
 endfunc
 
-
 " follows a camel case link to a new page 
 func! s:follow_link()
   let page = expand("<cword>")
-  call s:load_page(page)  
+  call s:load_page(page, 0)  
 endfunc
 
-func! s:load_page(page)
+func! s:load_page(page, split)
   " check if page is a real page
   let page = a:page
-  if (index(s:pages, page) == -1)
-    return
-  endif
   let s:page = page
   " load page into buffer
   let command = s:load_page_command . shellescape(s:page)
-  write!
+  if (a:split > 0) 
+    exec "split ". s:page
+  endif
+
+  " syntax color camelcase
+  match Comment /\C\<[A-Z][a-z]\+[A-Z]\w*\>/
+
+  set buftype=nofile
   let res = system(command)
   1,$delete
   put! =res
   execute "normal Gdd\<c-y>" 
   normal G
-  write
   normal z.
   redraw
-  echom "Current page: ". s:page 
+  
 endfunc
 
 " -------------------------------------------------------------------------------
@@ -105,7 +105,7 @@ endfun
 function! s:select_page()
   let page = get(split(getline(line('.')), ": "), 1)
   close
-  call s:load_page(page)
+  call s:load_page(page, 0)
 endfunction
 
 "------------------------------------------------------------------------
@@ -114,14 +114,13 @@ func! s:main_window_mappings()
   " these are global
   noremap <leader>m :call <SID>list_pages()<CR>
   noremap <leader>f :call <SID>follow_link()<CR>
+  noremap <leader>w :call <SID>save_page()<CR>
 
   " todo mapping for new page (don't just create a new vim buffer)
 endfunc 
 
-autocmd BufWritePost zenwiki-buffer call s:save_page() 
+"autocmd BufWritePost zenwiki-buffer call s:save_page() 
 
-" syntax color camelcase
-match Comment /\C\<[A-Z][a-z]\+[A-Z]\w*\>/
 
 
 call s:create_main_window()
