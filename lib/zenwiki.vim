@@ -1,9 +1,12 @@
 
+let s:sandbox = $ZEN_WIKI_SANDBOX . "/"
 "let s:client_script = "zenwiki_client " . shellescape($DRB_URI) . " "
 let s:client_script = "ruby -Ilib bin/zenwiki_client " . shellescape($DRB_URI) . " "
 let s:save_command = s:client_script . "save_page "
 let s:list_pages_command = s:client_script . "list_pages "
 let s:load_page_command = s:client_script . "load_page "
+let s:browser_command = "open "
+
 
 
 func! s:save_page()
@@ -30,7 +33,7 @@ func! s:load_page(page, split)
   let command = s:load_page_command . shellescape(s:page)
   call system(command) " this creats the file in the sandox
 
-  let file = "zenwiki-sandbox/" . s:page
+  let file = s:sandbox . s:page
   if (a:split == 2) 
     exec "botright vsplit ". file
   else
@@ -104,12 +107,51 @@ endfunction
 
 "------------------------------------------------------------------------
 
+func! s:open_href(all) range
+  let pattern = 'https\?:[^ >)\]]\+'
+  let n = 0
+  " range version
+  if a:firstline < a:lastline
+    let lnum = a:firstline
+    while lnum <= a:lastline
+      let href = matchstr(getline(lnum), pattern)
+      if href != ""
+        let command = s:browser_command . " '" . href . "' &"
+        call system(command)
+        let n += 1
+      endif
+      let lnum += 1
+    endwhile
+    echom 'Opened '.n.' links' 
+    return
+  end
+  let line = search(pattern, 'cw')
+  if line && a:all
+    while line
+      let href = matchstr(getline(line('.')), pattern)
+      let command = s:browser_command . " '" . href . "' &"
+      call system(command)
+      let n += 1
+      let line = search('https\?:', 'W')
+    endwhile
+    echom 'Opened '.n.' links' 
+  else
+    let href = matchstr(getline(line('.')), pattern)
+    let command = s:browser_command . " '" . href . "' &"
+    call system(command)
+    echom 'Opened '.href
+  endif
+endfunc
+
+"------------------------------------------------------------------------
+
 func! s:global_mappings()
   " these are global
   noremap <leader>m :call <SID>list_pages()<CR>
   noremap <leader>f :call <SID>follow_link(0)<CR>
   noremap <leader>sf :call <SID>follow_link(1)<CR>
   noremap <leader>vf :call <SID>follow_link(2)<CR>
+  noremap <silent> <leader>o :call <SID>open_href(0)<cr> 
 
   " todo mapping for new page (don't just create a new vim buffer)
 endfunc 
@@ -117,7 +159,6 @@ endfunc
 call s:global_mappings()
 
 call s:load_page("ZenWiki",0)
-
 
 autocmd BufNew,WinEnter * match Comment /\C\<[A-Z][a-z]\+[A-Z]\w*\>/
 
