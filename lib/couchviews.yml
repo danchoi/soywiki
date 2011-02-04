@@ -1,0 +1,13 @@
+_id: _design/couchtasks
+views: 
+  by_project:
+    map: |
+      function(doc) {
+        if (doc.type == 'task' && doc.priority && doc.created_at) {
+          var value = doc;
+          for (var i in doc.projects) {
+            var key = [doc.projects[i], doc.priority, doc.created_at]
+            emit(key, value);
+          }
+        }
+      }
