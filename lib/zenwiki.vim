@@ -23,6 +23,7 @@ endfunc
 
 " follows a camel case link to a new page 
 func! s:follow_link(split)
+  call s:find_next_wiki_link()
   let page = expand("<cword>")
   call s:load_page(page, a:split)  
 endfunc
@@ -49,6 +50,7 @@ func! s:load_page(page, split)
   endif
 
   exe "match Comment /". s:wiki_link_pattern. "/"
+  autocmd!
   autocmd BufWritePost * call s:save_page()
   if (a:split == 0) 
     wincmd p 
@@ -159,9 +161,12 @@ endfunc
 func! s:global_mappings()
   " these are global
   noremap <leader>m :call <SID>list_pages()<CR>
+
   noremap <leader>f :call <SID>follow_link(0)<CR>
   noremap <leader>sf :call <SID>follow_link(1)<CR>
   noremap <leader>vf :call <SID>follow_link(2)<CR>
+  nnoremap <cr> :call <SID>follow_link(0)<CR>
+
   noremap <silent> <leader>o :call <SID>open_href(0)<cr> 
 
   noremap <leader>n :call <SID>find_next_wiki_link()<CR>
