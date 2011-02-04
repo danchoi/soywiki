@@ -26,17 +26,13 @@ class Zenwiki
         end
         opts.separator ""
         opts.separator INSTRUCTIONS
-
         begin
           opts.parse!(argv)
-
         rescue OptionParser::ParseError => e
           STDERR.puts e.message, "\n", opts
         end
       end
-
     end
-
   end
 
   INSTRUCTIONS = <<-EOF
