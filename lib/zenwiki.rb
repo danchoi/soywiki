@@ -7,6 +7,7 @@ require 'zenwiki/server'
 class Zenwiki
   DBNAME = 'zenwiki'
   DB = CouchRest.database!("http://127.0.0.1:5984/#{DBNAME}")
+  SANDBOX = "zenwiki-sandbox"
 
   class << self
     def start

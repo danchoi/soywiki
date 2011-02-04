@@ -28,6 +28,7 @@ func! s:load_page(page, split)
   let s:page = page
 
   let command = s:load_page_command . shellescape(s:page)
+  call system(command) " this creats the file in the sandox
 
   let file = "zenwiki-sandbox/" . s:page
   if (a:split == 2) 
@@ -38,17 +39,11 @@ func! s:load_page(page, split)
 
   match Comment /\C\<[A-Z][a-z]\+[A-Z]\w*\>/
 
-  let res = system(command)
-  1,$delete
-  put! =res
-  execute "normal Gdd\<c-y>" 
-  normal gg
+
   if (a:split == 0) 
     wincmd p 
-    close!
+    close
   endif
-  write!
-  autocmd BufWritePost * call s:save_page() 
 endfunc
 
 

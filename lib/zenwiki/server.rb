@@ -29,7 +29,12 @@ class Zenwiki
 
     def load_page(title)
       doc = find_or_create({'_id' => title})
-      textify(doc)
+      page = textify(doc)
+      file = File.join(SANDBOX, title)
+      unless File.size?(file)
+        log "Writing file: #{file}"
+        File.open(file, 'w') {|f| f.puts page}
+      end
     end
 
     def textify(doc)
