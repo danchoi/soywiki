@@ -7,6 +7,7 @@ let s:list_pages_command = s:client_script . "list_pages "
 let s:load_page_command = s:client_script . "load_page "
 let s:browser_command = "open "
 
+let s:new_page_split = 0 " means replace the current page with the new page
 
 let s:wiki_link_pattern =  '\C\<[A-Z][a-z]\+[A-Z]\w*\>'
 
@@ -17,7 +18,8 @@ func! s:save_page()
   redraw
 endfunc
 
-func! s:list_pages()
+func! s:list_pages(split)
+  let s:new_page_split = a:split
   call s:page_list_window()
 endfunc
 
@@ -50,9 +52,9 @@ func! s:load_page(page, split)
 
   let file = s:sandbox . s:page
   if (a:split == 2) 
-    exec "botright vsplit ". file
+    exec "vsplit ". file
   else
-    exec "botright split ". file
+    exec "split ". file
   endif
 
   exe "match Comment /". s:wiki_link_pattern. "/"
@@ -121,7 +123,7 @@ function! s:select_page()
   if (page == '0') " no selection
     return
   end
-  call s:load_page(page, 0)
+  call s:load_page(page, s:new_page_split)
 endfunction
 
 "------------------------------------------------------------------------
@@ -166,7 +168,8 @@ endfunc
 
 func! s:global_mappings()
   " these are global
-  noremap <leader>m :call <SID>list_pages()<CR>
+  noremap <leader>m :call <SID>list_pages(0)<CR>
+  noremap <leader>sm :call <SID>list_pages(1)<CR>
 
   noremap <leader>f :call <SID>follow_link(0)<CR>
   noremap <leader>sf :call <SID>follow_link(1)<CR>
