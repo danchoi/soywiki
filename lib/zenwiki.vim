@@ -102,7 +102,6 @@ endfunction
 
 func! s:main_window_mappings()
   " these are global
-  "noremap <leader>w :call <SID>save_page()<CR> 
   noremap <leader>m :call <SID>list_pages()<CR>
   " todo mapping for new page (don't just create a new vim buffer)
 endfunc 
