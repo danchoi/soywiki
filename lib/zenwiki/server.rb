@@ -13,7 +13,7 @@ class Zenwiki
     def save_page(page)
       title, body = *(page.strip.split(/\n/,2))
       log "Saving page '#{title}'"
-      doc = {'_id' => title, 'body' => (body || '').strip, :type => 'page', 'updated_at' => Time.now.utc}
+      doc = {'_id' => title, 'body' => (body || '').strip, 'type' => 'page', 'updated_at' => Time.now.utc}
       create_or_update doc
     end
 

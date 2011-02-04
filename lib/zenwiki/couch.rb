@@ -25,6 +25,10 @@ class Zenwiki
     def create_or_update(new_doc)
       raise RestClient::ResourceNotFound if new_doc['_id'].nil?
       doc = DB.get(new_doc['_id']) # the url is the document id
+      if docs_equal?(doc, new_doc)
+        log "No changes"
+        return
+      end
       doc.update(new_doc)
       doc.save
       log "Updated document: #{doc.inspect}"
@@ -33,6 +37,13 @@ class Zenwiki
       find_or_create(new_doc)
     rescue
       log $!
+    end
+
+    def docs_equal?(x, y)
+      filter = Proc.new {|k,v| !['_rev', 'updated_at'].include?(k.to_s) }  
+      x = x.select &filter
+      y = y.select &filter
+      x == y
     end
 
     def get_html_attachment(doc)
