@@ -55,7 +55,7 @@ endfunc
 func! s:get_page_list()
   redraw
   let res = system(s:list_pages_command)
-  let s:pages = split(res, "\n", '')
+  let s:pages = filter( split(res, "\n", ''),  'v:val !~ "' . s:page . '"')
 endfunction
 
 
