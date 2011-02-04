@@ -26,15 +26,15 @@ func! s:follow_link(split)
   let link = expand("<cword>")
   if match(link, s:wiki_link_pattern) != -1
   else
-    let link = s:find_next_wiki_link()
+    let link = s:find_next_wiki_link(0)
   endif
   write
   call s:load_page(link, a:split)  
 endfunc
 
-func! s:find_next_wiki_link()
+func! s:find_next_wiki_link(backward)
   let n = 0
-  let result = search(s:wiki_link_pattern, 'w')
+  let result = search(s:wiki_link_pattern, 'w' . (a:backward == 1 ? 'b' : ''))
   if (result == 0) 
     return
   end
@@ -175,7 +175,8 @@ func! s:global_mappings()
 
   noremap <silent> <leader>o :call <SID>open_href(0)<cr> 
 
-  noremap <leader>n :call <SID>find_next_wiki_link()<CR>
+  noremap <leader>n :call <SID>find_next_wiki_link(0)<CR>
+  noremap <leader>p :call <SID>find_next_wiki_link(1)<CR>
   " todo mapping for new page (don't just create a new vim buffer)
 endfunc 
 
