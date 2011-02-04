@@ -38,8 +38,7 @@ func! s:load_page(page, split)
   endif
 
   match Comment /\C\<[A-Z][a-z]\+[A-Z]\w*\>/
-
-
+  autocmd BufWritePost * call s:save_page()
   if (a:split == 0) 
     wincmd p 
     close
