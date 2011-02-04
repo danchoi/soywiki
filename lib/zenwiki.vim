@@ -108,6 +108,10 @@ endfunc
 
 autocmd BufWritePost zenwiki-buffer call s:save_page() 
 
+" syntax color camelcase
+match Comment /\C\<[A-Z][a-z]\+[A-Z]\w*\>/
+
+
 call s:create_main_window()
 
 
