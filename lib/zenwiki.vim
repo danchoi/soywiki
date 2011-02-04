@@ -23,17 +23,23 @@ endfunc
 
 " follows a camel case link to a new page 
 func! s:follow_link(split)
-  call s:find_next_wiki_link()
-  let page = expand("<cword>")
-  call s:load_page(page, a:split)  
+  let link = expand("<cword>")
+  if match(link, s:wiki_link_pattern) != -1
+  else
+    let link = s:find_next_wiki_link()
+  endif
+  write
+  call s:load_page(link, a:split)  
 endfunc
 
 func! s:find_next_wiki_link()
   let n = 0
-  let line = search(s:wiki_link_pattern, 'w')
-  let link = matchstr(getline(line('.')), s:wiki_link_pattern)
+  let result = search(s:wiki_link_pattern, 'w')
+  if (result == 0) 
+    return
+  end
+  return expand("<cword>")
 endfunc
-
 
 func! s:load_page(page, split)
   let page = a:page
