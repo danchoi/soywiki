@@ -25,6 +25,33 @@ func! s:list_pages()
 endfunc
 
 
+" follows a camel case link to a new page 
+func! s:follow_link()
+  let page = expand("<cword>")
+  call s:load_page(page)  
+endfunc
+
+func! s:load_page(page)
+  " check if page is a real page
+  let page = a:page
+  if (index(s:pages, page) == -1)
+    return
+  endif
+  let s:page = page
+  " load page into buffer
+  let command = s:load_page_command . shellescape(s:page)
+  write!
+  let res = system(command)
+  1,$delete
+  put! =res
+  execute "normal Gdd\<c-y>" 
+  normal G
+  write
+  normal z.
+  redraw
+  echom "Current page: ". s:page 
+endfunc
+
 " -------------------------------------------------------------------------------
 " select Page
 
@@ -78,24 +105,7 @@ endfun
 function! s:select_page()
   let page = get(split(getline(line('.')), ": "), 1)
   close
-  " check if page is a real page
-  if (index(s:pages, page) == -1)
-    return
-  endif
-
-  let s:page = page
-  " load page into buffer
-  let command = s:load_page_command . shellescape(s:page)
-  write!
-  let res = system(command)
-  1,$delete
-  put! =res
-  execute "normal Gdd\<c-y>" 
-  normal G
-  write
-  normal z.
-  redraw
-  echom "Current page: ". s:page 
+  call s:load_page(page)
 endfunction
 
 "------------------------------------------------------------------------
@@ -103,6 +113,8 @@ endfunction
 func! s:main_window_mappings()
   " these are global
   noremap <leader>m :call <SID>list_pages()<CR>
+  noremap <leader>f :call <SID>follow_link()<CR>
+
   " todo mapping for new page (don't just create a new vim buffer)
 endfunc 
 
