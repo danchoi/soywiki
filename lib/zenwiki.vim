@@ -30,7 +30,7 @@ endfunc
 func! s:find_next_wiki_link()
   let n = 0
   let line = search(s:wiki_link_pattern, 'w')
-  let link = matchstr(getline(line('.')), wiki_link_pattern)
+  let link = matchstr(getline(line('.')), s:wiki_link_pattern)
 endfunc
 
 
@@ -164,7 +164,7 @@ func! s:global_mappings()
   noremap <leader>vf :call <SID>follow_link(2)<CR>
   noremap <silent> <leader>o :call <SID>open_href(0)<cr> 
 
-  noremap <leader>l :call <SID>find_next_wiki_link()<CR>
+  noremap <leader>n :call <SID>find_next_wiki_link()<CR>
   " todo mapping for new page (don't just create a new vim buffer)
 endfunc 
 
