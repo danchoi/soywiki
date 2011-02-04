@@ -31,8 +31,10 @@ class Zenwiki
       if vim == 'mvim'
         DRb.thread.join
       end
-      File.delete(buffer_file)
 
+      # cleanup
+      File.delete(buffer_file)
+      `rm -rf #{SANDBOX}`
     end
   end
 end
