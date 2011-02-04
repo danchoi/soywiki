@@ -8,6 +8,7 @@ let s:load_page_command = s:client_script . "load_page "
 let s:browser_command = "open "
 
 
+let s:wiki_link_pattern =  '\C\<[A-Z][a-z]\+[A-Z]\w*\>'
 
 func! s:save_page()
   let page = join(getline(1,'$'), "\n")
@@ -26,6 +27,13 @@ func! s:follow_link(split)
   call s:load_page(page, a:split)  
 endfunc
 
+func! s:find_next_wiki_link()
+  let n = 0
+  let line = search(s:wiki_link_pattern, 'w')
+  let link = matchstr(getline(line('.')), wiki_link_pattern)
+endfunc
+
+
 func! s:load_page(page, split)
   let page = a:page
   let s:page = page
@@ -40,7 +48,7 @@ func! s:load_page(page, split)
     exec "botright split ". file
   endif
 
-  match Comment /\C\<[A-Z][a-z]\+[A-Z]\w*\>/
+  exe "match Comment /". s:wiki_link_pattern. "/"
   autocmd BufWritePost * call s:save_page()
   if (a:split == 0) 
     wincmd p 
@@ -102,9 +110,10 @@ endfun
 function! s:select_page()
   let page = get(split(getline(line('.')), ": "), 1)
   close
-  if page 
-    call s:load_page(page, 0)
+  if (page == '0') " no selection
+    return
   end
+  call s:load_page(page, 0)
 endfunction
 
 "------------------------------------------------------------------------
@@ -155,6 +164,7 @@ func! s:global_mappings()
   noremap <leader>vf :call <SID>follow_link(2)<CR>
   noremap <silent> <leader>o :call <SID>open_href(0)<cr> 
 
+  noremap <leader>l :call <SID>find_next_wiki_link()<CR>
   " todo mapping for new page (don't just create a new vim buffer)
 endfunc 
 
