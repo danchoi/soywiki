@@ -5,12 +5,6 @@ let s:save_command = s:client_script . "save_page "
 let s:list_pages_command = s:client_script . "list_pages "
 let s:load_page_command = s:client_script . "load_page "
 
-func! s:create_main_window() 
-  setlocal modifiable 
-  let s:main_window_bufnr = bufnr('%')
-  call s:main_window_mappings()
-endfunction
-
 func! s:save_page()
   let page = join(getline(1,'$'), "\n")
   call system(s:save_command, page)
@@ -34,8 +28,11 @@ func! s:load_page(page, split)
   let s:page = page
   " load page into buffer
   let command = s:load_page_command . shellescape(s:page)
-  if (a:split > 0) 
-    exec "split ". s:page
+
+  if (a:split == 2) 
+    exec "botright vsplit ". s:page
+  else
+    exec "botright split ". s:page
   endif
 
   " syntax color camelcase
@@ -46,10 +43,12 @@ func! s:load_page(page, split)
   1,$delete
   put! =res
   execute "normal Gdd\<c-y>" 
-  normal G
-  normal z.
+  normal gg
   redraw
-  
+  if (a:split == 0) 
+    wincmd p 
+    close
+  endif
 endfunc
 
 " -------------------------------------------------------------------------------
@@ -110,11 +109,12 @@ endfunction
 
 "------------------------------------------------------------------------
 
-func! s:main_window_mappings()
+func! s:global_mappings()
   " these are global
   noremap <leader>m :call <SID>list_pages()<CR>
   noremap <leader>f :call <SID>follow_link(0)<CR>
   noremap <leader>sf :call <SID>follow_link(1)<CR>
+  noremap <leader>vf :call <SID>follow_link(2)<CR>
   noremap <leader>w :call <SID>save_page()<CR>
 
   " todo mapping for new page (don't just create a new vim buffer)
@@ -122,9 +122,10 @@ endfunc
 
 "autocmd BufWritePost zenwiki-buffer call s:save_page() 
 
+call s:global_mappings()
 
+call s:load_page("ZenWiki",0)
 
-call s:create_main_window()
 
 
 
