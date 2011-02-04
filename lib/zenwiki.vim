@@ -5,6 +5,7 @@ let s:save_command = s:client_script . "save_page "
 let s:list_pages_command = s:client_script . "list_pages "
 let s:load_page_command = s:client_script . "load_page "
 
+
 func! s:save_page()
   let page = join(getline(1,'$'), "\n")
   call system(s:save_command, page)
@@ -23,33 +24,33 @@ func! s:follow_link(split)
 endfunc
 
 func! s:load_page(page, split)
-  " check if page is a real page
   let page = a:page
   let s:page = page
-  " load page into buffer
+
   let command = s:load_page_command . shellescape(s:page)
 
+  let file = "zenwiki-sandbox/" . s:page
   if (a:split == 2) 
-    exec "botright vsplit ". s:page
+    exec "botright vsplit ". file
   else
-    exec "botright split ". s:page
+    exec "botright split ". file
   endif
 
-  " syntax color camelcase
   match Comment /\C\<[A-Z][a-z]\+[A-Z]\w*\>/
 
-  set buftype=nofile
   let res = system(command)
   1,$delete
   put! =res
   execute "normal Gdd\<c-y>" 
   normal gg
-  redraw
   if (a:split == 0) 
     wincmd p 
-    close
+    close!
   endif
+  write!
+  autocmd BufWritePost * call s:save_page() 
 endfunc
+
 
 " -------------------------------------------------------------------------------
 " select Page
@@ -115,17 +116,15 @@ func! s:global_mappings()
   noremap <leader>f :call <SID>follow_link(0)<CR>
   noremap <leader>sf :call <SID>follow_link(1)<CR>
   noremap <leader>vf :call <SID>follow_link(2)<CR>
-  noremap <leader>w :call <SID>save_page()<CR>
 
   " todo mapping for new page (don't just create a new vim buffer)
 endfunc 
-
-"autocmd BufWritePost zenwiki-buffer call s:save_page() 
 
 call s:global_mappings()
 
 call s:load_page("ZenWiki",0)
 
 
+autocmd BufNew,WinEnter * match Comment /\C\<[A-Z][a-z]\+[A-Z]\w*\>/
 
 

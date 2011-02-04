@@ -10,6 +10,7 @@ class Zenwiki
 
   class << self
     def start
+      `mkdir -p zenwiki-sandbox`
       STDERR.puts "Starting zenwiki #{Zenwiki::VERSION}"
       vim = ENV['ZENWIKI_VIM'] || 'vim'
       opts = Zenwiki::Options.new(ARGV)
