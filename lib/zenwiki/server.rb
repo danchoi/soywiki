@@ -19,12 +19,21 @@ class Zenwiki
 
     def list_pages
       log "Listing pages"
-      res = view('zenwiki/recently_touched_pages')['rows'].map {|row|
+      res = view('zenwiki/recently_touched_pages', :descending => true)['rows'].map {|row|
         updated_at, title = *row["key"]
         title
       }.join("\n")
     rescue
       log $!
+    end
+
+    def load_page(title)
+      doc = find_or_create({'_id' => title})
+      textify(doc)
+    end
+
+    def textify(doc)
+      [ doc['_id'] , "\n", doc['body'] ].join("\n")
     end
 
     def log(text)

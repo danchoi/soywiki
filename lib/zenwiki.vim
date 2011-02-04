@@ -3,6 +3,7 @@
 let s:client_script = "ruby -Ilib bin/zenwiki_client " . shellescape($DRB_URI) . " "
 let s:save_command = s:client_script . "save_page "
 let s:list_pages_command = s:client_script . "list_pages "
+let s:load_page_command = s:client_script . "load_page "
 
 func! s:create_main_window() 
   setlocal modifiable 
@@ -10,6 +11,7 @@ func! s:create_main_window()
   call s:main_window_mappings()
   write
 endfunction
+
 
 func! s:save_page()
   let page = join(getline(1,'$'), "\n")
@@ -44,7 +46,7 @@ function! s:page_list_window()
   inoremap <silent> <buffer> <esc> <Esc>:q<cr>
   setlocal completefunc=CompletePage
   " c-p clears the line
-  call setline(1, "select page to switch to: ")
+  call setline(1, "Select page: ")
   normal $
   call feedkeys("a\<c-x>\<c-u>\<c-p>", 't')
 endfunction
@@ -65,7 +67,7 @@ function! CompletePage(findstart, base)
     " find pages matching with "a:base"
     let res = []
     for m in s:pages
-      if m =~ '^' . a:base
+      if m =~ a:base . '\c'
         call add(res, m)
       endif
     endfor
@@ -76,39 +78,38 @@ endfun
 function! s:select_page()
   let page = get(split(getline(line('.')), ": "), 1)
   close
-  call s:focus_message_window()
-  close
   " check if page is a real page
   if (index(s:pages, page) == -1)
     return
   endif
-  return
-  let command = s:select_page_command . shellescape(s:page)
-  redraw
-  echom "selecting page: ". s:page . ". please wait..."
-  call system(command)
-  redraw
-  " now get latest 100 messages
-  call s:focus_list_window()  
-  setlocal modifiable
-  let command = s:search_command . shellescape("100 all")
-  echo "loading messages..."
+
+  let s:page = page
+  " load page into buffer
+  let command = s:load_page_command . shellescape(s:page)
+  write!
   let res = system(command)
   1,$delete
   put! =res
   execute "normal Gdd\<c-y>" 
   normal G
-  setlocal nomodifiable
   write
   normal z.
   redraw
-  echom "current page: ". s:page 
+  echom "Current page: ". s:page 
 endfunction
 
+"------------------------------------------------------------------------
 
 func! s:main_window_mappings()
-  noremap <buffer> <leader>w :call <SID>save_page()<CR> 
-  noremap <buffer> <leader>m :call <SID>list_pages()<CR>
+  " these are global
+  "noremap <leader>w :call <SID>save_page()<CR> 
+  noremap <leader>m :call <SID>list_pages()<CR>
+  " todo mapping for new page (don't just create a new vim buffer)
 endfunc 
 
+autocmd BufWritePost zenwiki-buffer call s:save_page() 
+
 call s:create_main_window()
+
+
+

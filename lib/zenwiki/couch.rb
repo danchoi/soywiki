@@ -2,9 +2,9 @@ require 'couchrest'
 class Zenwiki
   module Couch
 
-    def view(view)
+    def view(view, params={})
       log "Getting view '#{view}'"
-      res = DB.view view
+      res = DB.view view, params
       log res
       res
     end
