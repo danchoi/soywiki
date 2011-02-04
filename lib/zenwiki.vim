@@ -37,7 +37,7 @@ endfunction
 
 function! s:page_list_window()
   call s:get_page_list()
-  topleft split PageSelect
+  topleft split page-list-buffer
   setlocal buftype=nofile
   setlocal noswapfile
   setlocal modifiable
