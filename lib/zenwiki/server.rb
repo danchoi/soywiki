@@ -44,10 +44,5 @@ class Zenwiki
     def log(text)
       @logger.debug text
     end
-
-    def self.start
-      DRb.start_service(nil, self.new)
-      DRb.uri
-    end
   end
 end
