@@ -37,6 +37,7 @@ func! s:follow_link(split)
     let link = s:find_next_wiki_link(0)
   endif
   write
+  call s:save_page()
   call s:load_page(link, a:split)  
 endfunc
 
@@ -47,6 +48,7 @@ func! s:follow_link_under_cursor()
     return
   endif
   write
+  call s:save_page()
   call s:load_page(link, 0)
 endfunc
 
@@ -63,7 +65,6 @@ func! s:load_page(page, split)
   let page = a:page
   let command = s:load_page_command . shellescape(page)
   call system(command) " this creats the file in the sandox
-
   let file = s:sandbox . page
   if (a:split == 2) 
     exec "vsplit ". file
@@ -71,7 +72,6 @@ func! s:load_page(page, split)
     exec "split ". file
   endif
   exe "match Comment /". s:wiki_link_pattern. "/"
-  
   if (a:split == 0) 
     wincmd p 
     close
