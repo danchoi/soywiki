@@ -75,7 +75,7 @@ func! s:load_page(page, split)
   else
     exec "split ". a:page
   endif
-  exe "match Comment /". s:wiki_link_pattern. "/"
+
   if (a:split == 0) 
     wincmd p 
     close
@@ -210,6 +210,8 @@ call s:global_mappings()
 
 call s:load_page("HomePage",0)
 
+  
+autocmd  BufEnter * exe "match Comment /". s:wiki_link_pattern. "/"
 
 
 
