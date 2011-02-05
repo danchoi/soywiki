@@ -195,7 +195,7 @@ endfunc
 
 call s:global_mappings()
 
-call s:load_page("ZenWiki",0)
+call s:load_page("HomePage",0)
 
 
 

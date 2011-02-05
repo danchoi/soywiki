@@ -18,12 +18,9 @@ class Zenwiki
       config = opts.config
       drb_uri = Zenwiki::Server.start
       server = DRbObject.new_with_uri drb_uri
-      buffer_file = "zenwiki-buffer"
       vimscript = File.expand_path("../zenwiki.vim", __FILE__)
-      vim_command = "DRB_URI='#{drb_uri}' ZEN_WIKI_SANDBOX='#{SANDBOX}' #{vim} -S #{vimscript} #{buffer_file}"
+      vim_command = "DRB_URI='#{drb_uri}' ZEN_WIKI_SANDBOX='#{SANDBOX}' #{vim} -S #{vimscript}"
       STDERR.puts "Starting vim with `#{vim_command}`"
-      File.open(buffer_file, "w") do |file|
-      end
       puts system(vim_command)
       if vim == 'mvim'
         DRb.thread.join
