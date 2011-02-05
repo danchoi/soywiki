@@ -1,6 +1,5 @@
 let s:sandbox = $ZEN_WIKI_SANDBOX . "/"
-"let s:client_script = "zenwiki_client " . shellescape($DRB_URI) . " "
-let s:client_script = "ruby -Ilib bin/zenwiki_client " . shellescape($DRB_URI) . " "
+let s:client_script = "ruby -Ilib bin/zenwiki_client " 
 let s:save_command = s:client_script . "save_page "
 let s:list_pages_command = s:client_script . "list_pages "
 let s:load_page_command = s:client_script . "load_page "
@@ -26,7 +25,6 @@ endfunc
 func! s:save_page()
   let page = join(getline(1,'$'), "\n")
   call system(s:save_command, page) 
-  write " so the buffer can be closed
   echo "Saved"
   redraw
 endfunc
@@ -55,8 +53,6 @@ func! s:follow_link(split)
   if match(link, s:wiki_link_pattern) == -1
     let link = s:find_next_wiki_link(0)
   endif
-  write
-  call s:save_page()
   call s:load_page(link, a:split)  
 endfunc
 
@@ -66,8 +62,6 @@ func! s:follow_link_under_cursor()
     echom "Not a wiki link"
     return
   endif
-  write
-  call s:save_page()
   call s:load_page(link, 0)
 endfunc
 
@@ -158,7 +152,6 @@ function! s:select_page()
   if (page == '0') " no selection
     return
   end
-  call s:save_page()
   call s:load_page(page, s:new_page_split)
 endfunction
 
