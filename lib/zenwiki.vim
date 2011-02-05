@@ -14,6 +14,7 @@ let s:wiki_link_pattern =  '\C\<\([a-z]\+\.\)\?[A-Z][a-z]\+[A-Z]\w*\>'
 func! s:save_page()
   let page = join(getline(1,'$'), "\n")
   call system(s:save_command, page)
+  write " so the buffer can be closed
   echo "Saved"
   redraw
 endfunc
@@ -25,8 +26,8 @@ endfunc
 
 func! s:link_under_cursor()
   let link = expand("<cWORD>") 
-  let link = substitute(link, '[^[:alnum:]\.]*$', '', '')
-  let link = substitute(link, '^[^[:alnum:]\.]', '', '')
+  let link = substitute(link, '[^[:alnum:]]*$', '', '')
+  let link = substitute(link, '^[^[:alnum:]]', '', '')
   return link
 endfunc
 
