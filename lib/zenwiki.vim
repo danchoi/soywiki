@@ -26,13 +26,23 @@ endfunc
 " follows a camel case link to a new page 
 func! s:follow_link(split)
   let link = expand("<cword>")
-  if match(link, s:wiki_link_pattern) != -1
-  else
+  if match(link, s:wiki_link_pattern) == -1
     let link = s:find_next_wiki_link(0)
   endif
   write
   call s:load_page(link, a:split)  
 endfunc
+
+func! s:follow_link_under_cursor()
+  let link = expand("<cword>")
+  if match(link, s:wiki_link_pattern) == -1
+    echom "Not a wiki link"
+    return
+  endif
+  write
+  call s:load_page(link, 0)
+endfunc
+
 
 func! s:find_next_wiki_link(backward)
   let n = 0
@@ -64,6 +74,8 @@ func! s:load_page(page, split)
     wincmd p 
     close
   endif
+  set textwidth=72
+  set foldmethod=indent
 endfunc
 
 
@@ -174,7 +186,7 @@ func! s:global_mappings()
   noremap <leader>f :call <SID>follow_link(0)<CR>
   noremap <leader>sf :call <SID>follow_link(1)<CR>
   noremap <leader>vf :call <SID>follow_link(2)<CR>
-  nnoremap <cr> :call <SID>follow_link(0)<CR>
+  nnoremap <cr> :call <SID>follow_link_under_cursor()<cr> 
 
   noremap <silent> <leader>o :call <SID>open_href(0)<cr> 
 
@@ -188,5 +200,6 @@ call s:global_mappings()
 call s:load_page("ZenWiki",0)
 
 autocmd BufNew,WinEnter * match Comment /\C\<[A-Z][a-z]\+[A-Z]\w*\>/
+
 
 
