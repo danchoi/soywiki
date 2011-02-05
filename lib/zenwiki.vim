@@ -1,8 +1,4 @@
-let s:sandbox = $ZEN_WIKI_SANDBOX . "/"
 let s:client_script = "ruby -Ilib bin/zenwiki_client " 
-let s:save_command = s:client_script . "save_page "
-let s:list_pages_command = s:client_script . "list_pages "
-let s:load_page_command = s:client_script . "load_page "
 let s:browser_command = "open "
 
 let s:new_page_split = 0 " means replace the current page with the new page
@@ -21,12 +17,8 @@ func! s:page_namespace()
   return get(segments, 0)
 endfunc
 
-
 func! s:save_page()
-  let page = join(getline(1,'$'), "\n")
-  call system(s:save_command, page) 
-  echo "Saved"
-  redraw
+"  write
 endfunc
 
 func! s:list_pages(split)
@@ -75,13 +67,14 @@ func! s:find_next_wiki_link(backward)
 endfunc
 
 func! s:load_page(page, split)
-  let command = s:load_page_command . shellescape(a:page)
-  call system(command) " this creats the file in the sandox
-  let file = s:sandbox . a:page
+  if (!filereadable(a:page)) 
+    " create the file
+    call writefile([a:page, '', ''], a:page) 
+  endif
   if (a:split == 2) 
-    exec "vsplit ". file
+    exec "vsplit ". a:page
   else
-    exec "split ". file
+    exec "split ". a:page
   endif
   exe "match Comment /". s:wiki_link_pattern. "/"
   if (a:split == 0) 
@@ -95,14 +88,17 @@ func! s:load_page(page, split)
   nnoremap <buffer> <cr> :call <SID>follow_link_under_cursor()<cr> 
 endfunc
 
-
 " -------------------------------------------------------------------------------
 " select Page
 
 func! s:get_page_list()
   redraw
-  let res = system(s:list_pages_command)
-  let s:pages = filter( split(res, "\n", ''),  'v:val !~ "' . s:page_title() . '"')
+  let res = system("ls -t")
+  if (s:page_title() != "") 
+    let s:pages = filter( split(res, "\n", ''),  'v:val !~ "' . s:page_title() . '"')
+  else
+    let s:pages = res
+  endif
 endfunction
 
 
