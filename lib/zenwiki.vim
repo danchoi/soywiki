@@ -196,8 +196,8 @@ func! s:global_mappings()
   noremap <leader>sm :call <SID>list_pages(1)<CR>
 
   noremap <leader>f :call <SID>follow_link(0)<CR>
-  noremap <leader>sf :call <SID>follow_link(1)<CR>
-  noremap <leader>vf :call <SID>follow_link(2)<CR>
+  noremap <leader>fs :call <SID>follow_link(1)<CR>
+  noremap <leader>fv :call <SID>follow_link(2)<CR>
 
   noremap <silent> <leader>o :call <SID>open_href(0)<cr> 
 
@@ -207,11 +207,10 @@ func! s:global_mappings()
 endfunc 
 
 call s:global_mappings()
+autocmd  BufEnter,BufCreate,BufNewFile,BufRead * exe "match Comment /". s:wiki_link_pattern. "/"
 
 call s:load_page("HomePage",0)
 
-  
-autocmd  BufEnter * exe "match Comment /". s:wiki_link_pattern. "/"
 
 
 
