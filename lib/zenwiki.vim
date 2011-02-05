@@ -23,9 +23,16 @@ func! s:list_pages(split)
   call s:page_list_window()
 endfunc
 
+func! s:link_under_cursor()
+  let link = expand("<cWORD>") 
+  let link = substitute(link, '[^[:alnum:]\.]*$', '', '')
+  let link = substitute(link, '^[^[:alnum:]\.]', '', '')
+  return link
+endfunc
+
 " follows a camel case link to a new page 
 func! s:follow_link(split)
-  let link = expand("<cword>")
+  let link = s:link_under_cursor()
   if match(link, s:wiki_link_pattern) == -1
     let link = s:find_next_wiki_link(0)
   endif
@@ -34,7 +41,7 @@ func! s:follow_link(split)
 endfunc
 
 func! s:follow_link_under_cursor()
-  let link = expand("<cword>")
+  let link = s:link_under_cursor()
   if match(link, s:wiki_link_pattern) == -1
     echom "Not a wiki link"
     return
@@ -49,7 +56,7 @@ func! s:find_next_wiki_link(backward)
   if (result == 0) 
     return
   end
-  return expand("<cword>")
+  return s:link_under_cursor()
 endfunc
 
 func! s:load_page(page, split)
