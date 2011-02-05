@@ -1,4 +1,3 @@
-
 let s:sandbox = $ZEN_WIKI_SANDBOX . "/"
 "let s:client_script = "zenwiki_client " . shellescape($DRB_URI) . " "
 let s:client_script = "ruby -Ilib bin/zenwiki_client " . shellescape($DRB_URI) . " "

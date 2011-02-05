@@ -38,7 +38,7 @@ class Zenwiki
     end
 
     def textify(doc)
-      [ doc['_id'] , "\n", doc['body'] ].join("\n")
+      [ doc['_id'] , "", doc['body'] ].join("\n")
     end
 
     def log(text)
