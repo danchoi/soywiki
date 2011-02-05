@@ -6,6 +6,7 @@ let s:new_page_split = 0 " means replace the current page with the new page
 " let s:wiki_link_pattern =  '\C\<\([a-z]\+\.\)\?[A-Z][a-z]\+[A-Z]\w*\>'
 let s:wiki_link_pattern =  '\C\<\([a-z]\+\.\)\?[A-Z][a-z]\+[A-Z]\w*\>\|\.[A-Z][a-z]\+[A-Z]\w*\>'
 
+
 func! s:page_title()
   let title_line = getline(1)
   return substitute(title_line, '\s\+$', '', '')
@@ -16,6 +17,10 @@ func! s:page_namespace()
   return get(segments, 0)
 endfunc
 
+func! s:is_wiki_page()
+  let title_line = getline(1)
+  return (match(title_line, s:wiki_link_pattern) == 0)
+endfunc
 func! s:save_page()
 "  write
 endfunc
@@ -80,11 +85,6 @@ func! s:load_page(page, split)
     wincmd p 
     close
   endif
-  set textwidth=72
-  " set foldmethod=indent
-  " nnoremap <buffer> <leader>w :call <SID>save_page()<CR>
-  autocmd  BufWritePost <buffer> call s:save_page()
-  nnoremap <buffer> <cr> :call <SID>follow_link_under_cursor()<cr> 
 endfunc
 
 " -------------------------------------------------------------------------------
@@ -191,26 +191,38 @@ endfunc
 "------------------------------------------------------------------------
 
 func! s:global_mappings()
-  " these are global
   noremap <leader>m :call <SID>list_pages(0)<CR>
   noremap <leader>sm :call <SID>list_pages(1)<CR>
-
-  noremap <leader>f :call <SID>follow_link(0)<CR>
-  noremap <leader>fs :call <SID>follow_link(1)<CR>
-  noremap <leader>fv :call <SID>follow_link(2)<CR>
-
   noremap <silent> <leader>o :call <SID>open_href(0)<cr> 
-
-  noremap <leader>n :call <SID>find_next_wiki_link(0)<CR>
-  noremap <leader>p :call <SID>find_next_wiki_link(1)<CR>
-  " todo mapping for new page (don't just create a new vim buffer)
 endfunc 
 
+" this checks if the buffer is a SoyWiki file (from firstline)
+" and then turns on syntax coloring and mappings as necessary
+func! s:prep_buffer()
+  if (s:is_wiki_page())
+    set textwidth=72
+    nnoremap <buffer> <cr> :call <SID>follow_link_under_cursor()<cr> 
+    noremap <buffer> <leader>f :call <SID>follow_link(0)<CR>
+    noremap <buffer> <leader>fs :call <SID>follow_link(1)<CR>
+    noremap <buffer> <leader>fv :call <SID>follow_link(2)<CR>
+    noremap <buffer> <leader>n :call <SID>find_next_wiki_link(0)<CR>
+    noremap <buffer> <leader>p :call <SID>find_next_wiki_link(1)<CR>
+  endif
+endfunc
+
+func! s:highlight_wikiwords()
+  if (s:is_wiki_page())
+    exe "match Comment /". s:wiki_link_pattern. "/"
+  else
+    match none " not sure if this works 
+  endif
+endfunc
+
 call s:global_mappings()
-autocmd  BufEnter,BufCreate,BufNewFile,BufRead * exe "match Comment /". s:wiki_link_pattern. "/"
+
+autocmd  WinEnter * call s:highlight_wikiwords() 
+autocmd  BufEnter,BufCreate,BufNewFile,BufRead * call s:prep_buffer() 
 
 call s:load_page("HomePage",0)
-
-
 
 
