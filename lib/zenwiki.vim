@@ -65,16 +65,15 @@ func! s:load_page(page, split)
   else
     exec "split ". file
   endif
-
   exe "match Comment /". s:wiki_link_pattern. "/"
-  autocmd!
-  autocmd BufWritePost * call s:save_page()
+  
   if (a:split == 0) 
     wincmd p 
     close
   endif
   set textwidth=72
   set foldmethod=indent
+  nnoremap <buffer> <leader>w :call <SID>save_page()<CR>
 endfunc
 
 
@@ -198,7 +197,6 @@ call s:global_mappings()
 
 call s:load_page("ZenWiki",0)
 
-autocmd BufNew,WinEnter * match Comment /\C\<[A-Z][a-z]\+[A-Z]\w*\>/
 
 
 
