@@ -1,4 +1,3 @@
-let s:client_script = "ruby -Ilib bin/zenwiki_client " 
 let s:browser_command = "open "
 
 let s:new_page_split = 0 " means replace the current page with the new page
