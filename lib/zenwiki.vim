@@ -141,6 +141,7 @@ function! s:select_page()
   if (page == '0') " no selection
     return
   end
+  call s:save_page()
   call s:load_page(page, s:new_page_split)
 endfunction
 
