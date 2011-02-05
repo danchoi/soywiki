@@ -9,11 +9,23 @@ let s:browser_command = "open "
 let s:new_page_split = 0 " means replace the current page with the new page
 
 " let s:wiki_link_pattern =  '\C\<[A-Z][a-z]\+[A-Z]\w*\>'
-let s:wiki_link_pattern =  '\C\<\([a-z]\+\.\)\?[A-Z][a-z]\+[A-Z]\w*\>'
+" let s:wiki_link_pattern =  '\C\<\([a-z]\+\.\)\?[A-Z][a-z]\+[A-Z]\w*\>'
+let s:wiki_link_pattern =  '\C\<\([a-z]\+\.\)\?[A-Z][a-z]\+[A-Z]\w*\>\|\.[A-Z][a-z]\+[A-Z]\w*\>'
+
+func! s:page_title()
+  let title_line = getline(1)
+  return substitute(title_line, '\s\+$', '', '')
+endfunc
+
+func! s:page_namespace()
+  let segments = split(s:page_title(), '\.')
+  return get(segments, 0)
+endfunc
+
 
 func! s:save_page()
   let page = join(getline(1,'$'), "\n")
-  call system(s:save_command, page)
+  call system(s:save_command, page) 
   write " so the buffer can be closed
   echo "Saved"
   redraw
@@ -27,7 +39,13 @@ endfunc
 func! s:link_under_cursor()
   let link = expand("<cWORD>") 
   let link = substitute(link, '[^[:alnum:]]*$', '', '')
-  let link = substitute(link, '^[^[:alnum:]]', '', '')
+  " see if he have a namespaced link
+  if (match(link, '^\.')) == 0
+    " find the namespace from the page title
+    let link = s:page_namespace() . link
+  endif
+
+  let link = substitute(link, '^[^\.[:alnum:]]', '', '') " link may begin with period
   return link
 endfunc
 
@@ -63,10 +81,9 @@ func! s:find_next_wiki_link(backward)
 endfunc
 
 func! s:load_page(page, split)
-  let page = a:page
-  let command = s:load_page_command . shellescape(page)
+  let command = s:load_page_command . shellescape(a:page)
   call system(command) " this creats the file in the sandox
-  let file = s:sandbox . page
+  let file = s:sandbox . a:page
   if (a:split == 2) 
     exec "vsplit ". file
   else
@@ -79,7 +96,8 @@ func! s:load_page(page, split)
   endif
   set textwidth=72
   " set foldmethod=indent
-  nnoremap <buffer> <leader>w :call <SID>save_page()<CR>
+  " nnoremap <buffer> <leader>w :call <SID>save_page()<CR>
+  autocmd  BufWritePost <buffer> call s:save_page()
   nnoremap <buffer> <cr> :call <SID>follow_link_under_cursor()<cr> 
 endfunc
 
@@ -90,9 +108,7 @@ endfunc
 func! s:get_page_list()
   redraw
   let res = system(s:list_pages_command)
-  let this_page_line = getline(1)
-  let this_page =  substitute(this_page_line, '\s\+$', '', '')
-  let s:pages = filter( split(res, "\n", ''),  'v:val !~ "' . this_page . '"')
+  let s:pages = filter( split(res, "\n", ''),  'v:val !~ "' . s:page_title() . '"')
 endfunction
 
 
