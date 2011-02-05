@@ -8,7 +8,8 @@ let s:browser_command = "open "
 
 let s:new_page_split = 0 " means replace the current page with the new page
 
-let s:wiki_link_pattern =  '\C\<[A-Z][a-z]\+[A-Z]\w*\>'
+" let s:wiki_link_pattern =  '\C\<[A-Z][a-z]\+[A-Z]\w*\>'
+let s:wiki_link_pattern =  '\C\<\([a-z]\+\.\)\?[A-Z][a-z]\+[A-Z]\w*\>'
 
 func! s:save_page()
   let page = join(getline(1,'$'), "\n")
@@ -71,6 +72,7 @@ func! s:load_page(page, split)
   set textwidth=72
   " set foldmethod=indent
   nnoremap <buffer> <leader>w :call <SID>save_page()<CR>
+  nnoremap <buffer> <cr> :call <SID>follow_link_under_cursor()<cr> 
 endfunc
 
 
@@ -183,7 +185,6 @@ func! s:global_mappings()
   noremap <leader>f :call <SID>follow_link(0)<CR>
   noremap <leader>sf :call <SID>follow_link(1)<CR>
   noremap <leader>vf :call <SID>follow_link(2)<CR>
-  nnoremap <cr> :call <SID>follow_link_under_cursor()<cr> 
 
   noremap <silent> <leader>o :call <SID>open_href(0)<cr> 
 
