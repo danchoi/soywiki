@@ -53,12 +53,10 @@ endfunc
 
 func! s:load_page(page, split)
   let page = a:page
-  let s:page = page
-
-  let command = s:load_page_command . shellescape(s:page)
+  let command = s:load_page_command . shellescape(page)
   call system(command) " this creats the file in the sandox
 
-  let file = s:sandbox . s:page
+  let file = s:sandbox . page
   if (a:split == 2) 
     exec "vsplit ". file
   else
@@ -71,7 +69,7 @@ func! s:load_page(page, split)
     close
   endif
   set textwidth=72
-  set foldmethod=indent
+  " set foldmethod=indent
   nnoremap <buffer> <leader>w :call <SID>save_page()<CR>
 endfunc
 
@@ -82,7 +80,9 @@ endfunc
 func! s:get_page_list()
   redraw
   let res = system(s:list_pages_command)
-  let s:pages = filter( split(res, "\n", ''),  'v:val !~ "' . s:page . '"')
+  let this_page_line = getline(1)
+  let this_page =  substitute(this_page_line, '\s\+$', '', '')
+  let s:pages = filter( split(res, "\n", ''),  'v:val !~ "' . this_page . '"')
 endfunction
 
 
