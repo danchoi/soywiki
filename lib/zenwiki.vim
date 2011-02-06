@@ -165,7 +165,7 @@ func! s:reduce_matches()
   " find the first namespace in the list
   let namespaced_matches = filter( s:matching_pages,  'v:val =~ "^' . fragment . '\."')
   if (len(namespaced_matches) == 0)
-    normal i
+    call feedkeys( "ea", "t")
   else
     let namespace = get(split(get(namespaced_matches, 0), '\.'), 0) . "."
     call feedkeys( "bcw". namespace. "\<C-x>\<C-u>\<C-p>" , "t")
@@ -179,7 +179,7 @@ function! s:page_list_window()
   setlocal modifiable
   resize 1
   inoremap <silent> <buffer> <cr> <Esc>:call <SID>select_page()<CR> 
-  inoremap <buffer> <Tab> <Esc>:call <SID>reduce_matches()<CR>
+  inoremap <buffer> <Tab> <Esc>:call <SID>reduce_matches()<cr>
   setlocal completefunc=CompletePage
   " c-p clears the line
   call setline(1, "Select page (C-x C-u to auto-complete): ")
@@ -200,10 +200,7 @@ function! CompletePage(findstart, base)
   if a:findstart
     " locate the start of the word
     let line = getline('.')
-    let start = col('.') - 1
-    while start > 0 && line[start - 1] =~ '\S'
-      let start -= 1
-    endwhile
+    let start = match(line, ":") + 2
     return start
   else
     let base = s:trimString(a:base)
