@@ -101,7 +101,7 @@ endfunc
 
 func! s:rename_page()
   let file = bufname('%')
-  let newname = input("Rename file: ", file)
+  let newname = a:trimString(input("Rename file: ", file))
   write
   call rename(file, newname) 
   exec "e ". newname
@@ -109,17 +109,19 @@ func! s:rename_page()
   call setline(1, newname)
 endfunc
 
+func! s:create_page()
+  let newname = a:trimString(input("New page title: "))
+  call writefile([newname, '', ''], newname)
+  exec "e ". newname
+endfunc
+
+
 " -------------------------------------------------------------------------------
 " select Page
 
 func! s:get_page_list()
   let res = system("ls -t")
-  if (s:page_title() != "") 
-    let s:pages = filter( split(res, "\n", ''),  'v:val !~ "' . s:page_title() . '"')
-  else
-    let s:pages = res
-  endif
-  return s:pages
+  return res 
 endfunction
 
 func! s:pages_in_this_namespace(pages)
@@ -249,6 +251,7 @@ func! s:prep_buffer()
     noremap <buffer> <leader>p :call <SID>find_next_wiki_link(1)<CR>
     noremap  <leader>rm :call <SID>delete_page()<CR>
     noremap  <leader>mv :call <SID>rename_page()<CR>
+    noremap  <leader>c :call <SID>create_page()<CR>
     set nu
     setlocal completefunc=CompletePage
   endif
