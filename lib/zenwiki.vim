@@ -123,7 +123,6 @@ func! s:get_page_list()
   endif
 endfunction
 
-
 function! s:page_list_window()
   call s:get_page_list()
   topleft split page-list-buffer
@@ -137,8 +136,8 @@ function! s:page_list_window()
   " c-p clears the line
   call setline(1, "Select page (C-x C-u to auto-complete): ")
   normal $
-  " call feedkeys("a\<c-x>\<c-u>\<c-p>", 't')
-  call feedkeys("a", 't')
+  call feedkeys("a\<c-x>\<c-u>\<c-p>", 't')
+  " call feedkeys("a", 't')
 endfunction
 
 function! CompletePage(findstart, base)
