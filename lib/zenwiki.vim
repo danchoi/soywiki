@@ -257,7 +257,6 @@ endfunc
 func! s:highlight_wikiwords()
   if (s:is_wiki_page())
     exe "match Comment /". s:wiki_link_pattern. "/"
-    exe "match Error /^\.todo/"
   else
     match none " not sure if this works 
   endif
