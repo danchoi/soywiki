@@ -114,7 +114,6 @@ endfunc
 " select Page
 
 func! s:get_page_list()
-  redraw
   let res = system("ls -t")
   if (s:page_title() != "") 
     let s:pages = filter( split(res, "\n", ''),  'v:val !~ "' . s:page_title() . '"')
@@ -166,13 +165,17 @@ function! CompletePage(findstart, base)
     return start
   else
     " find pages matching with "a:base"
-    let res = []
-    for m in pages
-      if m =~ '\c' . a:base 
-        call add(res, m)
-      endif
-    endfor
-    return res
+    if (a:base == '')
+      return pages
+    else
+      let res = []
+      for m in pages
+        if m =~ '\c' . a:base 
+          call add(res, m)
+        endif
+      endfor
+      return res
+    endif
   endif
 endfun
 
