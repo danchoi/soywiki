@@ -121,7 +121,16 @@ func! s:get_page_list()
   else
     let s:pages = res
   endif
+  return s:pages
 endfunction
+
+func! s:pages_in_this_namespace(pages)
+  let namespace = s:page_namespace()
+  let pages = filter( a:pages,  'v:val =~ "^' . namespace . '"')
+  " strip leading namespace
+  let pages = map( pages, "substitute(v:val, '^" . namespace . "\.', '', '') " )
+  return pages
+endfunc
 
 function! s:page_list_window()
   call s:get_page_list()
@@ -141,8 +150,11 @@ function! s:page_list_window()
 endfunction
 
 function! CompletePage(findstart, base)
-  if !exists("s:pages")
-    call s:get_page_list()
+  let possible_period =  getline('.')[col('.') - 2]
+  let pages = s:get_page_list()
+  if (possible_period == '.') 
+    " filter to pages in this namespace
+    let pages = s:pages_in_this_namespace(pages)
   endif
   if a:findstart
     " locate the start of the word
@@ -155,7 +167,7 @@ function! CompletePage(findstart, base)
   else
     " find pages matching with "a:base"
     let res = []
-    for m in s:pages
+    for m in pages
       if m =~ '\c' . a:base 
         call add(res, m)
       endif
