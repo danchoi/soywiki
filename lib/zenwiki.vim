@@ -87,6 +87,12 @@ func! s:load_page(page, split)
   endif
 endfunc
 
+func! s:delete_page()
+  let file = bufname('%')
+  call delete(file)
+  call feedkeys("\<C-o>")
+endfunc
+
 " -------------------------------------------------------------------------------
 " select Page
 
@@ -133,7 +139,7 @@ function! CompletePage(findstart, base)
     " find pages matching with "a:base"
     let res = []
     for m in s:pages
-      if m =~ a:base . '\c'
+      if m =~ '\c' . a:base 
         call add(res, m)
       endif
     endfor
@@ -143,6 +149,8 @@ endfun
 
 function! s:select_page()
   let page = get(split(getline(line('.')), ": "), 1)
+  let page = substitute(page, '\s\+$', '', '')
+  let page = substitute(page, '^\s\+', '', '')
   close
   if (page == '0') " no selection
     return
@@ -194,6 +202,7 @@ func! s:global_mappings()
   noremap <leader>m :call <SID>list_pages(0)<CR>
   noremap <leader>sm :call <SID>list_pages(1)<CR>
   noremap <silent> <leader>o :call <SID>open_href(0)<cr> 
+  noremap  <leader>dd :call <SID>delete_page()<CR>
 endfunc 
 
 " this checks if the buffer is a SoyWiki file (from firstline)
