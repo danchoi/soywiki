@@ -6,10 +6,14 @@ let s:new_page_split = 0 " means replace the current page with the new page
 " let s:wiki_link_pattern =  '\C\<\([a-z]\+\.\)\?[A-Z][a-z]\+[A-Z]\w*\>'
 let s:wiki_link_pattern =  '\C\<\([a-z]\+\.\)\?[A-Z][a-z]\+[A-Z]\w*\>\|\.[A-Z][a-z]\+[A-Z]\w*\>'
 
+func! a:trimString(string)
+  let string = substitute(a:string, '\s\+$', '', '')
+  return substitute(string, '^\s\+', '', '')
+endfunc
 
 func! s:page_title()
   let title_line = getline(1)
-  return substitute(title_line, '\s\+$', '', '')
+  return a:trimString(title_line) 
 endfunc
 
 func! s:page_namespace()
@@ -148,9 +152,7 @@ function! CompletePage(findstart, base)
 endfun
 
 function! s:select_page()
-  let page = get(split(getline(line('.')), ": "), 1)
-  let page = substitute(page, '\s\+$', '', '')
-  let page = substitute(page, '^\s\+', '', '')
+  let page = a:trimString( get(split(getline(line('.')), ": "), 1) )
   close
   if (page == '0') " no selection
     return
