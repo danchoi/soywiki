@@ -114,7 +114,7 @@ func! s:rename_page()
 endfunc
 
 func! s:create_page()
-  let newname = mString(input("New page title: "))
+  let newname = s:trimString(input("New page title: "))
   call writefile([newname, '', ''], newname)
   exec "e ". newname
 endfunc
