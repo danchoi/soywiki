@@ -151,11 +151,9 @@ func! s:reduce_matches()
   if (len(namespaced_matches) == 0)
     normal i
   else
-    let namespace = get(split(get(namespaced_matches, 0), "\."), 0)
+    let namespace = get(split(get(namespaced_matches, 0), '\.'), 0)
     echo namespace
-    "TODO
-    return
-    call feedkeys( "a". namespace . "\<C-x>\<C-u>", "t")
+    call feedkeys( "bcw". namespace. "\<C-x>\<C-u>\<C-p>" , "t")
   endif
 endfunc
 
@@ -166,8 +164,7 @@ function! s:page_list_window()
   setlocal modifiable
   resize 1
   inoremap <silent> <buffer> <cr> <Esc>:call <SID>select_page()<CR> 
-  inoremap <silent> <buffer> <esc> <Esc>:q<cr>
-  inoremap <Tab> <Esc>:call <SID>reduce_matches()<CR>
+  inoremap <buffer> <Tab> <Esc>:call <SID>reduce_matches()<CR>
   setlocal completefunc=CompletePage
   " c-p clears the line
   call setline(1, "Select page (C-x C-u to auto-complete): ")
