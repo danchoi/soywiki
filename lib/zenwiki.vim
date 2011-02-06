@@ -101,9 +101,21 @@ func! s:delete_page()
   call feedkeys("\<C-o>")
 endfunc
 
+func! s:prompt_for_wiki_word(prompt, default)
+  let input = s:trimString(input(a:prompt, a:default))
+  while match(input, s:wiki_link_pattern) == -1
+    let input = s:trimString(input("Must be a WikiWord! Press CTRL-c to cancel. " . a:prompt , a:default))
+  endwhile
+  return input 
+endfunc
+
 func! s:rename_page()
   let file = bufname('%')
-  let newname = s:trimString(input("Rename file: ", file))
+  let newname = s:prompt_for_wiki_word("Rename file: ", file)
+  if (filereadable(newname)) 
+    exe "echom '" . newname . " already exists!'"
+    return
+  endif
   call setline(1, newname)
   write
   call system("git mv " . file . " " .  newname)
@@ -114,7 +126,11 @@ func! s:rename_page()
 endfunc
 
 func! s:create_page()
-  let newname = s:trimString(input("New page title: "))
+  let newname = s:prompt_for_wiki_word("New page title: ", "")
+  if (filereadable(newname)) 
+    exe "echom '" . newname . " already exists!'"
+    return
+  endif
   call writefile([newname, '', ''], newname)
   exec "e ". newname
 endfunc
