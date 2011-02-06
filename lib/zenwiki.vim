@@ -249,6 +249,7 @@ func! s:prep_buffer()
     noremap <buffer> <leader>p :call <SID>find_next_wiki_link(1)<CR>
     noremap  <leader>rm :call <SID>delete_page()<CR>
     noremap  <leader>mv :call <SID>rename_page()<CR>
+    set nu
     setlocal completefunc=CompletePage
   endif
 endfunc
@@ -256,6 +257,7 @@ endfunc
 func! s:highlight_wikiwords()
   if (s:is_wiki_page())
     exe "match Comment /". s:wiki_link_pattern. "/"
+    exe "match Error /^\.todo/"
   else
     match none " not sure if this works 
   endif
