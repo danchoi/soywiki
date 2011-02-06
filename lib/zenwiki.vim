@@ -97,17 +97,20 @@ endfunc
 func! s:delete_page()
   let file = bufname('%')
   call delete(file)
+  call system("git commit " . bufname('%') . " -m 'deletion'")
   call feedkeys("\<C-o>")
 endfunc
 
 func! s:rename_page()
   let file = bufname('%')
   let newname = s:trimString(input("Rename file: ", file))
+  call setline(1, newname)
   write
-  call rename(file, newname) 
+  call system("git mv " . file . " " .  newname)
   exec "e ". newname
   " replace page title
-  call setline(1, newname)
+  call system("git commit -m 'rename' " . file . " ". newname)
+  write " so git picks up change
 endfunc
 
 func! s:create_page()
