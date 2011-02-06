@@ -115,6 +115,10 @@ func! s:create_page()
   exec "e ". newname
 endfunc
 
+func! s:save_revision()
+  call system("git add " . bufname('%'))
+  call system("git commit " . bufname('%') . " -m 'edit'")
+endfunc
 
 " -------------------------------------------------------------------------------
 " select Page
@@ -254,6 +258,7 @@ func! s:prep_buffer()
     noremap  <leader>c :call <SID>create_page()<CR>
     set nu
     setlocal completefunc=CompletePage
+  autocmd BufWritePost <buffer> call s:save_revision() 
   endif
 endfunc
 
@@ -272,4 +277,8 @@ autocmd  BufEnter,BufCreate,BufNewFile,BufRead * call s:prep_buffer()
 
 call s:load_page("HomePage",0)
 
+if (!isdirectory(".git"))
+  call system("git init")
+  echom "Created .git repository to store revisions"
+endif
 
