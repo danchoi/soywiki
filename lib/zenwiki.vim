@@ -97,6 +97,16 @@ func! s:delete_page()
   call feedkeys("\<C-o>")
 endfunc
 
+func! s:rename_page()
+  let file = bufname('%')
+  let newname = input("Rename file: ", file)
+  write
+  call rename(file, newname) 
+  exec "e ". newname
+  " replace page title
+  call setline(1, newname)
+endfunc
+
 " -------------------------------------------------------------------------------
 " select Page
 
@@ -204,7 +214,7 @@ func! s:global_mappings()
   noremap <leader>m :call <SID>list_pages(0)<CR>
   noremap <leader>sm :call <SID>list_pages(1)<CR>
   noremap <silent> <leader>o :call <SID>open_href(0)<cr> 
-  noremap  <leader>dd :call <SID>delete_page()<CR>
+
 endfunc 
 
 " this checks if the buffer is a SoyWiki file (from firstline)
@@ -218,6 +228,8 @@ func! s:prep_buffer()
     noremap <buffer> <leader>fv :call <SID>follow_link(2)<CR>
     noremap <buffer> <leader>n :call <SID>find_next_wiki_link(0)<CR>
     noremap <buffer> <leader>p :call <SID>find_next_wiki_link(1)<CR>
+    noremap  <leader>rm :call <SID>delete_page()<CR>
+    noremap  <leader>mv :call <SID>rename_page()<CR>
   endif
 endfunc
 
