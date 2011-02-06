@@ -13,7 +13,7 @@ endfunc
 
 func! s:page_title()
   let title_line = getline(1)
-  return mString(title_line) 
+  return s:trimString(title_line) 
 endfunc
 
 func! s:page_namespace()
