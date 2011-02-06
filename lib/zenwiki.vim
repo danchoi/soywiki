@@ -56,13 +56,13 @@ func! s:follow_link(split)
   call s:load_page(link, a:split)  
 endfunc
 
-func! s:follow_link_under_cursor()
+func! s:follow_link_under_cursor(split)
   let link = s:link_under_cursor()
   if match(link, s:wiki_link_pattern) == -1
     echom "Not a wiki link"
     return
   endif
-  call s:load_page(link, 0)
+  call s:load_page(link, a:split)
 endfunc
 
 func! s:find_next_wiki_link(backward)
@@ -87,7 +87,6 @@ func! s:load_page(page, split)
   else
     exec "split ". a:page
   endif
-
   if (a:split == 0) 
     wincmd p 
     close
@@ -240,7 +239,9 @@ endfunc
 func! s:prep_buffer()
   if (s:is_wiki_page())
     set textwidth=72
-    nnoremap <buffer> <cr> :call <SID>follow_link_under_cursor()<cr> 
+    nnoremap <buffer> <cr> :call <SID>follow_link_under_cursor(0)<cr> 
+    nnoremap <buffer> - :call <SID>follow_link_under_cursor(1)<cr> 
+    nnoremap <buffer> \| :call <SID>follow_link_under_cursor(2)<cr> 
     noremap <buffer> <leader>f :call <SID>follow_link(0)<CR>
     noremap <buffer> <leader>fs :call <SID>follow_link(1)<CR>
     noremap <buffer> <leader>fv :call <SID>follow_link(2)<CR>
