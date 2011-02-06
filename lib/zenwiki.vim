@@ -75,6 +75,9 @@ func! s:find_next_wiki_link(backward)
 endfunc
 
 func! s:load_page(page, split)
+  if (s:is_wiki_page())
+    write
+  endif
   if (!filereadable(a:page)) 
     " create the file
     call writefile([a:page, '', ''], a:page) 
