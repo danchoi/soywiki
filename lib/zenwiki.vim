@@ -306,7 +306,11 @@ call s:global_mappings()
 autocmd  WinEnter * call s:highlight_wikiwords() 
 autocmd  BufEnter * call s:prep_buffer() 
 
-call s:load_page("HomePage",0)
+" load most recent page
+let pages = s:get_page_list()
+let start_page = get(pages, 0)
+let start_page = len(pages) > 0 ? start_page : "HomePage" 
+call s:load_page(start_page, 0)
 
 if (!isdirectory(".git"))
   call system("git init")
