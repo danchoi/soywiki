@@ -137,11 +137,23 @@ func! s:pages_in_this_namespace(pages)
   return pages
 endfunc
 
-func! s:match_namespace()
+func! s:reduce_matches()
   if (!exists("s:matching_pages"))
     return
   endif
-  echo expand("<cword>")
+  let fragment = expand("<cWORD>")
+  let reduced_pages = filter( s:matching_pages,  'v:val =~ "^' . fragment . '"')
+  " find the first namespace in the list
+  let namespaced_matches = filter( s:matching_pages,  'v:val =~ "^' . fragment . '\."')
+  if (len(namespaced_matches) == 0)
+    normal i
+  else
+    let namespace = get(split(get(namespaced_matches, 0), "\."), 0)
+    echo namespace
+    "TODO
+    return
+    call feedkeys( "a". namespace . "\<C-x>\<C-u>", "t")
+  endif
 endfunc
 
 function! s:page_list_window()
@@ -152,7 +164,7 @@ function! s:page_list_window()
   resize 1
   inoremap <silent> <buffer> <cr> <Esc>:call <SID>select_page()<CR> 
   inoremap <silent> <buffer> <esc> <Esc>:q<cr>
-  inoremap <buffer> <Tab> <Esc>:call <SID>match_namespace()<cr>
+  inoremap <Tab> <Esc>:call <SID>reduce_matches()<CR>
   setlocal completefunc=CompletePage
   " c-p clears the line
   call setline(1, "Select page (C-x C-u to auto-complete): ")
@@ -179,7 +191,6 @@ function! CompletePage(findstart, base)
     endwhile
     return start
   else
-    " find pages matching with "a:base"
     let base = s:trimString(a:base)
     if (base == '')
       return pages
@@ -254,7 +265,7 @@ func! s:global_mappings()
   noremap <leader>m :call <SID>list_pages(0)<CR>
   noremap <leader>sm :call <SID>list_pages(1)<CR>
   noremap <silent> <leader>o :call <SID>open_href(0)<cr> 
-
+  " Tab invokes the match window
 endfunc 
 
 " this checks if the buffer is a SoyWiki file (from firstline)
@@ -275,7 +286,10 @@ func! s:prep_buffer()
     noremap  <leader>c :call <SID>create_page()<CR>
     set nu
     setlocal completefunc=CompletePage
-  autocmd BufWritePost <buffer> call s:save_revision() 
+    augroup <buffer>
+      au!
+      autocmd BufWritePost <buffer> call s:save_revision() 
+    augroup END
   endif
 endfunc
 
@@ -290,7 +304,7 @@ endfunc
 call s:global_mappings()
 
 autocmd  WinEnter * call s:highlight_wikiwords() 
-autocmd  BufEnter,BufCreate,BufNewFile,BufRead * call s:prep_buffer() 
+autocmd  BufEnter * call s:prep_buffer() 
 
 call s:load_page("HomePage",0)
 
