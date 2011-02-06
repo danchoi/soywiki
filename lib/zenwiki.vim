@@ -6,14 +6,14 @@ let s:new_page_split = 0 " means replace the current page with the new page
 " let s:wiki_link_pattern =  '\C\<\([a-z]\+\.\)\?[A-Z][a-z]\+[A-Z]\w*\>'
 let s:wiki_link_pattern =  '\C\<\([a-z]\+\.\)\?[A-Z][a-z]\+[A-Z]\w*\>\|\.[A-Z][a-z]\+[A-Z]\w*\>'
 
-func! a:trimString(string)
+func! s:trimString(string)
   let string = substitute(a:string, '\s\+$', '', '')
   return substitute(string, '^\s\+', '', '')
 endfunc
 
 func! s:page_title()
   let title_line = getline(1)
-  return a:trimString(title_line) 
+  return mString(title_line) 
 endfunc
 
 func! s:page_namespace()
@@ -102,7 +102,7 @@ endfunc
 
 func! s:rename_page()
   let file = bufname('%')
-  let newname = a:trimString(input("Rename file: ", file))
+  let newname = s:trimString(input("Rename file: ", file))
   write
   call rename(file, newname) 
   exec "e ". newname
@@ -111,7 +111,7 @@ func! s:rename_page()
 endfunc
 
 func! s:create_page()
-  let newname = a:trimString(input("New page title: "))
+  let newname = mString(input("New page title: "))
   call writefile([newname, '', ''], newname)
   exec "e ". newname
 endfunc
@@ -125,7 +125,7 @@ endfunc
 " select Page
 
 func! s:get_page_list()
-  let res = system("ls -t")
+  let res = split(system("ls -t"), "\n")
   return res 
 endfunction
 
@@ -154,8 +154,8 @@ function! s:page_list_window()
 endfunction
 
 function! CompletePage(findstart, base)
-  let possible_period =  getline('.')[col('.') - 2]
   let pages = s:get_page_list()
+  let possible_period =  getline('.')[col('.') - 2]
   if (possible_period == '.') 
     " filter to pages in this namespace
     let pages = s:pages_in_this_namespace(pages)
@@ -170,12 +170,13 @@ function! CompletePage(findstart, base)
     return start
   else
     " find pages matching with "a:base"
-    if (a:base == '')
+    let base = s:trimString(a:base)
+    if (base == '')
       return pages
     else
       let res = []
       for m in pages
-        if m =~ '\c' . a:base 
+        if m =~ '\c' . base 
           call add(res, m)
         endif
       endfor
@@ -185,7 +186,7 @@ function! CompletePage(findstart, base)
 endfun
 
 function! s:select_page()
-  let page = a:trimString( get(split(getline(line('.')), ": "), 1) )
+  let page = s:trimString( get(split(getline(line('.')), ": "), 1) )
   close
   if (page == '0' || page == '') " no selection
     return
