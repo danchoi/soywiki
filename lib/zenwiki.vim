@@ -233,6 +233,7 @@ func! s:prep_buffer()
     noremap <buffer> <leader>p :call <SID>find_next_wiki_link(1)<CR>
     noremap  <leader>rm :call <SID>delete_page()<CR>
     noremap  <leader>mv :call <SID>rename_page()<CR>
+    setlocal completefunc=CompletePage
   endif
 endfunc
 
