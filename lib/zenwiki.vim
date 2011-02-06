@@ -137,6 +137,13 @@ func! s:pages_in_this_namespace(pages)
   return pages
 endfunc
 
+func! s:match_namespace()
+  if (!exists("s:matching_pages"))
+    return
+  endif
+  echo expand("<cword>")
+endfunc
+
 function! s:page_list_window()
   topleft split page-list-buffer
   setlocal buftype=nofile
@@ -145,6 +152,7 @@ function! s:page_list_window()
   resize 1
   inoremap <silent> <buffer> <cr> <Esc>:call <SID>select_page()<CR> 
   inoremap <silent> <buffer> <esc> <Esc>:q<cr>
+  inoremap <buffer> <Tab> <Esc>:call <SID>match_namespace()<cr>
   setlocal completefunc=CompletePage
   " c-p clears the line
   call setline(1, "Select page (C-x C-u to auto-complete): ")
@@ -155,10 +163,12 @@ endfunction
 
 function! CompletePage(findstart, base)
   let pages = s:get_page_list()
+  let s:matching_pages = pages
   let possible_period =  getline('.')[col('.') - 2]
   if (possible_period == '.') 
     " filter to pages in this namespace
     let pages = s:pages_in_this_namespace(pages)
+    let s:matching_pages = pages
   endif
   if a:findstart
     " locate the start of the word
@@ -191,7 +201,13 @@ function! s:select_page()
   if (page == '0' || page == '') " no selection
     return
   end
-  call s:load_page(page, s:new_page_split)
+  let match = ""
+	for item in s:matching_pages
+	  if (item == page)
+      call s:load_page(page, s:new_page_split)
+      break
+    end
+	endfor
 endfunction
 
 "------------------------------------------------------------------------
