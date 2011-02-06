@@ -75,17 +75,18 @@ func! s:find_next_wiki_link(backward)
 endfunc
 
 func! s:load_page(page, split)
+  let page = a:page
   if (s:is_wiki_page())
     write
   endif
-  if (!filereadable(a:page)) 
+  if (!filereadable(page)) 
     " create the file
-    call writefile([a:page, '', ''], a:page) 
+    call writefile([a:page, '', ''], page) 
   endif
   if (a:split == 2) 
-    exec "vsplit ". a:page
+    exec "vsplit ". page
   else
-    exec "split ". a:page
+    exec "split ". page
   endif
   if (a:split == 0) 
     wincmd p 
@@ -137,7 +138,6 @@ func! s:pages_in_this_namespace(pages)
 endfunc
 
 function! s:page_list_window()
-  call s:get_page_list()
   topleft split page-list-buffer
   setlocal buftype=nofile
   setlocal noswapfile
@@ -187,7 +187,7 @@ endfun
 function! s:select_page()
   let page = a:trimString( get(split(getline(line('.')), ": "), 1) )
   close
-  if (page == '0') " no selection
+  if (page == '0' || page == '') " no selection
     return
   end
   call s:load_page(page, s:new_page_split)
