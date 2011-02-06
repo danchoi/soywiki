@@ -151,8 +151,7 @@ func! s:reduce_matches()
   if (len(namespaced_matches) == 0)
     normal i
   else
-    let namespace = get(split(get(namespaced_matches, 0), '\.'), 0)
-    echo namespace
+    let namespace = get(split(get(namespaced_matches, 0), '\.'), 0) . "."
     call feedkeys( "bcw". namespace. "\<C-x>\<C-u>\<C-p>" , "t")
   endif
 endfunc
@@ -186,7 +185,7 @@ function! CompletePage(findstart, base)
     " locate the start of the word
     let line = getline('.')
     let start = col('.') - 1
-    while start > 0 && line[start - 1] =~ '\a'
+    while start > 0 && line[start - 1] =~ '\S'
       let start -= 1
     endwhile
     return start
