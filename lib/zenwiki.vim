@@ -135,9 +135,10 @@ function! s:page_list_window()
   inoremap <silent> <buffer> <esc> <Esc>:q<cr>
   setlocal completefunc=CompletePage
   " c-p clears the line
-  call setline(1, "Select page: ")
+  call setline(1, "Select page (C-x C-u to auto-complete): ")
   normal $
-  call feedkeys("a\<c-x>\<c-u>\<c-p>", 't')
+  " call feedkeys("a\<c-x>\<c-u>\<c-p>", 't')
+  call feedkeys("a", 't')
 endfunction
 
 function! CompletePage(findstart, base)
