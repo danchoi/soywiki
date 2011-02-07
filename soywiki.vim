@@ -1,7 +1,7 @@
+" Vim script that turns Vim into a personal wiki
+" Maintainer:	Daniel Choi <dhchoi@gmail.com>
+" License: MIT License (c) 2011 Daniel Choi
 
-
-" let s:wiki_link_pattern =  '\C\<[A-Z][a-z]\+[A-Z]\w*\>'
-" let s:wiki_link_pattern =  '\C\<\([a-z]\+\.\)\?[A-Z][a-z]\+[A-Z]\w*\>'
 let s:wiki_link_pattern =  '\C\<\([a-z]\+\.\)\?[A-Z][a-z]\+[A-Z]\w*\>\|\.[A-Z][a-z]\+[A-Z]\w*\>'
 
 func! s:trimString(string)
