@@ -19,6 +19,14 @@ func! s:page_namespace()
   return get(segments, 0)
 endfunc
 
+func! s:title_without_namespace(page_title)
+  if len(split(a:page_title, '\.')) == 2
+    return "." . get(split(a:page_title, '\.'), 1)
+  else
+    return a:page_title
+  endif
+endfunc
+
 func! s:is_wiki_page()
   let title_line = getline(1)
   return (match(title_line, s:wiki_link_pattern) == 0)
@@ -103,12 +111,14 @@ endfunc
 
 func! s:delete_page()
   let file = bufname('%')
+  let bufnr = bufnr('%')
   call delete(file)
   call system("git commit " . bufname('%') . " -m 'deletion'")
   " go to most recently saved
   " call feedkeys("\<C-o>")
   let target = s:trimString(system("ls -t | head -1"))
   exec "e " . target
+  exec "bdelete " . bufnr
   redraw
   echom  "Deleted " . file
 endfunc
@@ -132,9 +142,13 @@ func! s:rename_page()
   call system("git mv " . l:file . " " .  newname)
   exec "e ". newname
   " replace all existing inbound links  
-  let command = "grep -l " . l:file . " * | xargs sed -i -e 's/" . l:file . "/" . newname ."/g'"
+  let command = "grep -l " . l:file . " * | xargs sed -e 's/" . l:file . "/" . newname ."/g' -i.bk"
   call system(command)
+  let command = "grep -lF '" . s:title_without_namespace(l:file) . "' * | xargs sed -e 's/\\" . s:title_without_namespace(l:file) . "/" . s:title_without_namespace(newname) ."/g' -i.bk"
+  call system(command)
+  call system("rm *.bk")
   call system("git commit -am 'rename wiki page'")
+  e!
 endfunc
 
 func! s:create_page()
@@ -290,12 +304,12 @@ func! s:prep_buffer()
     noremap <buffer> <leader>f :call <SID>follow_link(0)<CR>
     noremap <buffer> <leader>n :call <SID>find_next_wiki_link(0)<CR>
     noremap <buffer> <leader>p :call <SID>find_next_wiki_link(1)<CR>
+    noremap  <leader>c :call <SID>create_page()<CR>
     command! -buffer SWDelete :call s:delete_page()
     command! -buffer SWRename :call s:rename_page()
-    noremap  <leader>c :call <SID>create_page()<CR>
-    noremap  <leader>ld :call <SID>show_revision_history(0)<CR>
-    noremap  <leader>ls :call <SID>show_revision_history(1)<CR>
-    noremap  <leader>b :call <SID>show_blame()<CR>
+    command! -buffer SWLog :call s:show_revision_history(0)
+    command! -buffer SWLogStat :call s:show_revision_history(1)
+    command! -buffer SWBlame :call s:show_blame()
     set nu
     setlocal completefunc=CompletePage
     augroup <buffer>
