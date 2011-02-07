@@ -123,18 +123,18 @@ endfunc
 
 func! s:rename_page()
   let file = bufname('%')
-  let newname = s:prompt_for_wiki_word("Rename file: ", file)
+  let newname = s:prompt_for_wiki_word("Rename file: ", l:file)
   if (filereadable(newname)) 
     exe "echom '" . newname . " already exists!'"
     return
   endif
-  call setline(1, newname)
-  write
-  call system("git mv " . file . " " .  newname)
+  " call setline(1, newname) " not necessary because sed will do this
+  call system("git mv " . l:file . " " .  newname)
   exec "e ". newname
-  " replace page title
-  call system("git commit -m 'rename' " . file . " ". newname)
-  write " so git picks up change
+  " replace all existing inbound links  
+  let command = "grep -l " . l:file . " * | xargs sed -i -e 's/" . l:file . "/" . newname ."/g'"
+  call system(command)
+  call system("git commit -am 'rename wiki page'")
 endfunc
 
 func! s:create_page()
