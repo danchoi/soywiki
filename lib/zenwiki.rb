@@ -4,13 +4,17 @@ require 'zenwiki/version'
 require 'zenwiki/options'
 require 'zenwiki/server'
 
+# deprecated
 class Zenwiki
   DBNAME = 'zenwiki'
   DB = CouchRest.database!("http://127.0.0.1:5984/#{DBNAME}")
   SANDBOX = "zenwiki-sandbox"
 
   def self.start
+    puts "deprecated"
+    exit
     `mkdir -p zenwiki-sandbox`
+
     STDERR.puts "Starting zenwiki #{Zenwiki::VERSION}"
     vim = ENV['ZENWIKI_VIM'] || 'vim'
     vimscript = File.expand_path("../zenwiki.vim", __FILE__)
