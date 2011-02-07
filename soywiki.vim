@@ -144,6 +144,20 @@ func! s:save_revision()
   call system("git commit " . bufname('%') . " -m 'edit'")
 endfunc
 
+func! s:show_revision_history(stat)
+  " maybe later allow --stat
+  if (a:stat)
+    exec ":!git log --stat " . bufname('%')
+  else
+    exec ":!git log --color-words -p " . bufname('%')
+  end
+endfunc
+
+func! s:show_blame()
+  exec ":!git blame " . bufname('%')
+endfunc
+
+
 " -------------------------------------------------------------------------------
 " select Page
 
@@ -256,7 +270,7 @@ endfunc
 
 func! s:global_mappings()
   noremap <leader>m :call <SID>list_pages(0)<CR>
-  noremap <leader>sm :call <SID>list_pages(1)<CR>
+  " noremap <leader>sm :call <SID>list_pages(1)<CR>
   noremap <silent> <leader>o :call <SID>open_href()<cr> 
 endfunc 
 
@@ -269,13 +283,14 @@ func! s:prep_buffer()
     nnoremap <buffer> - :call <SID>follow_link_under_cursor(1)<cr> 
     nnoremap <buffer> \| :call <SID>follow_link_under_cursor(2)<cr> 
     noremap <buffer> <leader>f :call <SID>follow_link(0)<CR>
-    noremap <buffer> <leader>fs :call <SID>follow_link(1)<CR>
-    noremap <buffer> <leader>fv :call <SID>follow_link(2)<CR>
     noremap <buffer> <leader>n :call <SID>find_next_wiki_link(0)<CR>
     noremap <buffer> <leader>p :call <SID>find_next_wiki_link(1)<CR>
     command! -buffer SWdelete :call s:delete_page()
     command! -buffer SWrename :call s:rename_page()
     noremap  <leader>c :call <SID>create_page()<CR>
+    noremap  <leader>ld :call <SID>show_revision_history(0)<CR>
+    noremap  <leader>ls :call <SID>show_revision_history(1)<CR>
+    noremap  <leader>b :call <SID>show_blame()<CR>
     set nu
     setlocal completefunc=CompletePage
     augroup <buffer>
