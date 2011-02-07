@@ -40,13 +40,12 @@ func! s:list_pages()
   call s:page_list_window()
 endfunc
 
+" not ready yet
+" need to distinguish between pages with same name but different
+" namespaces
 func! s:list_pages_linking_in()
-  call s:get_pages_linking_in()
-  call s:page_list_window()
-endfunc
-
-func! s:get_pages_linking_in()
-  let s:page_list = split(system("grep -l " .  bufname('%') . " *"), "\n")
+  let command = "grep -lF '" . s:title_without_namespace(s:page_title()) . "' *"
+  exec ":!" .command
 endfunc
 
 func! s:link_under_cursor()
@@ -142,7 +141,7 @@ func! s:rename_page()
   call system("git mv " . l:file . " " .  newname)
   exec "e ". newname
   " replace all existing inbound links  
-  let command = "grep -l " . l:file . " * | xargs sed -e 's/" . l:file . "/" . newname ."/g' -i.bk"
+  let command = "grep -lF " . l:file . " * | xargs sed -e 's/" . l:file . "/" . newname ."/g' -i.bk"
   call system(command)
   let command = "grep -lF '" . s:title_without_namespace(l:file) . "' * | xargs sed -e 's/\\" . s:title_without_namespace(l:file) . "/" . s:title_without_namespace(newname) ."/g' -i.bk"
   call system(command)
@@ -239,7 +238,7 @@ function! CompletePage(findstart, base)
     " locate the start of the word
     let line = getline('.')
     let start = col('.') - 1
-    while start > 0 && line[start - 1] =~ '[[:alnum:]]'
+    while start > 0 && line[start - 1] =~ '[[:alnum:]\.]'
       let start -= 1
     endwhile
     return start
@@ -289,7 +288,7 @@ endfunc
 
 func! s:global_mappings()
   noremap <leader>m :call <SID>list_pages()<CR>
-  noremap  <leader>M :call <SID>list_pages_linking_in()<CR>
+  " noremap  <leader>M :call <SID>list_pages_linking_in()<CR>
   noremap <silent> <leader>o :call <SID>open_href()<cr> 
 endfunc 
 
