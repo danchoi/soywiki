@@ -200,7 +200,10 @@ function! CompletePage(findstart, base)
   if a:findstart
     " locate the start of the word
     let line = getline('.')
-    let start = match(line, ":") + 2
+    let start = col('.') - 1
+    while start > 0 && line[start - 1] =~ '[[:alnum:]]'
+      let start -= 1
+    endwhile
     return start
   else
     let base = s:trimString(a:base)
