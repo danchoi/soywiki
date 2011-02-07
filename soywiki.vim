@@ -37,7 +37,7 @@ endfunc
 
 func! s:list_pages()
   call s:get_page_list()
-  call s:page_list_window("CompletePageInSelectionWindow", "Select page (C-x C-u to auto-complete): ")
+  call s:page_list_window("CompletePageInSelectionWindow", "Select page (C-x C-u to auto-complete, :q to close this window): ")
 endfunc
 
 func! s:link_under_cursor()
@@ -305,8 +305,10 @@ func! s:list_pages_linking_in()
     let file =  get(s:pages_linking_in, 0)
     write
     exec "e " . file
+  elseif len(s:pages_linking_in) == 0
+    echom "No pages link to " . s:page_title() . "!"
   else
-    call s:page_list_window("CompletePagesLinkingIn_InSelectionWindow", "Pages that link to this one: ")
+    call s:page_list_window("CompletePagesLinkingIn_InSelectionWindow", "Pages that link to " . s:page_title() . " (:q to close this window): ")
   endif
 endfunc
 
