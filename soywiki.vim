@@ -378,6 +378,7 @@ func! s:prep_buffer()
     command! -buffer SWDelete :call s:delete_page()
     command! -buffer SWRename :call s:rename_page()
     command! -buffer SWLog :call s:show_revision_history(0)
+    noremap <buffer> <leader>l :call <SID>show_revision_history(0)<CR>
     command! -buffer SWLogStat :call s:show_revision_history(1)
     command! -buffer SWBlame :call s:show_blame()
     set nu
