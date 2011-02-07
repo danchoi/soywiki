@@ -28,6 +28,7 @@ func! s:save_page()
 endfunc
 
 func! s:list_pages()
+  call s:get_page_list()
   call s:page_list_window()
 endfunc
 
@@ -160,8 +161,7 @@ endfunc
 " select Page
 
 func! s:get_page_list()
-  let res = split(system("ls -tu"), "\n")
-  return res 
+  let s:page_list = split(system("ls -tu"), "\n")
 endfunction
 
 func! s:pages_in_this_namespace(pages)
@@ -206,13 +206,11 @@ function! s:page_list_window()
 endfunction
 
 function! CompletePage(findstart, base)
-  let pages = s:get_page_list()
-  let s:matching_pages = pages
+  let s:matching_pages = s:page_list
   let possible_period =  getline('.')[col('.') - 2]
   if (possible_period == '.') 
     " filter to pages in this namespace
-    let pages = s:pages_in_this_namespace(pages)
-    let s:matching_pages = pages
+    let s:matching_pages = s:pages_in_this_namespace(s:matching_pages)
   endif
   if a:findstart
     " locate the start of the word
@@ -225,7 +223,7 @@ function! CompletePage(findstart, base)
   else
     let base = s:trimString(a:base)
     if (base == '')
-      return pages
+      return s:page_list 
     else
       let res = []
       for m in pages
@@ -312,9 +310,9 @@ autocmd  WinEnter * call s:highlight_wikiwords()
 autocmd  BufEnter * call s:prep_buffer() 
 
 " load most recent page
-let pages = s:get_page_list()
-let start_page = get(pages, 0)
-let start_page = len(pages) > 0 ? start_page : "HomePage" 
+call s:get_page_list()
+let start_page = get(s:page_list, 0)
+let start_page = len(s:page_list) > 0 ? start_page : "HomePage" 
 call s:load_page(start_page, 0)
 
 if (!isdirectory(".git"))
