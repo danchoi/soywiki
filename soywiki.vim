@@ -40,7 +40,6 @@ func! s:list_pages()
   call s:page_list_window("CompletePageInSelectionWindow", "Select page (C-x C-u to auto-complete): ")
 endfunc
 
-
 func! s:link_under_cursor()
   let link = expand("<cWORD>") 
   let link = substitute(link, '[^[:alnum:]]*$', '', '')
@@ -176,7 +175,7 @@ endfunc
 " select Page
 
 func! s:get_page_list()
-  let s:page_list = split(system("ls -t"), "\n")
+  let s:page_list = split(system("ls -t | grep -vF '" . bufname('%') . "'" ), "\n")
 endfunction
 
 func! s:pages_in_this_namespace(pages)
@@ -300,7 +299,7 @@ endfunction
 " in different namespaces
 
 func! s:list_pages_linking_in()
-  let command = "grep -lF '" . s:title_without_namespace(s:page_title()) . "' * | grep -v '" . bufname('%') . "'"
+  let command = "grep -lF '" . s:title_without_namespace(s:page_title()) . "' * | grep -vF '" . bufname('%') . "'"
   let s:pages_linking_in  = split(system(command), "\n")
   if len(s:pages_linking_in) == 1
     let file =  get(s:pages_linking_in, 0)
