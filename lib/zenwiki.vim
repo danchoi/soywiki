@@ -180,6 +180,7 @@ function! s:page_list_window()
   resize 1
   inoremap <silent> <buffer> <cr> <Esc>:call <SID>select_page()<CR> 
   inoremap <buffer> <Tab> <Esc>:call <SID>reduce_matches()<cr>
+  inoremap <buffer> <Esc> <Esc>:close<cr>
   setlocal completefunc=CompletePage
   " c-p clears the line
   call setline(1, "Select page (C-x C-u to auto-complete): ")
