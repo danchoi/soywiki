@@ -218,8 +218,8 @@ function! s:page_list_window()
   resize 1
   inoremap <silent> <buffer> <cr> <Esc>:call <SID>select_page()<CR> 
   inoremap <buffer> <Tab> <Esc>:call <SID>reduce_matches()<cr>
-  inoremap <buffer> <Esc> <Esc>:close<cr>
-  setlocal completefunc=CompletePage
+  noremap <buffer> q <Esc>:close<cr>
+  setlocal completefunc=CompletePageInSelectionWindow
   " c-p clears the line
   call setline(1, "Select page (C-x C-u to auto-complete): ")
   normal $
@@ -228,12 +228,38 @@ function! s:page_list_window()
 endfunction
 
 function! CompletePage(findstart, base)
-  let s:matching_pages = s:page_list
+  let s:matching_pages = s:page_list[:]
   let possible_period =  getline('.')[col('.') - 2]
   if (possible_period == '.') 
     " filter to pages in this namespace
     let s:matching_pages = s:pages_in_this_namespace(s:matching_pages)
   endif
+  if a:findstart
+    " locate the start of the word
+    let line = getline('.')
+    let start = col('.') - 1
+    while start > 0 && line[start - 1] =~ '[[:alnum:]]'
+      let start -= 1
+    endwhile
+    return start
+  else
+    let base = s:trimString(a:base)
+    if (base == '')
+      return s:matching_pages
+    else
+      let res = []
+      for m in s:matching_pages
+        if m =~ '\c' . base 
+          call add(res, m)
+        endif
+      endfor
+      return res
+    endif
+  endif
+endfun
+
+function! CompletePageInSelectionWindow(findstart, base)
+  let s:matching_pages = s:page_list[:]
   if a:findstart
     " locate the start of the word
     let line = getline('.')
@@ -245,10 +271,10 @@ function! CompletePage(findstart, base)
   else
     let base = s:trimString(a:base)
     if (base == '')
-      return s:page_list 
+      return s:matching_pages
     else
       let res = []
-      for m in s:page_list
+      for m in s:matching_pages
         if m =~ '\c' . base 
           call add(res, m)
         endif
@@ -257,6 +283,7 @@ function! CompletePage(findstart, base)
     endif
   endif
 endfun
+
 
 function! s:select_page()
   let page = s:trimString( get(split(getline(line('.')), ": "), 1) )
