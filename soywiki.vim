@@ -32,6 +32,15 @@ func! s:list_pages()
   call s:page_list_window()
 endfunc
 
+func! s:list_pages_linking_in()
+  call s:get_pages_linking_in()
+  call s:page_list_window()
+endfunc
+
+func! s:get_pages_linking_in()
+  let s:page_list = split(system("grep -l " .  bufname('%') . " *"), "\n")
+endfunc
+
 func! s:link_under_cursor()
   let link = expand("<cWORD>") 
   let link = substitute(link, '[^[:alnum:]]*$', '', '')
@@ -226,7 +235,7 @@ function! CompletePage(findstart, base)
       return s:page_list 
     else
       let res = []
-      for m in pages
+      for m in s:page_list
         if m =~ '\c' . base 
           call add(res, m)
         endif
@@ -266,6 +275,7 @@ endfunc
 
 func! s:global_mappings()
   noremap <leader>m :call <SID>list_pages()<CR>
+  noremap  <leader>M :call <SID>list_pages_linking_in()<CR>
   noremap <silent> <leader>o :call <SID>open_href()<cr> 
 endfunc 
 
@@ -286,7 +296,6 @@ func! s:prep_buffer()
     noremap  <leader>ld :call <SID>show_revision_history(0)<CR>
     noremap  <leader>ls :call <SID>show_revision_history(1)<CR>
     noremap  <leader>b :call <SID>show_blame()<CR>
-    noremap  <leader>n :call <SID>list_pages_linking_in()<CR>
     set nu
     setlocal completefunc=CompletePage
     augroup <buffer>
