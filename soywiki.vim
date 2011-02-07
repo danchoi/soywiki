@@ -1,5 +1,4 @@
 
-let s:new_page_split = 0 " means replace the current page with the new page
 
 " let s:wiki_link_pattern =  '\C\<[A-Z][a-z]\+[A-Z]\w*\>'
 " let s:wiki_link_pattern =  '\C\<\([a-z]\+\.\)\?[A-Z][a-z]\+[A-Z]\w*\>'
@@ -28,8 +27,7 @@ func! s:save_page()
 "  write
 endfunc
 
-func! s:list_pages(split)
-  let s:new_page_split = a:split
+func! s:list_pages()
   call s:page_list_window()
 endfunc
 
@@ -249,7 +247,7 @@ function! s:select_page()
   let match = ""
 	for item in s:matching_pages
 	  if (item == page)
-      call s:load_page(page, s:new_page_split)
+      call s:load_page(page, 0)
       break
     end
 	endfor
@@ -269,8 +267,7 @@ endfunc
 "------------------------------------------------------------------------
 
 func! s:global_mappings()
-  noremap <leader>m :call <SID>list_pages(0)<CR>
-  " noremap <leader>sm :call <SID>list_pages(1)<CR>
+  noremap <leader>m :call <SID>list_pages()<CR>
   noremap <silent> <leader>o :call <SID>open_href()<cr> 
 endfunc 
 
@@ -291,6 +288,7 @@ func! s:prep_buffer()
     noremap  <leader>ld :call <SID>show_revision_history(0)<CR>
     noremap  <leader>ls :call <SID>show_revision_history(1)<CR>
     noremap  <leader>b :call <SID>show_blame()<CR>
+    noremap  <leader>n :call <SID>list_pages_linking_in()<CR>
     set nu
     setlocal completefunc=CompletePage
     augroup <buffer>
