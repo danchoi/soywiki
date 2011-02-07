@@ -37,16 +37,9 @@ endfunc
 
 func! s:list_pages()
   call s:get_page_list()
-  call s:page_list_window()
+  call s:page_list_window("CompletePageInSelectionWindow", "Select page (C-x C-u to auto-complete): ")
 endfunc
 
-" not ready yet
-" need to distinguish between pages with same name but different
-" namespaces
-func! s:list_pages_linking_in()
-  let command = "grep -lF '" . s:title_without_namespace(s:page_title()) . "' *"
-  exec ":!" .command
-endfunc
 
 func! s:link_under_cursor()
   let link = expand("<cWORD>") 
@@ -210,7 +203,7 @@ func! s:reduce_matches()
   endif
 endfunc
 
-function! s:page_list_window()
+function! s:page_list_window(complete_function, prompt)
   topleft split page-list-buffer
   setlocal buftype=nofile
   setlocal noswapfile
@@ -219,9 +212,9 @@ function! s:page_list_window()
   inoremap <silent> <buffer> <cr> <Esc>:call <SID>select_page()<CR> 
   inoremap <buffer> <Tab> <Esc>:call <SID>reduce_matches()<cr>
   noremap <buffer> q <Esc>:close<cr>
-  setlocal completefunc=CompletePageInSelectionWindow
+  exec "setlocal completefunc=" . a:complete_function
   " c-p clears the line
-  call setline(1, "Select page (C-x C-u to auto-complete): ")
+  call setline(1, a:prompt)
   normal $
   call feedkeys("a\<c-x>\<c-u>\<c-p>", 't')
   " call feedkeys("a", 't')
@@ -284,7 +277,6 @@ function! CompletePageInSelectionWindow(findstart, base)
   endif
 endfun
 
-
 function! s:select_page()
   let page = s:trimString( get(split(getline(line('.')), ": "), 1) )
   close
@@ -301,6 +293,52 @@ function! s:select_page()
 endfunction
 
 "------------------------------------------------------------------------
+" PAGES LINKING IN 
+"
+
+" this logic could be more precise, in cases where pages have same name
+" in different namespaces
+
+func! s:list_pages_linking_in()
+  let command = "grep -lF '" . s:title_without_namespace(s:page_title()) . "' * | grep -v '" . bufname('%') . "'"
+  let s:pages_linking_in  = split(system(command), "\n")
+  if len(s:pages_linking_in) == 1
+    let file =  get(s:pages_linking_in, 0)
+    write
+    exec "e " . file
+  else
+    call s:page_list_window("CompletePagesLinkingIn_InSelectionWindow", "Pages that link to this one: ")
+  endif
+endfunc
+
+function! CompletePagesLinkingIn_InSelectionWindow(findstart, base)
+  " todo, this must be smarter, deal with different namespaces
+  let s:matching_pages = s:pages_linking_in[:]
+  if a:findstart
+    " locate the start of the word
+    let line = getline('.')
+    let start = col('.') - 1
+    while start > 0 && line[start - 1] =~ '[[:alnum:]\.]'
+      let start -= 1
+    endwhile
+    return start
+  else
+    let base = s:trimString(a:base)
+    if (base == '')
+      return s:matching_pages
+    else
+      let res = []
+      for m in s:matching_pages
+        if m =~ '\c' . base 
+          call add(res, m)
+        endif
+      endfor
+      return res
+    endif
+  endif
+endfun
+
+"------------------------------------------------------------------------
 
 func! s:open_href()
   let pattern = 'https\?:[^ >)\]]\+'
@@ -315,7 +353,7 @@ endfunc
 
 func! s:global_mappings()
   noremap <leader>m :call <SID>list_pages()<CR>
-  " noremap  <leader>M :call <SID>list_pages_linking_in()<CR>
+  noremap  <leader>M :call <SID>list_pages_linking_in()<CR>
   noremap <silent> <leader>o :call <SID>open_href()<cr> 
 endfunc 
 
