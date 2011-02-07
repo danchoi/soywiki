@@ -297,8 +297,8 @@ func! s:prep_buffer()
     noremap <buffer> <leader>fv :call <SID>follow_link(2)<CR>
     noremap <buffer> <leader>n :call <SID>find_next_wiki_link(0)<CR>
     noremap <buffer> <leader>p :call <SID>find_next_wiki_link(1)<CR>
-    noremap  <leader>rm :call <SID>delete_page()<CR>
-    noremap  <leader>mv :call <SID>rename_page()<CR>
+    command! -buffer SWdelete :call s:delete_page()
+    command! -buffer SWrename :call s:rename_page()
     noremap  <leader>c :call <SID>create_page()<CR>
     set nu
     setlocal completefunc=CompletePage
