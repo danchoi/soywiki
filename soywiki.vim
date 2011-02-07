@@ -195,13 +195,15 @@ func! s:reduce_matches()
   " find the first namespace in the list
   let namespaced_matches = filter( s:matching_pages,  'v:val =~ "^' . fragment . '\."')
   if (len(namespaced_matches) == 0)
-    call feedkeys( "ea", "t")
-  else
+    return
+  elseif match(fragment, '^[A-Z]') == -1 && match(fragment, '\.' == -1)   
+    " we're beginning to type a namespace
     let namespace = get(split(get(namespaced_matches, 0), '\.'), 0) 
-    if match(fragment, '^[A-Z]') == -1 " we're typing a namespace
-      let namespace .= "."
-    endif
+    let namespace .= "."
     call feedkeys( "BcW". namespace. "\<C-x>\<C-u>\<C-p>" , "t")
+  else
+    " we're tabbing to auto complete the term, not find a namespace
+    return
   endif
 endfunc
 
