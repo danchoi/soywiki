@@ -290,8 +290,8 @@ func! s:prep_buffer()
     noremap <buffer> <leader>f :call <SID>follow_link(0)<CR>
     noremap <buffer> <leader>n :call <SID>find_next_wiki_link(0)<CR>
     noremap <buffer> <leader>p :call <SID>find_next_wiki_link(1)<CR>
-    command! -buffer SWdelete :call s:delete_page()
-    command! -buffer SWrename :call s:rename_page()
+    command! -buffer SWDelete :call s:delete_page()
+    command! -buffer SWRename :call s:rename_page()
     noremap  <leader>c :call <SID>create_page()<CR>
     noremap  <leader>ld :call <SID>show_revision_history(0)<CR>
     noremap  <leader>ls :call <SID>show_revision_history(1)<CR>
