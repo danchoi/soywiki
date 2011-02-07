@@ -98,7 +98,12 @@ func! s:delete_page()
   let file = bufname('%')
   call delete(file)
   call system("git commit " . bufname('%') . " -m 'deletion'")
-  call feedkeys("\<C-o>")
+  " go to most recently saved
+  " call feedkeys("\<C-o>")
+  let target = s:trimString(system("ls -t | head -1"))
+  exec "e " . target
+  redraw
+  echom  "Deleted " . file
 endfunc
 
 func! s:prompt_for_wiki_word(prompt, default)
