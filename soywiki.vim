@@ -99,7 +99,7 @@ func! s:delete_page()
   call system("git commit " . bufname('%') . " -m 'deletion'")
   " go to most recently saved
   " call feedkeys("\<C-o>")
-  let target = s:trimString(system("ls -t | head -1"))
+  let target = s:trimString(system("ls -tu | head -1"))
   exec "e " . target
   redraw
   echom  "Deleted " . file
@@ -148,7 +148,7 @@ endfunc
 " select Page
 
 func! s:get_page_list()
-  let res = split(system("ls -t"), "\n")
+  let res = split(system("ls -tu"), "\n")
   return res 
 endfunction
 
