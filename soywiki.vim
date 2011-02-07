@@ -129,12 +129,12 @@ func! s:rename_page()
     exe "echom '" . newname . " already exists!'"
     return
   endif
-  " call setline(1, newname) " not necessary because sed will do this
   call system("git mv " . l:file . " " .  newname)
   exec "e ". newname
   " replace all existing inbound links  
   let command = "grep -lF " . l:file . " * | xargs sed -e 's/" . l:file . "/" . newname ."/g' -i.bk"
   call system(command)
+  call system("rm *.bk")
   let command = "grep -lF '" . s:title_without_namespace(l:file) . "' * | xargs sed -e 's/\\" . s:title_without_namespace(l:file) . "/" . s:title_without_namespace(newname) ."/g' -i.bk"
   call system(command)
   call system("rm *.bk")
