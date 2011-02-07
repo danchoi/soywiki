@@ -1,4 +1,3 @@
-let s:browser_command = "open "
 
 let s:new_page_split = 0 " means replace the current page with the new page
 
@@ -244,40 +243,13 @@ endfunction
 
 "------------------------------------------------------------------------
 
-func! s:open_href(all) range
+func! s:open_href()
   let pattern = 'https\?:[^ >)\]]\+'
-  let n = 0
-  " range version
-  if a:firstline < a:lastline
-    let lnum = a:firstline
-    while lnum <= a:lastline
-      let href = matchstr(getline(lnum), pattern)
-      if href != ""
-        let command = s:browser_command . " '" . href . "' &"
-        call system(command)
-        let n += 1
-      endif
-      let lnum += 1
-    endwhile
-    echom 'Opened '.n.' links' 
-    return
-  end
   let line = search(pattern, 'cw')
-  if line && a:all
-    while line
-      let href = matchstr(getline(line('.')), pattern)
-      let command = s:browser_command . " '" . href . "' &"
-      call system(command)
-      let n += 1
-      let line = search('https\?:', 'W')
-    endwhile
-    echom 'Opened '.n.' links' 
-  else
-    let href = matchstr(getline(line('.')), pattern)
-    let command = s:browser_command . " '" . href . "' &"
-    call system(command)
-    echom 'Opened '.href
-  endif
+  let href = matchstr(getline(line('.')), pattern)
+  let command = g:SoyWiki#browser_command . " '" . href . "' "
+  call system(command)
+  echom command 
 endfunc
 
 "------------------------------------------------------------------------
@@ -285,8 +257,7 @@ endfunc
 func! s:global_mappings()
   noremap <leader>m :call <SID>list_pages(0)<CR>
   noremap <leader>sm :call <SID>list_pages(1)<CR>
-  noremap <silent> <leader>o :call <SID>open_href(0)<cr> 
-  " Tab invokes the match window
+  noremap <silent> <leader>o :call <SID>open_href()<cr> 
 endfunc 
 
 " this checks if the buffer is a SoyWiki file (from firstline)
@@ -336,5 +307,17 @@ call s:load_page(start_page, 0)
 if (!isdirectory(".git"))
   call system("git init")
   echom "Created .git repository to store revisions"
+endif
+
+if !exists("g:SoyWiki#browser_command")
+  for cmd in ["gnome-open", "open"] 
+    if executable(cmd)
+      let g:SoyWiki#browser_command = cmd
+      break
+    endif
+  endfor
+  if !exists("g:SoyWiki#browser_command")
+    echom "Can't find the to open your web browser."
+  endif
 endif
 
