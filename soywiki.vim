@@ -197,8 +197,11 @@ func! s:reduce_matches()
   if (len(namespaced_matches) == 0)
     call feedkeys( "ea", "t")
   else
-    let namespace = get(split(get(namespaced_matches, 0), '\.'), 0) . "."
-    call feedkeys( "bcw". namespace. "\<C-x>\<C-u>\<C-p>" , "t")
+    let namespace = get(split(get(namespaced_matches, 0), '\.'), 0) 
+    if match(fragment, '^[A-Z]') == -1 " we're typing a namespace
+      let namespace .= "."
+    endif
+    call feedkeys( "BcW". namespace. "\<C-x>\<C-u>\<C-p>" , "t")
   endif
 endfunc
 
