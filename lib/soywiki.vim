@@ -341,7 +341,7 @@ func! s:list_pages_linking_in()
   if len(s:pages_linking_in) == 1
     let file =  get(s:pages_linking_in, 0)
     write
-    exec "e " . file
+    exec "e " . s:page_title2file(file)
     " not perfectly targeted but OK for now
     call search(s:search_for_link)
   elseif len(s:pages_linking_in) == 0

@@ -11,7 +11,7 @@ end
 
 target_page = ARGV.first
 
-if target_page.is_namespaced?
+if target_page.namespaced?
   namespace, page = *target_page.split(".")
   # find all files in this namespace
   xs = Dir.glob(File.join("#{namespace}", "*")).select do |file|
@@ -20,9 +20,11 @@ if target_page.is_namespaced?
   ys = Dir.glob(File.join("**", '*')).select do |file|
     inbound_links_to?(file, target_page) 
   end
-  (xs + ys).uniq.sort.each {|x| puts x}
+  (xs + ys).uniq.sort.
+    each {|x| puts x.to_page_title}
 else
   Dir.glob(File.join("**", '*')).select do |file|
     inbound_links_to?(file, target_page)
-  end.each {|file| puts file}
+  end.
+    each {|file| puts file.to_page_title}
 end
