@@ -21,6 +21,7 @@ end
 
 module Soywiki
   VERSION = '0.0.2'
+  WIKI_WORD = /\b([a-z][\w_]+\.)?[A-Z][a-z]+[A-Z]\w*\b|\.[A-Z][a-z]+[A-Z]\w*\b/
 
   def self.run
     if %W( -v --version -h --help).include?(ARGV.first)
@@ -28,6 +29,7 @@ module Soywiki
       puts "by Daniel Choi dhchoi@gmail.com"
       puts
       puts <<END
+---
 Usage: soywiki [wiki file]
 
 Run the command in a directory you've made to contain soywiki files.
@@ -36,7 +38,6 @@ Specifying a wiki file is optional. If you don't specify a file, soywiki will
 open the most recently modified wiki file. 
 ---
 END
-
       exit
     end
 

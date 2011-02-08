@@ -101,7 +101,9 @@ func! s:load_page(page, split)
   if (s:is_wiki_page())
     write
   endif
+
   let file = s:page_title2file(a:page)
+
   if (!filereadable(file)) 
     " create the file
     let namespace = s:namespace_of_title(a:page)
@@ -471,3 +473,4 @@ if len(bufname("%")) == 0
 else
   call s:load_page(bufname("%"), 0)
 endif
+
