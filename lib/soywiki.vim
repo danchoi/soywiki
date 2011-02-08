@@ -51,6 +51,10 @@ func! s:page_title2file(page)
   return substitute(a:page, '\.', '/', '')
 endfunc
 
+func! s:filename2pagetitle(page)
+  return substitute(a:page, '/', '.', '')
+endfunc
+
 func! s:list_pages()
   let s:search_for_link = ""
   call s:get_page_list()
@@ -161,12 +165,13 @@ func! s:rename_page()
 endfunc
 
 func! s:create_page()
-  let newname = s:prompt_for_wiki_word("New page title (use slashes instead of periods): ", "")
+  let title = s:prompt_for_wiki_word("New page title: ", "") 
+  let newname = s:page_title2file( title )
   if (filereadable(newname)) 
     exe "echom '" . newname . " already exists!'"
     return
   endif
-  call writefile([newname, '', ''], newname)
+  call writefile([s:filename2pagetitle(title), '', ''], newname)
   exec "e ". newname
 endfunc
 
@@ -403,6 +408,7 @@ func! s:global_mappings()
   noremap <leader>m :call <SID>list_pages()<CR>
   noremap  <leader>M :call <SID>list_pages_linking_in()<CR>
   noremap <silent> <leader>o :call <SID>open_href()<cr> 
+  command! -buffer SWDelete :call s:delete_page()
 endfunc 
 
 " this checks if the buffer is a SoyWiki file (from firstline)
@@ -417,7 +423,6 @@ func! s:prep_buffer()
     noremap <buffer> <leader>n :call <SID>find_next_wiki_link(0)<CR>
     noremap <buffer> <leader>p :call <SID>find_next_wiki_link(1)<CR>
     noremap  <leader>c :call <SID>create_page()<CR>
-    command! -buffer SWDelete :call s:delete_page()
     command! -buffer SWRename :call s:rename_page()
     noremap <buffer> <leader>r :call <SID>rename_page()<CR>
     command! -buffer SWLog :call s:show_revision_history(0)
