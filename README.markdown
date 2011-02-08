@@ -37,12 +37,12 @@ edit and navigate textual content and using a real text editor in a
 full-fledged Unix environment is like the difference between crawling
 and doing gymnastics.
 
-The text editing and wiki traversal facilities of SoyWiki, I think, far
-surpass that of your typical web-browser-based wiki.  By building on
-Vim's existing strengths as a text editor and interface to the Unix
-operating system, SoyWiki makes it possible to create, consult, and
-remold wiki content pretty much at the speed of thought. This is
-SoyWiki's primary mission.
+The text editing and wiki link traversal facilities of SoyWiki far outstrip
+those of your typical web-browser-based wiki.  By building on Vim's
+existing strengths as a text editor and interface to the Unix operating
+system, SoyWiki makes it possible to create, consult, and remold wiki
+content pretty much at the speed of thought. This is SoyWiki's primary
+mission.
 
 SoyWiki excels as a personal wiki. It is very good for tracking
 projects, contacts, ideas, and collecting research. 
