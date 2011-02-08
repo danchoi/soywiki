@@ -17,15 +17,6 @@ overview of its characteristics and features:
 * outliner-like capability with expand-command 
 * operates on all POSIX systems (e.g. OS X, Linux, FreeBSD)
 
-The current version of SoyWiki expects you to be fairly good at using
-Vim. More than 80 percent of the SoyWiki codebase implements the
-VimScript interface layer.
-
-On the other hand, SoyWiki requires you to learn only a tiny, nearly
-non-existent markup language.  To make a piece of text work with
-SoyWiki, it just needs to use CamelCase WikiWords.  Beyond that, you can
-mark up your text any way you want, using Markdown, Texttile, AsciiDoc,
-or nothing.
 
 ## Introduction
 
@@ -138,6 +129,15 @@ you can start SoyWiki with
 
 TO BE FINISHED
 
+The current version of SoyWiki expects you to be fairly good at using
+Vim. More than 80 percent of the SoyWiki codebase implements the
+VimScript interface layer.
+
+On the other hand, SoyWiki requires you to learn only a tiny, nearly
+non-existent markup language.  To make a piece of text work with
+SoyWiki, it just needs to use CamelCase WikiWords.  Beyond that, you can
+mark up your text any way you want, using Markdown, Texttile, AsciiDoc,
+or nothing.
 
 ## Opening hyperlinks and HTML parts in your web browser
 
