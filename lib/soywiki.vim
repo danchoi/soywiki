@@ -38,6 +38,7 @@ func! s:is_wiki_page()
   let title_line = getline(1)
   return (match(title_line, s:wiki_link_pattern) == 0)
 endfunc
+
 func! s:save_page()
 "  write
 endfunc
