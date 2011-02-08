@@ -151,6 +151,10 @@ endfunc
 func! s:rename_page()
   let oldfile = bufname('%')
   let newfile = s:page_title2file( s:prompt_for_wiki_word("Rename oldfile: ", l:oldfile) )
+  if (oldfile == newfile)
+    echo "Canceled"
+    return
+  endif
   if (filereadable(newfile)) 
     exe "echom '" . newfile . " already exists!'"
     return
@@ -159,7 +163,7 @@ func! s:rename_page()
   exec "e ". newfile
   " replace all existing inbound links  
   " TODO replace this with a ruby script
-  call system(s:rename_links_command . oldfile . " " . newfile)
+  exec "! " . s:rename_links_command . oldfile . " " . newfile
   call system("git commit -am 'rename wiki page'")
   e!
 endfunc

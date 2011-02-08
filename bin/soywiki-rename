@@ -3,11 +3,22 @@ require 'soywiki'
 
 oldname, newname = *ARGV
 
-target_files = `grep -rlF '#{oldname.to_page_title}' *`.strip.split(/\n/)
-target_files.each do |file|
-  text = File.read(file)
-  text.gsub!(/\b#{oldname.to_page_title}\b/, newname.to_page_title)
-  File.open(file, 'w') {|f| f.puts text}
+
+MEMO = ["Updating all inbound links..."]
+
+def report(file, oldname, newname)
+  MEMO <<  "  - In #{file}: #{oldname.to_page_title} -> #{newname.to_page_title}"
+end
+
+def change_all_absolute_links(oldname, newname)
+  MEMO << "- Updating all absolute links"
+  target_files = `grep -rlF '#{oldname.to_page_title}' *`.strip.split(/\n/)
+  target_files.each do |file|
+    text = File.read(file)
+    text.gsub!(/\b#{oldname.to_page_title}\b/, newname.to_page_title)
+    File.open(file, 'w') {|f| f.puts text}
+    report file, oldname.to_page_title, newname.to_page_title
+  end
 end
 
 # Three other cases to cover, involving namespaces:
@@ -18,29 +29,38 @@ end
 # .OldName to .NewName
 
 if oldname.namespaced? && (oldname.namespace == newname.namespace)
-  target_files = `grep -rlF '#{oldname.to_page_title}' #{oldname.namespace}/*`.strip.split(/\n/)
+  MEMO << "- Updating relative links in same namespace"
+  target_files = `grep -rlF '#{oldname.short_page_title}' #{oldname.namespace}/*`.strip.split(/\n/)
   target_files.each do |file|
     text = File.read(file)
     text.gsub!(/[\b\s\n]\.(#{oldname.short_page_title})\b/, "." + newname.short_page_title)
     File.open(file, 'w') {|f| f.puts text}
+    report file, oldname.short_page_title, newname.short_page_title
   end
 end
 
 # newname can be absolutized or top level or relative
 def change_relative_inbound_links(oldname, newname)
+  MEMO << "- Updating relative inbound links"
   target_files = `grep -rlF '#{oldname.to_page_title}' #{oldname.namespace}/*`.strip.split(/\n/)
   target_files.each do |file|
     text = File.read(file)
     text.gsub!(/[\b\s\n]\.(#{oldname.short_page_title})\b/, "." + newname)
     File.open(file, 'w') {|f| f.puts text}
+    report file, oldname.short_page_title, newname
   end
 end
 
+RELATIVE_LINK_REGEX =/([\A\s\n\b])\.([A-Z][a-z]+[A-Z]\w*)/
+
 def absolutize_relative_outbound_links(oldname, newname)
+  MEMO << "Absolutizing relative inbound links"
   if File.exist?(newname.to_file_path)
     text = File.read(newname.to_file_path)
-    text.gsub!(/([\A\s\n\b])\.([A-Z][a-z]+[A-Z]\w*)/, '\1' + oldname.namespace + '.\2')
+    matches = text.scan(RELATIVE_LINK_REGEX)
+    text.gsub!(RELATIVE_LINK_REGEX, '\1' + oldname.namespace + '.\2')
     File.open(newname.to_file_path, 'w') {|f| f.puts text}
+    MEMO <<  "  - In file #{file}: Absolutized these relative links: #{matches.inspect}"
   end
 end
 
@@ -65,4 +85,8 @@ if oldname.namespaced? && !newname.namespaced?
   absolutize_relative_outbound_links(oldname, newname)
 end
 
+# Finally,
 
+change_all_absolute_links oldname, newname
+
+puts MEMO.join("\n")
