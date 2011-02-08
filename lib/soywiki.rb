@@ -1,4 +1,24 @@
 
+class String
+  def is_namespaced?
+    self.split(".").size == 2
+  end
+
+  # TODO change this to a Windows compatible approach
+  def to_file_path
+    self.gsub(".", "/")
+  end
+
+  def to_page_title
+    self.gsub("/", ".")
+  end
+
+  def namespace
+    self.to_page_title.split('.')[0]
+  end
+end
+
+
 module Soywiki
   VERSION = '0.0.2'
 
@@ -20,15 +40,10 @@ END
       exit
     end
 
-
     vim = ENV['VMAIL_VIM'] || 'vim'
-
     vimscript = File.expand_path("../soywiki.vim", __FILE__)
-
     vim_command = "#{vim} -S #{vimscript} #{ARGV.first}"
-
     exec vim_command
-
   end
 end
 

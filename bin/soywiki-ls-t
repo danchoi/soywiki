@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+require 'soywiki'
+
+xs = Dir.glob(File.join((ARGV.first || '.'), '**', '*')).select {|x|
+  File.file?(x) 
+}.sort_by {|x|
+  File.stat(x).mtime
+}.reverse
+puts xs.join("\n")

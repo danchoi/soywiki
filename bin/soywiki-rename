@@ -1,11 +1,7 @@
 #!/usr/bin/env ruby
-oldname, newname = *ARGV
+require 'soywiki'
 
-class String
-  def is_namespaced?
-    self.split(".").size == 2
-  end
-end
+oldname, newname = *ARGV
 
 target_files = `grep -lF '#{oldname}' *`.strip.split(/\n/)
 target_files.each do |file|
@@ -14,40 +10,32 @@ target_files.each do |file|
   File.open(file, 'w') {|f| f.puts text}
 end
 
-# deal with links without namespace
-
-old_short = oldname.split(".")[1]
-new_short = newname.split(".")[1]
-
-if old_short && !new_short
-  # where going from a namespaced name to a top-level name
-  old_namespace = oldname.split(".")[0]
-  target_files = `grep -lF '\<#{old_short}\>' *`.strip.split(/\n/)
+if oldname.namespace && !newname.namespace
+  # we're going from a namespaced name to a top-level name
+  old_namespace = oldname.namespace
+  target_files = `grep -lF '\<#{oldname.namespace}\>' *`.strip.split(/\n/)
   target_files.each do |file|
     text = File.read(file)
-    text.gsub!(/\b#{old_short}\b/, newname)
+    text.gsub!(/\b#{oldname.namespace}\b/, newname)
     File.open(file, 'w') {|f| f.puts text}
   end
-  # change all the .Wikiwords in the newname file to fully namespaced
+  # Change all the .Wikiwords in the newname file to fully namespaced
   # links with namespace of newname.downcase
-  if File.exist?(newname)
-    text = File.read(newname)
-    #text.gsub!(relative_wiki_word, "#{newname.downcase}.#{$1}")
-    # ".Pear".gsub!(/\A\.([A-Z][a-z]+[A-Z]\w*)/, "TEST.#{$1}")
+  if File.exist?(newname.to_file_path)
+    text = File.read(newname.to_file_path)
     text.gsub!(/([\A\s\n\b])\.([A-Z][a-z]+[A-Z]\w*)/, '\1' + newname.downcase + '.\2')
-    File.open(newname, 'w') {|f| f.puts text}
+    File.open(newname.to_file_path, 'w') {|f| f.puts text}
   end
-elsif !old_short && new_short
-  # where going from a top-level name to a namespaced one 
-  # no action needed
-elsif !old_short && !new_short
-  # no action needed
-elsif old_short && new_short
-  target_files = `grep -lF '#{old_short}' *`.strip.split(/\n/)
-  puts target_files.inspect
+elsif !oldname.namespace && newname.namespace
+  # We're going from a top-level name to a namespaced one; no action needed
+elsif !oldname.namespace && !newname.namespace
+  # No action needed
+elsif oldname.namespace && newname.namespace
+  target_files = `grep -lF '#{oldname.namespace}' *`.strip.split(/\n/)
+  # puts target_files.inspect
   target_files.each do |file|
     text = File.read(file)
-    text.gsub!(/\b#{old_short}\b/, new_short)
+    text.gsub!(/\b#{oldname.namespace}\b/, newname.namespace)
     File.open(file, 'w') {|f| f.puts text}
   end
 end

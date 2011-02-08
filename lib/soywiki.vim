@@ -8,6 +8,7 @@ let s:wiki_link_pattern =  '\C\<\([a-z][[:alnum:]_]\+\.\)\?[A-Z][a-z]\+[A-Z]\w*\
 
 let s:rename_links_command = 'soywiki-rename '
 let s:find_pages_linking_in_command = 'soywiki-pages-linking-in '
+let s:ls_command = 'soywiki-ls-t '
 let s:search_for_link = ""
 
 func! s:trimString(string)
@@ -126,8 +127,7 @@ func! s:delete_page()
   call delete(file)
   call system("git commit " . bufname('%') . " -m 'deletion'")
   " go to most recently saved
-  " call feedkeys("\<C-o>")
-  let target = s:trimString(system("ls -t | head -1"))
+  let target = s:trimString(system(s:ls_command . " | head -1"))
   exec "e " . target
   exec "bdelete " . bufnr
   redraw
@@ -159,7 +159,7 @@ func! s:rename_page()
 endfunc
 
 func! s:create_page()
-  let newname = s:prompt_for_wiki_word("New page title: ", "")
+  let newname = s:prompt_for_wiki_word("New page title (use slashes instead of periods): ", "")
   if (filereadable(newname)) 
     exe "echom '" . newname . " already exists!'"
     return
@@ -192,9 +192,9 @@ endfunc
 
 func! s:get_page_list()
   if len(bufname('%')) == 0
-    let s:page_list = split(system("ls -t"), "\n")
+    let s:page_list = split(system(s:ls_command), "\n")
   else
-    let s:page_list = split(system("ls -t | grep -vF '" . bufname('%') . "'" ), "\n")
+    let s:page_list = split(system(s:ls_command . " | grep -vF '" . bufname('%') . "'" ), "\n")
   endif
 endfunction
 
@@ -465,7 +465,7 @@ endif
 
 if len(bufname("%")) == 0
   " load most recent page
-  let pages = split(system("ls -t" ), "\n")
+  let pages = split(system(s:ls_command), "\n")
   let start_page = len(pages) > 0 ? get(pages, 0) : "HomePage" 
   call s:load_page(start_page, 0)
 else
