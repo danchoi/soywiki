@@ -130,7 +130,12 @@ func! s:load_page(page, split)
     let res =  search(s:search_for_link, 'cw')
     let s:search_for_link = ''
   endif
+endfunc
 
+func! s:load_most_recently_modified_page()
+  let pages = split(system(s:ls_command), "\n")
+  let start_page = len(pages) > 0 ? get(pages, 0) : "HomePage" 
+  call s:load_page(start_page, 0)
 endfunc
 
 func! s:delete_page()
@@ -144,6 +149,7 @@ func! s:delete_page()
   exec "bdelete " . bufnr
   redraw
   echom  "Deleted " . file
+  call s:load_most_recently_modified_page()
 endfunc
 
 func! s:prompt_for_wiki_word(prompt, default)
@@ -409,7 +415,6 @@ func! s:global_mappings()
   noremap <leader>m :call <SID>list_pages()<CR>
   noremap  <leader>M :call <SID>list_pages_linking_in()<CR>
   noremap <silent> <leader>o :call <SID>open_href()<cr> 
-  command! -buffer SWDelete :call s:delete_page()
 endfunc 
 
 " this checks if the buffer is a SoyWiki file (from firstline)
@@ -426,6 +431,8 @@ func! s:prep_buffer()
     noremap  <leader>c :call <SID>create_page()<CR>
     command! -buffer SWRename :call s:rename_page()
     noremap <buffer> <leader>r :call <SID>rename_page()<CR>
+    command! -buffer SWDelete :call s:delete_page()
+    noremap <buffer> <leader># :call <SID>delete_page()<CR>
     command! -buffer SWLog :call s:show_revision_history(0)
     noremap <buffer> <leader>l :call <SID>show_revision_history(0)<CR>
     command! -buffer SWLogStat :call s:show_revision_history(1)
@@ -472,10 +479,7 @@ if !exists("g:SoyWiki#browser_command")
 endif
 
 if len(bufname("%")) == 0
-  " load most recent page
-  let pages = split(system(s:ls_command), "\n")
-  let start_page = len(pages) > 0 ? get(pages, 0) : "HomePage" 
-  call s:load_page(start_page, 0)
+  call s:load_most_recently_modified_page()
 else
   call s:load_page(bufname("%"), 0)
 endif
