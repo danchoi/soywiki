@@ -83,7 +83,10 @@ There are many syntaxes for linking wiki pages together. But CamelCase
 was the original, and it is still the best. It is the minimalist way of
 linking wiki pages together -- "with no additional markup whatsoever,"
 as [Ward Cunningham put it][ward] -- and it encourages you to create
-wiki pages with more descriptive names.  
+wiki pages with more descriptive names.  CamelCase wikilinks are also
+favorable for storing the content in plain text files, since the page
+names can map directly to Unix file names without excruciating
+character escaping.
 
 [ward]:http://c2.com/cgi/wiki?WikiCase
 
