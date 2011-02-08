@@ -1,7 +1,8 @@
 #!/usr/bin/env ruby
+require 'soywiki'
 
-# takes any wiki link that stands alone on a line and expands it
-#
+# Takes any wiki link that stands alone on a line and expands it
+
 WIKI_LINK_PATTERN =  /^\s*(([a-z]\w+\.)?[A-Z][a-z]+[A-Z]\w*|\.[A-Z][a-z]+[A-Z]\w*)\s*$/
 
 PROCESSED_FILES = []
@@ -14,15 +15,15 @@ def unfurl(file)
     if line =~ WIKI_LINK_PATTERN 
       link = line.strip
       if link =~ /^\./ # short link in namespace (relative link)
-        namespace = file.split(".")[0]
+        namespace = file.namespace
         link = [namespace, link].join
       end
-      if File.file?(link) && !PROCESSED_FILES.include?(link) 
-        unfurl link # recursive
+      if File.file?(link.to_file_path) && !PROCESSED_FILES.include?(link) 
+        unfurl link.to_file_path # recursive
       elsif PROCESSED_FILES.include?(link) 
-        puts "#{link} [already expanded]"
+        puts "#{link} [[already expanded]]"
       else
-        puts "#{link} [no file found]"
+        puts "#{link} [[no file found]]"
       end
     else
       puts line
