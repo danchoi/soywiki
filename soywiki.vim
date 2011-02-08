@@ -3,6 +3,7 @@
 " License: MIT License (c) 2011 Daniel Choi
 
 let s:wiki_link_pattern =  '\C\<\([a-z]\+\.\)\?[A-Z][a-z]\+[A-Z]\w*\>\|\.[A-Z][a-z]\+[A-Z]\w*\>'
+let s:rename_links_command = 'ruby bin/soywiki-rename'
 
 func! s:trimString(string)
   let string = substitute(a:string, '\s\+$', '', '')
@@ -132,12 +133,8 @@ func! s:rename_page()
   call system("git mv " . l:file . " " .  newname)
   exec "e ". newname
   " replace all existing inbound links  
-  let command = "grep -lF " . l:file . " * | xargs sed -e 's/" . l:file . "/" . newname ."/g' -i.bk"
-  call system(command)
-  call system("rm *.bk")
-  let command = "grep -lF '" . s:title_without_namespace(l:file) . "' * | xargs sed -e 's/\\" . s:title_without_namespace(l:file) . "/" . s:title_without_namespace(newname) ."/g' -i.bk"
-  call system(command)
-  call system("rm *.bk")
+  " TODO replace this with a ruby script
+  call system(s:rename_links_command)
   call system("git commit -am 'rename wiki page'")
   e!
 endfunc
@@ -304,7 +301,7 @@ endfunction
 " in different namespaces
 
 func! s:list_pages_linking_in()
-  let command = "grep -lF '" . s:title_without_namespace(s:page_title()) . "' * | grep -vF '" . bufname('%') . "'"
+  let command = "grep -l '\<" . s:title_without_namespace(s:page_title()) . "\>' * | grep -vF '" . bufname('%') . "'"
   let s:pages_linking_in  = split(system(command), "\n")
   if len(s:pages_linking_in) == 1
     let file =  get(s:pages_linking_in, 0)
@@ -313,7 +310,7 @@ func! s:list_pages_linking_in()
   elseif len(s:pages_linking_in) == 0
     echom "No pages link to " . s:page_title() . "!"
   else
-    call s:page_list_window("CompletePagesLinkingIn_InSelectionWindow", "Pages that link to " . s:page_title() )
+    call s:page_list_window("CompletePagesLinkingIn_InSelectionWindow", "Pages that link to " . s:page_title() . ": ")
   endif
 endfunc
 
