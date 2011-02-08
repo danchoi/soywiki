@@ -3,39 +3,19 @@ require 'soywiki'
 
 oldname, newname = *ARGV
 
-target_files = `grep -lF '#{oldname}' *`.strip.split(/\n/)
+target_files = `grep -rlF '#{oldname.to_page_title}' *`.strip.split(/\n/)
 target_files.each do |file|
   text = File.read(file)
-  text.gsub!(/\b#{oldname}\b/, newname)
+  text.gsub!(/\b#{oldname.to_page_title}\b/, newname.to_page_title)
   File.open(file, 'w') {|f| f.puts text}
 end
 
-if oldname.namespace && !newname.namespace
-  # we're going from a namespaced name to a top-level name
-  old_namespace = oldname.namespace
-  target_files = `grep -lF '\<#{oldname.namespace}\>' *`.strip.split(/\n/)
-  target_files.each do |file|
-    text = File.read(file)
-    text.gsub!(/\b#{oldname.namespace}\b/, newname)
-    File.open(file, 'w') {|f| f.puts text}
-  end
+if oldname.namespaced? && !newname.namespaced?
   # Change all the .Wikiwords in the newname file to fully namespaced
   # links with namespace of newname.downcase
   if File.exist?(newname.to_file_path)
     text = File.read(newname.to_file_path)
     text.gsub!(/([\A\s\n\b])\.([A-Z][a-z]+[A-Z]\w*)/, '\1' + newname.downcase + '.\2')
     File.open(newname.to_file_path, 'w') {|f| f.puts text}
-  end
-elsif !oldname.namespace && newname.namespace
-  # We're going from a top-level name to a namespaced one; no action needed
-elsif !oldname.namespace && !newname.namespace
-  # No action needed
-elsif oldname.namespace && newname.namespace
-  target_files = `grep -lF '#{oldname.namespace}' *`.strip.split(/\n/)
-  # puts target_files.inspect
-  target_files.each do |file|
-    text = File.read(file)
-    text.gsub!(/\b#{oldname.namespace}\b/, newname.namespace)
-    File.open(file, 'w') {|f| f.puts text}
   end
 end

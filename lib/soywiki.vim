@@ -48,11 +48,11 @@ func! s:is_wiki_page()
 endfunc
 
 func! s:page_title2file(page)
-  return substitute(a:page, '\.', '/', '')
+  return substitute(a:page, '\.', '/', 'g')
 endfunc
 
 func! s:filename2pagetitle(page)
-  return substitute(a:page, '/', '.', '')
+  return substitute(a:page, '/', '.', 'g')
 endfunc
 
 func! s:list_pages()
@@ -149,30 +149,30 @@ func! s:prompt_for_wiki_word(prompt, default)
 endfunc
 
 func! s:rename_page()
-  let file = bufname('%')
-  let newname = s:prompt_for_wiki_word("Rename file: ", l:file)
-  if (filereadable(newname)) 
-    exe "echom '" . newname . " already exists!'"
+  let oldfile = bufname('%')
+  let newfile = s:page_title2file( s:prompt_for_wiki_word("Rename oldfile: ", l:oldfile) )
+  if (filereadable(newfile)) 
+    exe "echom '" . newfile . " already exists!'"
     return
   endif
-  call system("git mv " . l:file . " " .  newname)
-  exec "e ". newname
+  call system("git mv " . l:oldfile . " " .  newfile)
+  exec "e ". newfile
   " replace all existing inbound links  
   " TODO replace this with a ruby script
-  call system(s:rename_links_command . file . " " . newname)
+  call system(s:rename_links_command . oldfile . " " . newfile)
   call system("git commit -am 'rename wiki page'")
   e!
 endfunc
 
 func! s:create_page()
   let title = s:prompt_for_wiki_word("New page title: ", "") 
-  let newname = s:page_title2file( title )
-  if (filereadable(newname)) 
-    exe "echom '" . newname . " already exists!'"
+  let newfile = s:page_title2file(title)
+  if (filereadable(newfile)) 
+    exe "echom '" . newfile . " already exists!'"
     return
   endif
-  call writefile([s:filename2pagetitle(title), '', ''], newname)
-  exec "e ". newname
+  call writefile([s:filename2pagetitle(title), '', ''], newfile)
+  exec "e ". newfile
 endfunc
 
 func! s:save_revision()

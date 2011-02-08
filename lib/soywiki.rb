@@ -1,8 +1,10 @@
 
 class String
   def is_namespaced?
-    self.split(".").size == 2
+    self.split(/\.|\//).size == 2
   end
+
+  alias :namespaced? :is_namespaced?
 
   # TODO change this to a Windows compatible approach
   def to_file_path
