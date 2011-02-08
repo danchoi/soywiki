@@ -190,7 +190,7 @@ func! s:show_revision_history(stat)
 endfunc
 
 func! s:show_blame()
-  exec ":! git blame --date relative " . bufname('%')
+  exec ":! git blame --date=relative " . bufname('%')
 endfunc
 
 

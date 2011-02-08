@@ -16,6 +16,7 @@ class String
   end
 
   def namespace
+    return nil unless self.namespaced?
     self.to_page_title.split('.')[0]
   end
 end
