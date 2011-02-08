@@ -76,15 +76,19 @@ write a program that will bundle up all the relevant wiki pages together
 and convert them into a public-facing wiki website. SoyWiki helps you
 deal without distractions with pure content and evolve it.
 
-Finally, why CamelCase (a.k.a. the WikiCase link pattern)? There are
-many syntaxes for linking wiki pages together. But CamelCase was the
-original, and it is still the best. It is the minimalist way of linking
-wiki pages together -- "with no additional markup whatsoever," as [Ward
-Cunningham put it][ward] -- and it encourages you to create wiki pages with
-more descriptive names.  
+Why does SoyWiki opt for CamelCase (a.k.a. the WikiCase link pattern)?
+There are many syntaxes for linking wiki pages together. But CamelCase
+was the original, and it is still the best. It is the minimalist way of
+linking wiki pages together -- "with no additional markup whatsoever,"
+as [Ward Cunningham put it][ward] -- and it encourages you to create
+wiki pages with more descriptive names.  
 
 [ward]:http://c2.com/cgi/wiki?WikiCase
 
+Why is SoyWiki called SoyWiki? I enjoy soy ice cream, soy milk, and
+tofu. I associate the word "soy" with food that is good and healthy
+(soy sauce is the only exception I can think of). And "SoyWiki" hasn't
+been used yet to name a wiki engine.
 
 
 ## Prerequisites
