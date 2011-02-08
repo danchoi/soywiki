@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+
+# takes any wiki link that stands alone on a line and expands it
+#
+wiki_link_pattern =  /^\s*(([a-z]+\.)?[A-Z][a-z]+[A-Z]\w*|\.[A-Z][a-z]+[A-Z]\w*)\s*$/
+
+ARGV.each do |file|
+  File.open(file, 'r').each do |line|
+    if line =~ wiki_link_pattern 
+      link = line.strip
+      if link =~ /^\./ # short link in namespace (relative link)
+        namespace = file.split(".")[0]
+        link = [namespace, link].join
+      end
+      if File.file?(link)
+        File.read(link)
+      else
+        link
+      end
+    else
+      puts line
+    end
+  end
+end
+
