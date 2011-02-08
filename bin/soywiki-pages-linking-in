@@ -1,0 +1,29 @@
+#!/usr/bin/env ruby
+# encoding: utf-8
+
+class String
+  def is_namespaced?
+    self.split(".").size == 2
+  end
+end
+
+def inbound_links_to?(file, page_title)
+  return false unless File.file?(file)
+  return false if (file =~ /(\.swo|\.swp)$/ || file =~ /^\./)
+  body =   File.read(file)
+  body =~ /[\A\s\n\b]#{page_title}\b/
+end
+
+target_page = ARGV.first
+
+if target_page.is_namespaced?
+  namespace, page = *target_page.split(".")
+  # find all files in this name space
+  Dir.glob("#{namespace}.*").select do |file|
+    inbound_links_to?(file, target_page) || inbound_links_to?(file, ".#{page}")
+  end.each {|file| puts file}
+else
+  Dir.glob("*").select do |file|
+    inbound_links_to?(file, target_page)
+  end.each {|file| puts file}
+end

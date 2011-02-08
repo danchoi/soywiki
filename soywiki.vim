@@ -3,8 +3,8 @@
 " License: MIT License (c) 2011 Daniel Choi
 
 let s:wiki_link_pattern =  '\C\<\([a-z]\+\.\)\?[A-Z][a-z]\+[A-Z]\w*\>\|\.[A-Z][a-z]\+[A-Z]\w*\>'
-let s:rename_links_command = 'ruby bin/soywiki-rename'
-
+let s:rename_links_command = 'soywiki-rename '
+let s:find_pages_linking_in_command = 'soywiki-pages-linking-in '
 func! s:trimString(string)
   let string = substitute(a:string, '\s\+$', '', '')
   return substitute(string, '^\s\+', '', '')
@@ -134,7 +134,7 @@ func! s:rename_page()
   exec "e ". newname
   " replace all existing inbound links  
   " TODO replace this with a ruby script
-  call system(s:rename_links_command)
+  call system(s:rename_links_command . file . " " . newname)
   call system("git commit -am 'rename wiki page'")
   e!
 endfunc
@@ -296,13 +296,11 @@ endfunction
 "------------------------------------------------------------------------
 " PAGES LINKING IN 
 "
-
 " this logic could be more precise, in cases where pages have same name
 " in different namespaces
 
 func! s:list_pages_linking_in()
-  let command = "grep -l '\<" . s:title_without_namespace(s:page_title()) . "\>' * | grep -vF '" . bufname('%') . "'"
-  let s:pages_linking_in  = split(system(command), "\n")
+  let s:pages_linking_in  = split(system(s:find_pages_linking_in_command . s:page_title()), "\n")
   if len(s:pages_linking_in) == 1
     let file =  get(s:pages_linking_in, 0)
     write

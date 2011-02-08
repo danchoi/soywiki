@@ -34,7 +34,7 @@ if old_short && !new_short
     text = File.read(newname)
     #text.gsub!(relative_wiki_word, "#{newname.downcase}.#{$1}")
     # ".Pear".gsub!(/\A\.([A-Z][a-z]+[A-Z]\w*)/, "TEST.#{$1}")
-    text.gsub!(/([\A\s\n\n])\.([A-Z][a-z]+[A-Z]\w*)/, '\1' + newname.downcase + '.\2')
+    text.gsub!(/([\A\s\n\b])\.([A-Z][a-z]+[A-Z]\w*)/, '\1' + newname.downcase + '.\2')
     File.open(newname, 'w') {|f| f.puts text}
   end
 elsif !old_short && new_short
