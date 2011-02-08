@@ -29,23 +29,18 @@ or nothing.
 
 ## Philosophy
 
-But why Vim? And why CamelCase WikiWords? To answer these questions, we
-need to go back to wiki fundamentals.
-
-What's a wiki? In a gist, it's a respository of useful wisdom and
-information should be easy and efficient to navigate, edit, and
-reorganize.  
-
-But what is easy for the beginner is often not efficient for the
-proficient user.  This is especially so when wikis force everyone to do
-everything through a web-browser interface.  Web browser interfaces are
-not terrible.  But the difference between using a web browser interface
-to edit and navigate textual content and using a real text editor in a
+What is easy for the beginner is often not efficient for the proficient
+user.  This is especially so when wikis force everyone to do everything
+through a web-browser interface.  Web browser interfaces are not
+terrible.  But the difference between using a web browser interface to
+edit and navigate textual content and using a real text editor in a
 full-fledged Unix environment is like the difference between crawling
 and doing gymnastics.
 
-By building on Vim's existing strengths, SoyWiki makes its possible to
-consult and remold wiki content at the speed of thought.
+By building on Vim's existing strengths as a text editor and as a
+citizen of the Unix environment, SoyWiki makes it possible to create,
+consult, and remold wiki content at the speeds faster than the speed of
+thought.
 
 
 
