@@ -6,4 +6,4 @@ rescue LoadError
   require 'soywiki'
 end
 
-
+Soywiki.run

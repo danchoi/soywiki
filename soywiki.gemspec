@@ -1,9 +1,10 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
 
+require 'soywiki'
 Gem::Specification.new do |s|
   s.name        = "soywiki"
-  s.version     = "0.0.1"
+  s.version     = Soywiki::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Daniel Choi"]
   s.email       = ["dhchoi@gmail.com"]

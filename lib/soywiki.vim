@@ -430,13 +430,8 @@ endfunc
 
 call s:global_mappings()
 
-autocmd  WinEnter * call s:highlight_wikiwords() 
+autocmd  BufReadPost,BufNewFile,WinEnter * call s:highlight_wikiwords() 
 autocmd  BufEnter * call s:prep_buffer() 
-
-" load most recent page
-let pages = split(system("ls -t" ), "\n")
-let start_page = len(pages) > 0 ? get(pages, 0) : "HomePage" 
-call s:load_page(start_page, 0)
 
 if (!isdirectory(".git"))
   call system("git init")
@@ -455,3 +450,11 @@ if !exists("g:SoyWiki#browser_command")
   endif
 endif
 
+if len(bufname("%")) == 0
+  " load most recent page
+  let pages = split(system("ls -t" ), "\n")
+  let start_page = len(pages) > 0 ? get(pages, 0) : "HomePage" 
+  call s:load_page(start_page, 0)
+else
+  call s:load_page(bufname("%"), 0)
+endif
