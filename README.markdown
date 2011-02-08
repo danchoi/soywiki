@@ -17,32 +17,51 @@ overview of its characteristics and features:
 * outliner-like capability with expand-command 
 * operates on all POSIX systems (e.g. OS X, Linux, FreeBSD)
 
-SoyWiki is editor-centric. More than that, it's Vim-centric. The current
-version of SoyWiki expects you to be fairly good at using Vim. More than
-80 percent of the SoyWiki codebase implements the VimScript interface
-layer.
+The current version of SoyWiki expects you to be fairly good at using
+Vim. More than 80 percent of the SoyWiki codebase implements the
+VimScript interface layer.
 
-While it forces you to learn Vim (which is a good thing to learn in any
-case), SoyWiki requires you to learn only a tiny, nearly non-existent
-markup language.  To make a piece of text work with SoyWiki, it just
-needs to use CamelCase WikiWords.  Beyond that, you can mark up your
-text any way you want, using Markdown, Texttile, AsciiDoc, or nothing.
+On the other hand, SoyWiki requires you to learn only a tiny, nearly
+non-existent markup language.  To make a piece of text work with
+SoyWiki, it just needs to use CamelCase WikiWords.  Beyond that, you can
+mark up your text any way you want, using Markdown, Texttile, AsciiDoc,
+or nothing.
 
-But why Vim? And why CamelCase WikiWords? To answer these two questions
-is to set forth SoyWiki's philosophy.
+## Philosophy
 
-What is a wiki? In a gist, it's a respository of useful wisdom and
-information should be easy and efficient to (1) navigate, (2) edit, and
-(3) reorganize.  
+But why Vim? And why CamelCase WikiWords? To answer these questions, we
+need to go back to wiki fundamentals.
 
-Sounds simple, but what is easy for the beginner is often not efficient
-for the proficient user. In fact it can feel downright backward and
-barbaric.
+What's a wiki? In a gist, it's a respository of useful wisdom and
+information should be easy and efficient to navigate, edit, and
+reorganize.  
+
+But what is easy for the beginner is often not efficient for the
+proficient user.  This is especially so when wikis force everyone to do
+everything through a web-browser interface.  Web browser interfaces are
+not terrible.  But the difference between using a web browser interface
+to edit and navigate textual content and using a real text editor in a
+full-fledged Unix environment is like the difference between crawling
+and doing gymnastics.
+
+By building on Vim's existing strengths, SoyWiki make its possible to
+navigate, edit, and reorganize wiki content at speeds that leave
+web-based wikis munching dust. The main goal of SoyWiki is to make it
+possible to consult and mold wiki content at the speed of thought.
 
 
-Many wiki platforms compromise (1) (2) and (3) because they feature a
-web-browser interface.  And they feature a web browser interface because
-they want to make it as easy as possible
+
+In fact it can feel downright backward.  "Backward" is
+exactly what Vim users are muttering to themselves whenever they are
+forced to use a text box on a web page to edit text.
+
+
+In order to let untrusted, fallible people edit the wiki, wikis have
+generally added audit trails, a.k.a.  page revision histories, along
+with the ability to revert pages to states prior to any act of vandalism
+or bad judgment. This points to the fourth major characteristic of
+wikis, which that (4) they are are versioned.
+
 
 
 
