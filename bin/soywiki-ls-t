@@ -6,5 +6,5 @@ xs = Dir.glob(File.join('**', '*')).select {|x|
     x.gsub('/', '.') =~ Soywiki::WIKI_WORD
 }.sort_by {|x|
   File.stat(x).mtime
-}.reverse
+}.reverse.map {|x| x.to_page_title}
 puts xs.join("\n")
