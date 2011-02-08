@@ -53,8 +53,10 @@ that allows you to use wiki pages in a fashion essentially similar to
 "expanded-view" that bundles together several wiki pages into a single
 long-form document.  SoyWiki makes it easy to take full advantage of a
 large monitor and Vim's split windows, so you can have the research
-material you've collected in SoyWik open in one or more windows and the
-essay or paper you're drafting open in another. 
+material you've collected in SoyWik open in one or more windows, the
+essay or paper you're drafting open in another, and all the 
+power of Vim's yank, put, and mark commands to shuttle bits of text
+between them.
 
 Because SoyWiki's content is stored in plain text files, you can
 directly process, filter, grep, copy, and move text in and out of your
