@@ -225,6 +225,7 @@ function! s:page_list_window(complete_function, prompt)
   inoremap <silent> <buffer> <cr> <Esc>:call <SID>select_page()<CR> 
   inoremap <buffer> <Tab> <Esc>:call <SID>reduce_matches()<cr>
   noremap <buffer> q <Esc>:close<cr>
+  inoremap <buffer> <Esc> <Esc>:close<cr>
   exec "setlocal completefunc=" . a:complete_function
   " c-p clears the line
   call setline(1, a:prompt)
