@@ -13,7 +13,7 @@ overview of its characteristics and features:
 * namespaced wiki words
 * autocompletion of wiki words
 * automated global renaming of wiki words
-* syntax colored WikiWords
+* syntax colored wiki words
 * outliner-like capability with expand-command 
 * operates on all POSIX systems (e.g. OS X, Linux, FreeBSD)
 
