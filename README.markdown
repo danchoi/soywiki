@@ -37,30 +37,34 @@ edit and navigate textual content and using a real text editor in a
 full-fledged Unix environment is like the difference between crawling
 and doing gymnastics.
 
-By building on Vim's existing strengths as a text editor and as a Unix
-tool, SoyWiki makes it possible to create, consult, and remold wiki
-content at the speeds faster than the speed of thought. This is
+By building on Vim's existing strengths as a text editor and interface
+to the Unix operating system, SoyWiki makes it possible to create,
+consult, and remold wiki content at the speed of thought. This is
 SoyWiki's primary mission.
 
+SoyWiki excels as a personal wiki. It is very good for tracking
+projects, contacts, ideas, and collecting research. 
+
+SoyWiki serves as a writing tool as well. It has an "expand-command"
+that allows you to use wiki pages in a fashion essentially similar to
+(and some might say more powerful than) an outline and generate an
+"expanded-view" that bundles together several wiki pages into a single
+long-form document.  SoyWiki makes it easy to take full advantage of a
+large monitor and Vim's split windows, so you can have the research
+material you've collected in SoyWik open in one or more windows and the
+essay or paper you're drafting open in another. 
+
+Because SoyWiki's content is stored in plain text files, you can
+directly process, munge, copy, and move text in and out of your wiki
+using any combination of Unix tools.
 
 
-In fact it can feel downright backward.  "Backward" is
-exactly what Vim users are muttering to themselves whenever they are
-forced to use a text box on a web page to edit text.
 
+but collaborative 
 
-In order to let untrusted, fallible people edit the wiki, wikis have
-generally added audit trails, a.k.a.  page revision histories, along
-with the ability to revert pages to states prior to any act of vandalism
-or bad judgment. This points to the fourth major characteristic of
-wikis, which that (4) they are are versioned.
+there are plans to roll out a
+web browser interface to 
 
-
-
-
-
-Its first priority is to make the process of creating, editing, and
-refactoring wiki content as efficient and streamlined as possible.
 
 It strives to be an unobtrusive as
 possible requires WikiWords to be CamelCase 
