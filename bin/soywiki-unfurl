@@ -2,24 +2,35 @@
 
 # takes any wiki link that stands alone on a line and expands it
 #
-wiki_link_pattern =  /^\s*(([a-z]+\.)?[A-Z][a-z]+[A-Z]\w*|\.[A-Z][a-z]+[A-Z]\w*)\s*$/
+WIKI_LINK_PATTERN =  /^\s*(([a-z]+\.)?[A-Z][a-z]+[A-Z]\w*|\.[A-Z][a-z]+[A-Z]\w*)\s*$/
 
-ARGV.each do |file|
-  File.open(file, 'r').each do |line|
-    if line =~ wiki_link_pattern 
+PROCESSED_FILES = []
+def unfurl(file)
+  PROCESSED_FILES << file
+  lines = File.readlines(file)
+  lines.shift 2
+  lines = lines.join.strip.split("\n")
+  lines.each do |line|
+    if line =~ WIKI_LINK_PATTERN 
       link = line.strip
       if link =~ /^\./ # short link in namespace (relative link)
         namespace = file.split(".")[0]
         link = [namespace, link].join
       end
-      if File.file?(link)
-        File.read(link)
+      if File.file?(link) && !PROCESSED_FILES.include?(link) 
+        unfurl link # recursive
+      elsif PROCESSED_FILES.include?(link) 
+        puts "#{link} [already expanded]"
       else
-        link
+        puts "#{link} [no file found]"
       end
     else
       puts line
     end
   end
+end
+
+ARGV.each do |file|
+  unfurl(file)
 end
 

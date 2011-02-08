@@ -359,9 +359,12 @@ endfun
 " expanded (recursively). This is not a wiki buffer but a text buffer
 
 func! s:unfurl()
-  new PrintBuffer
   let res = system("soywiki-unfurl " . bufname('%'))
+  vertical botright new 
+  setlocal buftype=nofile "just for viewing; user can write
   put =res
+  1delete
+  normal 1G
 endfunc
 
 "------------------------------------------------------------------------
@@ -425,9 +428,8 @@ autocmd  WinEnter * call s:highlight_wikiwords()
 autocmd  BufEnter * call s:prep_buffer() 
 
 " load most recent page
-call s:get_page_list()
-let start_page = get(s:page_list, 0)
-let start_page = len(s:page_list) > 0 ? start_page : "HomePage" 
+let pages = split(system("ls -t" ), "\n")
+let start_page = len(pages) > 0 ? get(pages, 0) : "HomePage" 
 call s:load_page(start_page, 0)
 
 if (!isdirectory(".git"))
