@@ -486,4 +486,4 @@ endif
 
 call s:get_page_list()
 
-
+let mapleader = ','
