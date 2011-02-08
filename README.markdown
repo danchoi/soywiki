@@ -76,10 +76,10 @@ SoyWiki opt for CamelCase (a.k.a. the WikiCase link pattern)? Besides
 being the original, CamelCase is the most elegantly minimalist approach
 to linking wiki pages together -- "with no additional markup
 whatsoever," as [Ward Cunningham put it][ward].  It encourages you to
-create wiki pages with descriptive names.  CamelCase wiki-links are also
-better when storing content in plain text files because the page names
-can then map directly to Unix file names without any awkward character
-escaping.
+create wiki pages with succinctly descriptive names.  CamelCase
+wiki-links are also better when storing content in plain text files
+because the page names can then map directly to Unix file names without
+any awkward character escaping.
 
 [ward]:http://c2.com/cgi/wiki?WikiCase
 
