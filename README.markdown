@@ -4,14 +4,43 @@ SoyWiki is fast, lightweight, Vim-centric wiki application. A quick
 overview of its characteristics and features:
 
 * flat text files
+* maximum data portability
+* high interoperability with Unix tools
+* Vim text editing power
+* super-efficient modes of wiki traversal 
 * Git for versioning, distributed workflows, and blaming
 * CamelCase wiki words
 * namespaced wiki words
 * autocompletion of wiki words
-* super-efficient modes of traversal
 * automated global renaming of wiki words
 * syntax colored WikiWords
-* expand-command turns a wiki page into an outline
+* outliner-like capability with expand-command 
+* operates on all POSIX systems (e.g. OS X, Linux, FreeBSD)
+
+SoyWiki is editor-centric. More than that, it's Vim-centric. The current
+version of SoyWiki expects you to be fairly good at using Vim. More than
+80 percent of SoyWiki codebase deals implements the VimScript interface
+layer.
+
+On the other hand, there is nothing Vim-specific about the way SoyWiki
+stores its content, which are little more than regular flat text files.
+To make a text file work with SoyWiki, it needs a filename that adheres
+to a simple SoyWiki convention, and it needs its WikiWords to use
+SoyWiki's particular flavor of WikiWord CamelCase. That's it. Beyond
+that, you can mark up your text any way you want, using Markdown,
+Textfile, AsciiDoc, or nothing.
+
+
+
+
+
+Its first priority is to make the process of creating, editing, and
+refactoring wiki content as efficient and streamlined as possible.
+
+It strives to be an unobtrusive as
+possible requires WikiWords to be CamelCase 
+
+
 
 ## Prerequisites
 
@@ -21,6 +50,8 @@ overview of its characteristics and features:
 * a recent version of git (at least 1.7.0.4)
 
 The current version of SoyWiki assumes a Unix environment. 
+
+
 
 ## Installation
 
