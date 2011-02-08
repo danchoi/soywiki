@@ -70,23 +70,22 @@ fashion. SoyWiki provides a few convenient key mappings to view the
 revision history of a wiki page and to see a "git-blame" view of who
 wrote each line when.
 
-Will there even be a web browser interface to SoyWiki? Maybe. But the
-main focus on SoyWiki is not on publishing a pretty website but on
-making it easy to organize your thoughts and your knowledge.  Still, if
-you want to publish any of the content in a SoyWiki wiki, it's easy to
-write a program that will bundle up all the relevant wiki pages together
-and convert them into a public-facing wiki website. SoyWiki helps you
-deal without distractions with pure content and evolve it.
+Will there ever be a web browser interface to SoyWiki? Maybe. But the
+main focus on SoyWiki is not on publishing a pretty website. The main
+focus is to help you manage knowledge and evolve it with minimal
+annoyance and distraction.  (Still, if you want to publish any of the
+content in a SoyWiki wiki, it's easy to write a program that will bundle
+up all the relevant wiki pages together and convert them into a
+public-facing wiki website.)
 
 Why does SoyWiki opt for CamelCase (a.k.a. the WikiCase link pattern)?
-There are many syntaxes for linking wiki pages together. But CamelCase
-was the original, and it is still the best. It is the minimalist way of
+There are many syntaxes for linking wiki pages together. Besides being
+the original, CamelCase is the most elegantly minimalist approach to
 linking wiki pages together -- "with no additional markup whatsoever,"
-as [Ward Cunningham put it][ward] -- and it encourages you to create
-wiki pages with more descriptive names.  CamelCase wikilinks are also
-favorable for storing the content in plain text files, since the page
-names can map directly to Unix file names without excruciating
-character escaping.
+as [Ward Cunningham put it][ward].  It encourages you to create wiki
+pages with descriptive names.  CamelCase wikilinks are also favorable
+for storing the content in plain text files, since the page names can
+map directly to Unix file names without excruciating character escaping.
 
 [ward]:http://c2.com/cgi/wiki?WikiCase
 
