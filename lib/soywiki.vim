@@ -479,3 +479,6 @@ else
   call s:load_page(bufname("%"), 0)
 endif
 
+call s:get_page_list()
+
+
