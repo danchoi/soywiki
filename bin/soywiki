@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+begin
+  require 'soywiki'
+rescue LoadError
+  require 'rubygems'
+  require 'soywiki'
+end
+
+
