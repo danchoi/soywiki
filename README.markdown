@@ -1,20 +1,24 @@
 # SoyWiki
 
-soywiki is yet another wiki application.
+SoyWiki is fast, lightweight, text-centric wiki application that
+exploits the power of Vim and Git.
+
+
 
 ## Prerequisites
 
-* a recent version of Vim (soywiki is developed against Vim 7.2 and 7.3)
-* a recent version of Ruby (soywiki is developed using Ruby 1.9.2)
+* a recent version of Vim (SoyWiki is developed against Vim 7.2 and 7.3)
+* a recent version of Ruby (SoyWiki is developed using Ruby 1.9.2)
 * RubyGems (if Ruby version is older than 1.9)
+* a recent version of git (at least 1.7.0.4)
 
-The current version of soywiki assumes a Unix environment. 
+The current version of SoyWiki assumes a Unix environment. 
 
 ## Installation
 
     gem install soywiki
 
-Test your installation by typing `soywiki -h`. You should see soywiki's help.
+Test your installation by typing `soywiki -h`. You should see SoyWiki's help.
 
 On some systems you may run into a PATH issue, where the system can't find the
 `soywiki` command after installation. Please report this if you encounter this
@@ -22,20 +26,20 @@ problem, and mention what system you're using. You might want to try
 
     sudo gem install soywiki
 
-If you ever want to uninstall soywiki from your system, execute this command:
+If you ever want to uninstall SoyWiki from your system, execute this command:
 
     gem uninstall soywiki
 
-... and all traces of soywiki will removed.
+... and all traces of SoyWiki will removed.
 
-## Starting soywiki
+## Starting SoyWiki
 
 Once you've created the configuration file and (optionally) the contacts file,
-you can start soywiki with
+you can start SoyWiki with
 
     soywiki
 
-## Using soywiki
+## Using SoyWiki
 
 You can use `<C-j>` or `,j` from either split window to show the next message.
 You can use `<C-k>` or `,k` to show the previous message. 
@@ -48,7 +52,7 @@ When you're reading a message, `,o` opens the first hyperlink in the email
 By default, the vmail uses the command `open` or `gnome-open` to launch your
 web browser. In OS X, `open` opens URLs and HTML files in the default web
 browser.  `gnome-open` does the same in the Gnome Linux environment.  You can
-change the command soywiki uses to open a hyperlink by adding this to your
+change the command SoyWiki uses to open a hyperlink by adding this to your
 .vimrc:
 
     let g:SoyWiki#browser_command = "your browser command here"
