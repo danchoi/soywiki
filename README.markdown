@@ -27,7 +27,7 @@ SoyWiki, it just needs to use CamelCase WikiWords.  Beyond that, you can
 mark up your text any way you want, using Markdown, Texttile, AsciiDoc,
 or nothing.
 
-## Philosophy
+## Introduction
 
 What is easy for the beginner is often not efficient for the proficient
 user.  This is especially so when wikis force everyone to do everything
@@ -55,21 +55,30 @@ material you've collected in SoyWik open in one or more windows and the
 essay or paper you're drafting open in another. 
 
 Because SoyWiki's content is stored in plain text files, you can
-directly process, munge, copy, and move text in and out of your wiki
-using any combination of Unix tools.
+directly process, filter, grep, copy, and move text in and out of your
+wiki using any combination of Unix tools.
 
+SoyWiki delegates practically all of its revision-tracking and
+distributed collaboration features to Git.  SoyWiki automatically
+creates a git repository in your wiki directory and automatically
+commits all the edits you make to it.  You can sync a SoyWiki wiki
+between two computers using the standard git push and pull commands.
+Collaborators can also edit a common wiki this way, in peer to peer
+fashion. SoyWiki provides a few convenient key mappings to view the
+revision history of a wiki page and to see a "git-blame" view of who
+wrote each line when.
 
+Will there even be a web browser interface to SoyWiki? Maybe. But the
+main focus on SoyWiki is not on publishing a pretty website but on
+making it easy to organize your thoughts and your knowledge.  Still, if
+you want to publish any of the content in a SoyWiki wiki, it's easy to
+write a program that will bundle up all the relevant wiki pages together
+and convert them into a public-facing wiki website.
 
-but collaborative 
+Finally, why CamelCase? There are many syntaxes for linking wiki pages
+together. But CamelCase was the original, and it is still I think the
+best.
 
-there are plans to roll out a
-web browser interface to 
-
-
-It strives to be an unobtrusive as
-possible requires WikiWords to be CamelCase 
-
-[still editing]
 
 
 ## Prerequisites
