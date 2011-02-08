@@ -19,17 +19,30 @@ overview of its characteristics and features:
 
 SoyWiki is editor-centric. More than that, it's Vim-centric. The current
 version of SoyWiki expects you to be fairly good at using Vim. More than
-80 percent of SoyWiki codebase deals implements the VimScript interface
+80 percent of the SoyWiki codebase implements the VimScript interface
 layer.
 
-On the other hand, there is nothing Vim-specific about the way SoyWiki
-stores its content, which are little more than regular flat text files.
-To make a text file work with SoyWiki, it needs a filename that adheres
-to a simple SoyWiki convention, and it needs its WikiWords to use
-SoyWiki's particular flavor of WikiWord CamelCase. That's it. Beyond
-that, you can mark up your text any way you want, using Markdown,
-Textfile, AsciiDoc, or nothing.
+While it forces you to learn Vim (which is a good thing to learn in any
+case), SoyWiki requires you to learn only a tiny, nearly non-existent
+markup language.  To make a piece of text work with SoyWiki, it just
+needs to use CamelCase WikiWords.  Beyond that, you can mark up your
+text any way you want, using Markdown, Texttile, AsciiDoc, or nothing.
 
+But why Vim? And why CamelCase WikiWords? To answer these two questions
+is to set forth SoyWiki's philosophy.
+
+What is a wiki? In a gist, it's a respository of useful wisdom and
+information should be easy and efficient to (1) navigate, (2) edit, and
+(3) reorganize.  
+
+Sounds simple, but what is easy for the beginner is often not efficient
+for the proficient user. In fact it can feel downright primitive and
+barbaric.
+
+
+Many wiki platforms compromise (1) (2) and (3) because they feature a
+web-browser interface.  And they feature a web browser interface because
+they want to make it as easy as possible
 
 
 
@@ -40,6 +53,7 @@ refactoring wiki content as efficient and streamlined as possible.
 It strives to be an unobtrusive as
 possible requires WikiWords to be CamelCase 
 
+[still editing]
 
 
 ## Prerequisites
