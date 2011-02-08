@@ -36,7 +36,7 @@ information should be easy and efficient to (1) navigate, (2) edit, and
 (3) reorganize.  
 
 Sounds simple, but what is easy for the beginner is often not efficient
-for the proficient user. In fact it can feel downright primitive and
+for the proficient user. In fact it can feel downright backward and
 barbaric.
 
 
