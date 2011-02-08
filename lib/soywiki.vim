@@ -125,6 +125,12 @@ func! s:load_page(page, split)
     wincmd p 
     close
   endif
+  
+  if len(s:search_for_link) > 0 
+    call search('\<' . s:search_for_link . '\>')
+    let s:search_for_link = ''
+  endif
+
 endfunc
 
 func! s:delete_page()
@@ -323,14 +329,9 @@ function! s:select_page()
 	for item in s:matching_pages
 	  if (item == page)
       call s:load_page(page, 0)
-
       break
     end
 	endfor
-  echo s:search_for_link 
-  if len(s:search_for_link) > 0 
-    call search('\<' . s:search_for_link . '\>')
-  endif
 endfunction
 
 "------------------------------------------------------------------------
