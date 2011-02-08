@@ -44,10 +44,8 @@ to edit and navigate textual content and using a real text editor in a
 full-fledged Unix environment is like the difference between crawling
 and doing gymnastics.
 
-By building on Vim's existing strengths, SoyWiki make its possible to
-navigate, edit, and reorganize wiki content at speeds that leave
-web-based wikis munching dust. The main goal of SoyWiki is to make it
-possible to consult and mold wiki content at the speed of thought.
+By building on Vim's existing strengths, SoyWiki makes its possible to
+consult and remold wiki content at the speed of thought.
 
 
 
