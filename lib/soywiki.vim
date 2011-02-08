@@ -172,7 +172,7 @@ func! s:show_revision_history(stat)
 endfunc
 
 func! s:show_blame()
-  exec ":!git blame --date 'relative'" . bufname('%')
+  exec ":!git blame --date='relative'" . bufname('%')
 endfunc
 
 
@@ -406,7 +406,7 @@ func! s:prep_buffer()
     noremap  <leader>c :call <SID>create_page()<CR>
     command! -buffer SWDelete :call s:delete_page()
     command! -buffer SWRename :call s:rename_page()
-    noremap <buffer> <leader>r :call <SID>:rename_page()<CR>
+    noremap <buffer> <leader>r :call <SID>rename_page()<CR>
     command! -buffer SWLog :call s:show_revision_history(0)
     noremap <buffer> <leader>l :call <SID>show_revision_history(0)<CR>
     command! -buffer SWLogStat :call s:show_revision_history(1)
