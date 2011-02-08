@@ -106,7 +106,6 @@ yet to name a wiki engine.
 The current version of SoyWiki assumes a Unix environment. 
 
 
-
 ## Installation
 
     gem install soywiki
@@ -134,8 +133,8 @@ you can start SoyWiki with
 
 ## Using SoyWiki
 
-You can use `<C-j>` or `,j` from either split window to show the next message.
-You can use `<C-k>` or `,k` to show the previous message. 
+
+TO BE FINISHED
 
 
 ## Opening hyperlinks and HTML parts in your web browser
