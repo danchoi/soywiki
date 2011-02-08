@@ -10,43 +10,59 @@ target_files.each do |file|
   File.open(file, 'w') {|f| f.puts text}
 end
 
-
 # Three other cases to cover, involving namespaces:
-#
 #
 # Case 1: Oldname is namespaced, and Newname is in same namespace
 #
 # In the directory for OldName's namespace, change all referenecs to
 # .OldName to .NewName
 
-# Case 2: Oldname is namespaced, and Newname is in different namespace
-# 
-# In the directory for OldName's namespace, change all references to
-# .OldName to newnamespace.NewName.
-
-
-# Case 3: Oldname is namespaced, and Newname is top level
-# 
-# In the directory for OldName's namespace, change all references to
-# .OldName to TopLevelNewName
-
-
-
-
-if oldname.namespaced? && !newname.namespaced?
-  if !newname.namespaced?
-    # In the file that was renamed, change all the relative links (e.g.
-    # .MainPage) to fully namespaced links
-    if File.exist?(newname.to_file_path)
-      text = File.read(newname.to_file_path)
-      text.gsub!(/([\A\s\n\b])\.([A-Z][a-z]+[A-Z]\w*)/, '\1' + oldname.namespace + '.\2')
-      File.open(newname.to_file_path, 'w') {|f| f.puts text}
-    end
-  end
-  if newname.namespaced?
-    if newname.namespace == oldname.namespace
-    else
-      # change 
-    end
+if oldname.namespaced? && (oldname.namespace == newname.namespace)
+  target_files = `grep -rlF '#{oldname.to_page_title}' #{oldname.namespace}/*`.strip.split(/\n/)
+  target_files.each do |file|
+    text = File.read(file)
+    text.gsub!(/[\b\s\n]\.(#{oldname.short_page_title})\b/, "." + newname.short_page_title)
+    File.open(file, 'w') {|f| f.puts text}
   end
 end
+
+# newname can be absolutized or top level or relative
+def change_relative_inbound_links(oldname, newname)
+  target_files = `grep -rlF '#{oldname.to_page_title}' #{oldname.namespace}/*`.strip.split(/\n/)
+  target_files.each do |file|
+    text = File.read(file)
+    text.gsub!(/[\b\s\n]\.(#{oldname.short_page_title})\b/, "." + newname)
+    File.open(file, 'w') {|f| f.puts text}
+  end
+end
+
+def absolutize_relative_outbound_links(oldname, newname)
+  if File.exist?(newname.to_file_path)
+    text = File.read(newname.to_file_path)
+    text.gsub!(/([\A\s\n\b])\.([A-Z][a-z]+[A-Z]\w*)/, '\1' + oldname.namespace + '.\2')
+    File.open(newname.to_file_path, 'w') {|f| f.puts text}
+  end
+end
+
+
+# Case 2: Oldname is namespaced, and Newname is in different namespace
+if oldname.namespaced? && newname.namespaced? && (oldname.namespace != newname.namespace)
+  # In the directory for OldName's namespace, change all references to
+  # .OldName to newnamespace.NewName (i.e. NewName).
+  change_relative_inbound_links(oldname, newname)
+  # And in the renamed file, change all relative references to
+  # .PageName to oldnamespace.PageName
+  absolutize_relative_outbound_links(oldname, newname)
+end
+
+# Case 3: Oldname is namespaced, and Newname is top level
+if oldname.namespaced? && !newname.namespaced? 
+  # In the directory for OldName's namespace, change all references to
+  # .OldName to TopLevelNewName (i.e. NewName)
+  change_relative_inbound_links(oldname, newname)
+  # And in the renamed file, change all relative references to
+  # .PageName to oldnamespace.PageName
+  absolutize_relative_outbound_links(oldname, newname)
+end
+
+

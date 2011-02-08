@@ -15,6 +15,10 @@ class String
     self.gsub("/", ".")
   end
 
+  def short_page_title
+    self.to_page_title.split('.')[1]
+  end
+
   def namespace
     return nil unless self.namespaced?
     self.to_page_title.split('.')[0]
