@@ -344,11 +344,7 @@ func! s:list_pages_linking_in()
   let s:pages_linking_in  = split(system(s:find_pages_linking_in_command . s:page_title()), "\n")
   let s:search_for_link = s:title_without_namespace( s:page_title())
   if len(s:pages_linking_in) == 1
-    let file =  get(s:pages_linking_in, 0)
-    write
-    exec "e " . s:page_title2file(file)
-    " not perfectly targeted but OK for now
-    call search(s:search_for_link)
+    call s:load_page(get(s:pages_linking_in, 0), 0)
   elseif len(s:pages_linking_in) == 0
     echom "No pages link to " . s:page_title() . "!"
   else
