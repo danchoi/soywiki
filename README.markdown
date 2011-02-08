@@ -92,7 +92,7 @@ directly to Unix file names without any awkward character escaping.
 [ward]:http://c2.com/cgi/wiki?WikiCase
 
 What's with the name, SoyWiki? I enjoy soy ice cream, soy milk, and
-tofu. I associate the word "soy" with food that is light, good, and
+tofu. I associate the word "soy" with food that is light, enjoyable, and
 healthy (soy sauce is the only exception I can think of). And "SoyWiki"
 hasn't been used yet to name a wiki engine. So voila.
 
