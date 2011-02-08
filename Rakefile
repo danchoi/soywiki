@@ -5,21 +5,9 @@ require 'json'
 require 'rake'
 require 'rake/testtask'
 require 'bundler'
-require 'zenwiki'
+# require 'soywiki'
 
 Bundler::GemHelper.install_tasks
-
-desc "Save couchdb views in lib/couchviews.yml"
-task :create_views do
-  db = Zenwiki::DB
-  views = YAML::load File.read("lib/couchviews.yml")
-  begin
-    rev = db.get(views['_id'])['_rev']
-    puts db.save_doc(views.merge('_rev' => rev))
-  rescue RestClient::ResourceNotFound
-    puts db.save_doc(views)
-  end
-end
 
 desc "Start Sinatra webapp"
 task :sinatra do
