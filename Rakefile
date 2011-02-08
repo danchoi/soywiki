@@ -25,6 +25,7 @@ task :weblocal => :build_webpage do
   end
 end
 
+desc "build webpage"
 task :build_webpage do
   $LOAD_PATH.unshift 'website'
   require 'gen'
