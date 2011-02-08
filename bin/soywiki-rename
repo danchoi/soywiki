@@ -4,7 +4,7 @@ require 'soywiki'
 oldname, newname = *ARGV
 
 
-MEMO = ["Updating all inbound links..."]
+MEMO = ["Updating inbound and outbound links..."]
 
 def report(file, oldname, newname)
   MEMO <<  "  - In #{file}: #{oldname.to_page_title} -> #{newname.to_page_title}"
@@ -33,7 +33,7 @@ if oldname.namespaced? && (oldname.namespace == newname.namespace)
   target_files = `grep -rlF '#{oldname.short_page_title}' #{oldname.namespace}/*`.strip.split(/\n/)
   target_files.each do |file|
     text = File.read(file)
-    text.gsub!(/[\b\s\n]\.(#{oldname.short_page_title})\b/, "." + newname.short_page_title)
+    text.gsub!(/([\b\s\n]\.)(#{oldname.short_page_title})\b/, '\1' + newname.short_page_title)
     File.open(file, 'w') {|f| f.puts text}
     report file, oldname.short_page_title, newname.short_page_title
   end
