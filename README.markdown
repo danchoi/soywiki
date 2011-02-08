@@ -65,7 +65,7 @@ wrote each line when.
 
 Will there ever be a web browser interface to SoyWiki? Maybe. But the
 main focus on SoyWiki is not on publishing a pretty website. The main
-focus is to help you manage knowledge and evolve it with minimal
+focus is to help you organize knowledge and evolve it with minimal
 annoyance and distraction.  (Still, if you want to publish any of the
 content in a SoyWiki wiki, it's easy to write a program that will bundle
 up all the relevant wiki pages together and convert them into a
@@ -134,7 +134,7 @@ you can start SoyWiki with
 TO BE FINISHED
 
 
-On the other hand, SoyWiki requires you to learn only a tiny, nearly
+SoyWiki requires you to learn only a tiny, nearly
 non-existent markup language.  To make a piece of text work with
 SoyWiki, it just needs to use CamelCase WikiWords.  Beyond that, you can
 mark up your text any way you want, using Markdown, Texttile, AsciiDoc,
