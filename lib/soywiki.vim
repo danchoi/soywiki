@@ -355,6 +355,16 @@ function! CompletePagesLinkingIn_InSelectionWindow(findstart, base)
 endfun
 
 "------------------------------------------------------------------------
+" This opens a new buffer with all the lines with just WikiLinks on them
+" expanded (recursively). This is not a wiki buffer but a text buffer
+
+func! s:unfurl()
+  new PrintBuffer
+  let res = system("soywiki-unfurl " . bufname('%'))
+  put =res
+endfunc
+
+"------------------------------------------------------------------------
 
 func! s:open_href()
   let pattern = 'https\?:[^ >)\]]\+'
@@ -391,6 +401,7 @@ func! s:prep_buffer()
     noremap <buffer> <leader>l :call <SID>show_revision_history(0)<CR>
     command! -buffer SWLogStat :call s:show_revision_history(1)
     command! -buffer SWBlame :call s:show_blame()
+    noremap <buffer> <leader>x :call <SID>unfurl()<CR>
     set nu
     setlocal completefunc=CompletePage
     augroup <buffer>
