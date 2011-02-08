@@ -63,14 +63,14 @@ fashion. SoyWiki provides a few convenient key mappings to view the
 revision history of a wiki page and to see a "git-blame" view of who
 wrote each line when.
 
-Will there ever be a web browser interface to SoyWiki? Maybe. (If you're
-a software developer feel free to contribute.) But the main focus on
-SoyWiki is not publishing a public-facing website. The main focus is to
-help you organize knowledge and evolve it with minimal annoyance and
-distraction.  (Still, if you want to publish any of the content in a
-SoyWiki wiki, it's easy to write a program that will bundle up all the
-relevant wiki pages together and convert them into a public-facing wiki
-website.)
+Will there ever be a web browser interface to SoyWiki? Maybe. If you're
+a software developer feel free to contribute. But the main focus on
+SoyWiki at this stage is not on making it easy to publish and manage a
+public-facing wiki. The main focus right now is to help you organize
+knowledge and evolve it with minimal annoyance and distraction.  (Still,
+if you want to publish any of the content in a SoyWiki wiki, it's
+relatively easy to write a program that will bundle up all the relevant
+wiki pages together and convert them into public-facing webpages.)
 
 There are many syntaxes for linking wiki pages together. Why does
 SoyWiki opt for CamelCase (a.k.a. the WikiCase link pattern)? Besides
