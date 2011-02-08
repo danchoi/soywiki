@@ -83,16 +83,16 @@ There are many syntaxes for linking wiki pages together. Besides being
 the original, CamelCase is the most elegantly minimalist approach to
 linking wiki pages together -- "with no additional markup whatsoever,"
 as [Ward Cunningham put it][ward].  It encourages you to create wiki
-pages with descriptive names.  CamelCase wikilinks are also favorable
-for storing the content in plain text files, since the page names can
-map directly to Unix file names without excruciating character escaping.
+pages with descriptive names.  CamelCase wikilinks are also better when
+storing content in plain text files because the page names can then map
+directly to Unix file names without any awkward character escaping.
 
 [ward]:http://c2.com/cgi/wiki?WikiCase
 
-What's with the name? I enjoy soy ice cream, soy milk, and tofu. I
+What's with the name, SoyWiki? I enjoy soy ice cream, soy milk, and tofu. I
 associate the word "soy" with food that is good and healthy (soy sauce
 is the only exception I can think of). And "SoyWiki" hasn't been used
-yet to name a wiki engine.
+yet to name a wiki engine. So voila.
 
 
 ## Prerequisites
