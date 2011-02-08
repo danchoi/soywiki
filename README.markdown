@@ -43,7 +43,7 @@ that allows you to use wiki pages in a fashion essentially similar to
 (and some might say more powerful than) an outline and generate an
 "expanded-view" that bundles together several wiki pages into a single
 long-form document.  SoyWiki makes it easy to take full advantage of a
-large monitor and Vim's split windows, so you can have the research
+large monitor and Vim's split windows. You can have the research
 material you've collected in SoyWik open in one or more windows, the
 essay or paper you're drafting open in another, and all the 
 power of Vim's yank, put, and mark commands to shuttle bits of text
