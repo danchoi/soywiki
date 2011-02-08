@@ -1,3 +1,0 @@
-# SoyWiki
-
-readme goes here

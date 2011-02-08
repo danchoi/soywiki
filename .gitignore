@@ -7,3 +7,5 @@ pkg/
 .rvmrc
 notes.txt
 *buffer
+website/
+wiki/

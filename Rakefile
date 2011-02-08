@@ -5,13 +5,33 @@ require 'json'
 require 'rake'
 require 'rake/testtask'
 require 'bundler'
-# require 'soywiki'
+require 'soywiki'
 
 Bundler::GemHelper.install_tasks
 
-desc "Start Sinatra webapp"
-task :sinatra do
-# TODO
+desc "build and push website"
+task :web do
+  version = Soywiki::VERSION
+  Dir.chdir("website") do
+    puts "updating website"
+    puts `./run.sh #{Soywiki::VERSION}`
+  end
+end
+
+desc "build website locally"
+task :weblocal => :build_webpage do
+  Dir.chdir("website") do
+    `open soywiki.html`
+  end
+end
+
+task :build_webpage do
+  $LOAD_PATH.unshift 'website'
+  require 'gen'
+  Dir.chdir("website") do
+    html = Webpage.generate(Soywiki::VERSION)
+    File.open('soywiki.html', 'w') {|f| f.puts html}
+  end
 end
 
 desc "Run tests"
