@@ -37,9 +37,11 @@ edit and navigate textual content and using a real text editor in a
 full-fledged Unix environment is like the difference between crawling
 and doing gymnastics.
 
-By building on Vim's existing strengths as a text editor and interface
-to the Unix operating system, SoyWiki makes it possible to create,
-consult, and remold wiki content at the speed of thought. This is
+The text editing and wiki traversal facilities of SoyWiki, I think, far
+surpass that of your typical web-browser-based wiki.  By building on
+Vim's existing strengths as a text editor and interface to the Unix
+operating system, SoyWiki makes it possible to create, consult, and
+remold wiki content pretty much at the speed of thought. This is
 SoyWiki's primary mission.
 
 SoyWiki excels as a personal wiki. It is very good for tracking
@@ -85,10 +87,10 @@ wiki pages with more descriptive names.
 
 [ward]:http://c2.com/cgi/wiki?WikiCase
 
-Why is SoyWiki called SoyWiki? I enjoy soy ice cream, soy milk, and
-tofu. I associate the word "soy" with food that is good and healthy
-(soy sauce is the only exception I can think of). And "SoyWiki" hasn't
-been used yet to name a wiki engine.
+What's with the name? I enjoy soy ice cream, soy milk, and tofu. I
+associate the word "soy" with food that is good and healthy (soy sauce
+is the only exception I can think of). And "SoyWiki" hasn't been used
+yet to name a wiki engine.
 
 
 ## Prerequisites
