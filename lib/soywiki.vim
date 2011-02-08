@@ -251,6 +251,8 @@ func! s:reduce_matches()
 endfunc
 
 function! s:page_list_window(complete_function, prompt)
+  " remember the original window 
+  let s:return_to_winnr = winnr()
   topleft split page-list-buffer
   setlocal buftype=nofile
   setlocal noswapfile
@@ -328,6 +330,7 @@ endfun
 function! s:select_page()
   let page = s:trimString( get(split(getline(line('.')), ": "), 1) )
   close
+  exe s:return_to_winnr . "wincmd w"
   if (page == '0' || page == '') " no selection
     return
   end
