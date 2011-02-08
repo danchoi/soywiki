@@ -5,6 +5,9 @@
 let s:wiki_link_pattern =  '\C\<\([a-z]\+\.\)\?[A-Z][a-z]\+[A-Z]\w*\>\|\.[A-Z][a-z]\+[A-Z]\w*\>'
 let s:rename_links_command = 'soywiki-rename '
 let s:find_pages_linking_in_command = 'soywiki-pages-linking-in '
+let s:search_for_link = ""
+
+
 func! s:trimString(string)
   let string = substitute(a:string, '\s\+$', '', '')
   return substitute(string, '^\s\+', '', '')
@@ -37,6 +40,7 @@ func! s:save_page()
 endfunc
 
 func! s:list_pages()
+  let s:search_for_link = ""
   call s:get_page_list()
   call s:page_list_window("CompletePageInSelectionWindow", "Select page: ")
 endfunc
@@ -288,9 +292,14 @@ function! s:select_page()
 	for item in s:matching_pages
 	  if (item == page)
       call s:load_page(page, 0)
+
       break
     end
 	endfor
+  echo s:search_for_link 
+  if len(s:search_for_link) > 0 
+    call search('\<' . s:search_for_link . '\>')
+  endif
 endfunction
 
 "------------------------------------------------------------------------
@@ -305,9 +314,12 @@ func! s:list_pages_linking_in()
     let file =  get(s:pages_linking_in, 0)
     write
     exec "e " . file
+    " not perfectly targeted but OK for now
+    call search(s:title_without_namespace(l:file))
   elseif len(s:pages_linking_in) == 0
     echom "No pages link to " . s:page_title() . "!"
   else
+    let s:search_for_link = s:page_title()
     call s:page_list_window("CompletePagesLinkingIn_InSelectionWindow", "Pages that link to " . s:page_title() . ": ")
   endif
 endfunc
