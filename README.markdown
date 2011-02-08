@@ -1,9 +1,17 @@
 # SoyWiki
 
-SoyWiki is fast, lightweight, text-centric wiki application that
-exploits the power of Vim and Git.
+SoyWiki is fast, lightweight, Vim-centric wiki application. A quick
+overview of its characteristics and features:
 
-
+* flat text files
+* Git for versioning, distributed workflows, and blaming
+* CamelCase wiki words
+* namespaced wiki words
+* autocompletion of wiki words
+* super-efficient modes of traversal
+* automated global renaming of wiki words
+* syntax colored WikiWords
+* expand-command turns a wiki page into an outline
 
 ## Prerequisites
 
