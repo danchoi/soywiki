@@ -73,11 +73,17 @@ main focus on SoyWiki is not on publishing a pretty website but on
 making it easy to organize your thoughts and your knowledge.  Still, if
 you want to publish any of the content in a SoyWiki wiki, it's easy to
 write a program that will bundle up all the relevant wiki pages together
-and convert them into a public-facing wiki website.
+and convert them into a public-facing wiki website. SoyWiki helps you
+deal without distractions with pure content and evolve it.
 
-Finally, why CamelCase? There are many syntaxes for linking wiki pages
-together. But CamelCase was the original, and it is still I think the
-best.
+Finally, why CamelCase (a.k.a. the WikiCase link pattern)? There are
+many syntaxes for linking wiki pages together. But CamelCase was the
+original, and it is still the best. It is the minimalist way of linking
+wiki pages together -- "with no additional markup whatsoever," as [Ward
+Cunningham put it][ward] -- and it encourages you to create wiki pages with
+more descriptive names.  
+
+[ward]:http://c2.com/cgi/wiki?WikiCase
 
 
 
