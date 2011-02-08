@@ -127,7 +127,7 @@ func! s:load_page(page, split)
   endif
   
   if len(s:search_for_link) > 0 
-    call search('\<' . s:search_for_link . '\>')
+    let res =  search(s:search_for_link, 'cw')
     let s:search_for_link = ''
   endif
 
