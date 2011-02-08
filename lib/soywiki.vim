@@ -2,8 +2,8 @@
 " Maintainer:	Daniel Choi <dhchoi@gmail.com>
 " License: MIT License (c) 2011 Daniel Choi
 
-" this matched namedspaced WikiWords, top-level WikiWords, and relative .WikiWords in a
-" namespace
+" This regex matches namedspaced WikiWords, top-level WikiWords, and relative
+" .WikiWords in a namespace
 let s:wiki_link_pattern =  '\C\<\([a-z][[:alnum:]_]\+\.\)\?[A-Z][a-z]\+[A-Z]\w*\>\|\.[A-Z][a-z]\+[A-Z]\w*\>'
 
 let s:rename_links_command = 'soywiki-rename '
