@@ -410,6 +410,7 @@ func! s:prep_buffer()
     noremap <buffer> <leader>l :call <SID>show_revision_history(0)<CR>
     command! -buffer SWLogStat :call s:show_revision_history(1)
     command! -buffer SWBlame :call s:show_blame()
+    noremap <buffer> <leader>b :call <SID>show_blame()<CR>
     noremap <buffer> <leader>x :call <SID>unfurl()<CR>
     set nu
     setlocal completefunc=CompletePage
