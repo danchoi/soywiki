@@ -80,14 +80,15 @@ content in a SoyWiki wiki, it's easy to write a program that will bundle
 up all the relevant wiki pages together and convert them into a
 public-facing wiki website.)
 
-Why does SoyWiki opt for CamelCase (a.k.a. the WikiCase link pattern)?
-There are many syntaxes for linking wiki pages together. Besides being
-the original, CamelCase is the most elegantly minimalist approach to
-linking wiki pages together -- "with no additional markup whatsoever,"
-as [Ward Cunningham put it][ward].  It encourages you to create wiki
-pages with descriptive names.  CamelCase wikilinks are also better when
-storing content in plain text files because the page names can then map
-directly to Unix file names without any awkward character escaping.
+There are many syntaxes for linking wiki pages together. Why does
+SoyWiki opt for CamelCase (a.k.a. the WikiCase link pattern)? Besides
+being the original, CamelCase is the most elegantly minimalist approach
+to linking wiki pages together -- "with no additional markup
+whatsoever," as [Ward Cunningham put it][ward].  It encourages you to
+create wiki pages with descriptive names.  CamelCase wikilinks are also
+better when storing content in plain text files because the page names
+can then map directly to Unix file names without any awkward character
+escaping.
 
 [ward]:http://c2.com/cgi/wiki?WikiCase
 
