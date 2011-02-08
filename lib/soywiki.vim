@@ -179,7 +179,11 @@ endfunc
 " select Page
 
 func! s:get_page_list()
-  let s:page_list = split(system("ls -t | grep -vF '" . bufname('%') . "'" ), "\n")
+  if len(bufname('%')) == 0
+    let s:page_list = split(system("ls -t"), "\n")
+  else
+    let s:page_list = split(system("ls -t | grep -vF '" . bufname('%') . "'" ), "\n")
+  endif
 endfunction
 
 func! s:pages_in_this_namespace(pages)
@@ -361,7 +365,7 @@ endfun
 func! s:unfurl()
   let res = system("soywiki-unfurl " . bufname('%'))
   vertical botright new 
-  setlocal buftype=nofile "just for viewing; user can write
+  setlocal buftype=nofile "scratch buffer for viewing; user can write
   put =res
   1delete
   normal 1G
