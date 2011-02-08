@@ -37,10 +37,10 @@ edit and navigate textual content and using a real text editor in a
 full-fledged Unix environment is like the difference between crawling
 and doing gymnastics.
 
-By building on Vim's existing strengths as a text editor and as a
-citizen of the Unix environment, SoyWiki makes it possible to create,
-consult, and remold wiki content at the speeds faster than the speed of
-thought.
+By building on Vim's existing strengths as a text editor and as a Unix
+tool, SoyWiki makes it possible to create, consult, and remold wiki
+content at the speeds faster than the speed of thought. This is
+SoyWiki's primary mission.
 
 
 
