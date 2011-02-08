@@ -98,6 +98,10 @@ hasn't been used yet to name a wiki engine. So voila.
 
 The current version of SoyWiki assumes a Unix environment. 
 
+To use SoyWiki you should be fairly good at using Vim. More than 80
+percent of the SoyWiki codebase implements the VimScript interface
+layer.
+
 
 ## Installation
 
@@ -129,9 +133,6 @@ you can start SoyWiki with
 
 TO BE FINISHED
 
-The current version of SoyWiki expects you to be fairly good at using
-Vim. More than 80 percent of the SoyWiki codebase implements the
-VimScript interface layer.
 
 On the other hand, SoyWiki requires you to learn only a tiny, nearly
 non-existent markup language.  To make a piece of text work with
