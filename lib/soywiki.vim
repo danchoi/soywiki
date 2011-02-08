@@ -10,7 +10,6 @@ let s:rename_links_command = 'soywiki-rename '
 let s:find_pages_linking_in_command = 'soywiki-pages-linking-in '
 let s:search_for_link = ""
 
-
 func! s:trimString(string)
   let string = substitute(a:string, '\s\+$', '', '')
   return substitute(string, '^\s\+', '', '')
@@ -34,13 +33,21 @@ func! s:title_without_namespace(page_title)
   endif
 endfunc
 
-func! s:is_wiki_page()
-  let title_line = getline(1)
-  return (match(title_line, s:wiki_link_pattern) == 0)
+func! s:namespace_of_title(page_title)
+  if len(split(a:page_title, '\.')) == 2
+    return get(split(a:page_title, '\.'), 0)
+  else
+    ""
+  endif
 endfunc
 
-func! s:save_page()
-"  write
+
+func! s:is_wiki_page()
+  return (match(getline(1), s:wiki_link_pattern) == 0)
+endfunc
+
+func! s:page_title2file(page)
+  return substitute(a:page, '\.', '/', '')
 endfunc
 
 func! s:list_pages()
@@ -51,13 +58,13 @@ endfunc
 
 func! s:link_under_cursor()
   let link = expand("<cWORD>") 
+  " strip off non-letters at the end (e.g., a comma)
   let link = substitute(link, '[^[:alnum:]]*$', '', '')
-  " see if he have a namespaced link
+  " see if we have a link relative to the namespace
   if (match(link, '^\.')) == 0
     " find the namespace from the page title
-    let link = s:page_namespace() . link
+    let link = s:page_namespace() . link " this link already has a period at the beginning
   endif
-
   let link = substitute(link, '^[^\.[:alnum:]]', '', '') " link may begin with period
   return link
 endfunc
@@ -90,18 +97,22 @@ func! s:find_next_wiki_link(backward)
 endfunc
 
 func! s:load_page(page, split)
-  let page = a:page
   if (s:is_wiki_page())
     write
   endif
-  if (!filereadable(page)) 
+  let file = s:page_title2file(a:page)
+  if (!filereadable(file)) 
     " create the file
-    call writefile([a:page, '', ''], page) 
+    let namespace = s:namespace_of_title(a:page)
+    if len(namespace) > 0
+      call system("mkdir -p " . namespace)
+    endif
+    call writefile([a:page, '', ''], file) 
   endif
   if (a:split == 2) 
-    exec "vsplit ". page
+    exec "vsplit ". file
   else
-    exec "split ". page
+    exec "split ". file
   endif
   if (a:split == 0) 
     wincmd p 
