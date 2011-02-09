@@ -16,7 +16,7 @@ A quick overview of its characteristics and features:
 * autocompletion of wiki words
 * automated global renaming of wiki words
 * syntax colored wiki words
-* outliner-like capability with expand-command 
+* outliner-like capability with expansion commands
 * operates on all POSIX systems (e.g. OS X, Linux, FreeBSD)
 
 SoyWiki builds on Vim's strengths as a text editor and interface to the
@@ -100,7 +100,7 @@ To use MacVim as your SoyWiki Vim engine, you can run soywiki like this
 or you can `export SOYWIKI_VIM=mvim` in your `~/.bash_profile` and then
 just run `soywiki`.
 
-## Basic Usage
+## Basic usage
 
 For basic use, SoyWiki works exactly like a typical wiki.
 
@@ -249,7 +249,7 @@ the general instructions [here][git-sync].
 
 ## Namespaced WikiWords
 
-You can get very far with SoyWiki with normal CamelCase WikiWords.  
+You can get very far with SoyWiki using normal CamelCase WikiWords.  
 
     NormalWikiWord
 
