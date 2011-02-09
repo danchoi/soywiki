@@ -30,8 +30,8 @@ automatic indexing.
 
 SoyWiki makes a great writing aid, especially if you do your writing in
 Vim. You can have SoyWiki open in multiple Vim windows, tabs, and
-buffers, and open even more windows and tabs alongside them for editing
-an essay, chapter, or paper. Throw a bunch of Vim abbreviations (`:help
+buffers, and open an additional Vim window for editing an essay,
+chapter, or paper. Throw in a bunch of Vim abbreviations (`:help
 abbreviations`), a large monitor, and a teapot, and you'll have your
 paper, essay, book, or screenplay written faster, sooner, and better.
 
