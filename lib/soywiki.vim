@@ -8,6 +8,7 @@ let s:wiki_link_pattern =  '\C\<\([a-z][[:alnum:]_]\+\.\)\?[A-Z][a-z]\+[A-Z]\w*\
 
 let s:rename_links_command = 'soywiki-rename '
 let s:find_pages_linking_in_command = 'soywiki-pages-linking-in '
+let s:expand_command = 'soywiki-expand '
 let s:ls_command = 'soywiki-ls-t '
 let s:search_for_link = ""
 
@@ -463,13 +464,23 @@ endfunc
 " This opens a new buffer with all the lines with just WikiLinks on them
 " expanded (recursively). This is not a wiki buffer but a text buffer
 
-func! s:expand()
-  let res = system("soywiki-expand " . bufname('%'))
+func! s:expand(seamless)
+  if a:seamless == 1
+    " seamful, the default
+    echom "Expanding seamfully. Please wait."
+    let res = system(s:expand_command . " seamless " . bufname('%'))
+  else " seamless
+    echom "Expanding seamlessly. Please wait."
+    let res = system(s:expand_command . " seamful " . bufname('%'))
+  endif
   vertical botright new 
   setlocal buftype=nofile "scratch buffer for viewing; user can write
-  put =res
-  1delete
-  normal 1G
+  silent! put =res
+  silent! 1delete
+  silent! normal 1G
+  redraw
+  echom "Expanded " . (a:seamless == 0 ? 'seamfully' : 'seamlessly') . "."
+
 endfunc
 
 "------------------------------------------------------------------------
@@ -525,7 +536,8 @@ func! s:prep_buffer()
 
 
 
-    noremap <buffer> <leader>x :call <SID>expand()<CR>
+    noremap <buffer> <leader>x :call <SID>expand(0)<CR>
+    noremap <buffer> <leader>X :call <SID>expand(1)<CR>
 
     set nu
     setlocal completefunc=CompletePage

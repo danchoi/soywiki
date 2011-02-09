@@ -302,7 +302,6 @@ along.
 
 
 
-
 ## Why CamelCase WikiLinks rule
 
 Some people don't like the CamelCase (a.k.a. WikiCase) wiki link

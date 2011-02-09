@@ -6,32 +6,51 @@ require 'soywiki'
 WIKI_LINK_PATTERN =  /^\s*(([a-z]\w+\.)?[A-Z][a-z]+[A-Z]\w*|\.[A-Z][a-z]+[A-Z]\w*)\s*$/
 
 PROCESSED_FILES = []
-def expand(file)
+
+def indent(text, level, mode)
+  return text if mode == 'seamless'
+  return text if level == 0
+  (': ' * level) +  text
+
+end
+
+def expand(file, mode, level=0)
   PROCESSED_FILES << file
   lines = File.readlines(file)
-  lines.shift 2
+  if mode == 'seamless'
+    lines.shift 2  # strips title
+  end
   lines = lines.join.strip.split("\n")
   lines.each do |line|
+    # note that the wiki link must be alone on the line to be expanded
     if line =~ WIKI_LINK_PATTERN 
       link = line.strip
       if link =~ /^\./ # short link in namespace (relative link)
         namespace = file.namespace
         link = [namespace, link].join
       end
-      if File.file?(link.to_file_path) && !PROCESSED_FILES.include?(link) 
-        expand link.to_file_path # recursive
+      if File.file?(link.to_file_path) && !PROCESSED_FILES.include?(link.to_file_path) 
+        if mode == 'seamful'
+          puts '.' * 10
+        end
+        expand(link.to_file_path, mode, level + 1) # recursive call
+        if mode == 'seamful'
+          puts '.' * 10
+        end
+
       elsif PROCESSED_FILES.include?(link) 
-        puts "#{link} [[already expanded]]"
+        puts indent("#{link} [[already expanded]]", level, mode)
       else
-        puts "#{link} [[no file found]]"
+        puts indent("#{link} [[no file found]]", level, mode)
       end
     else
-      puts line
+      puts indent(line, level, mode)
     end
   end
 end
 
-ARGV.each do |file|
-  expand(file)
-end
+mode, file = *ARGV
+
+expand(file, mode)
+
 
