@@ -463,8 +463,8 @@ endfunc
 " This opens a new buffer with all the lines with just WikiLinks on them
 " expanded (recursively). This is not a wiki buffer but a text buffer
 
-func! s:unfurl()
-  let res = system("soywiki-unfurl " . bufname('%'))
+func! s:expand()
+  let res = system("soywiki-expand " . bufname('%'))
   vertical botright new 
   setlocal buftype=nofile "scratch buffer for viewing; user can write
   put =res
@@ -525,7 +525,7 @@ func! s:prep_buffer()
 
 
 
-    noremap <buffer> <leader>x :call <SID>unfurl()<CR>
+    noremap <buffer> <leader>x :call <SID>expand()<CR>
 
     set nu
     setlocal completefunc=CompletePage
@@ -573,5 +573,5 @@ else
 endif
 
 call s:get_page_list()
-
+syntax on
 let mapleader = ','

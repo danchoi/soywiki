@@ -6,7 +6,7 @@ require 'soywiki'
 WIKI_LINK_PATTERN =  /^\s*(([a-z]\w+\.)?[A-Z][a-z]+[A-Z]\w*|\.[A-Z][a-z]+[A-Z]\w*)\s*$/
 
 PROCESSED_FILES = []
-def unfurl(file)
+def expand(file)
   PROCESSED_FILES << file
   lines = File.readlines(file)
   lines.shift 2
@@ -19,7 +19,7 @@ def unfurl(file)
         link = [namespace, link].join
       end
       if File.file?(link.to_file_path) && !PROCESSED_FILES.include?(link) 
-        unfurl link.to_file_path # recursive
+        expand link.to_file_path # recursive
       elsif PROCESSED_FILES.include?(link) 
         puts "#{link} [[already expanded]]"
       else
@@ -32,6 +32,6 @@ def unfurl(file)
 end
 
 ARGV.each do |file|
-  unfurl(file)
+  expand(file)
 end
 
