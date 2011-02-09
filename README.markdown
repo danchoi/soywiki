@@ -36,7 +36,7 @@ another.
 * a recent version of Vim (SoyWiki is developed against Vim 7.2 and 7.3)
 * a recent version of Ruby (SoyWiki is developed using Ruby 1.9.2)
 * RubyGems (if Ruby version is older than 1.9)
-* a recent version of git (1.7.0.4 or above to be safe)
+* a recent version of Git (1.7.0.4 or above to be safe)
 
 The current version of SoyWiki assumes a Unix environment. 
 
@@ -157,10 +157,10 @@ Add append
 ## Revision history and distributed workflows
 
 SoyWiki delegates revision-tracking, syncing, and collaboration
-workflows to Git.  SoyWiki automatically creates a git repository in
+workflows to Git.  SoyWiki automatically creates a Git repository in
 your wiki directory and automatically commits all the edits you make to
 it.  You can sync a SoyWiki wiki between two computers using the
-standard git push and pull commands.  Collaborators can also edit a
+standard Git push and pull commands.  Collaborators can also edit a
 common wiki this way, in peer to peer fashion. 
 
 SoyWiki provides a few convenient key mappings to view the revision
@@ -169,6 +169,10 @@ history of a wiki page:
 * `,l` shows a `git-log` view of the revision history of the current page
 * `,b` shows a `git-blame` view of the current page, which shows when each line was added and by whom.
 * `:SWLogStat` shows a `git log --stat` view of the current page's revision history
+
+You can always bypass Vim and SoyWiki altogether and use Git directly to
+inspect your revision history. The Git repo for your SoyWiki wiki will
+be located in the same directory as your wiki files.
 
 To sync your SoyWiki wiki between two personal computers, just follow
 the general instructions [here][git-sync].
