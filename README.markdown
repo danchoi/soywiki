@@ -18,54 +18,23 @@ overview of its characteristics and features:
 * operates on all POSIX systems (e.g. OS X, Linux, FreeBSD)
 
 
-## Introduction
-
-By building on Vim's strengths as a text editor and interface to the
-Unix operating system, SoyWiki makes it possible to create, consult, and
+SoyWiki builds on Vim's strengths as a text editor and interface to the
+Unix operating system, SoyWiki makes it possible to create, navigate, and
 refactor wiki content at the speed of thought. 
 
 SoyWiki is good for tracking projects, contacts, ideas, and collecting
 research. SoyWiki combines the affordances of notebooks, index cards,
-and Post-it notes, and adds the power of hyperlinks, Vim motion
-commands, and automatic indexing.
+and Post-it notes, and adds the power of hyperlinks and automatic
+indexing.
 
-SoyWiki serves as a writing aid and makes it easy to take full advantage
-of a large monitor and Vim's split windows. You can have the research
-material you've collected in SoyWiki open in one or more windows, the
-essay or paper you're drafting open in another, and all the power of
-Vim's yank, put, and mark commands to shuttle text between them.
-
-Because SoyWiki's content is stored in plain text files, you can
-directly process, filter, grep, copy, and move text in and out of your
-wiki using any combination of Unix tools.
-
-SoyWiki delegates revision-tracking, syncing, and collaboration
-workflows to Git.  SoyWiki automatically creates a git repository in
-your wiki directory and automatically commits all the edits you make to
-it.  You can sync a SoyWiki wiki between two computers using the
-standard git push and pull commands.  Collaborators can also edit a
-common wiki this way, in peer to peer fashion. SoyWiki provides a few
-convenient key mappings to view the revision history of a wiki page and
-to see a "git-blame" view of who wrote each line when.
+SoyWiki makes a great writing aid, especially if you do your writing in
+Vim. It takes full advantage of Vim's split windows. You can have
+SoyWiki open in multiple Vim windows, and edit an essay or paper in
+another.
 
 SoyWiki doesn't have a web interface yet. The main focus of SoyWiki at
 this stage is to help you organize knowledge and evolve it with minimal
 annoyance and distraction.  
-
-SoyWiki uses CamelCase -- a.k.a. WikiCase -- to link wiki pages
-together.  Besides being the original, CamelCase is the most elegantly
-minimalist approach to linking wiki pages together -- "with no
-additional markup whatsoever," as [Ward Cunningham put it][ward].  It
-encourages you to create wiki pages with succinctly descriptive names.
-CamelCase wiki-links are also better when storing content in plain text
-files: the page names can map directly to Unix file names without any
-awkward character escaping.
-
-[ward]:http://c2.com/cgi/wiki?WikiCase
-
-I enjoy soy ice cream, soy milk, and tofu -- all light, enjoyable, and
-healthy foods. And "SoyWiki" hasn't been used yet to name a wiki engine.
-Hence the name.
 
 
 ## Prerequisites
