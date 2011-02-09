@@ -163,8 +163,8 @@ pages in your wiki to be cognizant of the change.
 
 You can delete a page with `,#`. 
 
-Beyond the standard cut and paste, SoyWiki gives you four fast ways of
-moving text from one wiki page to another.
+Beyond the standard cut and paste, SoyWiki gives you two fast ways of
+shuttling text from one wiki page to another.
 
 First, highlight the text you want to move with Vim's visual mode. (See
 `:help visual-mode` for more info) 
@@ -173,8 +173,6 @@ Then, type
 
 * `:SWInsert [target]` to move the text to the top of target page
 * `:SWAppend [target]` to move the text to the bottom of the target page
-* `:SWDInsert [target]` to perform a SWInsert but also insert a divider line
-* `:SWDAppend [target]` to perform a SWAppend but also insert a divider line
 
 `[target]` is the name of the file that contains the wiki page you're
 targeting. Press `TAB` for autocompletion help.
@@ -187,8 +185,6 @@ You should be able to run all these commands using shortcuts:
 
 * `:SWI`
 * `:SWA`
-* `:SWDI`
-* `:SWDA`
 
 
 ## Search
@@ -297,8 +293,7 @@ Both modes of expansion are useful when you want to assemble a long
 piece of writing using one page as a master outline, and linking from
 this to other wiki pages that include the real content. And since
 expansion is recursive, you can effectively nest outlines within
-outlines.  If this is too trippy for you, don't worry about it and move
-along.
+outlines. Yes this is an allusion to Inception.
 
 
 

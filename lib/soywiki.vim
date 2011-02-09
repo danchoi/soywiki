@@ -503,8 +503,8 @@ func! s:global_mappings()
 
   command! -bar -nargs=1 -range -complete=file SWAppend :<line1>,<line2>call s:extract(<f-args>, 'append', 0)
   command! -bar -nargs=1 -range -complete=file SWInsert :<line1>,<line2>call s:extract(<f-args>, 'insert', 0)
-  command! -bar -nargs=1 -range -complete=file SWDAppend :<line1>,<line2>call s:extract(<f-args>, 'append', 1)
-  command! -bar -nargs=1 -range -complete=file SWDInsert :<line1>,<line2>call s:extract(<f-args>, 'insert', 1)
+  "command! -bar -nargs=1 -range -complete=file SWDAppend :<line1>,<line2>call s:extract(<f-args>, 'append', 1)
+  "command! -bar -nargs=1 -range -complete=file SWDInsert :<line1>,<line2>call s:extract(<f-args>, 'insert', 1)
 
   command! -bar -nargs=1 SWSearch :call s:wiki_search(<f-args>)
 endfunc 
