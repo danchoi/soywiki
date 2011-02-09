@@ -31,7 +31,7 @@ Vim. It takes full advantage of Vim's split windows. You can have
 SoyWiki open in multiple Vim windows, and draft an essay or paper in
 another. Use SoyWiki with a large monitor, and you'll have your paper,
 essay, book, or screenplay written in no time. You don't need to shell
-out $45 for [Scrivener]:[scriv], especially if you care less about eye
+out $45 for [Scrivener][scriv], especially if you care less about eye
 candy and more about getting your ideas organized and your writing done. 
 
 [scriv]:http://www.literatureandlatte.com/scrivener.php
