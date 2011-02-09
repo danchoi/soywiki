@@ -268,8 +268,19 @@ this special abbreviated form:
 SoyWiki will know from the leading period that this is a link to another
 page in the same namespace. 
 
-WikiLink autocompletion also works with abbreviated links. Just type a
+WikiLink autocompletion also works with abbreviated namespaced links. Just type a
 period, and invoke autocompletion with `CTRL-x CTRL-u`.
+
+
+## Expanding a Wiki page
+
+SoyWiki lets you make wiki pages that function essentially like an
+outline in and outliner program.
+
+
+
+
+
 
 
 ## Why CamelCase WikiLinks rule
