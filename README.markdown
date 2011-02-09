@@ -88,7 +88,7 @@ notes.
 
 That's all you need to know to get started. 
 
-## Power navigation 
+## Wiki navigation 
 
 Because SoyWiki is not just wiki but a Vim program, it lets you work a
 lot faster and with a more economy than browser-based wikis. 
@@ -132,8 +132,7 @@ window by putting the cursor at the beginning of a hyperlink and typing
 `gf`, or `C-w f` if you want to open the webpage in a split window.  See
 `:help netrw` for more information.
 
-
-## Power refactoring
+## Wiki refactoring
 
 SoyWiki makes it easy to reorganize your wiki with these commands.
 
@@ -170,17 +169,10 @@ the general instructions [here][git-sync].
 
 [git-sync]:http://www-cs-students.stanford.edu/~blynn/gitmagic/ch03.html
 
+## Why CamelCase WikiLinks rule
 
-
-
-TO BE FINISHED
-
-
-SoyWiki requires you to learn only a tiny, nearly
-non-existent markup language.  To make a piece of text work with
-SoyWiki, it just needs to use CamelCase WikiWords.  Beyond that, you can
-mark up your text any way you want, using Markdown, Texttile, AsciiDoc,
-or nothing.
-
-## Opening hyperlinks and HTML parts in your web browser
+SoyWiki requires you to learn only a tiny, nearly non-existent markup
+language.  To make a piece of text work with SoyWiki, it just needs to
+use CamelCase WikiWords.  Beyond that, you can mark up your text any way
+you want, using Markdown, Texttile, AsciiDoc, or nothing.
 
