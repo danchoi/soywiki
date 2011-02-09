@@ -197,6 +197,8 @@ a lighter, healthier alternative.  SoyWiki may not be an actual soy
 product, but it tries to capture the same feeling, applied to wiki
 software.
 
+## How to contact the developer
 
-
+My name is Daniel Choi. I am based in Cambridge, Massachusetts, USA, and you
+can email me at dhchoi {at} gmail.com.  
 
