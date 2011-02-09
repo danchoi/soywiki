@@ -178,21 +178,25 @@ the general instructions [here][git-sync].
 ## Why CamelCase WikiLinks rule
 
 Some people don't like the CamelCase (a.k.a. WikiCase) wiki link
-pattern. But SoyWiki digs them. 
+pattern. But SoyWiki digs it. 
 
 * Besides being the original, CamelCase is the most elegantly minimalist approach to linking wiki pages together -- "with no additional markup whatsoever," as [Ward Cunningham put it][ward]. 
 * It encourages you more than other wiki link patterns to create wiki pages with succinctly descriptive names.  
-* Because the pattern is so minimal and succinct, typing them it interrupts your flow of
-thinking less than other wiki patterns.
-* CamelCase wiki-links are also conducive to storing
+* Because the link pattern is so minimal and succinct, typing them it interrupts your flow of
+thought a lot less than other wiki patterns.
+* It is very conducive to storing
 wiki pages in plain text files: the page names can map directly to Unix
 file names without any awkward character escaping.
 
 [ward]:http://c2.com/cgi/wiki?WikiCase
 
-## Behind the name of this wiki engine
+## Behind the name 
 
-I enjoy soy ice cream, soy milk, and tofu -- all light, enjoyable, and
-healthy foods. And "SoyWiki" hasn't been used yet to name a wiki engine.
-Hence the name.
+Soy ice cream, soy milk, soy burgers, soy butter: "soy" seems to connote
+a lighter, healthier alternative.  SoyWiki may not be an actual soy
+product, but it tries to capture the same feeling, applied to wiki
+software.
+
+
+
 
