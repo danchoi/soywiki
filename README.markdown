@@ -17,25 +17,19 @@ overview of its characteristics and features:
 * outliner-like capability with expand-command 
 * operates on all POSIX systems (e.g. OS X, Linux, FreeBSD)
 
-
 SoyWiki builds on Vim's strengths as a text editor and interface to the
-Unix operating system, SoyWiki makes it possible to create, navigate, and
-refactor wiki content at the speed of thought. 
+Unix operating system, SoyWiki makes it possible to create, navigate,
+and refactor wiki content at the speed of thought. 
 
 SoyWiki is good for tracking projects, contacts, ideas, and collecting
-research. SoyWiki combines the affordances of notebooks, index cards,
-and Post-it notes, and adds the power of hyperlinks and automatic
-indexing.
+and organizing research. SoyWiki combines the affordances of notebooks,
+index cards, and Post-it notes, and adds the power of hyperlinks and
+automatic indexing.
 
 SoyWiki makes a great writing aid, especially if you do your writing in
 Vim. It takes full advantage of Vim's split windows. You can have
-SoyWiki open in multiple Vim windows, and edit an essay or paper in
+SoyWiki open in multiple Vim windows, and draft an essay or paper in
 another.
-
-SoyWiki doesn't have a web interface yet. The main focus of SoyWiki at
-this stage is to help you organize knowledge and evolve it with minimal
-annoyance and distraction.  
-
 
 ## Prerequisites
 
@@ -49,7 +43,6 @@ The current version of SoyWiki assumes a Unix environment.
 To use SoyWiki you should be fairly good at using Vim. More than 80
 percent of the SoyWiki codebase implements the VimScript interface
 layer.
-
 
 ## Installation
 
