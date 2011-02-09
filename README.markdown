@@ -166,7 +166,7 @@ common wiki this way, in peer to peer fashion.
 SoyWiki provides a few convenient key mappings to view the revision
 history of a wiki page: 
 
-* `,l` shows the revision history log of the current page
+* `,l` shows a `git-log` view of the revision history of the current page
 * `,b` shows a `git-blame` view of the current page, which shows when each line was added and by whom.
 * `:SWLogStat` shows a `git log --stat` view of the current page's revision history
 
