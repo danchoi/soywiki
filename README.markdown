@@ -77,6 +77,10 @@ If you ever want to uninstall SoyWiki from your system, execute this command:
 
 ... and all traces of SoyWiki will removed.
 
+New and improved versions of SoyWiki will be released over time. To install the
+latest version, just type `gem install soywiki` again.
+
+
 ## Starting SoyWiki
 
 Before you start SoyWiki, create a directory that will hold your wiki
@@ -88,6 +92,13 @@ You can make as many SoyWiki wikis on your system as you want just by
 creating directories for them. It's not a good idea however to nest
 SoyWiki wiki directories within each other, for reasons that will become
 clear below.
+
+To use MacVim as your SoyWiki Vim engine, you can run soywiki like this
+
+    SOYWIKI_VIM=mvim soywiki
+
+or you can `export SOYWIKI_VIM=mvim` in your ~/.bash_profile and just
+run `soywiki`.
 
 ## Basic Usage
 
@@ -163,7 +174,7 @@ pages in your wiki to be cognizant of the change.
 
 You can delete a page with `,#`. 
 
-Beyond the standard cut and paste, SoyWiki gives you two fast ways of
+Beyond the standard cut and paste, SoyWiki gives you four fast ways of
 shuttling text from one wiki page to another.
 
 First, highlight the text you want to move with Vim's visual mode. (See
@@ -173,6 +184,8 @@ Then, type
 
 * `:SWInsert [target]` to move the text to the top of target page
 * `:SWAppend [target]` to move the text to the bottom of the target page
+* `:SWLinkInsert [target]` performs `:SWInsert` and replaces the text with a WikiWord link
+* `:SWLinkAppend [target]` performs `:SWAppend` and replaces the text with a WikiWord link
 
 `[target]` is the name of the file that contains the wiki page you're
 targeting. Press `TAB` for autocompletion help.
@@ -181,13 +194,13 @@ These commands will open the target page (if it isn't open already) in a
 split window and insert or append the selected text into it.  If the
 target page doesn't exist, it will be created.
 
-After you run `:SWInsert` or `:SWDelete`, the selected text will be
-replaced by the WikiWord for the page you moved the text to.
+You can use these shortcuts:
 
-You can run both these commands using shortcuts:
+* `:SWInsert` &rarr; `:SWI`
+* `:SWAppend` &rarr; `:SWA`
 
-* `:SWI`
-* `:SWA`
+With `:SWLinkInsert` and `:SWLinkAppend` you can use tab-autocompletion
+to avoid typing out the whole command name.
 
 
 ## Search
@@ -238,9 +251,9 @@ the general instructions [here][git-sync].
 
 You can get very far with SoyWiki with normal CamelCase WikiWords.  
 
-But if you want, you can also namespace your WikiWords, like so:
-
     NormalWikiWord
+
+But if you want, you can also namespace your WikiWords, like so:
 
     namespaced.WikiWord
 
@@ -316,12 +329,16 @@ file names without any awkward character escaping.
 
 [ward]:http://c2.com/cgi/wiki?WikiCase
 
-## Behind the name 
 
-Soy ice cream, soy milk, soy burgers, soy butter: "soy" seems to connote
-a lighter, healthier alternative.  SoyWiki may not be an actual soy
-product, but it tries to capture the same qualities, applied to wiki
-software.
+## Why name a wiki engine after a legume?
+
+I am a fan of food made of [soy][soylink]: soy ice cream, soy milk, soy
+burgers, soy butter, you name it. The word "soy" has come to signify a
+newer, lighter, healthier alternative to the same old same old. SoyWiki
+may not be an actual soy product, but it tries to be a wiki engine with
+soy-like benefits.
+
+[soylink]:http://www.mayoclinic.com/health/soy/NS_patient-soy
 
 ## How to contact the developer
 
