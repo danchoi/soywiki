@@ -402,10 +402,18 @@ func! s:extract(...) range
   let divider = a:3 " insert divider?
   let range = first.",".last
   silent exe range."yank"
-  " if file doesn't exist, create it
-
-
+  let replacement = s:filename2pagetitle(file)
+  silent exe "norm! :".first.",".last."change\<CR>".replacement."\<CR>.\<CR>"
   if bufnr(file) == -1 || bufwinnr(bufnr(file)) == -1
+    if !filereadable(file)
+      " create the file
+      let page_title = s:filename2pagetitle(file)
+      let namespace = s:namespace_of_title(page_title)
+      if len(namespace) > 0
+        call system("mkdir -p " . namespace)
+      endif
+      call writefile([page_title, '', ''], file) 
+    endif
     exec "split ".file
   else
     let targetWindow = bufwinnr(bufnr(file))
@@ -413,15 +421,23 @@ func! s:extract(...) range
   end
   if mode == 'append'
     normal G
-    call append(line('$'), '')
-    put
+    if divider == 1
+      call s:insert_divider()
+      silent put =''
+    endif
+    silent put
+    silent put= ''
   elseif mode == 'insert'
     call cursor(2, 0)
-    put
-    call append(line('.'), '')
+    silent put
+    silent put =''
+    if divider == 1
+      call s:insert_divider()
+    endif
   end
+  write!
+endfunc
 
-endfunct
 
 func! s:error(str)
   echohl ErrorMsg
@@ -429,6 +445,11 @@ func! s:error(str)
   echohl None
 endfunction
 
+func! s:insert_divider()
+  let divider = '------------------------------------------------------------------------'
+  silent put! =divider
+  silent put=''
+endfunc
 
 "------------------------------------------------------------------------
 " This opens a new buffer with all the lines with just WikiLinks on them
@@ -460,8 +481,11 @@ func! s:global_mappings()
   noremap <leader>m :call <SID>list_pages()<CR>
   noremap  <leader>M :call <SID>list_pages_linking_in()<CR>
   noremap <silent> <leader>o :call <SID>open_href()<cr> 
-  command! -bar -nargs=1 -range -complete=file SYAppend :<line1>,<line2>call s:extract(<f-args>, 'append', 0)
-  command! -bar -nargs=1 -range -complete=file SYInsert :<line1>,<line2>call s:extract(<f-args>, 'insert', 0)
+
+  command! -bar -nargs=1 -range -complete=file SWAppend :<line1>,<line2>call s:extract(<f-args>, 'append', 0)
+  command! -bar -nargs=1 -range -complete=file SWInsert :<line1>,<line2>call s:extract(<f-args>, 'insert', 0)
+  command! -bar -nargs=1 -range -complete=file SWDAppend :<line1>,<line2>call s:extract(<f-args>, 'append', 1)
+  command! -bar -nargs=1 -range -complete=file SWDInsert :<line1>,<line2>call s:extract(<f-args>, 'insert', 1)
 endfunc 
 
 " this checks if the buffer is a SoyWiki file (from firstline)
@@ -477,15 +501,15 @@ func! s:prep_buffer()
     noremap <buffer> <c-p> :call <SID>find_next_wiki_link(1)<CR>
 
     noremap  <leader>c :call <SID>create_page()<CR>
-    command! -buffer SYRename :call s:rename_page()
+    command! -buffer SWRename :call s:rename_page()
     noremap <buffer> <leader>r :call <SID>rename_page()<CR>
-    command! -buffer SYDelete :call s:delete_page()
+    command! -buffer SWDelete :call s:delete_page()
     noremap <buffer> <leader># :call <SID>delete_page()<CR>
 
-    command! -buffer SYLog :call s:show_revision_history(0)
+    command! -buffer SWLog :call s:show_revision_history(0)
     noremap <buffer> <leader>l :call <SID>show_revision_history(0)<CR>
-    command! -buffer SYLogStat :call s:show_revision_history(1)
-    command! -buffer SYBlame :call s:show_blame()
+    command! -buffer SWLogStat :call s:show_revision_history(1)
+    command! -buffer SWBlame :call s:show_blame()
     noremap <buffer> <leader>b :call <SID>show_blame()<CR>
 
 

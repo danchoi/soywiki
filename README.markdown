@@ -31,8 +31,9 @@ automatic indexing.
 SoyWiki makes a great writing aid, especially if you do your writing in
 Vim. You can have SoyWiki open in multiple Vim windows, tabs, and
 buffers, and open even more windows and tabs alongside them for editing
-an essay, chapter, or paper. Throw in a large monitor and a teapot, and
-you'll have your paper, essay, book, or screenplay written in no time. 
+an essay, chapter, or paper. Throw a bunch of Vim abbreviations (`:help
+abbreviations`), a large monitor, and a teapot, and you'll have your
+paper, essay, book, or screenplay written faster, sooner, and better.
 
 You don't need to shell out $$ for a tools like [Scrivener][scriv] if
 you appreciate how much more powerful Vim is for editing and navigating
@@ -170,10 +171,10 @@ First, highlight the text you want to move with Vim's visual mode. (See
 
 Then, type
 
-* `:SYInsert [target]` to move the text to the top of target page.
-* `:SYAppend [target]` to move the text to the bottom of the target page.
-* `:SYDInsert [target]` to perform a SYInsert but also insert a divider line
-* `:SYDAppend [target]` to perform a SYAppend but also insert a divider line
+* `:SWInsert [target]` to move the text to the top of target page
+* `:SWAppend [target]` to move the text to the bottom of the target page
+* `:SWDInsert [target]` to perform a SWInsert but also insert a divider line
+* `:SWDAppend [target]` to perform a SWAppend but also insert a divider line
 
 `[target]` is the name of the file that contains the wiki page you're
 targeting. Press `TAB` for autocompletion help.
@@ -187,10 +188,10 @@ wiki page with a wiki-link to the target page.
 
 You should be able to run all these commands using shortcuts:
 
-* `:SYI`
-* `:SYA`
-* `:SYDI`
-* `:SYDA`
+* `:SWI`
+* `:SWA`
+* `:SWDI`
+* `:SWDA`
 
 
 
@@ -211,7 +212,7 @@ history of a wiki page:
 
 * `,l` shows a `git-log` view of the revision history of the current page
 * `,b` shows a `git-blame` view of the current page, which shows when each line was added and by whom.
-* `:SYLogStat` shows a `git log --stat` view of the current page's revision history
+* `:SWLogStat` shows a `git log --stat` view of the current page's revision history
 
 You can always bypass Vim and SoyWiki altogether and use Git directly to
 inspect your revision history. The Git repo for your SoyWiki wiki will
