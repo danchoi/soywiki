@@ -404,7 +404,7 @@ func! s:extract(...) range
   if match(file, s:wiki_link_pattern) == -1
     echom "Target page must be a WikiWord!"
     return
-  endwhile
+  endif
 
   let mode = a:2 " append or insert
   let divider = a:3 " insert divider?
