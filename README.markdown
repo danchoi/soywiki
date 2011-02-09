@@ -32,11 +32,14 @@ SoyWiki open in multiple Vim windows, and draft an essay or paper in
 another. Use SoyWiki with a large monitor, and you'll have your paper,
 essay, book, or screenplay written in no time. 
 
-You don't need to shell out $$ for a tools like [Scrivener][scriv]
-if you appreciate how much more powerful Vim is for editing
+You don't need to shell out $$ for a tools like [Scrivener][scriv] if
+you appreciate how much more powerful Vim is for editing and navigating
 text and how liberating it is to be able to store your content in the
-non-proprietary, universal plain text format.  SoyWiki is free and open
-source.
+non-proprietary, universal plain-text format. Proprietary tools like
+Scrivener will come and go every few years, but the plain text file
+format and Vim are forever.
+
+SoyWiki is free and open source.
 
 [scriv]:http://www.literatureandlatte.com/scrivener.php
 
