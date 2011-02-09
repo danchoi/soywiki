@@ -27,10 +27,10 @@ index cards, and Post-it notes, and adds the power of hyperlinks and
 automatic indexing.
 
 SoyWiki makes a great writing aid, especially if you do your writing in
-Vim. You can have SoyWiki open in multiple Vim windows, and draft an
-essay or paper in another Vim window. Use SoyWiki with a large monitor,
-and you'll have your paper, essay, book, or screenplay written in no
-time. 
+Vim. You can have SoyWiki open in multiple Vim windows, tabs, and
+buffers, and open even more windows and tabs alongside them for editing
+an essay, chapter, or paper. Throw in a large monitor and a teapot, and
+you'll have your paper, essay, book, or screenplay written in no time. 
 
 You don't need to shell out $$ for a tools like [Scrivener][scriv] if
 you appreciate how much more powerful Vim is for editing and navigating
@@ -150,9 +150,11 @@ When you're writing a wiki page and you want to link to another page,
 SoyWiki can help you autocomplete your wiki-link. Press `CTRL-x CTRL-u`
 in Vim insert mode to invoke it.
 
+
 ## Wiki refactoring
 
-SoyWiki makes it easy to reorganize your wiki with these commands.
+To help you reorganize and refactor your wiki, SoyWiki goes way beyond
+cut and paste. 
 
 You can rename a wiki page with`,r`. You'll see a prompt asking
 you for the new name. Make sure it is valid CamelCase. After you press

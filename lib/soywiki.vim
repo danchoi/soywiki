@@ -403,7 +403,8 @@ func! s:extract(...) range
   let range = first.",".last
   silent exe range."yank"
   " if file doesn't exist, create it
-  " TODO
+
+
   if bufnr(file) == -1 || bufwinnr(bufnr(file)) == -1
     exec "split ".file
   else
@@ -418,7 +419,6 @@ func! s:extract(...) range
     call cursor(2, 0)
     put
     call append(line('.'), '')
-
   end
 
 endfunct
