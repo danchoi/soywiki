@@ -181,7 +181,10 @@ These commands will open the target page (if it isn't open already) in a
 split window and insert or append the selected text into it.  If the
 target page doesn't exist, it will be created.
 
-You should be able to run all these commands using shortcuts:
+After you run `:SWInsert` or `:SWDelete`, the selected text will be
+replaced by the WikiWord for the page you moved the text to.
+
+You can run both these commands using shortcuts:
 
 * `:SWI`
 * `:SWA`

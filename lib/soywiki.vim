@@ -396,16 +396,24 @@ func! s:extract(...) range
   if a:0 != 3
     return s:error("Incorrect number of arguments")
   endif
+
   let first = a:firstline
   let last = a:lastline
   let file = a:1
+
+  if match(file, s:wiki_link_pattern) == -1
+    echom "Target page must be a WikiWord!"
+    return
+  endwhile
+
   let mode = a:2 " append or insert
   let divider = a:3 " insert divider?
   let range = first.",".last
   silent exe range."yank"
-  " let replacement = s:filename2pagetitle(file)
-  " silent exe "norm! :".first.",".last."change\<CR>".replacement."\<CR>.\<CR>"
-  silent exe "norm! :".first.",".last."change\<CR>.\<CR>"
+  let replacement = s:filename2pagetitle(file)
+  silent exe "norm! :".first.",".last."change\<CR>".replacement."\<CR>.\<CR>"
+  " this one just deletes the line
+  " silent exe "norm! :".first.",".last."change\<CR>.\<CR>"     
   if bufnr(file) == -1 || bufwinnr(bufnr(file)) == -1
     if !filereadable(file)
       " create the file
