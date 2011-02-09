@@ -97,8 +97,8 @@ To use MacVim as your SoyWiki Vim engine, you can run soywiki like this
 
     SOYWIKI_VIM=mvim soywiki
 
-or you can `export SOYWIKI_VIM=mvim` in your ~/.bash_profile and just
-run `soywiki`.
+or you can `export SOYWIKI_VIM=mvim` in your `~/.bash_profile` and then
+just run `soywiki`.
 
 ## Basic Usage
 
@@ -296,21 +296,20 @@ The rendered page appears in a Vim scratch buffer. From there you can
 write it out to a new text file, pipe it to `lpr` to print it, or
 whatever you like. 
 
-There are two forms of expansion: seamful and seamless. Seamful expansion
-expands wiki links into wiki pages and clearly marks where this has
-happened by including divider lines along with the WikiWord that was
-expanded. Seamless expansion does not mark the points of expansion with
+There are two forms of expansion: seamful and seamless. Seamful
+expansion expands wiki links into wiki pages and clearly marks where
+this has happened by including markers along with the WikiWord that was
+expanded. Seamless expansion does not mark a point of expansion with
 anything, and it erases the WikiWord that got expanded. 
 
 * `,x` expands a wiki page seamfully
 * `,X` expands a wiki page seamlessly
 
 Both modes of expansion are useful when you want to assemble a long
-piece of writing using one page as a master outline, and linking from
+piece of writing by using one page as a master outline and linking from
 this to other wiki pages that include the real content. And since
 expansion is recursive, you can effectively nest outlines within
-outlines. Yes this is an allusion to Inception.
-
+outlines, like dreams within dreams.  
 
 
 ## Why CamelCase WikiLinks rule
