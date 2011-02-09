@@ -20,22 +20,19 @@ overview of its characteristics and features:
 
 ## Introduction
 
-By building on Vim's existing strengths as a text editor and interface
-to the Unix operating system, SoyWiki makes it possible to create,
-consult, and remold wiki content pretty much at the speed of thought. 
+By building on Vim's strengths as a text editor and interface to the
+Unix operating system, SoyWiki makes it possible to create, consult, and
+remold wiki content at the speed of thought. 
 
-SoyWiki excels as a personal wiki. It is very good for tracking
-projects, contacts, ideas, and collecting research. 
+SoyWiki is good for tracking projects, contacts, ideas, and collecting
+research. 
 
-SoyWiki serves as a writing tool as well. It has an "expand-command"
-that allows you to use wiki pages in a fashion essentially similar to
-(and some might say more powerful than) an outline and generate an
-"expanded-view" that bundles together several wiki pages into a single
-long-form document.  SoyWiki makes it easy to take full advantage of a
-large monitor and Vim's split windows. You can have the research
-material you've collected in SoyWiki open in one or more windows, the
-essay or paper you're drafting open in another, and all the power of
-Vim's yank, put, and mark commands to shuttle bits of text between them.
+SoyWiki serves as a writing tool as well. SoyWiki makes it easy to take
+full advantage of a large monitor and Vim's split windows. You can have
+the research material you've collected in SoyWiki open in one or more
+windows, the essay or paper you're drafting open in another, and all the
+power of Vim's yank, put, and mark commands to shuttle text between
+them.
 
 Because SoyWiki's content is stored in plain text files, you can
 directly process, filter, grep, copy, and move text in and out of your
