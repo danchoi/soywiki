@@ -25,7 +25,9 @@ Unix operating system, SoyWiki makes it possible to create, consult, and
 refactor wiki content at the speed of thought. 
 
 SoyWiki is good for tracking projects, contacts, ideas, and collecting
-research. 
+research. SoyWiki combines the affordances of notebooks, index cards,
+and Post-it notes, and adds the power of automatic indexing and
+hyperlinks. 
 
 SoyWiki serves as a writing aid and makes it easy to take full advantage
 of a large monitor and Vim's split windows. You can have the research
