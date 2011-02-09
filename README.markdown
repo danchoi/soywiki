@@ -91,7 +91,7 @@ That's all you need to know to get started.
 ## Wiki navigation 
 
 Because SoyWiki is not just wiki but a Vim program, it lets you work a
-lot faster and with a more economy than browser-based wikis. 
+lot faster and with more economy than browser-based wikis. 
 
 You can navigate a SoyWiki wiki very quickly with the following
 commands. 
@@ -171,8 +171,20 @@ the general instructions [here][git-sync].
 
 ## Why CamelCase WikiLinks rule
 
-SoyWiki requires you to learn only a tiny, nearly non-existent markup
-language.  To make a piece of text work with SoyWiki, it just needs to
-use CamelCase WikiWords.  Beyond that, you can mark up your text any way
-you want, using Markdown, Texttile, AsciiDoc, or nothing.
+Some people don't like the CamelCase (a.k.a. WikiCase) wiki link
+pattern. But SoyWiki digs them. Besides being the original, CamelCase is
+the most elegantly minimalist approach to linking wiki pages together --
+"with no additional markup whatsoever," as [Ward Cunningham put
+it][ward].  It encourages you to create wiki pages with succinctly
+descriptive names.  CamelCase wiki-links are also better when storing
+content in plain text files: the page names can map directly to Unix
+file names without any awkward character escaping.
+
+[ward]:http://c2.com/cgi/wiki?WikiCase
+
+## Behind the name of this wiki engine
+
+I enjoy soy ice cream, soy milk, and tofu -- all light, enjoyable, and
+healthy foods. And "SoyWiki" hasn't been used yet to name a wiki engine.
+Hence the name.
 
