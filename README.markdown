@@ -27,10 +27,10 @@ index cards, and Post-it notes, and adds the power of hyperlinks and
 automatic indexing.
 
 SoyWiki makes a great writing aid, especially if you do your writing in
-Vim. It takes full advantage of Vim's split windows. You can have
-SoyWiki open in multiple Vim windows, and draft an essay or paper in
-another. Use SoyWiki with a large monitor, and you'll have your paper,
-essay, book, or screenplay written in no time. 
+Vim. You can have SoyWiki open in multiple Vim windows, and draft an
+essay or paper in another Vim window. Use SoyWiki with a large monitor,
+and you'll have your paper, essay, book, or screenplay written in no
+time. 
 
 You don't need to shell out $$ for a tools like [Scrivener][scriv] if
 you appreciate how much more powerful Vim is for editing and navigating
@@ -161,6 +161,16 @@ pages in your wiki to be cognizant of the change.
 
 You can delete a page with `,#`. 
 
+If you want to move text from one page to another, SoyWiki makes this
+quick and easy: 
+
+* Highlight the text you want to move with Vim's visual mode. (See `:help visual-mode` for more info) 
+* Press 
+
+
+
+
+
 TODO
 
 Add append 
@@ -218,4 +228,13 @@ software.
 
 My name is Daniel Choi. I am based in Cambridge, Massachusetts, USA, and you
 can email me at dhchoi {at} gmail.com.  
+
+## How to support the SoyWiki project
+
+If you find SoyWiki very useful, feel free to drop me a note to say so. If you
+have a bug to report or a good feature to suggest, please file it on the [issue
+tracker][1].  
+
+[1]:https://github.com/danchoi/soywiki/issues
+
 

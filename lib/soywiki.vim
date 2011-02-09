@@ -389,6 +389,33 @@ function! CompletePagesLinkingIn_InSelectionWindow(findstart, base)
 endfun
 
 "------------------------------------------------------------------------
+" This appends the selected text (use visual-mode) to the page selected
+" in the page selection window.
+func! s:extract(...) range
+  if a:0 == 0 || a:0 > 1
+    return s:error("Incorrect number of arguments")
+  endif
+  let first = a:firstline
+  let last = a:lastline
+  let file = a:1
+  let range = first.",".last
+  silent exe range."yank"
+  " if file doesn't exist, create it
+  exec "split ".file
+  normal G
+  call append(line('$'), '')
+  put
+  echo 
+endfunct
+
+func! s:error(str)
+  echohl ErrorMsg
+  echomsg a:str
+  echohl None
+endfunction
+
+
+"------------------------------------------------------------------------
 " This opens a new buffer with all the lines with just WikiLinks on them
 " expanded (recursively). This is not a wiki buffer but a text buffer
 
@@ -418,6 +445,7 @@ func! s:global_mappings()
   noremap <leader>m :call <SID>list_pages()<CR>
   noremap  <leader>M :call <SID>list_pages_linking_in()<CR>
   noremap <silent> <leader>o :call <SID>open_href()<cr> 
+  command! -bar -nargs=? -nargs=? -range -complete=file SWMove :<line1>,<line2>call s:extract(<f-args>)
 endfunc 
 
 " this checks if the buffer is a SoyWiki file (from firstline)
@@ -431,17 +459,23 @@ func! s:prep_buffer()
     noremap <buffer> <leader>f :call <SID>follow_link(0)<CR>
     noremap <buffer> <c-n> :call <SID>find_next_wiki_link(0)<CR>
     noremap <buffer> <c-p> :call <SID>find_next_wiki_link(1)<CR>
+
     noremap  <leader>c :call <SID>create_page()<CR>
     command! -buffer SWRename :call s:rename_page()
     noremap <buffer> <leader>r :call <SID>rename_page()<CR>
     command! -buffer SWDelete :call s:delete_page()
     noremap <buffer> <leader># :call <SID>delete_page()<CR>
+
     command! -buffer SWLog :call s:show_revision_history(0)
     noremap <buffer> <leader>l :call <SID>show_revision_history(0)<CR>
     command! -buffer SWLogStat :call s:show_revision_history(1)
     command! -buffer SWBlame :call s:show_blame()
     noremap <buffer> <leader>b :call <SID>show_blame()<CR>
+
+
+
     noremap <buffer> <leader>x :call <SID>unfurl()<CR>
+
     set nu
     setlocal completefunc=CompletePage
     augroup <buffer>
