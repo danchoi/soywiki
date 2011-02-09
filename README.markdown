@@ -22,7 +22,7 @@ overview of its characteristics and features:
 
 By building on Vim's strengths as a text editor and interface to the
 Unix operating system, SoyWiki makes it possible to create, consult, and
-remold wiki content at the speed of thought. 
+refactor wiki content at the speed of thought. 
 
 SoyWiki is good for tracking projects, contacts, ideas, and collecting
 research. 
