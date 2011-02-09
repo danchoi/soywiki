@@ -436,6 +436,7 @@ func! s:extract(...) range
     endif
   end
   write!
+  wincmd p
 endfunc
 
 
