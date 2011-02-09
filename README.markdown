@@ -35,7 +35,7 @@ an essay, chapter, or paper. Throw a bunch of Vim abbreviations (`:help
 abbreviations`), a large monitor, and a teapot, and you'll have your
 paper, essay, book, or screenplay written faster, sooner, and better.
 
-You don't need to shell out $$ for a tools like [Scrivener][scriv] if
+You don't need to shell out $$ for tools like [Scrivener][scriv] if
 you appreciate how much more powerful Vim is for editing and navigating
 text and how liberating it is to be able to store your content in the
 non-proprietary, universal plain-text format. Proprietary tools like
@@ -170,7 +170,7 @@ in Vim insert mode to invoke it.
 You can rename a wiki page with`,r`. You'll see a prompt asking
 you for the new name. Make sure it is valid CamelCase. After you press
 ENTER, SoyWiki will rename the page and update all the links on other
-pages in your wiki to be cognizant of the change.
+pages in your wiki that need updating because of the change.
 
 You can delete a page with `,#`. 
 
