@@ -20,20 +20,9 @@ overview of its characteristics and features:
 
 ## Introduction
 
-What is easy for the beginner is often not efficient for the proficient
-user.  This is especially so when wikis force everyone to do everything
-through a web-browser interface.  Web browser interfaces are not
-terrible.  But the difference between using a web browser interface to
-edit and navigate textual content and using a real text editor in a
-full-fledged Unix environment is like the difference between crawling
-and doing gymnastics.
-
-The text editing and wiki link traversal facilities of SoyWiki far outstrip
-those of your typical web-browser-based wiki.  By building on Vim's
-existing strengths as a text editor and interface to the Unix operating
-system, SoyWiki makes it possible to create, consult, and remold wiki
-content pretty much at the speed of thought. This is SoyWiki's primary
-mission.
+By building on Vim's existing strengths as a text editor and interface
+to the Unix operating system, SoyWiki makes it possible to create,
+consult, and remold wiki content pretty much at the speed of thought. 
 
 SoyWiki excels as a personal wiki. It is very good for tracking
 projects, contacts, ideas, and collecting research. 
@@ -44,10 +33,9 @@ that allows you to use wiki pages in a fashion essentially similar to
 "expanded-view" that bundles together several wiki pages into a single
 long-form document.  SoyWiki makes it easy to take full advantage of a
 large monitor and Vim's split windows. You can have the research
-material you've collected in SoyWik open in one or more windows, the
-essay or paper you're drafting open in another, and all the 
-power of Vim's yank, put, and mark commands to shuttle bits of text
-between them.
+material you've collected in SoyWiki open in one or more windows, the
+essay or paper you're drafting open in another, and all the power of
+Vim's yank, put, and mark commands to shuttle bits of text between them.
 
 Because SoyWiki's content is stored in plain text files, you can
 directly process, filter, grep, copy, and move text in and out of your
