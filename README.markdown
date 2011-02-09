@@ -29,7 +29,8 @@ automatic indexing.
 SoyWiki makes a great writing aid, especially if you do your writing in
 Vim. It takes full advantage of Vim's split windows. You can have
 SoyWiki open in multiple Vim windows, and draft an essay or paper in
-another.
+another. Use SoyWiki with a large monitor, and you'll have your book,
+essay, or screenplay written in no time.
 
 ## Prerequisites
 
