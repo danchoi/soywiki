@@ -48,7 +48,7 @@ END
       exit
     end
 
-    vim = ENV['VMAIL_VIM'] || 'vim'
+    vim = ENV['SOYWIKI_VIM'] || 'vim'
     vimscript = File.expand_path("../soywiki.vim", __FILE__)
     vim_command = "#{vim} -S #{vimscript} #{ARGV.first}"
     exec vim_command
