@@ -48,24 +48,18 @@ fashion. SoyWiki provides a few convenient key mappings to view the
 revision history of a wiki page and to see a "git-blame" view of who
 wrote each line when.
 
-Will there ever be a web browser interface to SoyWiki? Maybe. If you're
-a software developer feel free to contribute. But the main focus on
-SoyWiki at this stage is not on making it easy to publish and manage a
-public-facing wiki. The main focus right now is to help you organize
-knowledge and evolve it with minimal annoyance and distraction.  (Still,
-if you want to publish any of the content in a SoyWiki wiki, it's
-relatively easy to write a program that will bundle up all the relevant
-wiki pages together and convert them into public-facing webpages.)
+SoyWiki doesn't have a web interface yet. The main focus of SoyWiki at
+this stage is to help you organize knowledge and evolve it with minimal
+annoyance and distraction.  
 
-There are many syntaxes for linking wiki pages together. Why does
-SoyWiki opt for CamelCase (a.k.a. the WikiCase link pattern)? Besides
-being the original, CamelCase is the most elegantly minimalist approach
-to linking wiki pages together -- "with no additional markup
-whatsoever," as [Ward Cunningham put it][ward].  It encourages you to
-create wiki pages with succinctly descriptive names.  CamelCase
-wiki-links are also better when storing content in plain text files: the
-page names can map directly to Unix file names without any awkward
-character escaping.
+SoyWiki uses CamelCase -- a.k.a. WikiCase -- to link wiki pages
+together.  Besides being the original, CamelCase is the most elegantly
+minimalist approach to linking wiki pages together -- "with no
+additional markup whatsoever," as [Ward Cunningham put it][ward].  It
+encourages you to create wiki pages with succinctly descriptive names.
+CamelCase wiki-links are also better when storing content in plain text
+files: the page names can map directly to Unix file names without any
+awkward character escaping.
 
 [ward]:http://c2.com/cgi/wiki?WikiCase
 
