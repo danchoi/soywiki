@@ -392,20 +392,35 @@ endfun
 " This appends the selected text (use visual-mode) to the page selected
 " in the page selection window.
 func! s:extract(...) range
-  if a:0 == 0 || a:0 > 1
+  if a:0 != 3
     return s:error("Incorrect number of arguments")
   endif
   let first = a:firstline
   let last = a:lastline
   let file = a:1
+  let mode = a:2 " append or insert
+  let divider = a:3 " insert divider?
   let range = first.",".last
   silent exe range."yank"
   " if file doesn't exist, create it
-  exec "split ".file
-  normal G
-  call append(line('$'), '')
-  put
-  echo 
+  " TODO
+  if bufnr(file) == -1 || bufwinnr(bufnr(file)) == -1
+    exec "split ".file
+  else
+    let targetWindow = bufwinnr(bufnr(file))
+    exe targetWindow."wincmd w"
+  end
+  if mode == 'append'
+    normal G
+    call append(line('$'), '')
+    put
+  elseif mode == 'insert'
+    call cursor(2, 0)
+    put
+    call append(line('.'), '')
+
+  end
+
 endfunct
 
 func! s:error(str)
@@ -445,7 +460,8 @@ func! s:global_mappings()
   noremap <leader>m :call <SID>list_pages()<CR>
   noremap  <leader>M :call <SID>list_pages_linking_in()<CR>
   noremap <silent> <leader>o :call <SID>open_href()<cr> 
-  command! -bar -nargs=? -nargs=? -range -complete=file SWMove :<line1>,<line2>call s:extract(<f-args>)
+  command! -bar -nargs=1 -range -complete=file SWAppend :<line1>,<line2>call s:extract(<f-args>, 'append', 0)
+  command! -bar -nargs=1 -range -complete=file SWInsert :<line1>,<line2>call s:extract(<f-args>, 'insert', 0)
 endfunc 
 
 " this checks if the buffer is a SoyWiki file (from firstline)
