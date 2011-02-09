@@ -37,15 +37,14 @@ Because SoyWiki's content is stored in plain text files, you can
 directly process, filter, grep, copy, and move text in and out of your
 wiki using any combination of Unix tools.
 
-SoyWiki delegates practically all of its revision-tracking and
-distributed collaboration features to Git.  SoyWiki automatically
-creates a git repository in your wiki directory and automatically
-commits all the edits you make to it.  You can sync a SoyWiki wiki
-between two computers using the standard git push and pull commands.
-Collaborators can also edit a common wiki this way, in peer to peer
-fashion. SoyWiki provides a few convenient key mappings to view the
-revision history of a wiki page and to see a "git-blame" view of who
-wrote each line when.
+SoyWiki delegates revision-tracking, syncing, and collaboration
+workflows to Git.  SoyWiki automatically creates a git repository in
+your wiki directory and automatically commits all the edits you make to
+it.  You can sync a SoyWiki wiki between two computers using the
+standard git push and pull commands.  Collaborators can also edit a
+common wiki this way, in peer to peer fashion. SoyWiki provides a few
+convenient key mappings to view the revision history of a wiki page and
+to see a "git-blame" view of who wrote each line when.
 
 SoyWiki doesn't have a web interface yet. The main focus of SoyWiki at
 this stage is to help you organize knowledge and evolve it with minimal
