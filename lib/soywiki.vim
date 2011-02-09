@@ -402,8 +402,9 @@ func! s:extract(...) range
   let divider = a:3 " insert divider?
   let range = first.",".last
   silent exe range."yank"
-  let replacement = s:filename2pagetitle(file)
-  silent exe "norm! :".first.",".last."change\<CR>".replacement."\<CR>.\<CR>"
+  " let replacement = s:filename2pagetitle(file)
+  " silent exe "norm! :".first.",".last."change\<CR>".replacement."\<CR>.\<CR>"
+  silent exe "norm! :".first.",".last."change\<CR>.\<CR>"
   if bufnr(file) == -1 || bufwinnr(bufnr(file)) == -1
     if !filereadable(file)
       " create the file
@@ -436,7 +437,6 @@ func! s:extract(...) range
     endif
   end
   write!
-  wincmd p
 endfunc
 
 
@@ -450,6 +450,13 @@ func! s:insert_divider()
   let divider = '------------------------------------------------------------------------'
   silent put! =divider
   silent put=''
+endfunc
+"------------------------------------------------------------------------
+" SEARCH
+func! s:wiki_search(pattern)
+
+  let pattern = (empty(a:pattern)  ? @/ : a:pattern)
+  execute printf('vimgrep/%s/ %s', pattern, "**/*")
 endfunc
 
 "------------------------------------------------------------------------
@@ -487,6 +494,8 @@ func! s:global_mappings()
   command! -bar -nargs=1 -range -complete=file SWInsert :<line1>,<line2>call s:extract(<f-args>, 'insert', 0)
   command! -bar -nargs=1 -range -complete=file SWDAppend :<line1>,<line2>call s:extract(<f-args>, 'append', 1)
   command! -bar -nargs=1 -range -complete=file SWDInsert :<line1>,<line2>call s:extract(<f-args>, 'insert', 1)
+
+  command! -bar -nargs=1 SWSearch :call s:wiki_search(<f-args>)
 endfunc 
 
 " this checks if the buffer is a SoyWiki file (from firstline)
@@ -503,6 +512,7 @@ func! s:prep_buffer()
 
     noremap  <leader>c :call <SID>create_page()<CR>
     command! -buffer SWRename :call s:rename_page()
+
     noremap <buffer> <leader>r :call <SID>rename_page()<CR>
     command! -buffer SWDelete :call s:delete_page()
     noremap <buffer> <leader># :call <SID>delete_page()<CR>

@@ -183,9 +183,6 @@ These commands will open the target page (if it isn't open already) in a
 split window and insert or append the selected text into it.  If the
 target page doesn't exist, it will be created.
 
-These commands will also replace the text you selected in the original
-wiki page with a wiki-link to the target page.
-
 You should be able to run all these commands using shortcuts:
 
 * `:SWI`
@@ -194,9 +191,22 @@ You should be able to run all these commands using shortcuts:
 * `:SWDA`
 
 
+## Search
 
+To search your SoyWiki wiki, type `:SWSearch [search term]`. Vim will
+load any matches in the quickfix list window.  If there are matches, you
+can use `:cn` and `:cp` to go from match to match.  See `:help quickfix`
+for more QuickFix commands. 
 
+Searches are case-insensitve by default. To do a case-sensitive search,
+add a `\C` to your search string, e.g.:
 
+    :SWSearch Gnu\C
+
+Again, you can use `:SWS` as a shortcut.
+
+Under the hood, `:SWSearch` is just a thin wrapper around the `:vimgrep`
+command.
 
 ## Revision history and distributed workflows
 
