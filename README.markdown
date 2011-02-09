@@ -63,7 +63,7 @@ awkward character escaping.
 
 [ward]:http://c2.com/cgi/wiki?WikiCase
 
-I enjoy soy ice cream, soy milk, and tofu--all light, enjoyable, and
+I enjoy soy ice cream, soy milk, and tofu -- all light, enjoyable, and
 healthy foods. And "SoyWiki" hasn't been used yet to name a wiki engine.
 Hence the name.
 
