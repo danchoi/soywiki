@@ -245,9 +245,9 @@ But if you want, you can also namespace your WikiWords, like so:
 
     namespaced.WikiWord
 
-A namespaced WikiWord is a WikiWord preceded by a word that starts with
-a lower-case letter and ends with a period.
-
+A namespaced WikiWord is a WikiWord prefixed by a namespace. The
+namespace word must start with a lower-case letter and consist 
+only of letters, numbers, and underscore characters.
 
 
 
