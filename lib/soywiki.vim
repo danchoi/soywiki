@@ -407,13 +407,16 @@ func! s:extract(...) range
   endif
 
   let mode = a:2 " append or insert
-  let divider = a:3 " insert divider?
+  let link = a:3 " replace with link ?
   let range = first.",".last
   silent exe range."yank"
-  let replacement = s:filename2pagetitle(file)
-  silent exe "norm! :".first.",".last."change\<CR>".replacement."\<CR>.\<CR>"
-  " this one just deletes the line
-  " silent exe "norm! :".first.",".last."change\<CR>.\<CR>"     
+  if link
+    let replacement = s:filename2pagetitle(file)
+    silent exe "norm! :".first.",".last."change\<CR>".replacement."\<CR>.\<CR>"
+  else
+    " this one just deletes the line
+    silent exe "norm! :".first.",".last."change\<CR>.\<CR>"     
+  endif
   if bufnr(file) == -1 || bufwinnr(bufnr(file)) == -1
     if !filereadable(file)
       " create the file
@@ -431,19 +434,11 @@ func! s:extract(...) range
   end
   if mode == 'append'
     normal G
-    if divider == 1
-      call s:insert_divider()
-      silent put =''
-    endif
     silent put
     silent put= ''
   elseif mode == 'insert'
     call cursor(2, 0)
     silent put
-    if divider == 1
-      silent put =''
-      call s:insert_divider()
-    endif
   end
   write!
 endfunc
@@ -511,8 +506,8 @@ func! s:global_mappings()
 
   command! -bar -nargs=1 -range -complete=file SWAppend :<line1>,<line2>call s:extract(<f-args>, 'append', 0)
   command! -bar -nargs=1 -range -complete=file SWInsert :<line1>,<line2>call s:extract(<f-args>, 'insert', 0)
-  "command! -bar -nargs=1 -range -complete=file SWDAppend :<line1>,<line2>call s:extract(<f-args>, 'append', 1)
-  "command! -bar -nargs=1 -range -complete=file SWDInsert :<line1>,<line2>call s:extract(<f-args>, 'insert', 1)
+  command! -bar -nargs=1 -range -complete=file SWLinkAppend :<line1>,<line2>call s:extract(<f-args>, 'append', 1)
+  command! -bar -nargs=1 -range -complete=file SWLinkInsert :<line1>,<line2>call s:extract(<f-args>, 'insert', 1)
 
   command! -bar -nargs=1 SWSearch :call s:wiki_search(<f-args>)
 endfunc 
