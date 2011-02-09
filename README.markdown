@@ -1,7 +1,9 @@
 # SoyWiki
 
-SoyWiki is fast, lightweight, Vim-centric wiki application. A quick
-overview of its characteristics and features:
+SoyWiki is lightweight application that turns Vim into a fast and
+powerful wiki. 
+
+A quick overview of its characteristics and features:
 
 * flat text files
 * maximum data portability
@@ -176,16 +178,23 @@ Then, type
 `[target]` is the name of the file that contains the wiki page you're
 targeting. Press `TAB` for autocompletion help.
 
-Executing these commands will open the target page (if it isn't open
-already) in a split window and insert or append the selected text into
-it. They also replace the text you selected in the original wiki page
-with a link to the target page.
+These commands will open the target page (if it isn't open already) in a
+split window and insert or append the selected text into it.  If the
+target page doesn't exist, it will be created.
+
+These commands will also replace the text you selected in the original
+wiki page with a wiki-link to the target page.
+
+You should be able to run all these commands using shortcuts:
+
+* `:SYI`
+* `:SYA`
+* `:SYDI`
+* `:SYDA`
 
 
 
-TODO
 
-Add append 
 
 
 ## Revision history and distributed workflows
