@@ -208,6 +208,7 @@ Again, you can use `:SWS` as a shortcut.
 Under the hood, `:SWSearch` is just a thin wrapper around the `:vimgrep`
 command.
 
+
 ## Revision history and distributed workflows
 
 SoyWiki delegates revision-tracking, syncing, and collaboration
@@ -232,6 +233,24 @@ To sync your SoyWiki wiki between two personal computers, just follow
 the general instructions [here][git-sync].
 
 [git-sync]:http://www-cs-students.stanford.edu/~blynn/gitmagic/ch03.html
+
+
+## Namespaced WikiWords
+
+You can get very far with SoyWiki with normal CamelCase WikiWords.  
+
+But if you want, you can also namespace your WikiWords, like so:
+
+    NormalWikiWord
+
+    namespaced.WikiWord
+
+A namespaced WikiWord is a WikiWord preceded by a word that starts with
+a lower-case letter and ends with a period.
+
+
+
+
 
 ## Why CamelCase WikiLinks rule
 
