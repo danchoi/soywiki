@@ -460,8 +460,8 @@ func! s:global_mappings()
   noremap <leader>m :call <SID>list_pages()<CR>
   noremap  <leader>M :call <SID>list_pages_linking_in()<CR>
   noremap <silent> <leader>o :call <SID>open_href()<cr> 
-  command! -bar -nargs=1 -range -complete=file SWAppend :<line1>,<line2>call s:extract(<f-args>, 'append', 0)
-  command! -bar -nargs=1 -range -complete=file SWInsert :<line1>,<line2>call s:extract(<f-args>, 'insert', 0)
+  command! -bar -nargs=1 -range -complete=file SYAppend :<line1>,<line2>call s:extract(<f-args>, 'append', 0)
+  command! -bar -nargs=1 -range -complete=file SYInsert :<line1>,<line2>call s:extract(<f-args>, 'insert', 0)
 endfunc 
 
 " this checks if the buffer is a SoyWiki file (from firstline)
@@ -477,15 +477,15 @@ func! s:prep_buffer()
     noremap <buffer> <c-p> :call <SID>find_next_wiki_link(1)<CR>
 
     noremap  <leader>c :call <SID>create_page()<CR>
-    command! -buffer SWRename :call s:rename_page()
+    command! -buffer SYRename :call s:rename_page()
     noremap <buffer> <leader>r :call <SID>rename_page()<CR>
-    command! -buffer SWDelete :call s:delete_page()
+    command! -buffer SYDelete :call s:delete_page()
     noremap <buffer> <leader># :call <SID>delete_page()<CR>
 
-    command! -buffer SWLog :call s:show_revision_history(0)
+    command! -buffer SYLog :call s:show_revision_history(0)
     noremap <buffer> <leader>l :call <SID>show_revision_history(0)<CR>
-    command! -buffer SWLogStat :call s:show_revision_history(1)
-    command! -buffer SWBlame :call s:show_blame()
+    command! -buffer SYLogStat :call s:show_revision_history(1)
+    command! -buffer SYBlame :call s:show_blame()
     noremap <buffer> <leader>b :call <SID>show_blame()<CR>
 
 

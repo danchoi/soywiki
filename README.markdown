@@ -153,9 +153,6 @@ in Vim insert mode to invoke it.
 
 ## Wiki refactoring
 
-To help you reorganize and refactor your wiki, SoyWiki goes way beyond
-cut and paste. 
-
 You can rename a wiki page with`,r`. You'll see a prompt asking
 you for the new name. Make sure it is valid CamelCase. After you press
 ENTER, SoyWiki will rename the page and update all the links on other
@@ -163,13 +160,26 @@ pages in your wiki to be cognizant of the change.
 
 You can delete a page with `,#`. 
 
-If you want to move text from one page to another, SoyWiki makes this
-quick and easy: 
+Beyond the standard cut and paste, SoyWiki gives you four fast ways of
+moving text from one wiki page to another.
 
-* Highlight the text you want to move with Vim's visual mode. (See `:help visual-mode` for more info) 
-* Press 
+First, highlight the text you want to move with Vim's visual mode. (See
+`:help visual-mode` for more info) 
 
+Then, type
 
+* `:SYInsert [target]` to move the text to the top of target page.
+* `:SYAppend [target]` to move the text to the bottom of the target page.
+* `:SYDInsert [target]` to perform a SYInsert but also insert a divider line
+* `:SYDAppend [target]` to perform a SYAppend but also insert a divider line
+
+`[target]` is the name of the file that contains the wiki page you're
+targeting. Press `TAB` for autocompletion help.
+
+Executing these commands will open the target page (if it isn't open
+already) in a split window and insert or append the selected text into
+it. They also replace the text you selected in the original wiki page
+with a link to the target page.
 
 
 
@@ -192,7 +202,7 @@ history of a wiki page:
 
 * `,l` shows a `git-log` view of the revision history of the current page
 * `,b` shows a `git-blame` view of the current page, which shows when each line was added and by whom.
-* `:SWLogStat` shows a `git log --stat` view of the current page's revision history
+* `:SYLogStat` shows a `git log --stat` view of the current page's revision history
 
 You can always bypass Vim and SoyWiki altogether and use Git directly to
 inspect your revision history. The Git repo for your SoyWiki wiki will
