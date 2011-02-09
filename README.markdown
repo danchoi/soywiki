@@ -249,7 +249,26 @@ A namespaced WikiWord is a WikiWord prefixed by a namespace. The
 namespace word must start with a lower-case letter and consist 
 only of letters, numbers, and underscore characters.
 
+Namespaced WikiWords help organize your conceptual wiki space. They also
+have two other effects: 
 
+First, wiki pages that represent a namespaced WikiWord are stored under a
+subdirectory named after the namespace. This can help reduce the clutter in
+your wiki directory.
+
+Second, a WikiWord namespace lets you use abbreviated links within that
+namespace. For example, if you are editing a page called
+`recipes.SoyMacaroni` and you want to link to another page in the same
+namespace called `recipes.SoyRaspberrySmoothie` you can type the link in
+this special abbreviated form:
+
+    .SoyRaspberrySmoothie
+
+SoyWiki will know from the leading period that this is a link to another
+page in the same namespace. 
+
+WikiLink autocompletion also works with abbreviated links. Just type a
+period, and invoke autocompletion with `CTRL-x CTRL-u`.
 
 
 ## Why CamelCase WikiLinks rule

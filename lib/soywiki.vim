@@ -431,8 +431,8 @@ func! s:extract(...) range
   elseif mode == 'insert'
     call cursor(2, 0)
     silent put
-    silent put =''
     if divider == 1
+      silent put =''
       call s:insert_divider()
     endif
   end
