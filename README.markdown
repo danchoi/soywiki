@@ -27,12 +27,11 @@ refactor wiki content at the speed of thought.
 SoyWiki is good for tracking projects, contacts, ideas, and collecting
 research. 
 
-SoyWiki serves as a writing tool as well. SoyWiki makes it easy to take
-full advantage of a large monitor and Vim's split windows. You can have
-the research material you've collected in SoyWiki open in one or more
-windows, the essay or paper you're drafting open in another, and all the
-power of Vim's yank, put, and mark commands to shuttle text between
-them.
+SoyWiki serves as a writing aid and makes it easy to take full advantage
+of a large monitor and Vim's split windows. You can have the research
+material you've collected in SoyWiki open in one or more windows, the
+essay or paper you're drafting open in another, and all the power of
+Vim's yank, put, and mark commands to shuttle text between them.
 
 Because SoyWiki's content is stored in plain text files, you can
 directly process, filter, grep, copy, and move text in and out of your
