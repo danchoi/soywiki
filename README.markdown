@@ -186,7 +186,8 @@ pattern. But SoyWiki digs it.
 
 * Besides being the original, CamelCase is the most elegantly minimalist approach to linking wiki pages together -- "with no additional markup whatsoever," as [Ward Cunningham put it][ward]. 
 * It encourages you more than other wiki link patterns to create wiki pages with succinctly descriptive names.  
-* Because the link pattern is so minimal and succinct, typing them it interrupts your flow of
+* Because the link pattern is so minimal and succinct, inserting them in
+your notes interrupts your flow of
 thought a lot less than other wiki patterns.
 * It is very conducive to storing
 wiki pages in plain text files: the page names can map directly to Unix
