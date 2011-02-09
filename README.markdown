@@ -132,6 +132,12 @@ window by putting the cursor at the beginning of a hyperlink and typing
 `gf`, or `C-w f` if you want to open the webpage in a split window.  See
 `:help netrw` for more information.
 
+## Wiki-link autocompletion
+
+When you're writing a wiki page and you want to link to another page,
+SoyWiki can help you autocomplete your wiki-link. Press `CTRL-x CTRL-u`
+in Vim insert mode to invoke it.
+
 ## Wiki refactoring
 
 SoyWiki makes it easy to reorganize your wiki with these commands.
@@ -172,12 +178,14 @@ the general instructions [here][git-sync].
 ## Why CamelCase WikiLinks rule
 
 Some people don't like the CamelCase (a.k.a. WikiCase) wiki link
-pattern. But SoyWiki digs them. Besides being the original, CamelCase is
-the most elegantly minimalist approach to linking wiki pages together --
-"with no additional markup whatsoever," as [Ward Cunningham put
-it][ward].  It encourages you to create wiki pages with succinctly
-descriptive names.  CamelCase wiki-links are also better when storing
-content in plain text files: the page names can map directly to Unix
+pattern. But SoyWiki digs them. 
+
+* Besides being the original, CamelCase is the most elegantly minimalist approach to linking wiki pages together -- "with no additional markup whatsoever," as [Ward Cunningham put it][ward]. 
+* It encourages you more than other wiki link patterns to create wiki pages with succinctly descriptive names.  
+* Because the pattern is so minimal and succinct, typing them it interrupts your flow of
+thinking less than other wiki patterns.
+* CamelCase wiki-links are also conducive to storing
+wiki pages in plain text files: the page names can map directly to Unix
 file names without any awkward character escaping.
 
 [ward]:http://c2.com/cgi/wiki?WikiCase
