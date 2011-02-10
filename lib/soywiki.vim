@@ -477,7 +477,7 @@ func! s:expand(seamless, vertical)
     let res = system(s:expand_command . " seamful " . bufname('%'))
   endif
   if a:vertical
-    vnew 
+    botright vnew 
   else
     new 
   endif
