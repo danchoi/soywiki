@@ -103,10 +103,11 @@ ENTER on them is the main way of linking wiki pages together. You'll be
 surprised at how powerful this simple mechanism is for organizing your
 notes. 
 
-A wiki page is a simple text file that has a WikiWord title on the first
-line (don't alter this line) and any text your want to insert below
-that. SoyWiki will create stub WikiPages for you automatically as you
-traverse WikiLinks that don't yet reference any content.
+In SoyWiki, a wiki page is a simple text file that has a WikiWord title
+on the first line (don't alter this line) and any text your want to
+insert below that. SoyWiki will create stub WikiPages for you
+automatically as you traverse WikiLinks that don't yet reference any
+content.
 
 That's all you need to know to get started. 
 
