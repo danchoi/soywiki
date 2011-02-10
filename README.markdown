@@ -286,15 +286,16 @@ period, and invoke autocompletion with `CTRL-x CTRL-u`.
 
 ## Expanding a Wiki page
 
-SoyWiki lets you render a wiki page in "expanded" form.  What this does
-is expand all the wiki links on the page that appear alone on a line to
-include their content inline. This works recursively in all the included
-wiki pages (though it does not go into vicious circles because it only
-expands each link once).
+SoyWiki lets you "expand" a wiki page.  What this does is expand all the
+wiki links in the page that appear alone on a line.  These links are
+replaced by the content of the wiki page the links point to. This
+expansion works recursively on all the expanded content.  It won't fall
+into vicious circles, however, since it will only expand each WikiWord
+it encounters once.
 
-The rendered page appears in a Vim scratch buffer. From there you can
-write it out to a new text file, pipe it to `lpr` to print it, or
-whatever you like. 
+The expanded version of the page appears in a new Vim scratch buffer.
+From there you can write it out to a new text file, pipe it to `lpr` to
+print it, or whatever you like. 
 
 There are two forms of expansion: seamful and seamless. Seamful
 expansion expands wiki links into wiki pages and clearly marks where
