@@ -116,8 +116,8 @@ commands.
 * `CTRL-n` and `CTRL-p` move the cursor directly to the next or previous WikiLink on the page
 * `ENTER` follows the WikiLink under the cursor
 * `,f` follows the first WikiLink after the cursor
-* `,-` opens a WikiLink in a split window
-* `,|` does the same, but in a vertical split window
+* `,;` opens a WikiLink in a split window
+* `,:` does the same, but in a vertical split window
 * `q` closes a split window (in one fewer keystroke than `:q`)
 
 You can also use Vim's jump motions `CTRL-o` and `CTRL-i` to move back
@@ -199,8 +199,9 @@ to avoid typing out the whole command name.
 
 To search your SoyWiki wiki, type `:SWSearch [search term]`. Vim will
 load any matches in the quickfix list window.  If there are matches, you
-can use `:cn` and `:cp` to go from match to match.  See `:help quickfix`
-for more QuickFix commands. 
+can use `:cn` and `:cp` to go from match to match, `:cl` to list the
+matches, and `:cc [item number]` to see a particular match ln the list.  See
+`:help quickfix` to see the list of matches. for more QuickFix commands. 
 
 Searches are case-insensitve by default. To do a case-sensitive search,
 add a `\C` to your search string, e.g.:

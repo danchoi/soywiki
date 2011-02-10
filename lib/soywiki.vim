@@ -538,8 +538,8 @@ func! s:prep_buffer()
   if (s:is_wiki_page())
     set textwidth=72
     nnoremap <buffer> <cr> :call <SID>follow_link_under_cursor(0)<cr> 
-    nnoremap <buffer> - :call <SID>follow_link_under_cursor(1)<cr> 
-    nnoremap <buffer> \| :call <SID>follow_link_under_cursor(2)<cr> 
+    nnoremap <buffer> ; :call <SID>follow_link_under_cursor(1)<cr> 
+    nnoremap <buffer> : :call <SID>follow_link_under_cursor(2)<cr> 
     noremap <buffer> <leader>f :call <SID>follow_link(0)<CR>
     noremap <buffer> <c-n> :call <SID>find_next_wiki_link(0)<CR>
     noremap <buffer> <c-p> :call <SID>find_next_wiki_link(1)<CR>
