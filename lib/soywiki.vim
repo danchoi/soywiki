@@ -4,7 +4,7 @@
 
 " This regex matches namedspaced WikiWords, top-level WikiWords, and relative
 " .WikiWords in a namespace
-let s:wiki_link_pattern =  '\C\<\([a-z][[:alnum:]_]\+\.\)\?[A-Z][a-z]\+[A-Z]\w*\>\|\.[A-Z][a-z]\+[A-Z]\w*\>'
+let s:wiki_link_pattern =  '\C\<\([a-z][[:alnum:]_]\+\.\)\?[A-Z][a-z]\+[A-Z]\w*\>'
 
 let s:http_link_pattern = 'https\?:[^ >)\]]\+'
 let s:rename_links_command = 'soywiki-rename '
@@ -139,7 +139,7 @@ endfunc
 
 func! s:load_most_recently_modified_page()
   let pages = split(system(s:ls_command), "\n")
-  let start_page = len(pages) > 0 ? get(pages, 0) : "HomePage" 
+  let start_page = len(pages) > 0 ? get(pages, 0) : "main.HomePage" 
   call s:load_page(start_page, 0)
 endfunc
 

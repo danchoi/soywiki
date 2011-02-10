@@ -28,7 +28,7 @@ end
 
 module Soywiki
   VERSION = '0.1.0'
-  WIKI_WORD = /\b([a-z][\w_]+\.)?[A-Z][a-z]+[A-Z]\w*\b|\.[A-Z][a-z]+[A-Z]\w*\b/
+  WIKI_WORD = /\b[a-z][\w_]+\.)?[A-Z][a-z]+[A-Z]\w*\b/
 
   def self.run
     if %W( -v --version -h --help).include?(ARGV.first)

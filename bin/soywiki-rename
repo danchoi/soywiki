@@ -3,7 +3,6 @@ require 'soywiki'
 
 oldname, newname = *ARGV
 
-
 MEMO = ["Updating inbound and outbound links..."]
 
 def report(file, oldname, newname)
