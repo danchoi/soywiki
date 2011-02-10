@@ -248,10 +248,10 @@ But if you want, you can also namespace your WikiWords, like so:
 
     namespaced.WikiWord
 
-A namespaced WikiWord is a WikiWord prefixed by a namespace. The
-namespace word must start with a lower-case letter and consist 
-only of letters, numbers, and underscore characters. You can't chain
-namespace words together: the maximum nesting level is 1.
+A namespaced WikiWord is a WikiWord prefixed by a namespace and a
+period. The namespace word must start with a lower-case letter and
+consist only of letters, numbers, and underscore characters. You can't
+chain namespace words together: the maximum nesting level is 1.
 
 Namespaced WikiWords help organize your wiki space conceptually. They also
 have two other benefits: 

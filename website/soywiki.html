@@ -3,10 +3,10 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
       <title>Vmail</title>
-      <link href="stylesheets-vmail/reset.css?1297299403" media="screen" rel="stylesheet" type="text/css" />
-      <link href="stylesheets-vmail/960.css?1297299403" media="screen" rel="stylesheet" type="text/css" />
-      <link href="stylesheets-vmail/text.css?1297299403" media="screen" rel="stylesheet" type="text/css" />
-      <link href="stylesheets-vmail/site.css?1297299403" media="screen" rel="stylesheet" type="text/css" />
+      <link href="stylesheets-vmail/reset.css?1297299633" media="screen" rel="stylesheet" type="text/css" />
+      <link href="stylesheets-vmail/960.css?1297299633" media="screen" rel="stylesheet" type="text/css" />
+      <link href="stylesheets-vmail/text.css?1297299633" media="screen" rel="stylesheet" type="text/css" />
+      <link href="stylesheets-vmail/site.css?1297299633" media="screen" rel="stylesheet" type="text/css" />
       <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script><script type="text/javascript">stLight.options({publisher:'8579b5f8-0860-4ea6-9ef1-6f0f58359a99'});</script>
       <script type="text/javascript" src="lightbox2/js/prototype.js"></script>
       <script type="text/javascript" src="lightbox2/js/scriptaculous.js?load=effects,builder"></script>
@@ -300,7 +300,7 @@ namespace words together: the maximum nesting level is 1.</p>
 have two other benefits:</p>
 
 <p>First, wiki pages that represent a namespaced WikiWord are stored under a
-subdirectory named after the namespace. This can help reduce the clutter in
+subdirectory named after the namespace. This can help reduce clutter in
 your wiki directory.</p>
 
 <p>Second, a WikiWord namespace lets you use abbreviated links within that
@@ -318,17 +318,17 @@ page in the same namespace.</p>
 <p>WikiLink autocompletion also works with abbreviated namespaced links. Just type a
 period, and invoke autocompletion with <code>CTRL-x CTRL-u</code>.</p>
 
-<h2>Expanding a Wiki page</h2>
+<h2>Expanding a wiki page</h2>
 
 <p>SoyWiki lets you "expand" a wiki page.  What this does is expand all the
 wiki links in the page that appear alone on a line.  Each of these links
 is replaced by the content of the wiki page the link points to. This
 expansion works recursively on all the expanded content.  Don't worry.
 It can't fall into an infinite recursive loop because it will only
-expand each WikiWord it encounters once, leaving all subsequence
+expand each WikiWord it encounters once, leaving all subsequent
 references to the same WikiWord unexpanded.</p>
 
-<p>The expanded version of the page appears in a new Vim scratch buffer.
+<p>The expanded version of the page will appear in a new Vim scratch buffer.
 From there you can write it out to a new text file, pipe it to <code>lpr</code> to
 print it, or whatever you like.</p>
 
