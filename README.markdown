@@ -257,7 +257,7 @@ Namespaced WikiWords help organize your wiki space conceptually. They also
 have two other benefits: 
 
 First, wiki pages that represent a namespaced WikiWord are stored under a
-subdirectory named after the namespace. This can help reduce the clutter in
+subdirectory named after the namespace. This can help reduce clutter in
 your wiki directory.
 
 Second, a WikiWord namespace lets you use abbreviated links within that
