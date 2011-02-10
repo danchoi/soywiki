@@ -103,19 +103,24 @@ ENTER on them is the main way of linking wiki pages together. You'll be
 surprised at how powerful this simple mechanism is for organizing your
 notes. 
 
+A wiki page is a simple text file that has a WikiWord title on the first
+line (don't alter this line) and any text your want to insert below
+that. SoyWiki will create stub WikiPages for you automatically as you
+traverse WikiLinks that don't yet reference any content.
+
 That's all you need to know to get started. 
 
 ## Wiki navigation 
 
 You can navigate a SoyWiki wiki very quickly with the following
-commands. 
+commands: 
 
 * `CTRL-k` and `CTRL-j` move the cursor directly to the next or previous WikiLink on the page
 * `ENTER` follows the WikiLink under the cursor
 * `,f` follows the first WikiLink after the cursor
 * `CTRL-l` opens a WikiLink in a split window
 * `CTRL-n` does the same, but in a vertical split window
-* both `q` and `CTRL-h` close a split window 
+* Both `q` and `CTRL-h` close a split window 
 
 These key mappings may not be very mnemonic, but they are easy to
 memorize through muscle memory and were chosen to keep the hands
