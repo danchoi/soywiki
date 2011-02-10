@@ -174,6 +174,9 @@ pages in your wiki that need updating because of the change.
 
 You can delete a page with `,#`. 
 
+You can create a wiki page directly, without first typing a WikiWord and
+traversing it, by pressing `,c`.
+
 Beyond the standard cut and paste, SoyWiki gives you four fast ways of
 shuttling text from one wiki page to another.
 
