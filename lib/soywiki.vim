@@ -88,7 +88,11 @@ endfunc
 func! s:follow_link_under_cursor(split)
   let link = s:link_under_cursor()
   if match(link, s:wiki_link_pattern) == -1
-    echom "Not a wiki link"
+    if match(link, s:http_link_pattern) != -1
+      call s:open_href()
+    else
+      echom "Not a wiki link"
+    end
     return
   endif
   call s:load_page(link, a:split)
@@ -495,7 +499,7 @@ endfunc
 
 func! s:open_href()
   let line = search(s:http_link_pattern, 'cw')
-  let href = matchstr(getline(line('.')), s:http_link_pattern)
+  let href = expand("<cWORD>") 
   let command = g:SoyWiki#browser_command . " '" . href . "' "
   call system(command)
   echom command 
@@ -571,8 +575,6 @@ endfunc
 
 func! s:highlight_wikiwords()
   if (s:is_wiki_page()) 
-    " exe ":match Constant /". s:http_link_pattern . "/"
-    "exe ":2match Comment /". s:wiki_link_pattern. "/"
     syntax clear
     exe "syn match Comment /". s:wiki_link_pattern. "/"
     exe "syn match Constant /". s:http_link_pattern . "/"
@@ -603,7 +605,7 @@ if len(bufname("%")) == 0
 else
   call s:load_page(bufname("%"), 0)
 endif
-
 call s:get_page_list()
 syntax enable
 let mapleader = ','
+call s:highlight_wikiwords() 
