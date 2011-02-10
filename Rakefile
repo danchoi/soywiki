@@ -10,12 +10,8 @@ require 'soywiki'
 Bundler::GemHelper.install_tasks
 
 desc "build and push website"
-task :web do
-  version = Soywiki::VERSION
-  Dir.chdir("website") do
-    puts "updating website"
-    puts `./run.sh #{Soywiki::VERSION}`
-  end
+task :web => :build_webpage do
+  `scp website/soywiki.html zoe2@instantwatcher.com:~/danielchoi.com/public/software/`
 end
 
 desc "build website locally"
