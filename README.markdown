@@ -55,9 +55,7 @@ SoyWiki is free and open source.
 
 The current version of SoyWiki assumes a Unix environment. 
 
-To use SoyWiki you should be fairly good at using Vim. More than 80
-percent of the SoyWiki codebase implements the VimScript interface
-layer.
+To use SoyWiki you should be fairly good at using Vim. 
 
 ## Installation
 
