@@ -540,7 +540,6 @@ func! s:prep_buffer()
     set textwidth=72
     nnoremap <buffer> <cr> :call <SID>follow_link_under_cursor(0)<cr> 
     nnoremap <buffer> <c-l> :call <SID>follow_link_under_cursor(1)<cr> 
-    " this overrides the useless c-n
     nnoremap <buffer> <c-n> :call <SID>follow_link_under_cursor(2)<cr> 
     noremap <buffer> <leader>f :call <SID>follow_link(0)<CR>
     noremap <buffer> <c-j> :call <SID>find_next_wiki_link(0)<CR>

@@ -3,10 +3,10 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
       <title>Vmail</title>
-      <link href="stylesheets-vmail/reset.css?1297299905" media="screen" rel="stylesheet" type="text/css" />
-      <link href="stylesheets-vmail/960.css?1297299905" media="screen" rel="stylesheet" type="text/css" />
-      <link href="stylesheets-vmail/text.css?1297299905" media="screen" rel="stylesheet" type="text/css" />
-      <link href="stylesheets-vmail/site.css?1297299905" media="screen" rel="stylesheet" type="text/css" />
+      <link href="stylesheets-vmail/reset.css?1297321098" media="screen" rel="stylesheet" type="text/css" />
+      <link href="stylesheets-vmail/960.css?1297321098" media="screen" rel="stylesheet" type="text/css" />
+      <link href="stylesheets-vmail/text.css?1297321098" media="screen" rel="stylesheet" type="text/css" />
+      <link href="stylesheets-vmail/site.css?1297321098" media="screen" rel="stylesheet" type="text/css" />
       <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script><script type="text/javascript">stLight.options({publisher:'8579b5f8-0860-4ea6-9ef1-6f0f58359a99'});</script>
       <script type="text/javascript" src="lightbox2/js/prototype.js"></script>
       <script type="text/javascript" src="lightbox2/js/scriptaculous.js?load=effects,builder"></script>
@@ -147,13 +147,18 @@ work a lot faster and with more economy than browser-based wikis.</p>
 commands.</p>
 
 <ul>
-<li><code>CTRL-n</code> and <code>CTRL-p</code> move the cursor directly to the next or previous WikiLink on the page</li>
+<li><code>CTRL-k</code> and <code>CTRL-j</code> move the cursor directly to the next or previous WikiLink on the page</li>
 <li><code>ENTER</code> follows the WikiLink under the cursor</li>
 <li><code>,f</code> follows the first WikiLink after the cursor</li>
-<li><code>,-</code> opens a WikiLink in a split window</li>
-<li><code>,|</code> does the same, but in a vertical split window</li>
+<li><code>CTRL-l</code> opens a WikiLink in a split window</li>
+<li><code>CTRL-n</code> does the same, but in a vertical split window</li>
+<li>both <code>q</code> and <code>CTRL-h</code> closes a split window</li>
 </ul>
 
+
+<p>These key mappings were chosen to keep the hands stationary and the
+fingers near home position on a QWERTY keyboard while navigating the
+wiki.</p>
 
 <p>You can also use Vim's jump motions <code>CTRL-o</code> and <code>CTRL-i</code> to move back
 and forth in your jump history. See <code>:help jump-motions</code> for more on
@@ -239,8 +244,9 @@ to avoid typing out the whole command name.</p>
 
 <p>To search your SoyWiki wiki, type <code>:SWSearch [search term]</code>. Vim will
 load any matches in the quickfix list window.  If there are matches, you
-can use <code>:cn</code> and <code>:cp</code> to go from match to match.  See <code>:help quickfix</code>
-for more QuickFix commands.</p>
+can use <code>:cn</code> and <code>:cp</code> to go from match to match, <code>:cl</code> to list the
+matches, and <code>:cc [item number]</code> to see a particular match ln the list.  See
+<code>:help quickfix</code> to see the list of matches. for more QuickFix commands.</p>
 
 <p>Searches are case-insensitve by default. To do a case-sensitive search,
 add a <code>\C</code> to your search string, e.g.:</p>
@@ -341,6 +347,8 @@ anything, and it erases the WikiWord that got expanded.</p>
 <ul>
 <li><code>,x</code> expands a wiki page seamfully</li>
 <li><code>,X</code> expands a wiki page seamlessly</li>
+<li><code>,vx</code> expands a wiki page seamfully and opens on a vertical split</li>
+<li><code>,vX</code> expands a wiki page seamlessly and opens on a vertical split</li>
 </ul>
 
 
@@ -399,7 +407,7 @@ tracker</a>.</p>
 
             <ul>
               <li>
-                0.0.3
+                0.0.9
               </li>
             </ul>
 

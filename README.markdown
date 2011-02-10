@@ -118,11 +118,12 @@ commands.
 * `,f` follows the first WikiLink after the cursor
 * `CTRL-l` opens a WikiLink in a split window
 * `CTRL-n` does the same, but in a vertical split window
-* both `q` and `CTRL-h` closes a split window 
+* both `q` and `CTRL-h` close a split window 
 
-These key mappings were chosen to keep the hands stationary and the
-fingers near home position on a QWERTY keyboard while navigating the
-wiki.
+These key mappings may not be very mnemonic, but they are easy to
+memorize through muscle memory and were chosen to keep the hands
+stationary and the fingers near home position on a QWERTY keyboard while
+navigating the wiki.
 
 You can also use Vim's jump motions `CTRL-o` and `CTRL-i` to move back
 and forth in your jump history. See `:help jump-motions` for more on
