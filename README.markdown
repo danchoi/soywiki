@@ -208,7 +208,7 @@ can use `:cn` and `:cp` to go from match to match, `:cl` to list the
 matches, and `:cc [item number]` to see a particular match ln the list.  See
 `:help quickfix` to see the list of matches. for more QuickFix commands. 
 
-Searches are case-insensitve by default. To do a case-insensitive search,
+Searches are case-sensitve by default. To do a case-insensitive search,
 add a `\c` to your search string, e.g.:
 
     :SWSearch Gnu\c
