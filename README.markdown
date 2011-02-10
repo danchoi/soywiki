@@ -35,13 +35,6 @@ of Vim abbreviations (`:help abbreviations`), a large monitor, and a
 teapot, and you'll have your paper, essay, book, or screenplay written
 in record time.
 
-You don't need to shell out $$ for tools like [Scrivener][scriv] if you
-appreciate how much more powerful Vim is for editing and navigating text
-and how liberating it is to be able to store your content in the
-non-proprietary, universal plain-text format. Proprietary tools and
-formats will come and go every few years, but the plain text file format
-and Vim are forever.
-
 SoyWiki is free and open source.
 
 [scriv]:http://www.literatureandlatte.com/scrivener.php
