@@ -96,10 +96,10 @@ just run `soywiki`.
 For basic use, SoyWiki works exactly like a typical wiki.
 
 You write text, and when you want to create a new wiki page, you come up
-with a WikiWord for it and format it in CamelCase. The WikiLink you
-just typed will automatically be syntax-highlighted, and pressing ENTER
-on it will take you to the new page. Creating WikiWords and pressing
-ENTER on them is the main way of linking wiki pages together. You'll be
+with a WikiWord for it and format it in CamelCase. The WikiLink you just
+typed will automatically be syntax-highlighted, and pressing ENTER on it
+will take you to the new page. Creating WikiWords and pressing ENTER on
+them is how you create wiki pages and link them together. You'll be
 surprised at how powerful this simple mechanism is for organizing your
 notes. 
 
