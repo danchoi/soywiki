@@ -118,6 +118,7 @@ commands.
 * `,f` follows the first WikiLink after the cursor
 * `,-` opens a WikiLink in a split window
 * `,|` does the same, but in a vertical split window
+* `q` closes a split window (in one fewer keystroke than `:q`)
 
 You can also use Vim's jump motions `CTRL-o` and `CTRL-i` to move back
 and forth in your jump history. See `:help jump-motions` for more on
