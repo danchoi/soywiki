@@ -113,12 +113,16 @@ work a lot faster and with more economy than browser-based wikis.
 You can navigate a SoyWiki wiki very quickly with the following
 commands. 
 
-* `CTRL-n` and `CTRL-p` move the cursor directly to the next or previous WikiLink on the page
+* `CTRL-k` and `CTRL-j` move the cursor directly to the next or previous WikiLink on the page
 * `ENTER` follows the WikiLink under the cursor
 * `,f` follows the first WikiLink after the cursor
 * `,;` opens a WikiLink in a split window
 * `,:` does the same, but in a vertical split window
 * `q` closes a split window (in one fewer keystroke than `:q`)
+
+These key mappings were chosen to keep the fingers
+near home position on a QWERTY keyboard while navigating the
+wiki.
 
 You can also use Vim's jump motions `CTRL-o` and `CTRL-i` to move back
 and forth in your jump history. See `:help jump-motions` for more on

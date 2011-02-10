@@ -541,8 +541,8 @@ func! s:prep_buffer()
     nnoremap <buffer> ; :call <SID>follow_link_under_cursor(1)<cr> 
     nnoremap <buffer> : :call <SID>follow_link_under_cursor(2)<cr> 
     noremap <buffer> <leader>f :call <SID>follow_link(0)<CR>
-    noremap <buffer> <c-n> :call <SID>find_next_wiki_link(0)<CR>
-    noremap <buffer> <c-p> :call <SID>find_next_wiki_link(1)<CR>
+    noremap <buffer> <c-k> :call <SID>find_next_wiki_link(0)<CR>
+    noremap <buffer> <c-j> :call <SID>find_next_wiki_link(1)<CR>
 
     noremap  <leader>c :call <SID>create_page()<CR>
     command! -buffer SWRename :call s:rename_page()
