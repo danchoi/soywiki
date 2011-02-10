@@ -30,17 +30,17 @@ automatic indexing.
 
 SoyWiki makes a great writing aid, especially if you do your writing in
 Vim. You can have SoyWiki open in multiple Vim windows, tabs, and
-buffers, and open an additional Vim window for editing an essay,
-chapter, or paper. Throw in a bunch of Vim abbreviations (`:help
-abbreviations`), a large monitor, and a teapot, and you'll have your
-paper, essay, book, or screenplay written in record time.
+buffers, alongside any number of regular Vim windows. Throw in a bunch
+of Vim abbreviations (`:help abbreviations`), a large monitor, and a
+teapot, and you'll have your paper, essay, book, or screenplay written
+in record time.
 
 You don't need to shell out $$ for tools like [Scrivener][scriv] if you
 appreciate how much more powerful Vim is for editing and navigating text
 and how liberating it is to be able to store your content in the
-non-proprietary, universal plain-text format. Proprietary tools will
-come and go every few years, but the plain text file format and Vim are
-forever.
+non-proprietary, universal plain-text format. Proprietary tools and
+formats will come and go every few years, but the plain text file format
+and Vim are forever.
 
 SoyWiki is free and open source.
 
