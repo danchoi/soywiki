@@ -338,7 +338,7 @@ dreams within dreams.
 SoyWiki adds a few convenient Vim macros that you can use anytime. 
 
 
-* The `\` key in normal mode reformats your text. It is equivalent to
+* The `\` key in normal mode reformat the current paragraph. It is equivalent to
 `gwap`. (`:help formatting`)
 * `,-` inserts a long dashed line
 * `,d` inserts the current date and time 
