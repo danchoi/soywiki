@@ -497,6 +497,14 @@ func! s:open_href()
   echom command 
 endfunc
 
+" -------------------------------------------------------------------------------- 
+"  HELP
+func! s:show_help()
+  let command = g:SoyWiki#browser_command . ' ' . shellescape('http://danielchoi.com/software/soywiki.html')
+  call system(command)
+endfunc
+
+
 "------------------------------------------------------------------------
 
 func! s:global_mappings()
@@ -537,10 +545,10 @@ func! s:prep_buffer()
     command! -buffer SWBlame :call s:show_blame()
     noremap <buffer> <leader>b :call <SID>show_blame()<CR>
 
-
-
     noremap <buffer> <leader>x :call <SID>expand(0)<CR>
     noremap <buffer> <leader>X :call <SID>expand(1)<CR>
+
+    noremap <silent> <leader>? :call <SID>show_help()<cr>
 
     set nu
     setlocal completefunc=CompletePage

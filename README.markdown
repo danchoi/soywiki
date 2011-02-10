@@ -311,6 +311,10 @@ this to other wiki pages that include the real content. And since
 expansion is recursive, you can effectively nest outlines within
 outlines, like dreams within dreams.  
 
+## Getting help
+
+Typing `,?` will open this webpage in a browser.
+
 
 ## Why CamelCase WikiLinks rule
 
