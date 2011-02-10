@@ -341,7 +341,7 @@ SoyWiki adds a few convenient Vim macros that you can use anytime.
 * The `\` key in normal mode reformats your text. It is equivalent to
 `gqap`.
 * `,-` inserts a long dashed line
-* `,@` inserts the current date and time 
+* `,d` inserts the current date and time 
  
 
 ## Getting help
