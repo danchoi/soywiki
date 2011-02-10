@@ -52,6 +52,9 @@ The current version of SoyWiki assumes a Unix environment.
 
 To use SoyWiki you should be fairly good at using Vim. 
 
+Most of SoyWiki's commands should work even if you don't have Git
+installed. But the revision history commands will not.
+
 ## Installation
 
     gem install soywiki
@@ -226,6 +229,9 @@ Again, you can use `:SWS` as a shortcut.
 Under the hood, `:SWSearch` is just a thin wrapper around the `:vimgrep`
 command.
 
+Tip: You can flag important notes in your wiki content by typing flags
+like TODO or IMPORTANT on the same line, and then use `:SWSearch` and
+`:cl` to see all instances of them across your entire wiki.
 
 ## Revision history and distributed workflows
 
