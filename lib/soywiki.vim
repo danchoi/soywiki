@@ -525,7 +525,7 @@ func! s:global_mappings()
   nnoremap <silent> <C-h> :close<cr>
 
   " reflow text
-  nnoremap \ gqap 
+  nnoremap \ gwap 
   " insert a line
   nmap <Leader>- o<Esc>k72i-<Esc><CR>
   " insert date
