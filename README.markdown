@@ -207,8 +207,13 @@ You can use these shortcuts:
 * `:SWInsert` &rarr; `:SWI`
 * `:SWAppend` &rarr; `:SWA`
 
-With `:SWLinkInsert` and `:SWLinkAppend` you can use tab-autocompletion
-to avoid typing out the whole command name.
+With `:SWLinkInsert` and `:SWLinkAppend` you can use Vim's command line
+completion (`:help cmdline-completion`) to avoid typing out the whole command name.
+
+Also, you can use Vim's command line history (`:help cmdline-history`)
+and command line window (`:help cmdline-window`) to save keystrokes when
+you want to repeatedly execute an insert or append command targeting the
+same wiki page.
 
 
 ## Search
