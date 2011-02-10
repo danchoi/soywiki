@@ -476,7 +476,7 @@ func! s:expand(seamless)
     echom "Expanding seamlessly. Please wait."
     let res = system(s:expand_command . " seamful " . bufname('%'))
   endif
-  split new 
+  new 
   setlocal buftype=nofile "scratch buffer for viewing; user can write
   silent! put =res
   silent! 1delete
