@@ -18,7 +18,7 @@ def expand(file, mode, level=0)
   PROCESSED_FILES << file
   lines = File.readlines(file)
   if mode == 'seamless'
-    lines.shift 2  # strips title
+    lines.shift   # strips title
   end
   lines = lines.join.strip.split("\n")
   lines.each do |line|
