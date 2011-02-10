@@ -179,8 +179,11 @@ pages in your wiki that need updating because of the change.
 
 You can delete a page with `,#`. 
 
-You can create a wiki page directly, without first typing a WikiWord and
-traversing it, by pressing `,c`.
+To create a wiki page directly, without first typing a WikiWord and
+traversing it, type `:SWCreate` followed by the full path to the new
+page. The form of the argument here should be `namespace/WikiWord`. You
+may use command line file path autocomplete to fill out the namespace
+subdirectory if it already exists.
 
 Beyond the standard cut and paste, SoyWiki gives you four fast ways of
 shuttling text from one wiki page to another.

@@ -112,9 +112,7 @@ func! s:load_page(page, split)
   if (s:is_wiki_page())
     write
   endif
-
   let file = s:page_title2file(a:page)
-
   if (!filereadable(file)) 
     " create the file
     let namespace = s:namespace_of_title(a:page)
@@ -180,22 +178,20 @@ func! s:rename_page()
   endif
   call system("git mv " . l:oldfile . " " .  newfile)
   exec "e ". newfile
-  " replace all existing inbound links  
-  " TODO replace this with a ruby script
+  " replace all existing inbound links; calls out to a Ruby script to do
+  " heavy lifting
   exec "! " . s:rename_links_command . oldfile . " " . newfile
   call system("git commit -am 'rename wiki page'")
   e!
 endfunc
 
-func! s:create_page()
-  let title = s:prompt_for_wiki_word("New page title: ", "") 
-  let newfile = s:page_title2file(title)
-  if (filereadable(newfile)) 
-    exe "echom '" . newfile . " already exists!'"
-    return
+func! s:create_page(page_path)
+  let page_path = s:page_title2file(a:page_path)
+  " TODO put the page in the current namespace if it's unqualified 
+  if (filereadable(page_path)) 
+    exe "echom '" . page_path . " already exists! Loaded.'"
   endif
-  call writefile([s:filename2pagetitle(title), '', ''], newfile)
-  exec "e ". newfile
+  call s:load_page(s:filename2pagetitle(page_path), 0)
 endfunc
 
 func! s:save_revision()
@@ -556,7 +552,8 @@ func! s:prep_buffer()
     noremap <buffer> <c-j> :call <SID>find_next_wiki_link(0)<CR>
     noremap <buffer> <c-k> :call <SID>find_next_wiki_link(1)<CR>
 
-    noremap  <leader>c :call <SID>create_page()<CR>
+    command! -bar -nargs=1 -range -complete=file SWCreate :call <SID>create_page(<f-args>)
+
     command! -buffer SWRename :call s:rename_page()
 
     noremap <buffer> <leader>r :call <SID>rename_page()<CR>
