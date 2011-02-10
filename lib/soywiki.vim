@@ -423,6 +423,7 @@ func! s:extract(...) range
     " this one just deletes the line
     silent exe "norm! :".first.",".last."change\<CR>.\<CR>"     
   endif
+  write!
   if bufnr(file) == -1 || bufwinnr(bufnr(file)) == -1
     if !filereadable(file)
       " create the file
