@@ -6,6 +6,7 @@
 " .WikiWords in a namespace
 let s:wiki_link_pattern =  '\C\<\([a-z][[:alnum:]_]\+\.\)\?[A-Z][a-z]\+[A-Z]\w*\>\|\.[A-Z][a-z]\+[A-Z]\w*\>'
 
+let s:http_link_pattern = 'https\?:[^ >)\]]\+'
 let s:rename_links_command = 'soywiki-rename '
 let s:find_pages_linking_in_command = 'soywiki-pages-linking-in '
 let s:expand_command = 'soywiki-expand '
@@ -493,9 +494,8 @@ endfunc
 "------------------------------------------------------------------------
 
 func! s:open_href()
-  let pattern = 'https\?:[^ >)\]]\+'
-  let line = search(pattern, 'cw')
-  let href = matchstr(getline(line('.')), pattern)
+  let line = search(s:http_link_pattern, 'cw')
+  let href = matchstr(getline(line('.')), s:http_link_pattern)
   let command = g:SoyWiki#browser_command . " '" . href . "' "
   call system(command)
   echom command 
@@ -570,10 +570,12 @@ func! s:prep_buffer()
 endfunc
 
 func! s:highlight_wikiwords()
-  if (s:is_wiki_page())
-    exe "match Comment /". s:wiki_link_pattern. "/"
-  else
-    match none " not sure if this works 
+  if (s:is_wiki_page()) 
+    " exe ":match Constant /". s:http_link_pattern . "/"
+    "exe ":2match Comment /". s:wiki_link_pattern. "/"
+    syntax clear
+    exe "syn match Comment /". s:wiki_link_pattern. "/"
+    exe "syn match Constant /". s:http_link_pattern . "/"
   endif
 endfunc
 
@@ -603,5 +605,5 @@ else
 endif
 
 call s:get_page_list()
-syntax on
+syntax enable
 let mapleader = ','
