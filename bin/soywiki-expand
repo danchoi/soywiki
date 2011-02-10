@@ -10,7 +10,7 @@ PROCESSED_FILES = []
 def indent(text, level, mode)
   return text if mode == 'seamless'
   return text if level == 0
-  (': ' * level) +  text
+  (':' * level) + ' ' +  text
 
 end
 
