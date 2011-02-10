@@ -587,6 +587,8 @@ if (!isdirectory(".git"))
   call system("git init")
   echom "Created .git repository to store revisions"
 endif
+" compress the repo
+call system("git gc")
 
 if !exists("g:SoyWiki#browser_command")
   for cmd in ["gnome-open", "open"] 
