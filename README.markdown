@@ -116,12 +116,12 @@ commands.
 * `CTRL-k` and `CTRL-j` move the cursor directly to the next or previous WikiLink on the page
 * `ENTER` follows the WikiLink under the cursor
 * `,f` follows the first WikiLink after the cursor
-* `,;` opens a WikiLink in a split window
-* `,:` does the same, but in a vertical split window
-* `q` closes a split window (in one fewer keystroke than `:q`)
+* `CTRL-l` opens a WikiLink in a split window
+* `CTRL-n` does the same, but in a vertical split window
+* both `q` and `CTRL-h` closes a split window 
 
-These key mappings were chosen to keep the fingers
-near home position on a QWERTY keyboard while navigating the
+These key mappings were chosen to keep the hands stationary and the
+fingers near home position on a QWERTY keyboard while navigating the
 wiki.
 
 You can also use Vim's jump motions `CTRL-o` and `CTRL-i` to move back

@@ -519,7 +519,8 @@ func! s:global_mappings()
   noremap <leader>m :call <SID>list_pages()<CR>
   noremap  <leader>M :call <SID>list_pages_linking_in()<CR>
   noremap <silent> <leader>o :call <SID>open_href()<cr> 
-  noremap <silent> q :close<cr>
+  nnoremap <silent> q :close<cr>
+  nnoremap <silent> <C-h> :close<cr>
 
   command! -bar -nargs=1 -range -complete=file SWAppend :<line1>,<line2>call s:extract(<f-args>, 'append', 0)
   command! -bar -nargs=1 -range -complete=file SWInsert :<line1>,<line2>call s:extract(<f-args>, 'insert', 0)
@@ -538,11 +539,12 @@ func! s:prep_buffer()
   if (s:is_wiki_page())
     set textwidth=72
     nnoremap <buffer> <cr> :call <SID>follow_link_under_cursor(0)<cr> 
-    nnoremap <buffer> ; :call <SID>follow_link_under_cursor(1)<cr> 
-    nnoremap <buffer> : :call <SID>follow_link_under_cursor(2)<cr> 
+    nnoremap <buffer> <c-l> :call <SID>follow_link_under_cursor(1)<cr> 
+    " this overrides the useless c-n
+    nnoremap <buffer> <c-n> :call <SID>follow_link_under_cursor(2)<cr> 
     noremap <buffer> <leader>f :call <SID>follow_link(0)<CR>
-    noremap <buffer> <c-k> :call <SID>find_next_wiki_link(0)<CR>
-    noremap <buffer> <c-j> :call <SID>find_next_wiki_link(1)<CR>
+    noremap <buffer> <c-j> :call <SID>find_next_wiki_link(0)<CR>
+    noremap <buffer> <c-k> :call <SID>find_next_wiki_link(1)<CR>
 
     noremap  <leader>c :call <SID>create_page()<CR>
     command! -buffer SWRename :call s:rename_page()
