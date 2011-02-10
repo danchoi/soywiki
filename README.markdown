@@ -103,7 +103,7 @@ just run `soywiki`.
 For basic use, SoyWiki works exactly like a typical wiki.
 
 You write text, and when you want to create a new wiki page, you come up
-with a WikiWord for it and format it in CamelCase. The wiki-link you
+with a WikiWord for it and format it in CamelCase. The WikiLink you
 just typed will automatically be syntax-highlighted, and pressing ENTER
 on it will take you to the new page. Creating WikiWords and pressing
 ENTER on them is the main way of linking wiki pages together. You'll be
@@ -120,10 +120,10 @@ lot faster and with more economy than browser-based wikis.
 You can navigate a SoyWiki wiki very quickly with the following
 commands. 
 
-* `CTRL-n` and `CTRL-p` move the cursor directly to the next or previous wiki-link on the page
-* `ENTER` follows the wiki-link under the cursor
-* `,f` follows the first wiki-link after the cursor
-* `,-` opens a wiki-link in a split window
+* `CTRL-n` and `CTRL-p` move the cursor directly to the next or previous WikiLink on the page
+* `ENTER` follows the WikiLink under the cursor
+* `,f` follows the first WikiLink after the cursor
+* `,-` opens a WikiLink in a split window
 * `,|` does the same, but in a vertical split window
 
 You can also use Vim's jump motions `CTRL-o` and `CTRL-i` to move back
@@ -156,10 +156,10 @@ window by putting the cursor at the beginning of a hyperlink and typing
 `gf`, or `C-w f` if you want to open the webpage in a split window.  See
 `:help netrw` for more information.
 
-## Wiki-link autocompletion
+## WikiLink autocompletion
 
 When you're writing a wiki page and you want to link to another page,
-SoyWiki can help you autocomplete your wiki-link. Press `CTRL-x CTRL-u`
+SoyWiki can help you autocomplete your WikiLink. Press `CTRL-x CTRL-u`
 in Vim insert mode to invoke it.
 
 
