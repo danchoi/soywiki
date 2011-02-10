@@ -275,17 +275,17 @@ WikiLink autocompletion also works with abbreviated namespaced links. Just type 
 period, and invoke autocompletion with `CTRL-x CTRL-u`.
 
 
-## Expanding a Wiki page
+## Expanding a wiki page
 
 SoyWiki lets you "expand" a wiki page.  What this does is expand all the
 wiki links in the page that appear alone on a line.  Each of these links
 is replaced by the content of the wiki page the link points to. This
 expansion works recursively on all the expanded content.  Don't worry.
 It can't fall into an infinite recursive loop because it will only
-expand each WikiWord it encounters once, leaving all subsequence
+expand each WikiWord it encounters once, leaving all subsequent
 references to the same WikiWord unexpanded.
 
-The expanded version of the page appears in a new Vim scratch buffer.
+The expanded version of the page will appear in a new Vim scratch buffer.
 From there you can write it out to a new text file, pipe it to `lpr` to
 print it, or whatever you like. 
 
