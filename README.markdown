@@ -44,7 +44,9 @@ SoyWiki is free and open source.
 * a recent version of Vim (SoyWiki is developed against Vim 7.2 and 7.3)
 * a recent version of Ruby (SoyWiki is developed using Ruby 1.9.2)
 * RubyGems (if Ruby version is older than 1.9)
-* a recent version of Git (1.7.0.4 or above to be safe)
+* a recent version of [Git][git] (1.7.0.4 or above to be safe)
+
+[git]:http://git-scm.com/
 
 The current version of SoyWiki assumes a Unix environment. 
 
