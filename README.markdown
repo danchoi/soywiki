@@ -107,9 +107,6 @@ That's all you need to know to get started.
 
 ## Wiki navigation 
 
-Because SoyWiki is not just wiki but also a Vim program, it lets you
-work a lot faster and with more economy than browser-based wikis. 
-
 You can navigate a SoyWiki wiki very quickly with the following
 commands. 
 
