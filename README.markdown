@@ -297,6 +297,8 @@ anything, and it erases the WikiWord that got expanded.
 
 * `,x` expands a wiki page seamfully
 * `,X` expands a wiki page seamlessly
+* `,vx` expands a wiki page seamfully and opens on a vertical split
+* `,vX` expands a wiki page seamlessly and opens on a vertical split
 
 Both modes of expansion are useful when you want to assemble a long
 piece of writing by using one page as a master outline that links to

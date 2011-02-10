@@ -467,7 +467,7 @@ endfunc
 " This opens a new buffer with all the lines with just WikiLinks on them
 " expanded (recursively). This is not a wiki buffer but a text buffer
 
-func! s:expand(seamless)
+func! s:expand(seamless, vertical)
   if a:seamless == 1
     " seamful, the default
     echom "Expanding seamfully. Please wait."
@@ -476,7 +476,11 @@ func! s:expand(seamless)
     echom "Expanding seamlessly. Please wait."
     let res = system(s:expand_command . " seamful " . bufname('%'))
   endif
-  new 
+  if a:vertical
+    vnew 
+  else
+    new 
+  endif
   setlocal buftype=nofile "scratch buffer for viewing; user can write
   silent! put =res
   silent! 1delete
@@ -548,8 +552,11 @@ func! s:prep_buffer()
     command! -buffer SWBlame :call s:show_blame()
     noremap <buffer> <leader>b :call <SID>show_blame()<CR>
 
-    noremap <buffer> <leader>x :call <SID>expand(0)<CR>
-    noremap <buffer> <leader>X :call <SID>expand(1)<CR>
+    noremap <buffer> <leader>x :call <SID>expand(0,0)<CR>
+    noremap <buffer> <leader>X :call <SID>expand(1,0)<CR>
+    noremap <buffer> <leader>vx :call <SID>expand(0,1)<CR>
+    noremap <buffer> <leader>vX :call <SID>expand(1,1)<CR>
+    noremap <buffer> <leader>VX :call <SID>expand(1,1)<CR>
 
     noremap <silent> <leader>? :call <SID>show_help()<cr>
 
