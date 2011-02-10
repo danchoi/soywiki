@@ -25,8 +25,8 @@ and refactor wiki content at the speed of thought.
 
 SoyWiki is good for tracking projects, contacts, ideas, and collecting
 and organizing research. SoyWiki combines the affordances of notebooks,
-index cards, and Post-it notes, and adds the power of hyperlinks and
-automatic indexing.
+index cards, and Post-it notes, and adds to them the power of hyperlinks
+and automatic indexing.
 
 SoyWiki makes a great writing aid, especially if you do your writing in
 Vim. You can have SoyWiki open in multiple Vim windows, tabs, and
@@ -323,7 +323,7 @@ pattern. But SoyWiki embraces it and wants everyone to adopt it, for the
 following reasons:
 
 * Besides being the original, CamelCase is the most elegantly minimalist approach to linking wiki pages together -- "with no additional markup whatsoever," as [Ward Cunningham put it][ward]. 
-* It encourages you more than other wiki link patterns to create wiki pages with succinctly descriptive names.  
+* It encourages you more than other wiki link patterns to create wiki pages with succinctly descriptive names that are easy to remember.
 * Because the link pattern is so minimal and succinct, writing 
 them interrupts your flow of thought a lot less than other wiki patterns.
 * It is very conducive to storing
