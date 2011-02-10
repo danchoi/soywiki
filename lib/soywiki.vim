@@ -19,37 +19,68 @@ func! s:trimString(string)
 endfunc
 
 func! s:page_title()
-  let title_line = getline(1)
-  return s:trimString(title_line) 
+  return substitute(bufname(''), '\/', '.', '')
 endfunc
 
-func! s:page_namespace()
-  let segments = split(s:page_title(), '\.')
-  return get(segments, 0)
+func! s:display_missing_namespace_error(num_segments)
+  if a:num_segments == 1
+    call s:error("Invalid wiki page: missing a namespace. Put it in a namespace subdirectory.")
+  elseif a:num_segments > 2
+    call s:error("Invalid wiki page: nested too deeply. Namespaces are limited to one level.")
+  endif 
 endfunc
 
-func! s:title_without_namespace(page_title)
-  if len(split(a:page_title, '\.')) == 2
-    return "." . get(split(a:page_title, '\.'), 1)
-  else
-    return a:page_title
-  endif
+func! s:display_invalid_wiki_word_error()
+  call s:error("Not a valid WikiWord.")
 endfunc
 
 func! s:namespace_of_title(page_title)
-  if len(split(a:page_title, '\.')) == 2
-    return get(split(a:page_title, '\.'), 0)
+  let segments = split(a:page_title(), '\.')
+  " page must have namespace
+  if len(segments) == 2
+    return get(segments, 0)
   else
-    ""
+    call s:display_missing_namespace_error(len(segments))
   endif
 endfunc
 
-
-func! s:is_wiki_page()
-  return (match(getline(1), s:wiki_link_pattern) == 0)
+func! s:page_namespace()
+  return s:namespace_of_title(s:page_title())
 endfunc
 
-func! s:page_title2file(page)
+func! s:title_without_namespace(page_title)
+  let segments = split(a:page_title, '\.')
+  if len(segments) == 2
+    return "." . get(segments, 1)
+  else
+    call s:display_missing_namespace_error(len(segments))
+  endif
+endfunc
+
+" returns 1 or 0
+func! s:has_namespace(link)
+  return (match(a:link, '\a\.') != -1) 
+endfunc
+
+" adds current page's namespace to the link
+func! s:infer_namespace(link)
+  if s:has_namespace(s:filename2pagetitle(a:link))
+    return s:filename2pagetitle(a:link)
+  else
+    let x = s:page_namespace() . "." . a:link
+    return x
+  endif
+endfunc
+
+func! s:valid_wiki_word(link)
+  return (match(s:link, s:wiki_link_pattern) == 0)
+endfunc
+
+func! s:is_wiki_page()
+  return s:valid_wiki_word(s:page_title())
+endfunc
+
+func! s:pagetitle2file(page)
   return substitute(a:page, '\.', '/', 'g')
 endfunc
 
@@ -59,43 +90,47 @@ endfunc
 
 func! s:list_pages()
   let s:search_for_link = ""
-  call s:get_page_list()
-  call s:page_list_window("CompletePageInSelectionWindow", "Select page: ")
+  call s:page_list_window(s:get_page_list(), "Select page: ")
 endfunc
 
+" returns a fully namespaced link
 func! s:link_under_cursor()
   let link = expand("<cWORD>") 
   " strip off non-letters at the end (e.g., a comma)
   let link = substitute(link, '[^[:alnum:]]*$', '', '')
-  " see if we have a link relative to the namespace
-  if (match(link, '^\.')) == 0
-    " find the namespace from the page title
-    let link = s:page_namespace() . link " this link already has a period at the beginning
+  if ! has_namespace(link)
+    link = s:infer_namespace(link)
   endif
-  let link = substitute(link, '^[^\.[:alnum:]]', '', '') " link may begin with period
-  return link
+  if match(link, s:wiki_link_pattern) == -1
+    if match(link, s:http_link_pattern) != -1
+      call s:open_href()
+    endif
+    return 0
+  else
+    return link
+  end
 endfunc
 
 " follows a camel case link to a new page 
 func! s:follow_link(split)
   let link = s:link_under_cursor()
-  if match(link, s:wiki_link_pattern) == -1
+  if link == 0
     let link = s:find_next_wiki_link(0)
+    if link == 0
+      return 0
+    endif
   endif
   call s:load_page(link, a:split)  
 endfunc
 
 func! s:follow_link_under_cursor(split)
   let link = s:link_under_cursor()
-  if match(link, s:wiki_link_pattern) == -1
-    if match(link, s:http_link_pattern) != -1
-      call s:open_href()
-    else
-      echom "Not a wiki link"
-    end
-    return
+  if link == 0 
+    echom "Not a wiki link"
+    return 0
+  else
+    call s:load_page(link, a:split)
   endif
-  call s:load_page(link, a:split)
 endfunc
 
 func! s:find_next_wiki_link(backward)
@@ -103,7 +138,7 @@ func! s:find_next_wiki_link(backward)
   " don't wrap
   let result = search(s:wiki_link_pattern, 'W' . (a:backward == 1 ? 'b' : ''))
   if (result == 0) 
-    return
+    return 0
   end
   return s:link_under_cursor()
 endfunc
@@ -112,14 +147,13 @@ func! s:load_page(page, split)
   if (s:is_wiki_page())
     write
   endif
-  let file = s:page_title2file(a:page)
+  let file = s:pagetitle2file(a:page)
+  let title = s:filename2pagetitle(a:page)
   if (!filereadable(file)) 
     " create the file
     let namespace = s:namespace_of_title(a:page)
-    if len(namespace) > 0
-      call system("mkdir -p " . namespace)
-    endif
-    call writefile([a:page, '', ''], file) 
+    call system("mkdir -p " . namespace)
+    call writefile([title, '', ''], file) 
   endif
   if (a:split == 2) 
     exec "vsplit ". file
@@ -130,9 +164,8 @@ func! s:load_page(page, split)
     wincmd p 
     close
   endif
-  
   if len(s:search_for_link) > 0 
-    let res =  search(s:search_for_link, 'cw')
+    let res = search(s:search_for_link, 'cw')
     let s:search_for_link = ''
   endif
 endfunc
@@ -149,49 +182,44 @@ func! s:delete_page()
   call delete(file)
   call system("git commit " . bufname('%') . " -m 'deletion'")
   " go to most recently saved
-  let target = s:trimString(system(s:ls_command . " | head -1"))
-  exec "e " . target
+  " this should be a function call
+  call s:load_most_recently_modified_page()
   exec "bdelete " . bufnr
   redraw
   echom  "Deleted " . file
-  call s:load_most_recently_modified_page()
 endfunc
 
-func! s:prompt_for_wiki_word(prompt, default)
-  let input = s:trimString(input(a:prompt, a:default))
-  while match(input, s:wiki_link_pattern) == -1
-    let input = s:trimString(input("Must be a WikiWord! Press CTRL-c to cancel. " . a:prompt , a:default))
-  endwhile
-  return input 
-endfunc
-
-func! s:rename_page()
-  let oldfile = bufname('%')
-  let newfile = s:page_title2file( s:prompt_for_wiki_word("Rename oldfile: ", l:oldfile) )
-  if (oldfile == newfile)
-    echo "Canceled"
-    return
-  endif
+func! s:rename_page(page_path_or_title)
+  let page_title = s:infer_namespace(a:page_path_or_title)
+  let newfile = s:pagetitle2file(page_title)
   if (filereadable(newfile)) 
     exe "echom '" . newfile . " already exists!'"
     return
   endif
-  call system("git mv " . l:oldfile . " " .  newfile)
-  exec "e ". newfile
-  " replace all existing inbound links; calls out to a Ruby script to do
-  " heavy lifting
-  exec "! " . s:rename_links_command . oldfile . " " . newfile
-  call system("git commit -am 'rename wiki page'")
-  e!
+  if s:valid_wiki_word(page_title)
+    let original_file = bufname('')
+    call system("git mv " . original_file . " " .  newfile)
+    call s:load_page(s:filename2pagetitle(newfile), 0)
+    " replace all existing inbound links; let Ruby do the heavy lifting
+    exec "!" . s:rename_links_command . original_file . " " . newfile
+    call system("git commit -am 'rename wiki page and links'")
+    e!
+  else
+    call s:display_invalid_wiki_word_error()
+  endif
 endfunc
 
 func! s:create_page(page_path)
-  let page_path = s:page_title2file(a:page_path)
-  " TODO put the page in the current namespace if it's unqualified 
+  let page_title = s:infer_namespace(a:page_path)
+  let page_path = s:pagetitle2file(page_title)
   if (filereadable(page_path)) 
     exe "echom '" . page_path . " already exists! Loaded.'"
   endif
-  call s:load_page(s:filename2pagetitle(page_path), 0)
+  if s:valid_wiki_word(page_title)
+    call s:load_page(s:filename2pagetitle(page_path), 0)
+  else
+    call s:display_invalid_wiki_word_error()
+  endif
 endfunc
 
 func! s:save_revision()
@@ -200,7 +228,6 @@ func! s:save_revision()
 endfunc
 
 func! s:show_revision_history(stat)
-  " maybe later allow --stat
   if (a:stat)
     exec ":!git log --stat " . bufname('%')
   else
@@ -212,50 +239,54 @@ func! s:show_blame()
   exec ":! git blame --date=relative " . bufname('%')
 endfunc
 
-
 " -------------------------------------------------------------------------------
 " select Page
 
+" This function both sets a script variable and returns the value.
 func! s:get_page_list()
+  " no file current in buffer
   if len(bufname('%')) == 0
-    let s:page_list = split(system(s:ls_command), "\n")
+    return split(system(s:ls_command), "\n")
   else
-    let s:page_list = split(system(s:ls_command . " | grep -vF '" . bufname('%') . "'" ), "\n")
+    return split(system(s:ls_command . " | grep -vF '" . page_title() . "'" ), "\n")
   endif
 endfunction
 
 func! s:pages_in_this_namespace(pages)
   let namespace = s:page_namespace()
-  let pages = filter( a:pages,  'v:val =~ "^' . namespace . '"')
+  let pages = filter( a:pages,  'v:val =~ "^' . namespace . '\."')
   " strip leading namespace
   let pages = map( pages, "substitute(v:val, '^" . namespace . "\.', '', '') " )
   return pages
 endfunc
 
+" When user press TAB after typing a few characters in the page selection
+" window, if the user started typing a namespace (which starts with a
+" lowercase letter), try to complete it. Otherwise take no action.
 func! s:reduce_matches()
   if (!exists("s:matching_pages"))
     return
   endif
   let fragment = expand("<cWORD>")
-  let reduced_pages = filter( s:matching_pages,  'v:val =~ "^' . fragment . '"')
   " find the first namespace in the list
   let namespaced_matches = filter( s:matching_pages,  'v:val =~ "^' . fragment . '\."')
   if (len(namespaced_matches) == 0)
     return
-  elseif match(fragment, '^[A-Z]') == -1 && match(fragment, '\.' == -1)   
+  elseif match(fragment, '^[a-z]') == 0 && match(fragment, '\.' == -1)   
     " we're beginning to type a namespace
     let namespace = get(split(get(namespaced_matches, 0), '\.'), 0) 
-    let namespace .= "."
-    call feedkeys( "BcW". namespace. "\<C-x>\<C-u>\<C-p>" , "t")
+    let namespace_with_period .= "."
+    call feedkeys( "BcW". namespace_with_period . "\<C-x>\<C-u>\<C-p>" , "t")
   else
-    " we're tabbing to auto complete the term, not find a namespace
     return
   endif
 endfunc
 
-function! s:page_list_window(complete_function, prompt)
+function! s:page_list_window(page_match_list, prompt)
   " remember the original window 
   let s:return_to_winnr = winnr()
+  let s:matching_pages = a:page_match_list
+  setlocal completefunc=CompletePageTitle 
   topleft split page-list-buffer
   setlocal buftype=nofile
   setlocal noswapfile
@@ -265,7 +296,6 @@ function! s:page_list_window(complete_function, prompt)
   inoremap <buffer> <Tab> <Esc>:call <SID>reduce_matches()<cr>
   noremap <buffer> q <Esc>:close<cr>
   inoremap <buffer> <Esc> <Esc>:close<cr>
-  exec "setlocal completefunc=" . a:complete_function
   " c-p clears the line
   call setline(1, a:prompt)
   normal $
@@ -273,39 +303,14 @@ function! s:page_list_window(complete_function, prompt)
   " call feedkeys("a", 't')
 endfunction
 
-function! CompletePage(findstart, base)
-  let s:matching_pages = s:page_list[:]
-  let possible_period =  getline('.')[col('.') - 2]
-  if (possible_period == '.') 
-    " filter to pages in this namespace
+" This function assumes s:matching_pages has been set by the calling function
+function! CompletePageTitle(findstart, base)
+  let fragment = expand("<cWORD>")
+  if match(fragment, '^[A-Z]') == 0 
+    " we have a WikiWord without a namespace; filter down to pages in pages in this
+    " namespace
     let s:matching_pages = s:pages_in_this_namespace(s:matching_pages)
   endif
-  if a:findstart
-    " locate the start of the word
-    let line = getline('.')
-    let start = col('.') - 1
-    while start > 0 && line[start - 1] =~ '[[:alnum:]]'
-      let start -= 1
-    endwhile
-    return start
-  else
-    let base = s:trimString(a:base)
-    if (base == '')
-      return s:matching_pages
-    else
-      let res = []
-      for m in s:matching_pages
-        if m =~ '\c' . base 
-          call add(res, m)
-        endif
-      endfor
-      return res
-    endif
-  endif
-endfun
-
-function! CompletePageInSelectionWindow(findstart, base)
-  let s:matching_pages = s:page_list[:]
   if a:findstart
     " locate the start of the word
     let line = getline('.')
@@ -354,42 +359,16 @@ endfunction
 
 func! s:list_pages_linking_in()
   let s:pages_linking_in  = split(system(s:find_pages_linking_in_command . s:page_title()), "\n")
-  let s:search_for_link = s:title_without_namespace( s:page_title())
+  " cursor should jump to this string after the selected page is loaded:
+  let s:search_for_link = s:title_without_namespace(s:page_title())
   if len(s:pages_linking_in) == 1
     call s:load_page(get(s:pages_linking_in, 0), 0)
   elseif len(s:pages_linking_in) == 0
     echom "No pages link to " . s:page_title() . "!"
   else
-    call s:page_list_window("CompletePagesLinkingIn_InSelectionWindow", "Pages that link to " . s:page_title() . ": ")
+    call s:page_list_window(s:pages_linking_in, "Pages that link to " . s:page_title() . ": ")
   endif
 endfunc
-
-function! CompletePagesLinkingIn_InSelectionWindow(findstart, base)
-  " todo, this must be smarter, deal with different namespaces
-  let s:matching_pages = s:pages_linking_in[:]
-  if a:findstart
-    " locate the start of the word
-    let line = getline('.')
-    let start = col('.') - 1
-    while start > 0 && line[start - 1] =~ '[[:alnum:]\.]'
-      let start -= 1
-    endwhile
-    return start
-  else
-    let base = s:trimString(a:base)
-    if (base == '')
-      return s:matching_pages
-    else
-      let res = []
-      for m in s:matching_pages
-        if m =~ '\c' . base 
-          call add(res, m)
-        endif
-      endfor
-      return res
-    endif
-  endif
-endfun
 
 "------------------------------------------------------------------------
 " This appends the selected text (use visual-mode) to the page selected
@@ -445,7 +424,6 @@ func! s:extract(...) range
   end
   write!
 endfunc
-
 
 func! s:error(str)
   echohl ErrorMsg
@@ -553,12 +531,8 @@ func! s:prep_buffer()
     noremap <buffer> <c-k> :call <SID>find_next_wiki_link(1)<CR>
 
     command! -bar -nargs=1 -range -complete=file SWCreate :call <SID>create_page(<f-args>)
-
-    command! -buffer SWRename :call s:rename_page()
-
-    noremap <buffer> <leader>r :call <SID>rename_page()<CR>
+    command! -bar -nargs=1 -range -complete=file SWRename :call <SID>rename_page(<f-args>)
     command! -buffer SWDelete :call s:delete_page()
-    noremap <buffer> <leader># :call <SID>delete_page()<CR>
 
     command! -buffer SWLog :call s:show_revision_history(0)
     noremap <buffer> <leader>l :call <SID>show_revision_history(0)<CR>
@@ -575,7 +549,7 @@ func! s:prep_buffer()
     noremap <silent> <leader>? :call <SID>show_help()<cr>
 
     set nu
-    setlocal completefunc=CompletePage
+    setlocal completefunc=CompletePageTitle
     augroup <buffer>
       au!
       autocmd BufWritePost <buffer> call s:save_revision() 
@@ -617,7 +591,6 @@ if len(bufname("%")) == 0
 else
   call s:load_page(bufname("%"), 0)
 endif
-call s:get_page_list()
 syntax enable
 let mapleader = ','
 call s:highlight_wikiwords() 

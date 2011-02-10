@@ -172,12 +172,16 @@ in Vim insert mode to invoke it.
 
 ## Wiki refactoring
 
-You can rename a wiki page with`,r`. You'll see a prompt asking
-you for the new name. Make sure it is valid CamelCase. After you press
-ENTER, SoyWiki will rename the page and update all the links on other
-pages in your wiki that need updating because of the change.
+You can delete the current page with `:SWDelete` (shortcut: `:SWD`).
 
-You can delete a page with `,#`. 
+`:SWRename [new name]` renames the current page. Make sure the new name
+is valid CamelCase. You can put a namespace in front of the new name
+as `namespace.` or `namespace/`. If you omit the namespace, the current
+namespace is assumed.
+
+When you rename a page, SoyWiki will update all the links on other pages
+in your wiki that need to be updated in light of the change. (You'll see
+the other links that were updated in the output.)
 
 To create a wiki page directly, without first typing a WikiWord and
 traversing it, type `:SWCreate` followed by the full path to the new
