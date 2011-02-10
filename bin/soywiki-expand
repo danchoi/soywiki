@@ -37,11 +37,12 @@ def expand(file, mode, level=0)
         if mode == 'seamful'
           puts '.' * 10
         end
-
       elsif PROCESSED_FILES.include?(link) 
         puts indent("#{link} [[already expanded]]", level, mode)
-      else
+      elsif !File.file?(link.to_file_path)
         puts indent("#{link} [[no file found]]", level, mode)
+      else
+        puts indent("#{link}", level, mode)
       end
     else
       puts indent(line, level, mode)

@@ -481,9 +481,9 @@ func! s:expand(seamless)
   silent! put =res
   silent! 1delete
   silent! normal 1G
+  call s:highlight_wikiwords() 
   redraw
   echom "Expanded " . (a:seamless == 0 ? 'seamfully' : 'seamlessly') . "."
-
 endfunc
 
 "------------------------------------------------------------------------
@@ -518,6 +518,9 @@ func! s:global_mappings()
   command! -bar -nargs=1 -range -complete=file SWLinkInsert :<line1>,<line2>call s:extract(<f-args>, 'insert', 1)
 
   command! -bar -nargs=1 SWSearch :call s:wiki_search(<f-args>)
+
+  autocmd  BufReadPost,BufNewFile,WinEnter,BufEnter,BufNew * call s:highlight_wikiwords() 
+  autocmd  BufEnter * call s:prep_buffer() 
 endfunc 
 
 " this checks if the buffer is a SoyWiki file (from firstline)
@@ -568,9 +571,6 @@ func! s:highlight_wikiwords()
 endfunc
 
 call s:global_mappings()
-
-autocmd  BufReadPost,BufNewFile,WinEnter * call s:highlight_wikiwords() 
-autocmd  BufEnter * call s:prep_buffer() 
 
 if (!isdirectory(".git"))
   call system("git init")
