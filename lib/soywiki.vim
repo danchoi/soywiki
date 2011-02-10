@@ -523,6 +523,13 @@ func! s:global_mappings()
   nnoremap <silent> q :close<cr>
   nnoremap <silent> <C-h> :close<cr>
 
+  " reflow text
+  nnoremap \ gqap 
+  " insert a line
+  nmap <Leader>- o<Esc>k72i-<Esc><CR>
+  " insert date
+  map <Leader>@ :r !date<CR>o
+ 
   command! -bar -nargs=1 -range -complete=file SWAppend :<line1>,<line2>call s:extract(<f-args>, 'append', 0)
   command! -bar -nargs=1 -range -complete=file SWInsert :<line1>,<line2>call s:extract(<f-args>, 'insert', 0)
   command! -bar -nargs=1 -range -complete=file SWLinkAppend :<line1>,<line2>call s:extract(<f-args>, 'append', 1)
@@ -532,6 +539,8 @@ func! s:global_mappings()
 
   autocmd  BufReadPost,BufNewFile,WinEnter,BufEnter,BufNew * call s:highlight_wikiwords() 
   autocmd  BufEnter * call s:prep_buffer() 
+
+
 endfunc 
 
 " this checks if the buffer is a SoyWiki file (from firstline)

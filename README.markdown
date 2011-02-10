@@ -332,6 +332,18 @@ other wiki pages that include the real content. And since expansion is
 recursive, you can effectively nest outlines within outlines, like
 dreams within dreams.  
 
+
+## Extra macros
+
+SoyWiki adds a few convenient Vim macros that you can use anytime. 
+
+
+* The `\` key in normal mode reformats your text. It is equivalent to
+`gqap`.
+* `,-` inserts a long dashed line
+* `,@` inserts the current date and time 
+ 
+
 ## Getting help
 
 Typing `,?` will open the help webpage in a browser.
