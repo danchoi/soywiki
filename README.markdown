@@ -299,10 +299,10 @@ anything, and it erases the WikiWord that got expanded.
 * `,X` expands a wiki page seamlessly
 
 Both modes of expansion are useful when you want to assemble a long
-piece of writing by using one page as a master outline and linking from
-this to other wiki pages that include the real content. And since
-expansion is recursive, you can effectively nest outlines within
-outlines, like dreams within dreams.  
+piece of writing by using one page as a master outline that links to
+other wiki pages that include the real content. And since expansion is
+recursive, you can effectively nest outlines within outlines, like
+dreams within dreams.  
 
 ## Getting help
 
