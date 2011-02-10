@@ -287,11 +287,12 @@ period, and invoke autocompletion with `CTRL-x CTRL-u`.
 ## Expanding a Wiki page
 
 SoyWiki lets you "expand" a wiki page.  What this does is expand all the
-wiki links in the page that appear alone on a line.  These links are
-replaced by the content of the wiki page the links point to. This
-expansion works recursively on all the expanded content.  It won't fall
-into vicious circles, however, since it will only expand each WikiWord
-it encounters once.
+wiki links in the page that appear alone on a line.  Each of these links
+is replaced by the content of the wiki page the link points to. This
+expansion works recursively on all the expanded content.  Don't worry.
+It can't fall into an infinite recursive loop because it will only
+expand each WikiWord it encounters once, leaving all subsequence
+references to the same WikiWord unexpanded.
 
 The expanded version of the page appears in a new Vim scratch buffer.
 From there you can write it out to a new text file, pipe it to `lpr` to
@@ -314,7 +315,7 @@ outlines, like dreams within dreams.
 
 ## Getting help
 
-Typing `,?` will open this webpage in a browser.
+Typing `,?` will open the help webpage in a browser.
 
 
 ## Why CamelCase WikiLinks rule
