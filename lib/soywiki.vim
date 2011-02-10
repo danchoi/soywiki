@@ -100,7 +100,8 @@ endfunc
 
 func! s:find_next_wiki_link(backward)
   let n = 0
-  let result = search(s:wiki_link_pattern, 'w' . (a:backward == 1 ? 'b' : ''))
+  " don't wrap
+  let result = search(s:wiki_link_pattern, 'W' . (a:backward == 1 ? 'b' : ''))
   if (result == 0) 
     return
   end
