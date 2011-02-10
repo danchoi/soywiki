@@ -33,7 +33,7 @@ Vim. You can have SoyWiki open in multiple Vim windows, tabs, and
 buffers, and open an additional Vim window for editing an essay,
 chapter, or paper. Throw in a bunch of Vim abbreviations (`:help
 abbreviations`), a large monitor, and a teapot, and you'll have your
-paper, essay, book, or screenplay written faster, sooner, and better.
+paper, essay, book, or screenplay written in record time.
 
 You don't need to shell out $$ for tools like [Scrivener][scriv] if
 you appreciate how much more powerful Vim is for editing and navigating
