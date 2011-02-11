@@ -1,10 +1,12 @@
 #!/usr/bin/env ruby
 require 'soywiki'
 
-xs = Dir.glob(File.join('**', '*')).select {|x|
-  File.file?(x) && 
-    x.gsub('/', '.') =~ Soywiki::WIKI_WORD
-}.sort_by {|x|
-  File.stat(x).mtime
-}.reverse.map {|x| x.to_page_title}
+# this emulates ls -t in unix, but searches subdirs and returns a flat list of
+# files
+
+xs = Dir.glob('*/*').
+    select {|x| File.file?(x) && x.gsub('/', '.') =~ Soywiki::WIKI_WORD }.
+    sort_by {|x| File.stat(x).mtime }.
+    reverse.map {|x| x.to_page_title }
+
 puts xs.join("\n")

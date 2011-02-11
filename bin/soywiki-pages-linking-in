@@ -6,24 +6,27 @@ def inbound_links_to?(file, page_title)
   return false unless File.file?(file)
   return false if (file =~ /(\.swo|\.swp)$/ || file =~ /^\./)
   body =   File.read(file)
+  # '.' must be escaped in the regular expression to match literal
   body =~ /[\A\s\n\b]#{page_title.gsub(".", "\.")}\b/
 end
 
 target_page = ARGV.first
+# make sure this is a title, not a path
+target_page.gsub!("/", ".")
 
 if target_page.namespaced?
   namespace, page = *target_page.split(".")
   # find all files in this namespace
-  xs = Dir.glob(File.join("#{namespace}", "*")).select do |file|
+  xs = Dir.glob("#{namespace}/*").select do |file|
     inbound_links_to?(file, target_page) || inbound_links_to?(file, ".#{page}")
   end
-  ys = Dir.glob(File.join("**", '*')).select do |file|
+  ys = Dir.glob('*/*').select do |file|
     inbound_links_to?(file, target_page) 
   end
   (xs + ys).uniq.sort.
     each {|x| puts x.to_page_title}
 else
-  Dir.glob(File.join("**", '*')).select do |file|
+  Dir.glob('*/*').select do |file|
     inbound_links_to?(file, target_page)
   end.
     each {|file| puts file.to_page_title}
