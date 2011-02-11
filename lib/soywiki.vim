@@ -72,7 +72,7 @@ func! s:infer_namespace(link)
 endfunc
 
 func! s:valid_wiki_word(link)
-  return (match(s:link, s:wiki_link_pattern) == 0)
+  return (match(a:link, s:wiki_link_pattern) == 0)
 endfunc
 
 func! s:is_wiki_page()
