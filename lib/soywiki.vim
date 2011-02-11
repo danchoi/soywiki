@@ -2,8 +2,7 @@
 " Maintainer:	Daniel Choi <dhchoi@gmail.com>
 " License: MIT License (c) 2011 Daniel Choi
 
-" This regex matches namedspaced WikiWords, top-level WikiWords, and relative
-" .WikiWords in a namespace
+" This regex matches namedspaced WikiWords and unqualified WikiWords 
 let s:wiki_link_pattern =  '\C\<\([a-z][[:alnum:]_]\+\.\)\?[A-Z][a-z]\+[A-Z]\w*\>'
 
 let s:http_link_pattern = 'https\?:[^ >)\]]\+'
@@ -470,9 +469,7 @@ func! s:expand(seamless, vertical)
   redraw
   echom "Expanded " . (a:seamless == 0 ? 'seamfully' : 'seamlessly') . "."
 endfunc
-
 "------------------------------------------------------------------------
-
 func! s:open_href()
   let line = search(s:http_link_pattern, 'cw')
   let href = expand("<cWORD>") 
@@ -480,15 +477,12 @@ func! s:open_href()
   call system(command)
   echom command 
 endfunc
-
 " -------------------------------------------------------------------------------- 
 "  HELP
 func! s:show_help()
   let command = g:SoyWiki#browser_command . ' ' . shellescape('http://danielchoi.com/software/soywiki.html')
   call system(command)
 endfunc
-
-
 "------------------------------------------------------------------------
 
 func! s:global_mappings()
@@ -511,11 +505,10 @@ func! s:global_mappings()
   command! -bar -nargs=1 -range -complete=file SWLinkInsert :<line1>,<line2>call s:extract(<f-args>, 'insert', 1)
 
   command! -bar -nargs=1 SWSearch :call s:wiki_search(<f-args>)
+  " TODO a search confined to current namespace
 
   autocmd  BufReadPost,BufNewFile,WinEnter,BufEnter,BufNew * call s:highlight_wikiwords() 
   autocmd  BufEnter * call s:prep_buffer() 
-
-
 endfunc 
 
 " this checks if the buffer is a SoyWiki file (from firstline)
