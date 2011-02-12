@@ -155,9 +155,9 @@ func! s:load_page(page, split)
     call writefile([title, '', ''], file) 
   endif
   if (a:split == 2) 
-    exec "vsplit ". file
+    exec "botright vsplit ". file
   else
-    exec "split ". file
+    exec "botright split ". file
   endif
   if (a:split == 0) 
     wincmd p 
@@ -530,8 +530,8 @@ func! s:prep_buffer()
   if (s:is_wiki_page())
     set textwidth=72
     nnoremap <buffer> <cr> :call <SID>follow_link_under_cursor(0)<cr> 
-    nnoremap <buffer> <c-l> :call <SID>follow_link_under_cursor(1)<cr> 
-    nnoremap <buffer> <c-n> :call <SID>follow_link_under_cursor(2)<cr> 
+    nnoremap <buffer> <c-l> :call <SID>follow_link_under_cursor(2)<cr> 
+    nnoremap <buffer> <c-n> :call <SID>follow_link_under_cursor(1)<cr> 
     noremap <buffer> <leader>f :call <SID>follow_link(0)<CR>
     noremap <buffer> <c-j> :call <SID>find_next_wiki_link(0)<CR>
     noremap <buffer> <c-k> :call <SID>find_next_wiki_link(1)<CR>
@@ -546,11 +546,10 @@ func! s:prep_buffer()
     command! -buffer SWBlame :call s:show_blame()
     noremap <buffer> <leader>b :call <SID>show_blame()<CR>
 
-    noremap <buffer> <leader>x :call <SID>expand(0,0)<CR>
-    noremap <buffer> <leader>X :call <SID>expand(1,0)<CR>
-    noremap <buffer> <leader>vx :call <SID>expand(0,1)<CR>
-    noremap <buffer> <leader>vX :call <SID>expand(1,1)<CR>
-    noremap <buffer> <leader>VX :call <SID>expand(1,1)<CR>
+    noremap <buffer> <leader>x :call <SID>expand(0,1)<CR>
+    noremap <buffer> <leader>X :call <SID>expand(1,1)<CR>
+    noremap <buffer> <leader>nx :call <SID>expand(0,0)<CR>
+    noremap <buffer> <leader>nX :call <SID>expand(1,0)<CR>
 
     noremap <silent> <leader>? :call <SID>show_help()<cr>
 

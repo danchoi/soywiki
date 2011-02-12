@@ -124,9 +124,9 @@ commands:
 * `CTRL-k` and `CTRL-j` move the cursor directly to the next or previous WikiLink on the page
 * `ENTER` follows the WikiLink under the cursor
 * `,f` follows the first WikiLink after the cursor
-* `CTRL-l` opens a WikiLink in a split window
-* `CTRL-n` does the same, but in a vertical split window
-* Both `q` and `CTRL-h` close a split window 
+* `CTRL-l` opens a WikiLink in a vertical split window
+* `CTRL-n` does the same, but in a regular split window
+* Both `CTRL-h` and `q` close a split window 
 
 These key mappings may not be very mnemonic, but they are easy to
 memorize through muscle memory and were chosen to keep the hands
@@ -336,10 +336,11 @@ this has happened by including markers along with the WikiWord that was
 expanded. Seamless expansion does not mark a point of expansion with
 anything, and it erases the WikiWord that got expanded. 
 
-* `,x` expands a wiki page seamfully
-* `,X` expands a wiki page seamlessly
-* `,vx` expands a wiki page seamfully and opens on a vertical split
-* `,vX` expands a wiki page seamlessly and opens on a vertical split
+* `,x` expands a wiki page seamfully and opens on a vertical split
+* `,X` expands a wiki page seamlessly and opens on a vertical split
+* `,nx` expands a wiki page seamfully and opens on normal split
+* `,nX` expands a wiki page seamlessly and opens on a normal split
+* `q` closes the expanded view window
 
 Both modes of expansion are useful when you want to assemble a long
 piece of writing by using one page as a master outline that links to
