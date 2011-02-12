@@ -116,6 +116,39 @@ content.
 
 That's all you need to know to get started. 
 
+## Namespaced WikiWords
+
+You can get very far with SoyWiki using normal CamelCase WikiWords.  
+
+    NormalWikiWord
+
+But if you want, you can also namespace your WikiWords, like so:
+
+    namespaced.WikiWord
+
+A namespaced WikiWord is a WikiWord prefixed by a namespace and a
+period. The namespace word must start with a lower-case letter and
+consist only of letters, numbers, and underscore characters. You can't
+chain namespace words together: the maximum nesting level is 1.
+
+Namespaced WikiWords help organize your wiki space conceptually. They also
+have two other benefits: 
+
+First, wiki pages that represent a namespaced WikiWord are stored under a
+subdirectory named after the namespace. This can help reduce clutter in
+your wiki directory.
+
+Every WikiWord namespace lets you use abbreviated links within that
+namespace. For example, if you are editing a page called
+`recipes.SoyMacaroni` and you want to link to another page in the same
+namespace called `recipes.SoyRaspberrySmoothie` you can type the link as
+just `SoyRaspberrySmoothie`. SoyWiki will know that this is a link to
+another page in the same namespace. 
+
+When you first start SoyWiki, the active namespace the is the default
+namespace `main`.
+
+
 ## Wiki navigation 
 
 You can navigate a SoyWiki wiki very quickly with the following
@@ -278,42 +311,6 @@ result back to origin. This process may be intimidating for
 non-programmers, so a future version of SoyWiki may provide a more
 user-friendly interface for distributed collaboration workflows.
 
-
-## Namespaced WikiWords
-
-You can get very far with SoyWiki using normal CamelCase WikiWords.  
-
-    NormalWikiWord
-
-But if you want, you can also namespace your WikiWords, like so:
-
-    namespaced.WikiWord
-
-A namespaced WikiWord is a WikiWord prefixed by a namespace and a
-period. The namespace word must start with a lower-case letter and
-consist only of letters, numbers, and underscore characters. You can't
-chain namespace words together: the maximum nesting level is 1.
-
-Namespaced WikiWords help organize your wiki space conceptually. They also
-have two other benefits: 
-
-First, wiki pages that represent a namespaced WikiWord are stored under a
-subdirectory named after the namespace. This can help reduce clutter in
-your wiki directory.
-
-Second, a WikiWord namespace lets you use abbreviated links within that
-namespace. For example, if you are editing a page called
-`recipes.SoyMacaroni` and you want to link to another page in the same
-namespace called `recipes.SoyRaspberrySmoothie` you can type the link in
-this special abbreviated form:
-
-    .SoyRaspberrySmoothie
-
-SoyWiki will know from the leading period that this is a link to another
-page in the same namespace. 
-
-WikiLink autocompletion also works with abbreviated namespaced links. Just type a
-period, and invoke autocompletion with `CTRL-x CTRL-u`.
 
 
 ## Expanding a wiki page
