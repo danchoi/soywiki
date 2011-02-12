@@ -274,8 +274,8 @@ func! s:reduce_matches()
   elseif match(fragment, '^[a-z]') == 0 && match(fragment, '\.' == -1)   
     " we're beginning to type a namespace
     let namespace = get(split(get(namespaced_matches, 0), '\.'), 0) 
-    let namespace_with_period .= "."
-    call feedkeys( "BcW". namespace_with_period . "\<C-x>\<C-u>\<C-p>" , "t")
+    let namespace .= "."
+    call feedkeys( "BcW" . namespace . "\<C-x>\<C-u>\<C-p>" , "t")
   else
     return
   endif
@@ -312,11 +312,8 @@ function! CompletePageTitle(findstart, base)
   endif
   if a:findstart
     " locate the start of the word
-    let line = getline('.')
-    let start = col('.') - 1
-    while start > 0 && line[start - 1] =~ '[[:alnum:]\.]'
-      let start -= 1
-    endwhile
+    " by starting after prompt ': '
+    let start = match(getline('.'), ': ') + 2
     return start
   else
     let base = s:trimString(a:base)
