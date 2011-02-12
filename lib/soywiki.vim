@@ -29,12 +29,12 @@ func! s:display_missing_namespace_error(num_segments)
   endif 
 endfunc
 
-func! s:display_invalid_wiki_word_error()
-  call s:error("Not a valid WikiWord.")
+func! s:display_invalid_wiki_word_error(word)
+  call s:error(a:word . " is not a valid WikiWord.")
 endfunc
 
 func! s:namespace_of_title(page_title)
-  let segments = split(a:page_title(), '\.')
+  let segments = split(a:page_title, '\.')
   " page must have namespace
   if len(segments) == 2
     return get(segments, 0)
@@ -97,14 +97,14 @@ func! s:link_under_cursor()
   let link = expand("<cWORD>") 
   " strip off non-letters at the end (e.g., a comma)
   let link = substitute(link, '[^[:alnum:]]*$', '', '')
-  if ! has_namespace(link)
-    link = s:infer_namespace(link)
+  if ! s:has_namespace(link)
+    let link = s:infer_namespace(link)
   endif
   if match(link, s:wiki_link_pattern) == -1
     if match(link, s:http_link_pattern) != -1
       call s:open_href()
     endif
-    return 0
+    return ""
   else
     return link
   end
@@ -113,10 +113,10 @@ endfunc
 " follows a camel case link to a new page 
 func! s:follow_link(split)
   let link = s:link_under_cursor()
-  if link == 0
+  if link == ""
     let link = s:find_next_wiki_link(0)
-    if link == 0
-      return 0
+    if link == ""
+      return ""
     endif
   endif
   call s:load_page(link, a:split)  
@@ -124,9 +124,9 @@ endfunc
 
 func! s:follow_link_under_cursor(split)
   let link = s:link_under_cursor()
-  if link == 0 
-    echom "Not a wiki link"
-    return 0
+  if link == ""
+    echom link . " is not a wiki link"
+    return ""
   else
     call s:load_page(link, a:split)
   endif
@@ -137,7 +137,7 @@ func! s:find_next_wiki_link(backward)
   " don't wrap
   let result = search(s:wiki_link_pattern, 'W' . (a:backward == 1 ? 'b' : ''))
   if (result == 0) 
-    return 0
+    return ""
   end
   return s:link_under_cursor()
 endfunc
@@ -204,7 +204,7 @@ func! s:rename_page(page_path_or_title)
     call system("git commit -am 'rename wiki page and links'")
     e!
   else
-    call s:display_invalid_wiki_word_error()
+    call s:display_invalid_wiki_word_error(page_title)
   endif
 endfunc
 
@@ -217,7 +217,7 @@ func! s:create_page(page_path)
   if s:valid_wiki_word(page_title)
     call s:load_page(s:filename2pagetitle(page_path), 0)
   else
-    call s:display_invalid_wiki_word_error()
+    call s:display_invalid_wiki_word_error(page_title)
   endif
 endfunc
 
