@@ -174,7 +174,7 @@ in Vim insert mode to invoke it.
 
 You can delete the current page with `:SWDelete` (shortcut: `:SWD`).
 
-`:SWRename [new name]` renames the current page. Make sure the new name
+`:SWRenameTo [new name]` renames the current page. Make sure the new name
 is valid CamelCase. You can put a namespace in front of the new name
 as `namespace.` or `namespace/`. If you omit the namespace, the current
 namespace is assumed.

@@ -202,11 +202,9 @@ func! s:rename_page(page_path_or_title)
   if s:valid_wiki_word(page_title)
     let original_file = bufname('')
     echo system("git mv " . original_file . " " .  newfile)
-    call s:load_page(s:filename2pagetitle(newfile), 0)
-    " replace all existing inbound links; let Ruby do the heavy lifting
-    call system("git commit -am 'rename wiki page and links'")
     exec "!" . s:rename_links_command . original_file . " " . newfile
-    e!
+    call system("git commit -am 'rename wiki page and links'")
+    exec "e " . newfile
   else
     call s:display_invalid_wiki_word_error(page_title)
   endif
@@ -539,7 +537,7 @@ func! s:prep_buffer()
     noremap <buffer> <c-k> :call <SID>find_next_wiki_link(1)<CR>
 
     command! -bar -nargs=1 -range -complete=file SWCreate :call <SID>create_page(<f-args>)
-    command! -bar -nargs=1 -range -complete=file SWRename :call <SID>rename_page(<f-args>)
+    command! -bar -nargs=1 -range -complete=file SWRenameTo :call <SID>rename_page(<f-args>)
     command! -buffer SWDelete :call s:delete_page()
 
     command! -buffer SWLog :call s:show_revision_history(0)
