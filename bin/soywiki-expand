@@ -28,9 +28,9 @@ def expand(file, mode, level=0)
     # note that the wiki link must be alone on the line to be expanded
     if line =~ WIKI_LINK_PATTERN 
       link = line.strip
-      if link =~ /^\./ # short link in namespace (relative link)
+      if link =~ /(\A|\s)[A-Z]/ # short link in namespace (relative link)
         namespace = file.namespace
-        link = [namespace, link].join
+        link = [namespace, link].join('.')
       end
       if File.file?(link.to_file_path) && !PROCESSED_FILES.include?(link.to_file_path) 
         if mode == 'seamful'
