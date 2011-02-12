@@ -309,6 +309,9 @@ endfunction
 " This function assumes s:matching_pages has been set by the calling function
 function! CompletePageTitle(findstart, base)
   let fragment = expand("<cWORD>")
+  if !exists("s:matching_pages")
+    let s:matching_pages = s:get_page_list()
+  endif
   if match(fragment, '^[A-Z]') == 0 
     " we have a WikiWord without a namespace; filter down to pages in pages in this
     " namespace
@@ -316,8 +319,19 @@ function! CompletePageTitle(findstart, base)
   endif
   if a:findstart
     " locate the start of the word
-    " by starting after prompt ': '
-    let start = match(getline('.'), ': ') + 2
+    " Assume we're in a page select window if there is a ': ' in the line.
+    " Admittedly, this is not work well in all cases
+    if bufname('') == 'page-list-buffer'
+      " by starting after prompt ': '
+      let start = match(getline('.'), ': ') + 2
+    else
+      " locate the start of the word
+      let line = getline('.')
+      let start = col('.') - 1
+      while start > 0 && line[start - 1] =~ '\a'
+        let start -= 1
+      endwhile
+    end
     return start
   else
     let base = s:trimString(a:base)
