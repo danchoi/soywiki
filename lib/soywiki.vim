@@ -169,20 +169,24 @@ func! s:load_page(page, split)
   endif
 endfunc
 
-func! s:load_most_recently_modified_page()
+func! s:load_most_recently_modified_page(index)
   let pages = split(system(s:ls_command), "\n")
-  let start_page = len(pages) > 0 ? get(pages, 0) : "main.HomePage" 
+  let start_page = len(pages) > a:index ? get(pages, a:index) : "main.HomePage" 
   call s:load_page(start_page, 0)
 endfunc
 
 func! s:delete_page()
   let file = bufname('%')
   let bufnr = bufnr('%')
-  call delete(file)
-  call system("git commit " . bufname('%') . " -m 'deletion'")
+
   " go to most recently saved
   " this should be a function call
-  call s:load_most_recently_modified_page()
+  split
+  call s:load_most_recently_modified_page(1)
+  wincmd p
+
+  echo system("git rm " . file)
+  call system("git commit " . file . " -m 'deletion'")
   exec "bdelete " . bufnr
   redraw
   echom  "Deleted " . file
@@ -197,11 +201,11 @@ func! s:rename_page(page_path_or_title)
   endif
   if s:valid_wiki_word(page_title)
     let original_file = bufname('')
-    call system("git mv " . original_file . " " .  newfile)
+    echo system("git mv " . original_file . " " .  newfile)
     call s:load_page(s:filename2pagetitle(newfile), 0)
     " replace all existing inbound links; let Ruby do the heavy lifting
-    exec "!" . s:rename_links_command . original_file . " " . newfile
     call system("git commit -am 'rename wiki page and links'")
+    exec "!" . s:rename_links_command . original_file . " " . newfile
     e!
   else
     call s:display_invalid_wiki_word_error(page_title)
@@ -577,7 +581,7 @@ if !exists("g:SoyWiki#browser_command")
 endif
 
 if len(bufname("%")) == 0
-  call s:load_most_recently_modified_page()
+  call s:load_most_recently_modified_page(0)
 else
   call s:load_page(bufname("%"), 0)
 endif
