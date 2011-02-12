@@ -1,11 +1,5 @@
 
 class String
-  def is_namespaced?
-    self.split(/\.|\//).size == 2
-  end
-
-  alias :namespaced? :is_namespaced?
-
   # TODO change this to a Windows compatible approach
   def to_file_path
     self.gsub(".", "/")
@@ -20,7 +14,6 @@ class String
   end
 
   def namespace
-    return nil unless self.namespaced?
     self.to_page_title.split('.')[0]
   end
 end

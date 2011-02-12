@@ -2,7 +2,7 @@
 # encoding: utf-8
 require 'soywiki'
 
-def inbound_links_to?(file, page_title)
+def contains_links_to?(file, page_title)
   return false unless File.file?(file)
   return false if (file =~ /(\.swo|\.swp)$/ || file =~ /^\./)
   body =   File.read(file)
@@ -14,20 +14,13 @@ target_page = ARGV.first.dup
 # make sure this is a title, not a path
 target_page.gsub!("/", ".")
 
-if target_page.namespaced?
-  namespace, page = *target_page.split(".")
-  # find all files in this namespace
-  xs = Dir.glob("#{namespace}/*").select do |file|
-    inbound_links_to?(file, target_page) || inbound_links_to?(file, ".#{page}")
-  end
-  ys = Dir.glob('*/*').select do |file|
-    inbound_links_to?(file, target_page) 
-  end
-  (xs + ys).uniq.sort.
-    each {|x| puts x.to_page_title}
-else
-  Dir.glob('*/*').select do |file|
-    inbound_links_to?(file, target_page)
-  end.
-    each {|file| puts file.to_page_title}
+
+# find all files in this namespace
+xs = Dir.glob("#{target_page.namespace}/*").select do |file|
+  contains_links_to?(file, target_page) || contains_links_to?(file, target_page.short_page_title)
 end
+ys = Dir.glob('*/*').select do |file|
+  contains_links_to?(file, target_page) 
+end
+(xs + ys).uniq.sort.each {|x| puts x.to_page_title}
+
