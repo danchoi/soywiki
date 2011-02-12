@@ -247,7 +247,7 @@ func! s:get_page_list()
   if len(bufname('%')) == 0
     return split(system(s:ls_command), "\n")
   else
-    return split(system(s:ls_command . " | grep -vF '" . page_title() . "'" ), "\n")
+    return split(system(s:ls_command . " | grep -vF '" . s:page_title() . "'" ), "\n")
   endif
 endfunction
 
@@ -285,8 +285,8 @@ function! s:page_list_window(page_match_list, prompt)
   " remember the original window 
   let s:return_to_winnr = winnr()
   let s:matching_pages = a:page_match_list
-  setlocal completefunc=CompletePageTitle 
   topleft split page-list-buffer
+  setlocal completefunc=CompletePageTitle 
   setlocal buftype=nofile
   setlocal noswapfile
   setlocal modifiable

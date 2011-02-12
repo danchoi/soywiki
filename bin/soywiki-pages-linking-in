@@ -10,7 +10,7 @@ def inbound_links_to?(file, page_title)
   body =~ /[\A\s\n\b]#{page_title.gsub(".", "\.")}\b/
 end
 
-target_page = ARGV.first
+target_page = ARGV.first.dup
 # make sure this is a title, not a path
 target_page.gsub!("/", ".")
 
