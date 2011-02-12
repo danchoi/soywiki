@@ -97,7 +97,7 @@ func! s:link_under_cursor()
   let link = expand("<cWORD>") 
   " strip off non-letters at the end and beginngin (e.g., a comma)
   let link = substitute(link, '[^[:alnum:]]*$', '', '')
-  let link = substitue(link, '^[^[:alnum]]*', '', '')
+  let link = substitute(link, '^[^[:alnum]]*', '', '')
   if ! s:has_namespace(link)
     let link = s:infer_namespace(link)
   endif
