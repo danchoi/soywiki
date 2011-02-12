@@ -20,7 +20,7 @@ end
 
 
 module Soywiki
-  VERSION = '0.1.2'
+  VERSION = '0.1.3'
   WIKI_WORD = /\b([a-z][\w_]+\.)?[A-Z][a-z]+[A-Z]\w*\b/
 
   def self.run
