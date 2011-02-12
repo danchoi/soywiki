@@ -5,6 +5,7 @@
 " This regex matches namedspaced WikiWords and unqualified WikiWords 
 let s:wiki_link_pattern =  '\C\m\<\([a-z][[:alnum:]_]\+\.\)\?[A-Z][a-z]\+[A-Z]\w*\>'
 
+
 let s:http_link_pattern = 'https\?:[^ >)\]]\+'
 let s:rename_links_command = 'soywiki-rename '
 let s:find_pages_linking_in_command = 'soywiki-pages-linking-in '
@@ -265,8 +266,7 @@ func! s:pages_in_this_namespace(pages)
   let namespace = s:page_namespace()
   let pages = filter( a:pages,  'v:val =~ "^' . namespace . '\."')
   " strip leading namespace
-  let pages = map( pages, "substitute(v:val, '^" . namespace . "\.', '', '') " )
-  return pages
+  return map(pages, "substitute(v:val, '^" . namespace . "\.', '', '') ")
 endfunc
 
 " When user press TAB after typing a few characters in the page selection
@@ -314,40 +314,22 @@ endfunction
 
 " This function assumes s:matching_pages has been set by the calling function
 function! CompletePageTitle(findstart, base)
-  let fragment = expand("<cWORD>")
-  if !exists("s:matching_pages")
-    let s:matching_pages = s:get_page_list()
-  endif
-  if match(fragment, '^[A-Z]') == 0 
-    " we have a WikiWord without a namespace; filter down to pages in pages in this
-    " namespace
-    let s:matching_pages = s:pages_in_this_namespace(s:matching_pages)
-  endif
   if a:findstart
-    " locate the start of the word
-    " Assume we're in a page select window if there is a ': ' in the line.
-    " Admittedly, this is not work well in all cases
-    if bufname('') == 'page-list-buffer'
-      " by starting after prompt ': '
-      let start = match(getline('.'), ': ') + 2
-    else
       " locate the start of the word
-      let line = getline('.')
-      let start = col('.') - 1
-      while start > 0 && line[start - 1] =~ '\a'
-        let start -= 1
-      endwhile
-    end
+    let line = getline('.')
+    let start = col('.') - 1
+    while start > 0 && line[start - 1] =~ '\m[[:alnum:]\.]'
+      let start -= 1
+    endwhile
     return start
   else
     let base = s:trimString(a:base)
     if (base == '')
-      return s:matching_pages
+      return s:get_page_list()
     else
       let res = []
-      " TODO if the first letter is a Capital, look up words only in
-      " this namespace
-      for m in s:matching_pages
+      let pages = base =~ '\C^[a-z]' ? s:get_page_list() : s:pages_in_this_namespace(s:get_page_list())
+      for m in pages
         if m =~ '\c' . base 
           call add(res, m)
         endif
