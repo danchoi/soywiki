@@ -3,7 +3,7 @@
 " License: MIT License (c) 2011 Daniel Choi
 
 " This regex matches namedspaced WikiWords and unqualified WikiWords 
-let s:wiki_link_pattern =  '\C\<\([a-z][[:alnum:]_]\+\.\)\?[A-Z][a-z]\+[A-Z]\w*\>'
+let s:wiki_link_pattern =  '\C\m\<\([a-z][[:alnum:]_]\+\.\)\?[A-Z][a-z]\+[A-Z]\w*\>'
 
 let s:http_link_pattern = 'https\?:[^ >)\]]\+'
 let s:rename_links_command = 'soywiki-rename '
@@ -40,6 +40,7 @@ func! s:namespace_of_title(page_title)
     return get(segments, 0)
   else
     call s:display_missing_namespace_error(len(segments))
+    return ""
   endif
 endfunc
 
@@ -92,12 +93,15 @@ func! s:list_pages()
   call s:page_list_window(s:get_page_list(), "Select page: ")
 endfunc
 
+func! s:trim_link(link)
+  let link = matchstr(a:link, s:wiki_link_pattern)
+  return link
+endfunc
+
 " returns a fully namespaced link
 func! s:link_under_cursor()
-  let link = expand("<cWORD>") 
-  " strip off non-letters at the end and beginngin (e.g., a comma)
-  let link = substitute(link, '[^[:alnum:]]*$', '', '')
-  let link = substitute(link, '^[^[:alnum]]*', '', '')
+  let link = s:trim_link(expand("<cWORD>"))
+  " strip off non-letters at the end and beginning (e.g., a comma)
   if ! s:has_namespace(link)
     let link = s:infer_namespace(link)
   endif
@@ -152,6 +156,9 @@ func! s:load_page(page, split)
   if (!filereadable(file)) 
     " create the file
     let namespace = s:namespace_of_title(a:page)
+    if namespace == ""
+      return
+    end
     call system("mkdir -p " . namespace)
     call writefile([title, '', ''], file) 
   endif
