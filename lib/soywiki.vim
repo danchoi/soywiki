@@ -95,8 +95,9 @@ endfunc
 " returns a fully namespaced link
 func! s:link_under_cursor()
   let link = expand("<cWORD>") 
-  " strip off non-letters at the end (e.g., a comma)
+  " strip off non-letters at the end and beginngin (e.g., a comma)
   let link = substitute(link, '[^[:alnum:]]*$', '', '')
+  let link = substitue(link, '^[^[:alnum]]*', '', '')
   if ! s:has_namespace(link)
     let link = s:infer_namespace(link)
   endif
@@ -337,6 +338,8 @@ function! CompletePageTitle(findstart, base)
       return s:matching_pages
     else
       let res = []
+      " TODO if the first letter is a Capital, look up words only in
+      " this namespace
       for m in s:matching_pages
         if m =~ '\c' . base 
           call add(res, m)

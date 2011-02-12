@@ -1,6 +1,6 @@
 
 class String
-  # TODO change this to a Windows compatible approach
+  # not Windows compatible 
   def to_file_path
     self.gsub(".", "/")
   end
