@@ -112,9 +112,6 @@ func! s:link_under_cursor()
     let link = s:infer_namespace(link)
   endif
   if match(link, s:wiki_link_pattern) == -1
-    if match(link, s:http_link_pattern) != -1
-      call s:open_href()
-    endif
     return ""
   else
     return link
@@ -132,6 +129,10 @@ func! s:find_next_wiki_link(backward)
 endfunc
 
 func! s:follow_link_under_cursor(split)
+  if match(expand("<cWORD>>"), s:http_link_pattern) != -1
+    call s:open_href_under_cursor()
+    return
+  endif
   let link = s:link_under_cursor()
   if link == ""
     echom link . " is not a wiki link"
@@ -155,7 +156,8 @@ func! s:fuzzy_follow_link(split)
   if link == ""
     let link = s:find_next_wiki_link(0)
     if link == ""
-      return ""
+      echom "No links found"
+      return
     endif
   endif
   call s:load_page(link, a:split)  
@@ -528,13 +530,20 @@ func! s:expand(seamless, vertical)
   echom "Expanded " . (a:seamless == 0 ? 'seamfully' : 'seamlessly') . "."
 endfunc
 "------------------------------------------------------------------------
-func! s:open_href()
-  let line = search(s:http_link_pattern, 'cw')
+func! s:open_href_under_cursor()
   let href = expand("<cWORD>") 
   let command = g:SoyWiki#browser_command . " '" . href . "' "
   call system(command)
   echom command 
 endfunc
+
+func! s:find_next_href_and_open()
+  let res = search(s:http_link_pattern, 'cw')
+  if res != 0
+    call s:open_href_under_cursor()
+  endif
+endfunc
+
 " -------------------------------------------------------------------------------- 
 "  HELP
 func! s:show_help()
@@ -546,7 +555,7 @@ endfunc
 func! s:global_mappings()
   noremap <leader>m :call <SID>list_pages()<CR>
   noremap  <leader>M :call <SID>list_pages_linking_in()<CR>
-  noremap <silent> <leader>o :call <SID>open_href()<cr> 
+  noremap <silent> <leader>o :call <SID>find_next_href_and_open()<cr> 
   nnoremap <silent> q :close<cr>
 
   " reflow text
