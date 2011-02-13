@@ -140,8 +140,10 @@ func! s:follow_link_under_cursor(split)
     return ""
   elseif link == s:page_title()
     " SPECIAL CASE
-    " switch back to previous window
-    wincmd p
+    " close window
+    if winnr('$') > 1
+      close 
+    endif
   else
     call s:load_page(link, a:split)
   endif
@@ -538,7 +540,6 @@ func! s:global_mappings()
   noremap  <leader>M :call <SID>list_pages_linking_in()<CR>
   noremap <silent> <leader>o :call <SID>open_href()<cr> 
   nnoremap <silent> q :close<cr>
-  nnoremap <silent> <C-h> :close<cr>
 
   " reflow text
   nnoremap \ gwap 
@@ -566,7 +567,7 @@ func! s:prep_buffer()
     set textwidth=72
     nnoremap <buffer> <cr> :call <SID>follow_link_under_cursor(0)<cr> 
     nnoremap <buffer> <c-l> :call <SID>follow_link_under_cursor(2)<cr> 
-    nnoremap <buffer> <c-n> :call <SID>follow_link_under_cursor(1)<cr> 
+    nnoremap <buffer> <c-h> :call <SID>follow_link_under_cursor(1)<cr> 
     noremap <buffer> <leader>f :call <SID>follow_link(0)<CR>
     noremap <buffer> <c-j> :call <SID>find_next_wiki_link(0)<CR>
     noremap <buffer> <c-k> :call <SID>find_next_wiki_link(1)<CR>
