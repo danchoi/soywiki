@@ -91,7 +91,12 @@ endfunc
 
 func! s:list_pages()
   let s:search_for_link = ""
-  call s:page_list_window(s:get_page_list(), 'select-page', "Select page: ")
+  let pages = s:get_page_list()
+  if len(pages) == 0
+    echom "There are no wiki pages yet but this one."
+  else
+    call s:page_list_window(pages, 'select-page', "Select page: ")
+  end
 endfunc
 
 func! s:trim_link(link)
@@ -255,13 +260,13 @@ endfunc
 " This function both sets a script variable and returns the value.
 func! s:get_page_list()
   " no file current in buffer
-  if len(bufname('%')) == 0
+  if len(bufname('')) == 0
     return split(system(s:ls_command), "\n")
   elseif bufname('') == 'pages-linking-in'
     " this needs refactoring to rely less on state
     return s:pages_linking_in
   else
-    return split(system(s:ls_command . " | grep -vF '" . s:page_title() . "'" ), "\n")
+    return split(system(s:ls_command . " | grep -vF '".s:page_title()."'" ), "\n")
   endif
 endfunction
 
