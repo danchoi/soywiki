@@ -316,8 +316,8 @@ inspect your revision history. The Git repo for your SoyWiki wiki will
 be located in the same directory as your wiki files.
 
 To sync your SoyWiki wiki between two personal computers, you can follow the
-instructions [here][git-sync] or you can set up an upstream bare git repository
-on some for all your computers to push to and pull from.
+instructions [here][git-sync] or you can set up an bare Git repository
+upstream on some for all your computers to push to and pull from.
 
 [git-sync]:http://www-cs-students.stanford.edu/~blynn/gitmagic/ch03.html
 
