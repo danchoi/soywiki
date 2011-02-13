@@ -442,7 +442,7 @@ func! s:extract(...) range
       endif
       call writefile([page_title, '', ''], file) 
     endif
-    exec "split ".file
+    exec "botright vsplit ".file
   else
     let targetWindow = bufwinnr(bufnr(file))
     exe targetWindow."wincmd w"
