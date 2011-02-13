@@ -11,7 +11,7 @@ Bundler::GemHelper.install_tasks
 
 
 desc "release and build and push new website"
-task :push => [:bump, :release, :build_webpage]
+task :push => [:release, :build_webpage]
 
 desc "Bumps version number up one and git commits"
 task :bump do
