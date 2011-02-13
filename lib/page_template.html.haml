@@ -6,14 +6,17 @@
       .sidebar { float:left; width: 20%; font-size: small }
       .main { margin-left: 22%; width: 70% }
       ul { list-style-type: none; margin-left: 0; padding-left: 0 }
+      .page-count { font-size: smaller; color: #CCC }
 
   %body
     .sidebar
       %h3 Namespaces
       %ul
-        - namespaces.each do |namespace|
+        - namespaces.each do |namespace, count|
           %li
-            %a{:href => "../#{namespace}/index.html"}= namespace
+            %a{:href => "../#{namespace}/index.html"}= namespace 
+            %span.page-count
+              = count
       %h3= namespace
       %ul
         - pages.each do |page|

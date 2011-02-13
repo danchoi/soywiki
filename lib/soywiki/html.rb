@@ -74,8 +74,12 @@ module Soywiki
       `rm -rf #{HTML_DIR}/*`
       namespaces = Dir["*"].select {|f| 
         File.directory?(f) && f != HTML_DIR
+      }.map {|namespace|
+        count = Dir["#{namespace}/*"].select {|f| wiki_page?(f)}.size
+        [namespace, count]
       }
-      namespaces.each do |namespace_dir|
+      puts namespaces.inspect
+      namespaces.each do |namespace_dir, count|
         make_pages namespace_dir, namespaces
       end
     end
