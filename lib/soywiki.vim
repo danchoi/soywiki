@@ -170,12 +170,10 @@ func! s:load_page(page, split)
   endif
   if (a:split == 2) 
     exec "botright vsplit ". file
-  else
+  elseif (a:split == 1)
     exec "botright split ". file
-  endif
-  if (a:split == 0) 
-    wincmd p 
-    close
+  elseif (a:split == 0) 
+    exec "e ".file
   endif
   if len(s:search_for_link) > 0 
     let res = search(s:search_for_link, 'cw')
