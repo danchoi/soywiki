@@ -3,9 +3,10 @@ require 'string_ext'
 module Soywiki
   VERSION = '0.2.2'
   WIKI_WORD = /\b([a-z][\w_]+\.)?[A-Z][a-z]+[A-Z]\w*\b/
-
+  HYPERLINK = %r|\bhttps?://[^ >)\n\]]+|
 
   def self.run
+    puts ARGV.inspect
     if %W( -v --version -h --help).include?(ARGV.first)
       puts "soywiki #{Soywiki::VERSION}"
       puts "by Daniel Choi dhchoi@gmail.com"
@@ -23,6 +24,7 @@ END
       exit
     elsif ARGV.first == '--html'
       self.html_export 
+      exit
     else
       vim = ENV['SOYWIKI_VIM'] || 'vim'
       vimscript = File.expand_path("../soywiki.vim", __FILE__)
@@ -33,12 +35,10 @@ END
 
   def self.html_export
     require 'soywiki/html'
-      Dir["*/*"].each do |file|
-      if file.gsub("/", '.') =~ WIKI_WORD
-        html = Soywiki::Html.generate( File.read(file) )
-        puts html
-      end
-
+    Html.export
   end
 end
 
+if __FILE__ == $0
+  Soywiki.run
+end
