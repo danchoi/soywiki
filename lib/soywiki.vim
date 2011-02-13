@@ -183,9 +183,9 @@ func! s:load_page(page, split)
     call writefile([title, '', ''], file) 
   endif
   if (a:split == 2) 
-    exec "botright vsplit ". file
+    exec "rightbelow vsplit ". file
   elseif (a:split == 1)
-    exec "botright split ". file
+    exec "rightbelow split ". file
   elseif (a:split == 0) 
     exec "e ".file
   endif
@@ -456,7 +456,7 @@ func! s:extract(...) range
       endif
       call writefile([page_title, '', ''], file) 
     endif
-    exec "botright vsplit ".file
+    exec "rightbelow vsplit ".file
   else
     let targetWindow = bufwinnr(bufnr(file))
     exe targetWindow."wincmd w"
@@ -508,7 +508,7 @@ func! s:expand(seamless, vertical)
     let res = system(s:expand_command . " seamful " . bufname('%'))
   endif
   if a:vertical
-    botright vnew 
+    rightbelow vnew 
   else
     new 
   endif
