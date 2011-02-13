@@ -312,10 +312,9 @@ function! s:page_list_window(page_match_list, prompt)
   " call feedkeys("a", 't')
 endfunction
 
-" This function assumes s:matching_pages has been set by the calling function
 function! CompletePageTitle(findstart, base)
   if a:findstart
-      " locate the start of the word
+    " locate the start of the word
     let line = getline('.')
     let start = col('.') - 1
     while start > 0 && line[start - 1] =~ '\m[[:alnum:]\.]'
@@ -328,12 +327,22 @@ function! CompletePageTitle(findstart, base)
       return s:get_page_list()
     else
       let res = []
-      let pages = base =~ '\C^[a-z]' ? s:get_page_list() : s:pages_in_this_namespace(s:get_page_list())
-      for m in pages
-        if m =~ '\c' . base 
-          call add(res, m)
-        endif
-      endfor
+      if bufname('') == 'page-list-buffer'
+        let pages = s:get_page_list()
+        for m in pages
+          if m =~ '\c' . base 
+            call add(res, m)
+          endif
+        endfor
+      else
+        " autocomplete inline
+        let pages = base =~ '\C^[a-z]' ? s:get_page_list() : s:pages_in_this_namespace(s:get_page_list())
+        for m in pages
+          if m =~ '^\c' . base 
+            call add(res, m)
+          endif
+        endfor
+      endif
       return res
     endif
   endif
