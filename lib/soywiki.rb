@@ -4,6 +4,7 @@ module Soywiki
   VERSION = '0.2.2'
   WIKI_WORD = /\b([a-z][\w_]+\.)?[A-Z][a-z]+[A-Z]\w*\b/
 
+
   def self.run
     if %W( -v --version -h --help).include?(ARGV.first)
       puts "soywiki #{Soywiki::VERSION}"
@@ -20,12 +21,24 @@ open the most recently modified wiki file.
 ---
 END
       exit
+    elsif ARGV.first == '--html'
+      self.html_export 
+    else
+      vim = ENV['SOYWIKI_VIM'] || 'vim'
+      vimscript = File.expand_path("../soywiki.vim", __FILE__)
+      vim_command = "#{vim} -S #{vimscript} #{ARGV.first}"
+      exec vim_command
     end
+  end
 
-    vim = ENV['SOYWIKI_VIM'] || 'vim'
-    vimscript = File.expand_path("../soywiki.vim", __FILE__)
-    vim_command = "#{vim} -S #{vimscript} #{ARGV.first}"
-    exec vim_command
+  def self.html_export
+    require 'soywiki/html'
+      Dir["*/*"].each do |file|
+      if file.gsub("/", '.') =~ WIKI_WORD
+        html = Soywiki::Html.generate( File.read(file) )
+        puts html
+      end
+
   end
 end
 

@@ -1,6 +1,0 @@
-#!/usr/bin/env ruby
-require 'soywiki'
-
-Dir["*/*"].each do |file|
-  puts file
-end
