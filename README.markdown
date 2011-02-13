@@ -119,36 +119,39 @@ That's all you need to know to get started.
 
 ## Namespaced WikiWords
 
-You can get very far with SoyWiki using normal CamelCase WikiWords.  
+Every WikiWord in SoyWiki is implicitly or explicitly namespaced.
 
-    NormalWikiWord
+An explicitly namespaced WikiWord looks like this:
 
-But if you want, you can also namespace your WikiWords, like so:
+    recipes.SoyRaspberrySmoothie
 
-    namespace.WikiWord
+The implicitly namespaced form looks just like a conventional WikiWord:
 
-A namespaced WikiWord is a WikiWord prefixed by a namespace and a
-period. The namespace word must start with a lower-case letter and
-consist only of letters, numbers, and underscore characters. You can't
-chain namespace words together: the maximum nesting level is 1.
+    SoyRaspberrySmoothie
 
-Namespaced WikiWords help organize your wiki space conceptually. They also
-have two other benefits: 
+A namespace must start with a lower-case letter and consist only of letters,
+numbers, and underscore characters. 
 
-First, wiki pages that represent a namespaced WikiWord are stored under a
-subdirectory named after the namespace. This can help reduce clutter in
-your wiki directory.
+Within a WikiWord namespace you can use unqualified WikiWords to link pages
+within that namespace together. For example, if you are editing a page called
+`recipes.SoyMacaroni` and you want to link to a page called
+`recipes.SoyRaspberrySmoothie`, you can type a link called
+`SoyRaspberrySmoothie`. SoyWiki will treat this link as an implicitly
+namespaced link to another page in the `recipes` namespace. 
 
-Every WikiWord namespace lets you use abbreviated links within that
-namespace. For example, if you are editing a page called
-`recipes.SoyMacaroni` and you want to link to another page in the same
-namespace called `recipes.SoyRaspberrySmoothie` you can type the link as
-just `SoyRaspberrySmoothie`. SoyWiki will know that this is a link to
-another page in the same namespace. 
+You can't chain namespace words together. The maximum nesting level is 1.  More
+nesting would imply hierarchical relationships, and permitting hierarchical
+nesting goes against the grain of what a wiki is, which is an [undirected
+graph][graph].  SoyWiki namespaces are not supposed to represent hierarchies,
+but domains (e.g., personal, work, project1, project2, etc.). 
 
-When you start SoyWiki for the first time, the active namespace is the
-default namespace `main`. 
+[graph]:http://en.wikipedia.org/wiki/Graph_theory
 
+SoyWiki's namespaced WikiWords help organize your wiki space conceptually.
+They also help reduce clutter in your wiki directory.
+
+When you start SoyWiki for the first time, the active namespace is the default
+namespace `main`. `main.HomePage` is the first page you will see.
 
 ## Wiki navigation 
 
@@ -174,7 +177,7 @@ this. You can press `CTRL-^` to toggle between the current page and the
 last page you looked at.
 
 You can view all the pages in your wiki, most recently modified first,
-by press `,m`. This opens both a page list and autocompletion window.
+by pressing `,m`. This opens both a page list and autocompletion window.
 You can use the standard Vim autocompletion commands here to find the
 page you want and call it up.  See Vim's `:help ins-completion-menu` for
 further instructions.
