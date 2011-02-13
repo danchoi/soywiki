@@ -11,7 +11,22 @@ Bundler::GemHelper.install_tasks
 
 
 desc "release and build and push new website"
-task :push => [:release, :build_webpage]
+task :push => [:bump, :release, :build_webpage]
+
+desc "Bumps version number up one and git commits"
+task :bump do
+  basefile = "lib/soywiki.rb"
+  file = File.read(basefile)
+  oldver = file[/VERSION = '(\d.\d.\d)'/, 1]
+  newver_i = oldver.gsub(".", '').to_i + 1
+  newver = ("%.3d" % newver_i).split(//).join('.')
+  puts oldver
+  puts newver
+  puts "Bumping version: #{oldver} => #{newver}"
+  newfile = file.gsub("VERSION = #{oldver}", "VERSION = #{newver}") 
+  File.open(basefile, 'w') {|f| f.write newfile}
+  "git commit -m 'Bump'"
+end
 
 desc "build and push website"
 task :web => :build_webpage do
