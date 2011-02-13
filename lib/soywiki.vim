@@ -207,11 +207,18 @@ func! s:delete_page()
   let file = bufname('%')
   let bufnr = bufnr('%')
 
-  " go to most recently saved
-  " this should be a function call
-  split
-  call s:load_most_recently_modified_page(1)
-  wincmd p
+  if winnr('$') == 1
+    " we need a buffer to replace this one with
+    " go to previous buffer
+    let next_window = bufnr('#')
+    if next_window == -1
+      " TODO this fails to execute
+      call s:load_page("main.HomePage", 0)
+    else
+      exec ":b".next_window
+    endif
+    wincmd p
+  endif
 
   echo system("git rm " . file)
   call system("git commit " . file . " -m 'deletion'")
