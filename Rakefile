@@ -32,6 +32,7 @@ desc "build and push website"
 task :web => :build_webpage do
   puts "Building and pushing website"
   `scp website/soywiki.html zoe2@instantwatcher.com:~/danielchoi.com/public/software/`
+  `open http://danielchoi.com/software/soywiki.html`
 end
 
 desc "build website locally"
@@ -49,11 +50,6 @@ task :build_webpage do
     html = Webpage.generate(Soywiki::VERSION)
     File.open('soywiki.html', 'w') {|f| f.puts html}
   end
-end
-
-desc "Open website"
-task :open_website do
-  `open http://danielchoi.com/software/soywiki.html`
 end
 
 
