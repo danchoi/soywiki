@@ -352,8 +352,8 @@ anything, and it erases the WikiWord that got expanded.
 
 * `,x` expands a wiki page seamfully and opens on a vertical split
 * `,X` expands a wiki page seamlessly and opens on a vertical split
-* `,nx` expands a wiki page seamfully and opens on normal split
-* `,nX` expands a wiki page seamlessly and opens on a normal split
+* `,hx` expands a wiki page seamfully and opens on normal split
+* `,hX` expands a wiki page seamlessly and opens on a normal split
 * `q` closes the expanded view window
 
 Both modes of expansion are useful when you want to assemble a long
