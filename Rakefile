@@ -35,7 +35,7 @@ task :web => :build_webpage do
 end
 
 desc "build website locally"
-task :weblocal => :build_webpage do
+task :build_web_locally => :build_webpage do
   Dir.chdir("website") do
     `open soywiki.html`
   end
@@ -50,6 +50,12 @@ task :build_webpage do
     File.open('soywiki.html', 'w') {|f| f.puts html}
   end
 end
+
+desc "Open website"
+task :open_website do
+  `open http://danielchoi.com/software/soywiki.html`
+end
+
 
 desc "Run tests"
 task :test do 
