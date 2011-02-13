@@ -3,7 +3,6 @@
 SoyWiki turns Vim into a powerful, fast wiki. More energy,
 less fat!
 
-
 A quick overview of its characteristics and features:
 
 * flat text files
@@ -146,8 +145,8 @@ namespace called `recipes.SoyRaspberrySmoothie` you can type the link as
 just `SoyRaspberrySmoothie`. SoyWiki will know that this is a link to
 another page in the same namespace. 
 
-When you first start SoyWiki, the active namespace the is the default
-namespace `main`.
+When you start SoyWiki for the first time, the active namespace is the
+default namespace `main`. 
 
 
 ## Wiki navigation 
