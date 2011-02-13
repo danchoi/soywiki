@@ -1,7 +1,8 @@
 # SoyWiki
 
-SoyWiki is lightweight application that turns Vim into a fast and
-powerful wiki. 
+SoyWiki turns Vim into a powerful, fast wiki. Wiki with more energy,
+less fat.
+
 
 A quick overview of its characteristics and features:
 
@@ -387,13 +388,6 @@ file names without any awkward character escaping.
 [ward]:http://c2.com/cgi/wiki?WikiCase
 
 
-## Why name a wiki engine after a legume?
-
-I am a fan of food made of [soy][soylink]: soy ice cream, soy milk, soy
-burgers, soy butter, you name it. The word "soy" has come to signify a
-newer, lighter, healthier alternative to the same old same old. SoyWiki
-may not be an actual soy product, but it tries to be a wiki engine with
-soy-like benefits.
 
 [soylink]:http://www.mayoclinic.com/health/soy/NS_patient-soy
 
