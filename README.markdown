@@ -157,11 +157,10 @@ commands:
 * `CTRL-k` and `CTRL-j` move the cursor directly to the next or previous WikiLink on the page
 * `ENTER` follows the WikiLink under the cursor
 * `,f` follows the first WikiLink after the cursor
-* `CTRL-l` opens a WikiLink in a vertical split window; press again to
-close the new window 
+* `CTRL-l` opens a WikiLink in a vertical split window; press again
+while the cursor is on the top line to close the new window 
 * `CTRL-h` does the same, but in a regular split window
 * `q` closes a split window 
-
 
 These key mappings may not be very mnemonic, but they are easy to
 memorize through muscle memory and were chosen to keep the hands
