@@ -11,7 +11,7 @@ Bundler::GemHelper.install_tasks
 
 
 desc "release and build and push new website"
-task :push => [:release, :build_webpage]
+task :push => [:release, :web]
 
 desc "Bumps version number up one and git commits"
 task :bump do
@@ -30,7 +30,7 @@ end
 
 desc "build and push website"
 task :web => :build_webpage do
-  "Building and pushing website"
+  puts "Building and pushing website"
   `scp website/soywiki.html zoe2@instantwatcher.com:~/danielchoi.com/public/software/`
 end
 
