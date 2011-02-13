@@ -23,9 +23,9 @@ task :bump do
   puts oldver
   puts newver
   puts "Bumping version: #{oldver} => #{newver}"
-  newfile = file.gsub("VERSION = #{oldver}", "VERSION = #{newver}") 
+  newfile = file.gsub("VERSION = '#{oldver}'", "VERSION = '#{newver}'") 
   File.open(basefile, 'w') {|f| f.write newfile}
-  "git commit -m 'Bump'"
+  `git commit -am 'Bump'`
 end
 
 desc "build and push website"
