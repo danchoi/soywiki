@@ -516,7 +516,6 @@ func! s:expand(seamless, vertical)
   silent! put =res
   silent! 1delete
   silent! normal 1G
-  call s:highlight_wikiwords() 
   redraw
   echom "Expanded " . (a:seamless == 0 ? 'seamfully' : 'seamlessly') . "."
 endfunc
