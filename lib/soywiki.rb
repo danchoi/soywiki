@@ -6,7 +6,6 @@ module Soywiki
   HYPERLINK = %r|\bhttps?://[^ >)\n\]]+|
 
   def self.run
-    puts ARGV.inspect
     if %W( -v --version -h --help).include?(ARGV.first)
       puts "soywiki #{Soywiki::VERSION}"
       puts "by Daniel Choi dhchoi@gmail.com"

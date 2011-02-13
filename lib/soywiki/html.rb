@@ -78,7 +78,6 @@ module Soywiki
         count = Dir["#{namespace}/*"].select {|f| wiki_page?(f)}.size
         [namespace, count]
       }
-      puts namespaces.inspect
       namespaces.each do |namespace_dir, count|
         make_pages namespace_dir, namespaces
       end
