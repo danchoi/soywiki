@@ -257,6 +257,15 @@ endfunc
 " -------------------------------------------------------------------------------
 " select Page
 
+func! s:omit_this_page(page_list)
+  if exists("s:return_to_bufname")
+    let page_list = filter( a:page_list,  'v:val != "'.s:return_to_bufname.'"')
+    return page_list
+  else
+    return a:page_list
+  endif
+endfunc
+
 " This function both sets a script variable and returns the value.
 func! s:get_page_list()
   " no file current in buffer
@@ -266,9 +275,10 @@ func! s:get_page_list()
     " this needs refactoring to rely less on state
     return s:pages_linking_in
   else
-    return split(system(s:ls_command . " | grep -vF '".s:page_title()."'" ), "\n")
+    return s:omit_this_page(split(system(s:ls_command), "\n"))
   endif
 endfunction
+
 
 func! s:pages_in_this_namespace(pages)
   let namespace = s:page_namespace()
@@ -302,6 +312,7 @@ endfunc
 function! s:page_list_window(page_match_list, buffer_name, prompt)
   " remember the original window 
   let s:return_to_winnr = winnr()
+  let s:return_to_bufname = s:filename2pagetitle(bufname(''))
   let s:matching_pages = a:page_match_list
   exec "topleft split ".a:buffer_name
   setlocal completefunc=CompletePageTitle 
