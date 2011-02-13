@@ -358,6 +358,12 @@ recursive, you can effectively nest outlines within outlines, like
 dreams within dreams.  
 
 
+## Exporting to HTML
+
+Want to share your wiki with non-Vim-users?  Export your wiki into a directory
+of html pages, type `soywiki --html` from the root directory of your wiki.
+
+
 ## Extra macros
 
 SoyWiki adds a few convenient Vim macros that you can use anytime. 
