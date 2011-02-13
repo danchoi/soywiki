@@ -142,8 +142,9 @@ func! s:follow_link_under_cursor(split)
     " SPECIAL CASE
     " close window
     if winnr('$') > 1
-      close 
+      close
     endif
+    return
   else
     call s:load_page(link, a:split)
   endif
