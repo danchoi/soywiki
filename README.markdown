@@ -1,7 +1,8 @@
 # SoyWiki
 
-SoyWiki turns Vim into a lean, powerful, and fast wiki.  It's got all
-the protein of a regular wiki without the cholesterol and fat.
+SoyWiki turns Vim into a powerful, lean, and fast wiki.  It's got all
+the protein of a more conventional wiki, but a lot less of the fat and
+cholesterol. 
 
 A quick overview of its characteristics and features:
 
@@ -124,7 +125,7 @@ You can get very far with SoyWiki using normal CamelCase WikiWords.
 
 But if you want, you can also namespace your WikiWords, like so:
 
-    namespaced.WikiWord
+    namespace.WikiWord
 
 A namespaced WikiWord is a WikiWord prefixed by a namespace and a
 period. The namespace word must start with a lower-case letter and
@@ -260,21 +261,24 @@ same wiki page.
 ## Search
 
 * `:SWSearch` [term]
-* `:SWNamespacedSearch` [term]
+* `:SWNamespaceSearch` [term]
 
-These commands search your SoyWiki wiki. Vim will load any matches in
-the quickfix list window.  If there are matches, you can use `:cn` and
-`:cp` to go from match to match, `:cl` to list the matches, and `:cc
-[item number]` to see a particular match ln the list.  See `:help
-quickfix` to see the list of matches. for more QuickFix commands. 
+These commands search your SoyWiki wiki. `:SWNamespaceSearch` confines
+your search to the current namespace.
+
+Vim will load any matches in the quickfix list window.  If there are
+matches, you can use `:cn` and `:cp` to go from match to match, `:cl` to
+list the matches, and `:cc [item number]` to see a particular match ln
+the list.  See `:help quickfix` to see the list of matches. for more
+QuickFix commands. 
 
 Examples:
 
     :SWSearch Gnu
-    :SWNamespacedSearch Gnu
+    :SWNamespaceSearch Gnu
 
 You can use `:SWS` as a shortcut for `:SWSearch`. You can also
-tab-complete `:SWNS` to `:SWSNamespacedSearch`.
+tab-complete `:SWNS` to `:SWSNamespaceSearch`.
 
 Searches are case-insensitve.  
 
