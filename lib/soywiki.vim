@@ -394,7 +394,7 @@ function! s:select_page()
   let page = s:trimString( get(split(getline(line('.')), ": "), 1) )
   close
   exe s:return_to_winnr . "wincmd w"
-  if (page == '0' || page == '') " no selection
+  if (page == '') " no selection
     return
   end
   let match = ""
