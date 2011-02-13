@@ -48,10 +48,11 @@ module Soywiki
       outfile = File.join(HTML_DIR, dir, 'index.html')
       html = Haml::Engine.new(INDEX_PAGE_TEMPLATE).render(nil, 
                                              :namespace => dir, 
+                                             :root => false,
                                              :pages => pages.map {|p| p.split('/')[1]}.sort, 
                                              :namespaces => namespaces)
       File.open(outfile, 'w') {|f| f.write html}
-      puts "=> Writing #{outfile}"
+      # puts "=> Writing #{outfile}"
     end
 
     def self.make_pages(dir, namespaces)
@@ -65,9 +66,20 @@ module Soywiki
                                            pages.map {|p| p.split('/')[1]}.sort, 
                                            namespaces)
         File.open(outfile, 'w') {|f| f.write html}
-        puts "Writing #{outfile}"
+        # puts "Writing #{outfile}"
       end
       make_index_page(dir, pages, namespaces)
+    end
+
+    def self.make_root_index_page(namespaces)
+      outfile = File.join(HTML_DIR, 'index.html')
+      html = Haml::Engine.new(INDEX_PAGE_TEMPLATE).render(nil, 
+                                             :namespace => nil, 
+                                             :pages => [], 
+                                             :root => true,
+                                             :namespaces => namespaces)
+      File.open(outfile, 'w') {|f| f.write html}
+      # puts "=> Writing #{outfile}"
     end
 
     def self.export
@@ -81,6 +93,9 @@ module Soywiki
       namespaces.each do |namespace_dir, count|
         make_pages namespace_dir, namespaces
       end
+      # make root index page
+      make_root_index_page namespaces
+      puts "HTML files written to #{HTML_DIR}/"
     end
 
 

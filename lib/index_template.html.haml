@@ -13,12 +13,16 @@
       %ul
         - namespaces.each do |namespace, count|
           %li
-            %a{:href => "../#{namespace}/index.html"}= namespace 
+            - if root 
+              %a{:href => "#{namespace}/index.html"}= namespace 
+            - else
+              %a{:href => "../#{namespace}/index.html"}= namespace 
             %span.page-count
               = count
-      %h3= namespace
-      %ul
-        - pages.each do |page|
-          %li
-            %a{:href => "#{page}.html"}= page
+      - if ! root
+        %h3= namespace
+        %ul
+          - pages.each do |page|
+            %li
+              %a{:href => "#{page}.html"}= page
 
