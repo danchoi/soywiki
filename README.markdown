@@ -360,8 +360,8 @@ dreams within dreams.
 
 ## Exporting to HTML
 
-Want to share your wiki with non-Vim-users?  Export your wiki into a directory
-of html pages, type `soywiki --html` from the root directory of your wiki.
+Want to share your wiki with non-Vim-users?  You can export your wiki into a directory
+of html pages. Type `soywiki --html` from the root directory of your wiki.
 
 
 ## Extra macros
