@@ -121,16 +121,14 @@ func! s:link_under_cursor()
   end
 endfunc
 
-" If no link under cursor, tries to find the next one
-func! s:fuzzy_follow_link(split)
-  let link = s:link_under_cursor()
-  if link == ""
-    let link = s:find_next_wiki_link(0)
-    if link == ""
-      return ""
-    endif
-  endif
-  call s:load_page(link, a:split)  
+func! s:find_next_wiki_link(backward)
+  let n = 0
+  " don't wrap
+  let result = search(s:wiki_link_pattern, 'W' . (a:backward == 1 ? 'b' : ''))
+  if (result == 0) 
+    return ""
+  end
+  return s:link_under_cursor()
 endfunc
 
 func! s:follow_link_under_cursor(split)
@@ -150,14 +148,17 @@ func! s:follow_link_under_cursor(split)
   endif
 endfunc
 
-func! s:find_next_wiki_link(backward)
-  let n = 0
-  " don't wrap
-  let result = search(s:wiki_link_pattern, 'W' . (a:backward == 1 ? 'b' : ''))
-  if (result == 0) 
-    return ""
-  end
-  return s:link_under_cursor()
+
+" If no link under cursor, tries to find the next one
+func! s:fuzzy_follow_link(split)
+  let link = s:link_under_cursor()
+  if link == ""
+    let link = s:find_next_wiki_link(0)
+    if link == ""
+      return ""
+    endif
+  endif
+  call s:load_page(link, a:split)  
 endfunc
 
 " -------------------------------------------------------------------------------- 
