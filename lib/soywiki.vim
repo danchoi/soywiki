@@ -523,7 +523,6 @@ func! s:global_mappings()
 
   command! -bar -nargs=1 SWSearch :call s:wiki_search(<f-args>, 0)
   command! -bar -nargs=1 SWNamespaceSearch :call s:wiki_search(<f-args>, 1)
-  " TODO a search confined to current namespace
 
   autocmd  BufReadPost,BufNewFile,WinEnter,BufEnter,BufNew,BufAdd * call s:highlight_wikiwords() 
   autocmd  BufEnter * call s:prep_buffer() 
