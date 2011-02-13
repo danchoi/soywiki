@@ -1,7 +1,7 @@
 require 'string_ext'
 
 module Soywiki
-  VERSION = '0.1.4'
+  VERSION = '0.1.5'
   WIKI_WORD = /\b([a-z][\w_]+\.)?[A-Z][a-z]+[A-Z]\w*\b/
 
   def self.run
