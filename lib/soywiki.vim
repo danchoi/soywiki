@@ -138,6 +138,10 @@ func! s:follow_link_under_cursor(split)
   if link == ""
     echom link . " is not a wiki link"
     return ""
+  elseif link == s:page_title()
+    " SPECIAL CASE
+    " switch back to previous window
+    wincmd p
   else
     call s:load_page(link, a:split)
   endif
@@ -153,12 +157,19 @@ func! s:find_next_wiki_link(backward)
   return s:link_under_cursor()
 endfunc
 
+" -------------------------------------------------------------------------------- 
+" LOAD PAGE
+
 func! s:load_page(page, split)
   if (s:is_wiki_page())
     write
   endif
   let file = s:pagetitle2file(a:page)
   let title = s:filename2pagetitle(a:page)
+  if bufwinnr(file) != -1
+    exec bufwinnr(file)."wincmd w"    
+    return
+  endif
   if (!filereadable(file)) 
     " create the file
     let namespace = s:namespace_of_title(a:page)
