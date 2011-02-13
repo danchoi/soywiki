@@ -138,7 +138,7 @@ func! s:follow_link_under_cursor(split)
   if link == ""
     echom link . " is not a wiki link"
     return ""
-  elseif link == s:page_title()
+  elseif line('.') == 1
     " SPECIAL CASE
     " close window
     if winnr('$') > 1
