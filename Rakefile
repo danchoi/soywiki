@@ -9,6 +9,10 @@ require 'soywiki'
 
 Bundler::GemHelper.install_tasks
 
+
+desc "release and build and push new website"
+task :push => [:release, :build_webpage]
+
 desc "build and push website"
 task :web => :build_webpage do
   `scp website/soywiki.html zoe2@instantwatcher.com:~/danielchoi.com/public/software/`
