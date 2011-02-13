@@ -25,38 +25,59 @@ module Soywiki
       href_hyperlinks(href_wiki_links(t))
     end
 
-    def self.generate(text)
+    PAGE_TEMPLATE = File.read(File.join(File.dirname(__FILE__), '..', 'page_template.html.haml'))
+
+    def self.generate_page(text, namespace, pages, namespaces)
       title = text.split("\n")[0]
       body = process(text.split("\n")[1..-1].join("\n").strip)
-      template = File.read(File.join(File.dirname(__FILE__), '..', 'export_template.html.haml'))
-      Haml::Engine.new(template).render(nil, :body => body, :title => title)
+      Haml::Engine.new(PAGE_TEMPLATE).render(nil, :body => body, 
+                                             :title => title, 
+                                             :namespace => namespace,
+                                             :namespaces => namespaces, :pages => pages)
     end
 
-    # index.html has a list of all the pages
-    def self.index_page
+
+    HTML_DIR = 'soywiki-html-export'
+    INDEX_PAGE_TEMPLATE = File.read(File.join(File.dirname(__FILE__), '..', 'index_template.html.haml'))
+
+    def self.wiki_page?(file)
+      file.gsub("/", '.') =~ WIKI_WORD
     end
 
-    # make an index.html for each subdir?
-    # Or use main?
+    def self.make_index_page(dir, pages, namespaces)
+      outfile = File.join(HTML_DIR, dir, 'index.html')
+      html = Haml::Engine.new(INDEX_PAGE_TEMPLATE).render(nil, 
+                                             :namespace => dir, 
+                                             :pages => pages.map {|p| p.split('/')[1]}.sort, 
+                                             :namespaces => namespaces)
+      File.open(outfile, 'w') {|f| f.write html}
+      puts "=> Writing #{outfile}"
+    end
 
-    # TODO put sidebar with basic nav
-    
-    def self.export
-      target_dir = "html"
-      `mkdir -p #{target_dir}`
-      `rm -rf #{target_dir}/*`
-      Dir["*/*"].each do |file|
-        next if file =~ /^html\//
-        if file.gsub("/", '.') =~ WIKI_WORD
-          subdir = target_dir + '/' + file.split('/')[0]
-          `mkdir -p #{subdir}`
-          outfile =  target_dir + '/' + file + '.html'
-          html = Soywiki::Html.generate( File.read(file) )
-          File.open(outfile, 'w') {|f| f.write html}
-          puts "Writing #{outfile}"
-        end
+    def self.make_pages(dir, namespaces)
+      `mkdir -p #{HTML_DIR}/#{dir}`
+      pages = Dir["#{dir}/*"].select {|file| wiki_page? file} 
+      # make pages
+      pages.each do |file|
+        outfile =  File.join(HTML_DIR, file + '.html')
+        html = Soywiki::Html.generate_page(File.read(file), 
+                                           dir, 
+                                           pages.map {|p| p.split('/')[1]}.sort, 
+                                           namespaces)
+        File.open(outfile, 'w') {|f| f.write html}
+        puts "Writing #{outfile}"
       end
+      make_index_page(dir, pages, namespaces)
+    end
 
+    def self.export
+      `rm -rf #{HTML_DIR}/*`
+      namespaces = Dir["*"].select {|f| 
+        File.directory?(f) && f != HTML_DIR
+      }
+      namespaces.each do |namespace_dir|
+        make_pages namespace_dir, namespaces
+      end
     end
 
 

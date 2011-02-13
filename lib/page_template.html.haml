@@ -1,0 +1,24 @@
+!!!
+%html
+  %head
+    :css
+      h3 { margin-top: 0 }
+      .sidebar { float:left; width: 20%; font-size: small }
+      .main { margin-left: 22%; width: 70% }
+      ul { list-style-type: none; margin-left: 0; padding-left: 0 }
+
+  %body
+    .sidebar
+      %h3 Namespaces
+      %ul
+        - namespaces.each do |namespace|
+          %li
+            %a{:href => "../#{namespace}/index.html"}= namespace
+      %h3= namespace
+      %ul
+        - pages.each do |page|
+          %li
+            %a{:href => "#{page}.html"}= page
+    .main
+      %h2= title
+      %pre= body
