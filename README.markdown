@@ -258,21 +258,28 @@ same wiki page.
 
 ## Search
 
-To search your SoyWiki wiki, type `:SWSearch [search term]`. Vim will
-load any matches in the quickfix list window.  If there are matches, you
-can use `:cn` and `:cp` to go from match to match, `:cl` to list the
-matches, and `:cc [item number]` to see a particular match ln the list.  See
-`:help quickfix` to see the list of matches. for more QuickFix commands. 
+* `:SWSearch` [term]
+* `:SWNamespacedSearch` [term]
 
-Searches are case-sensitve by default. To do a case-insensitive search,
-add a `\c` to your search string, e.g.:
+These commands search your SoyWiki wiki. Vim will load any matches in
+the quickfix list window.  If there are matches, you can use `:cn` and
+`:cp` to go from match to match, `:cl` to list the matches, and `:cc
+[item number]` to see a particular match ln the list.  See `:help
+quickfix` to see the list of matches. for more QuickFix commands. 
 
-    :SWSearch Gnu\c
+Examples:
 
-Again, you can use `:SWS` as a shortcut.
+    :SWSearch Gnu
+    :SWNamespacedSearch Gnu
+
+You can use `:SWS` as a shortcut for `:SWSearch`. You can also
+tab-complete `:SWNS` to `:SWSNamespacedSearch`.
+
+Searches are case-insensitve.  
 
 Under the hood, `:SWSearch` is just a thin wrapper around the `:vimgrep`
-command.
+command. Use `:vimgrep` directly if you want to do anything more
+specific.
 
 Tip: You can flag important notes in your wiki content by typing flags
 like TODO or IMPORTANT on the same line, and then use `:SWSearch` and

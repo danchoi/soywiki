@@ -451,10 +451,13 @@ func! s:insert_divider()
 endfunc
 "------------------------------------------------------------------------
 " SEARCH
-func! s:wiki_search(pattern)
-
+func! s:wiki_search(pattern, in_this_namespace)
   let pattern = (empty(a:pattern)  ? @/ : a:pattern)
-  execute printf('vimgrep/%s/ %s', pattern, "**/*")
+  if a:in_this_namespace
+    execute printf('vimgrep/\c%s/ %s', pattern, s:page_namespace()."/*")
+  else
+    execute printf('vimgrep/\c%s/ %s', pattern, "*/*")
+  endif
 endfunc
 
 "------------------------------------------------------------------------
@@ -518,7 +521,8 @@ func! s:global_mappings()
   command! -bar -nargs=1 -range -complete=file SWLinkAppend :<line1>,<line2>call s:extract(<f-args>, 'append', 1)
   command! -bar -nargs=1 -range -complete=file SWLinkInsert :<line1>,<line2>call s:extract(<f-args>, 'insert', 1)
 
-  command! -bar -nargs=1 SWSearch :call s:wiki_search(<f-args>)
+  command! -bar -nargs=1 SWSearch :call s:wiki_search(<f-args>, 0)
+  command! -bar -nargs=1 SWNamespaceSearch :call s:wiki_search(<f-args>, 1)
   " TODO a search confined to current namespace
 
   autocmd  BufReadPost,BufNewFile,WinEnter,BufEnter,BufNew,BufAdd * call s:highlight_wikiwords() 
