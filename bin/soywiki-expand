@@ -13,8 +13,12 @@ PROCESSED_FILES = []
 def indent(text, level, mode)
   return text if mode == 'seamless'
   return text if level == 0
-  (':' * level) + ' ' +  text
+  ('|' * level) + ' ' +  text
 
+end
+
+def divider
+  puts '-' * 80
 end
 
 def expand(file, mode, level=0)
@@ -34,11 +38,11 @@ def expand(file, mode, level=0)
       end
       if File.file?(link.to_file_path) && !PROCESSED_FILES.include?(link.to_file_path) 
         if mode == 'seamful'
-          puts '.' * 10
+          divider
         end
         expand(link.to_file_path, mode, level + 1) # recursive call
         if mode == 'seamful'
-          puts '.' * 10
+          divider
         end
       elsif PROCESSED_FILES.include?(link) 
         puts indent("#{link} [[already expanded]]", level, mode)
