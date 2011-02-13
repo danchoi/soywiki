@@ -143,7 +143,9 @@ You can't chain namespace words together. The maximum nesting level is 1.  More
 nesting would imply hierarchical relationships, and permitting hierarchical
 nesting goes against the grain of what a wiki is, which is an [undirected
 graph][graph].  SoyWiki namespaces are not supposed to represent hierarchies,
-but domains (e.g., personal, work, project1, project2, etc.). 
+but domains (e.g., personal, work, project1, project2, etc.).  You can easily
+represent hierarchical relationships _within_ a wiki page. See "Expanding a
+wiki page" below to see how you can use SoyWiki like an outliner program.
 
 [graph]:http://en.wikipedia.org/wiki/Graph_theory
 
