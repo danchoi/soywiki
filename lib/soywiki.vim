@@ -121,8 +121,8 @@ func! s:link_under_cursor()
   end
 endfunc
 
-" follows a camel case link to a new page 
-func! s:follow_link(split)
+" If no link under cursor, tries to find the next one
+func! s:fuzzy_follow_link(split)
   let link = s:link_under_cursor()
   if link == ""
     let link = s:find_next_wiki_link(0)
@@ -575,7 +575,7 @@ func! s:prep_buffer()
     nnoremap <buffer> <cr> :call <SID>follow_link_under_cursor(0)<cr> 
     nnoremap <buffer> <c-l> :call <SID>follow_link_under_cursor(2)<cr> 
     nnoremap <buffer> <c-h> :call <SID>follow_link_under_cursor(1)<cr> 
-    noremap <buffer> <leader>f :call <SID>follow_link(0)<CR>
+    noremap <buffer> <leader>f :call <SID>fuzzy_follow_link(0)<CR>
     noremap <buffer> <c-j> :call <SID>find_next_wiki_link(0)<CR>
     noremap <buffer> <c-k> :call <SID>find_next_wiki_link(1)<CR>
 
