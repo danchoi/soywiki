@@ -1,4 +1,3 @@
-
 class String
   # not Windows compatible 
   def to_file_path

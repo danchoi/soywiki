@@ -91,7 +91,7 @@ endfunc
 
 func! s:list_pages()
   let s:search_for_link = ""
-  call s:page_list_window(s:get_page_list(), "Select page: ")
+  call s:page_list_window(s:get_page_list(), 'select-page', "Select page: ")
 endfunc
 
 func! s:trim_link(link)
@@ -257,6 +257,9 @@ func! s:get_page_list()
   " no file current in buffer
   if len(bufname('%')) == 0
     return split(system(s:ls_command), "\n")
+  elseif bufname('') == 'pages-linking-in'
+    " this needs refactoring to rely less on state
+    return s:pages_linking_in
   else
     return split(system(s:ls_command . " | grep -vF '" . s:page_title() . "'" ), "\n")
   endif
@@ -291,11 +294,11 @@ func! s:reduce_matches()
   endif
 endfunc
 
-function! s:page_list_window(page_match_list, prompt)
+function! s:page_list_window(page_match_list, buffer_name, prompt)
   " remember the original window 
   let s:return_to_winnr = winnr()
   let s:matching_pages = a:page_match_list
-  topleft split page-list-buffer
+  exec "topleft split ".a:buffer_name
   setlocal completefunc=CompletePageTitle 
   setlocal buftype=nofile
   setlocal noswapfile
@@ -327,7 +330,7 @@ function! CompletePageTitle(findstart, base)
       return s:get_page_list()
     else
       let res = []
-      if bufname('') == 'page-list-buffer'
+      if bufname('') == 'select-page'
         let pages = s:get_page_list()
         for m in pages
           if m =~ '\c' . base 
@@ -347,6 +350,7 @@ function! CompletePageTitle(findstart, base)
     endif
   endif
 endfun
+
 
 function! s:select_page()
   let page = s:trimString( get(split(getline(line('.')), ": "), 1) )
@@ -371,7 +375,7 @@ endfunction
 " in different namespaces
 
 func! s:list_pages_linking_in()
-  let s:pages_linking_in  = split(system(s:find_pages_linking_in_command . s:page_title()), "\n")
+  let s:pages_linking_in = split(system(s:find_pages_linking_in_command . s:page_title()), "\n")
   " cursor should jump to this string after the selected page is loaded:
   let s:search_for_link = s:title_without_namespace(s:page_title())
   if len(s:pages_linking_in) == 1
@@ -379,7 +383,7 @@ func! s:list_pages_linking_in()
   elseif len(s:pages_linking_in) == 0
     echom "No pages link to " . s:page_title() . "!"
   else
-    call s:page_list_window(s:pages_linking_in, "Pages that link to " . s:page_title() . ": ")
+    call s:page_list_window(s:pages_linking_in, "pages-linking-in", "Pages that link to " . s:page_title() . ": ")
   endif
 endfunc
 
