@@ -18,7 +18,7 @@ def indent(text, level, mode)
 end
 
 def divider
-  puts '-' * 80
+  puts '+' + '-' * 78 + '+'
 end
 
 def expand(file, mode, level=0)
