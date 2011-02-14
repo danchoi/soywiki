@@ -21,8 +21,8 @@ A quick overview of its characteristics and features:
 * operates on all POSIX systems (e.g. OS X, Linux, FreeBSD)
 
 SoyWiki builds on Vim's strengths as a text editor and interface to the
-Unix operating system, SoyWiki makes it possible to create, navigate,
-and refactor wiki content at the speed of thought. 
+Unix operating system, SoyWiki's primary goal is to make it possible to
+create, navigate, and refactor wiki content at the speed of thought. 
 
 SoyWiki is good for tracking projects, contacts, ideas, and collecting
 and organizing research. SoyWiki combines the affordances of notebooks,
