@@ -292,13 +292,15 @@ endfunc
 func! s:get_page_list()
   " no file current in buffer
   if len(bufname('')) == 0
-    return split(system(s:ls_command), "\n")
+    let pages = split(system(s:ls_command), "\n")
   elseif bufname('') == 'pages-linking-in'
     " this needs refactoring to rely less on state
-    return s:pages_linking_in
+    let pages = s:pages_linking_in
   else
-    return s:omit_this_page(split(system(s:ls_command), "\n"))
+    "let pages = s:omit_this_page(split(system(s:ls_command), "\n"))
+    let pages = split(system(s:ls_command), "\n")
   endif
+  return pages
 endfunction
 
 
@@ -614,7 +616,7 @@ endfunc
 
 func! s:highlight_wikiwords()
   if (s:is_wiki_page()) 
-    syntax clear
+"    syntax clear
     exe "syn match Comment /". s:wiki_link_pattern. "/"
     exe "syn match Constant /". s:http_link_pattern . "/"
   endif
@@ -649,3 +651,5 @@ endif
 syntax enable
 let mapleader = ','
 call s:highlight_wikiwords() 
+
+

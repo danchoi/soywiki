@@ -1,11 +1,11 @@
-require 'liquid'
 require 'rdiscount'
+require 'liquid'
 
 module Webpage
   def self.generate(version)
     screenshots = RDiscount.new(File.read("top.screenshots")).to_html
     readme = File.expand_path("../../README.markdown", __FILE__)
-    raise "no README" unless File.size?(readme)
+    raise "No README" unless File.size?(readme)
     md = File.read(readme).split(/^\s*$/)
     insert_before = md.grep(/^A quick overview of/)
     insert_at = md.index insert_before.first
