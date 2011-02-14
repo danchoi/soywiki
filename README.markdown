@@ -32,8 +32,8 @@ SoyWiki makes a good writing aid, especially if you do your writing in
 Vim. You can have SoyWiki open in multiple Vim windows, tabs, and
 buffers, alongside any number of regular Vim windows. Throw in a bunch
 of Vim abbreviations (`:help abbreviations`), a large monitor, and a
-teapot, and you'll have your paper, essay, book, or screenplay written
-in record time.
+teapot, and you'll have a powerful toolkit for writing your paper, essay,
+book, or screenplay. 
 
 SoyWiki is free and open source.
 
