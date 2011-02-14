@@ -411,7 +411,7 @@ following reasons:
 them interrupts your flow of thought a lot less than other wiki patterns.
 * It is very conducive to storing
 wiki pages in plain text files: the page names can map directly to Unix
-file names without any awkward character escaping.
+file names without any awkward character escaping or other munging.
 
 [ward]:http://c2.com/cgi/wiki?WikiCase
 
