@@ -326,12 +326,11 @@ upstream on some server for all your computers to push to and pull from.
 
 
 If you want to edit a common SoyWiki with many other people, it's
-probably best to set up a common upstream Git repository and to work
-locally on a development branch before pulling the HEAD of the master
-branch from origin, merging your edits into it, and pushing the merged
-result back to origin. This process may be intimidating for
-non-programmers, so a future version of SoyWiki may provide a more
-user-friendly interface for distributed collaboration workflows.
+probably best to set up a common upstream Git repository (e.g. on
+GitHub, if the wiki content is for public consumption).  This process
+may be intimidating for non-programmers, so a future version of SoyWiki
+may provide a more user-friendly interface for distributed collaboration
+workflows.
 
 
 
