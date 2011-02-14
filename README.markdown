@@ -202,7 +202,7 @@ you'll be taken there automatically.
 
 `,o` opens the next hyperlink on or after the cursor. These are the URLs
 that begin with http:// or https://. You can also use `ENTER` when the
-cursor is over a hyperlink.
+cursor is over a web hyperlink.
 
 Under the covers, SoyWiki uses the command `gnome-open` or `open` to
 launch your web browser. This should cover Linux Gnome desktop and OS X
