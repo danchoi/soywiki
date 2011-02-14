@@ -145,7 +145,7 @@ namespaced link to another page in the `recipes` namespace.
 
 SoyWiki wiki pages are stored as text files named by WikiWord within
 subdirectories named after their namespace. So
-`recipies.SoyRaspberrySmoothie` would be written to
+`recipes.SoyRaspberrySmoothie` would be written to
 `recipes/SoyRaspberrySmoothie`.
 
 You can't chain namespace words together. The maximum nesting level is 1.  More
