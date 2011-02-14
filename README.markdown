@@ -198,10 +198,10 @@ When you're on a wiki page and you want to see all the other wiki pages
 that link in to it, press `,M`. If there is only one page that links in,
 you'll be taken there automatically.
 
-* `,o` opens the first normal web hyperlink 
+* `,o` opens the first web hyperlink on or after the cursor
 
-`,o` opens the next hyperlink after the cursor. (These are the ones that
-begin with http:// or https://). You can also use `ENTER` when the
+`,o` opens the next hyperlink on or after the cursor. These are the URLs
+that begin with http:// or https://. You can also use `ENTER` when the
 cursor is over a hyperlink.
 
 Under the covers, SoyWiki uses the command `gnome-open` or `open` to
