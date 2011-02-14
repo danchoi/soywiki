@@ -375,8 +375,7 @@ of html pages. Type `soywiki --html` from the root directory of your wiki.
 
 ## Extra macros
 
-SoyWiki adds a few convenient Vim macros that you can use anytime. 
-
+SoyWiki adds a few convenient Vim macros. 
 
 * `\` in normal mode reformats the current paragraph. It is equivalent to
 `gwap`. (`:help formatting`)
