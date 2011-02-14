@@ -97,17 +97,19 @@ To use MacVim as your SoyWiki Vim engine, you can run soywiki like this
 or you can `export SOYWIKI_VIM=mvim` in your `~/.bash_profile` and then
 just run `soywiki`.
 
+
 ## Basic usage
 
 For basic use, SoyWiki works exactly like a typical wiki.
 
-You write text, and when you want to create a new wiki page, you come up
-with a WikiWord for it and format it in CamelCase. The WikiLink you just
-typed will automatically be syntax-highlighted, and pressing ENTER on it
-will take you to the new page. Creating WikiWords and pressing ENTER on
-them is how you create wiki pages and link them together. You'll be
-surprised at how powerful this simple mechanism is for organizing your
-notes. 
+You write text, and when you want to create a new wiki page, you come up with a
+WikiWord for it and format it in CamelCase. Whenever you type a valid WikiLink,
+it will automatically be syntax-highlighted, and pressing ENTER on it will take
+you to the new page. 
+
+Creating WikiWords and pressing ENTER on them is how you create wiki pages and
+link them together. You'll be surprised at how powerful this simple mechanism
+is for organizing your notes. 
 
 In SoyWiki, a wiki page is a simple text file that has a WikiWord title
 on the first line (don't alter this line) and any text your want to
@@ -393,7 +395,7 @@ Some people don't like the CamelCase (a.k.a. WikiCase) wiki link
 pattern. But SoyWiki embraces it and wants everyone to adopt it, for the
 following reasons:
 
-* Besides being the original, CamelCase is the most elegantly minimalist approach to linking wiki pages together -- "with no additional markup whatsoever," as [Ward Cunningham put it][ward]. 
+* Besides being the original, CamelCase is the most elegantly minimalist approach to linking wiki pages together -- "with no additional markup whatsoever," [as Ward Cunninghamb put it][ward]. 
 * It encourages you more than other wiki link patterns to create wiki pages with succinctly descriptive names that are easy to remember.
 * Because the link pattern is so minimal and succinct, writing 
 them interrupts your flow of thought a lot less than other wiki patterns.
@@ -414,9 +416,9 @@ can email me at dhchoi {at} gmail.com.
 
 ## How to support the SoyWiki project
 
-If you find SoyWiki very useful, feel free to drop me a note to say so. If you
-have a bug to report or a good feature to suggest, please file it on the [issue
-tracker][1].  
+SoyWiki is very new, so there are kinks and bugs to iron out and lot of
+desirable features to add.  If you have a bug to report or a good feature to
+suggest, please file it on the [issue tracker][1].  That will help a lot.
 
 [1]:https://github.com/danchoi/soywiki/issues
 
