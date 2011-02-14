@@ -218,8 +218,8 @@ See `:help netrw` for more information.
 
 Tip: I personally like using `netrw` (configured to use elinks) a lot
 more than using a conventional web browser, because it lets me keep all
-my URL bookmarks in text files and open, clip, and annotate them all in
-Vim.
+my URL bookmarks in regular text files and open, clip, and annotate them
+all in SoyWiki and Vim.
 
 
 ## WikiLink autocompletion
