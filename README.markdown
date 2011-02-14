@@ -1,8 +1,7 @@
 # SoyWiki
 
-SoyWiki turns Vim into a powerful, lean, and fast wiki.  It's got all
-the protein of a more conventional wiki, but a lot less of the fat and
-cholesterol. 
+SoyWiki turns Vim into a powerful, lean, and fast wiki.  It's got all the
+protein of a more conventional wiki, but less fat. 
 
 A quick overview of its characteristics and features:
 
