@@ -245,11 +245,12 @@ Then, type
 * `:SWLinkAppend [target]` performs `:SWAppend` and replaces the text with a WikiWord link
 
 `[target]` is the name of the file that contains the wiki page you're
-targeting. Press `TAB` for autocompletion help.
+targeting, e.g. `recipes/SoyRaspberrySmoothie`. Press `TAB` for
+autocompletion help.
 
-These commands will open the target page (if it isn't open already) in a
-split window and insert or append the selected text into it.  If the
-target page doesn't exist, it will be created.
+These four commands will open the target page (if it isn't open already)
+in a split window and insert or append the selected text into it.  If
+the target page doesn't exist, it will be created.
 
 You can use these shortcuts:
 
