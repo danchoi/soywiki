@@ -185,6 +185,9 @@ and forth in your jump history. See `:help jump-motions` for more on
 this. You can press `CTRL-^` to toggle between the current page and the
 last page you looked at.
 
+* `,m` opens the page list
+* `,M` opens the inbound links page list 
+
 You can view all the pages in your wiki, most recently modified first,
 by pressing `,m`. This opens both a page list and autocompletion window.
 You can use the standard Vim autocompletion commands here to find the
@@ -195,8 +198,11 @@ When you're on a wiki page and you want to see all the other wiki pages
 that link in to it, press `,M`. If there is only one page that links in,
 you'll be taken there automatically.
 
-`,o` opens the first normal web hyperlink -- the ones that begin with http://
-or https:// -- on or after the cursor in your default web browser.
+* `,o` opens the first normal web hyperlink 
+
+`,o` opens the next hyperlink after the cursor. (These are the ones that
+begin with http:// or https://). You can also use `ENTER` when the
+cursor is over a hyperlink.
 
 Under the covers, SoyWiki uses the command `gnome-open` or `open` to
 launch your web browser. This should cover Linux Gnome desktop and OS X
