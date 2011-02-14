@@ -25,8 +25,8 @@ and refactor wiki content at the speed of thought.
 
 SoyWiki is good for tracking projects, contacts, ideas, and collecting
 and organizing research. SoyWiki combines the affordances of notebooks,
-index cards, and Post-it notes, and adds to them the power of hyperlinks
-and automatic indexing.
+index cards, and Post-it notes, and adds to them the power of
+hyperlinks, search, and automated refactoring.
 
 SoyWiki makes a great writing aid, especially if you do your writing in
 Vim. You can have SoyWiki open in multiple Vim windows, tabs, and

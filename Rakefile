@@ -31,6 +31,7 @@ desc "build and push website"
 task :web => :build_webpage do
   puts "Building and pushing website"
   `scp website/soywiki.html zoe2@instantwatcher.com:~/danielchoi.com/public/software/`
+  `scp -r website/images-soywiki zoe2@instantwatcher.com:~/danielchoi.com/public/software/`
   `open http://danielchoi.com/software/soywiki.html`
 end
 
