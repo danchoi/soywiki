@@ -134,12 +134,16 @@ The implicitly namespaced form looks just like a conventional WikiWord:
 A namespace must start with a lower-case letter and consist only of letters,
 numbers, and underscore characters. 
 
-Within a WikiWord namespace you can use unqualified WikiWords to link pages
-within that namespace together. For example, if you are editing a page called
-`recipes.SoyMacaroni` and you want to link to a page called
+Within a WikiWord namespace you can use unqualified WikiWords to link
+pages within that namespace together. For example, if you are editing a
+page called `recipes.SoyMacaroni` and you want to link to a page called
 `recipes.SoyRaspberrySmoothie`, you can type a link called
 `SoyRaspberrySmoothie`. SoyWiki will treat this link as an implicitly
 namespaced link to another page in the `recipes` namespace. 
+
+SoyWiki wiki pages are saved within subdirectories named after their
+namespace. So `recipies.SoyRaspberrySmoothie` would be saved in file
+path `recipes/SoyRaspberrySmoothie`.
 
 You can't chain namespace words together. The maximum nesting level is 1.  More
 nesting would imply hierarchical relationships, and permitting hierarchical
