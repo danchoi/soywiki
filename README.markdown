@@ -28,7 +28,7 @@ and organizing research. SoyWiki combines the affordances of notebooks,
 index cards, and Post-it notes, and adds to them the power of
 hyperlinks, search, and automated refactoring.
 
-SoyWiki makes a great writing aid, especially if you do your writing in
+SoyWiki makes a good writing aid, especially if you do your writing in
 Vim. You can have SoyWiki open in multiple Vim windows, tabs, and
 buffers, alongside any number of regular Vim windows. Throw in a bunch
 of Vim abbreviations (`:help abbreviations`), a large monitor, and a
