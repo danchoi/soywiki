@@ -557,13 +557,7 @@ func! s:global_mappings()
   noremap <silent> <leader>o :call <SID>find_next_href_and_open()<cr> 
   nnoremap <silent> q :close<cr>
 
-  " reflow text
-  nnoremap \ gwap 
-  " insert a line
-  nmap <Leader>- o<Esc>k72i-<Esc><CR>
-  " insert date
-  map <Leader>d :r !date<CR>o
- 
+
   command! -bar -nargs=1 -range -complete=file SWAppend :<line1>,<line2>call s:extract(<f-args>, 'append', 0)
   command! -bar -nargs=1 -range -complete=file SWInsert :<line1>,<line2>call s:extract(<f-args>, 'insert', 0)
   command! -bar -nargs=1 -range -complete=file SWLinkAppend :<line1>,<line2>call s:extract(<f-args>, 'append', 1)
@@ -605,7 +599,11 @@ func! s:prep_buffer()
 
     noremap <silent> <leader>? :call <SID>show_help()<cr>
 
-    set nu
+    nnoremap \ gwap 
+    nmap <Leader>- o<Esc>k72i-<Esc><CR>
+    map <Leader>d :r !date<CR>o
+
+    "   set nu
     setlocal completefunc=CompletePageTitle
     augroup <buffer>
       au!

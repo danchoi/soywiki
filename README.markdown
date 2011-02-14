@@ -378,7 +378,7 @@ of html pages. Type `soywiki --html` from the root directory of your wiki.
 SoyWiki adds a few convenient Vim macros that you can use anytime. 
 
 
-* The `\` key in normal mode reformat the current paragraph. It is equivalent to
+* `\` in normal mode reformats the current paragraph. It is equivalent to
 `gwap`. (`:help formatting`)
 * `,-` inserts a long dashed line
 * `,d` inserts the current date and time 
