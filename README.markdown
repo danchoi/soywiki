@@ -162,7 +162,7 @@ namespace `main`. `main.HomePage` is the first page you will see.
 You can navigate a SoyWiki wiki very quickly with the following
 commands: 
 
-* `CTRL-j` and `CTRL-k` move the cursor directly to the or previous WikiLink on the page
+* `CTRL-j` and `CTRL-k` move the cursor directly to the next or previous WikiLink on the page
 * `ENTER` follows the WikiLink under the cursor
 * `,f` follows the first WikiLink after the cursor
 * `CTRL-l` opens a WikiLink in a vertical split window; press `CTRL-l` again
