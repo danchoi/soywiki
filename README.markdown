@@ -122,6 +122,8 @@ That's all you need to know to get started.
 ## Namespaced WikiWords
 
 Every WikiWord in SoyWiki is implicitly or explicitly namespaced.
+SoyWiki's namespaced WikiWords help organize your wiki space
+conceptually.  They also help reduce clutter in your wiki directory.
 
 An explicitly namespaced WikiWord looks like this:
 
@@ -156,8 +158,6 @@ wiki page" below to see how you can use SoyWiki like an outliner program.
 
 [graph]:http://en.wikipedia.org/wiki/Graph_theory
 
-SoyWiki's namespaced WikiWords help organize your wiki space conceptually.
-They also help reduce clutter in your wiki directory.
 
 When you start SoyWiki for the first time, the active namespace is the default
 namespace `main`. `main.HomePage` is the first page you will see.
