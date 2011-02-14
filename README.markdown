@@ -213,8 +213,14 @@ adding this to your `~/.vimrc`:
 
 If your Vim has `netrw`, you can open a hyperlink directly in same Vim
 window by putting the cursor at the beginning of a hyperlink and typing
-`gf`, or `C-w f` if you want to open the webpage in a split window.  See
-`:help netrw` for more information.
+`gf`, or `C-w f` if you want to open the webpage in a split window.
+See `:help netrw` for more information.
+
+Tip: I personally like using `netrw` (configured to use elinks) a lot
+more than using a conventional web browser, because it lets me keep all
+my URL bookmarks in text files and open, clip, and annotate them all in
+Vim.
+
 
 ## WikiLink autocompletion
 
@@ -408,7 +414,7 @@ following reasons:
 * Besides being the original, CamelCase is the most elegantly minimalist approach to linking wiki pages together -- "with no additional markup whatsoever," [as Ward Cunninghamb put it][ward]. 
 * It encourages you more than other wiki link patterns to create wiki pages with succinctly descriptive names that are easy to remember.
 * Because the link pattern is so minimal and succinct, writing 
-them interrupts your flow of thought a lot less than other wiki patterns.
+them interrupts your flow of thought less than other wiki patterns.
 * It is very conducive to storing
 wiki pages in plain text files: the page names can map directly to Unix
 file names without any awkward character escaping or other munging.
