@@ -293,8 +293,8 @@ QuickFix commands.
 
 Examples:
 
-    :SWSearch Gnu
-    :SWNamespaceSearch Gnu
+    :SWSearch gnu
+    :SWNamespaceSearch gnu
 
 You can use `:SWS` as a shortcut for `:SWSearch`. You can also
 tab-complete `:SWNS` to `:SWSNamespaceSearch`.
