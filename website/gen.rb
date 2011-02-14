@@ -7,8 +7,8 @@ module Webpage
     readme = File.expand_path("../../README.markdown", __FILE__)
     raise "no README" unless File.size?(readme)
     md = File.read(readme).split(/^\s*$/)
-    headers = md.grep(/## Prerequisites/)
-    insert_at = md.index headers.first
+    insert_before = md.grep(/^A quick overview of/)
+    insert_at = md.index insert_before.first
     md.insert(insert_at, screenshots) 
     md = md.join("\n\n")
     # for some reason markdown inserts extra blank lines

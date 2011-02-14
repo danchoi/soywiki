@@ -389,7 +389,6 @@ function! CompletePageTitle(findstart, base)
   endif
 endfun
 
-
 function! s:select_page()
   let page = s:trimString( get(split(getline(line('.')), ": "), 1) )
   close
