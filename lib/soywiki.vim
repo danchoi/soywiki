@@ -604,9 +604,9 @@ func! s:prep_buffer()
 
     noremap <silent> <leader>? :call <SID>show_help()<cr>
 
-    nnoremap \ gwap 
-    nmap <Leader>- o<Esc>k72i-<Esc><CR>
-    map <Leader>d :r !date<CR>o
+    nnoremap <buffer> \ gwap 
+    nnoremap <buffer> <Leader>- o<Esc>k72i-<Esc><CR>
+    nnoremap <buffer> <Leader>d :r !date<CR>o
 
     "   set nu
     setlocal completefunc=CompletePageTitle
