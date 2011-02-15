@@ -398,8 +398,8 @@ directory of your wiki.
 Aside from WikiWords, SoyWiki uses no markup system whatsoever. You can
 write your content in whatever markup system you want, or no markup
 system at all. It's all plain text to SoyWiki.  The HTML export feature
-just wraps your content in &lt;pre&gt; tags, so no markup system is
-really necessary.
+just wraps your content in &lt;pre&gt; tags after turning your WikiWords
+into hyperlinks, so no markup system is really necessary.
 
 In the future, the HTML export feature may let you specify a markup
 system for rendering your content. Another possible feature is a Sinatra
