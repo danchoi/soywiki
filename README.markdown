@@ -231,7 +231,7 @@ in Vim insert mode to invoke it.
 
 ## Wiki refactoring
 
-You can delete the current page with `:SWDelete` (shortcut: `:SWD`).
+You can delete the current page with `:SWDelete`.
 
 `:SWRenameTo [new name]` renames the current page. Make sure the new name
 is valid CamelCase. You can put a namespace in front of the new name
@@ -271,6 +271,9 @@ the target page doesn't exist, it will be created.
 
 You can use these shortcuts:
 
+* `:SWDelete` &rarr; `:SWD`
+* `:SWRename` &rarr; `:SWR`
+* `:SWCreate` &rarr; `:SWC`
 * `:SWInsert` &rarr; `:SWI`
 * `:SWAppend` &rarr; `:SWA`
 
