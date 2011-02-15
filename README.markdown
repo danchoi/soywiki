@@ -392,11 +392,11 @@ dreams within dreams.
 Want to share your wiki with non-Vim-users?  You can export your wiki into a directory
 of HTML pages. Type `soywiki --html` from the root directory of your wiki.
 
-The HTML export feature just wraps your content in &lt;pre&gt; tags.
-
 Aside from WikiWords, SoyWiki uses no markup system whatsoever. You can
 write your content in whatever markup system you want, or no markup
-system at all. It's all plain text to SoyWiki.
+system at all. It's all plain text to SoyWiki.  The HTML export feature
+just wraps your content in &lt;pre&gt; tags, so no markup system is
+really necessary.
 
 In the future, the HTML export feature may let you specify a markup
 system for rendering your content. Another possible feature is a Sinatra
