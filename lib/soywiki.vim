@@ -129,7 +129,8 @@ endfunc
 func! s:follow_link_under_cursor(split)
   if expand("<cWORD>>") == ''
     " just switch windows
-    wincmd p
+    silent wincmd p
+    echom "Switched to last accessed window"
     return
   endif
   if match(expand("<cWORD>>"), s:http_link_pattern) != -1
@@ -138,7 +139,7 @@ func! s:follow_link_under_cursor(split)
   endif
   let link = s:link_under_cursor()
   if link == ""
-    echom link . " is not a wiki link"
+    echom "'" . expand("<cWORD>")  . "' is not a wiki link"
     return ""
   elseif line('.') == 1
     " SPECIAL CASE
