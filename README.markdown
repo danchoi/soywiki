@@ -249,6 +249,11 @@ page. The form of the argument here should be `namespace/WikiWord`. You
 may use command line file path autocomplete to fill out the namespace
 subdirectory if it already exists.
 
+Tip: I recommend not using :SWCreate to create wiki pages. Prefer the
+method of writing a WikiLink and then traversing it. This will make your
+wiki more interlinked, better organized, and easier to traverse in an
+organic way.
+
 Beyond the standard cut and paste, SoyWiki gives you four fast ways of
 shuttling text from one wiki page to another.
 
