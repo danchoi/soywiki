@@ -425,9 +425,6 @@ file names without any awkward character escaping or munging.
 [ward]:http://c2.com/cgi/wiki?WikiCase
 
 
-
-[soylink]:http://www.mayoclinic.com/health/soy/NS_patient-soy
-
 ## How to contact the developer
 
 My name is Daniel Choi. I am based in Cambridge, Massachusetts, USA, and you
