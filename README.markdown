@@ -199,7 +199,8 @@ When you're on a wiki page and you want to see all the other wiki pages
 that link in to it, press `,M`. If there is only one page that links in,
 you'll be taken there automatically.
 
-* `,o` opens the first web hyperlink on or after the cursor
+* `,o` opens the first web hyperlink on or after the cursor in the default external web browser
+* `,O` opens the first web hyperlink on or after the cursor in Vim using `netrw`
 
 `,o` opens the next hyperlink on or after the cursor. These are the URLs
 that begin with http:// or https://. You can also use `ENTER` when the
@@ -212,9 +213,10 @@ adding this to your `~/.vimrc`:
 
     let g:SoyWiki#browser_command = "your browser command here"
 
-If your Vim has `netrw`, you can open a hyperlink directly in same Vim
-window by putting the cursor at the beginning of a hyperlink and typing
-`gf`, or `C-w f` if you want to open the webpage in a split window.
+If your Vim has `netrw` installed, you can open a hyperlink directly in
+same Vim window by putting the cursor on a web hyperlink and typing `,O`
+(capital O). This will open the webpage in a vertical split window,
+using `elinks` or whatever browser you set as your `g:netrw_http_cmd`.
 See `:help netrw` for more information.
 
 Tip: I personally like using `netrw` (configured to use elinks) a lot

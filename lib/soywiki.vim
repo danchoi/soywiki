@@ -561,7 +561,8 @@ func! s:global_mappings()
   noremap  <leader>M :call <SID>list_pages_linking_in()<CR>
   noremap <silent> <leader>o :call <SID>find_next_href_and_open()<cr> 
   nnoremap <silent> q :close<cr>
-
+  " for netrw vertical split
+  nnoremap ,O :exec "silent rightbelow vsplit ". expand("<cWORD>")<cr>
 
   command! -bar -nargs=1 -range -complete=file SWAppend :<line1>,<line2>call s:extract(<f-args>, 'append', 0)
   command! -bar -nargs=1 -range -complete=file SWInsert :<line1>,<line2>call s:extract(<f-args>, 'insert', 0)
@@ -578,7 +579,7 @@ endfunc
 " this checks if the buffer is a SoyWiki file (from firstline)
 " and then turns on syntax coloring and mappings as necessary
 func! s:prep_buffer()
-  if (s:is_wiki_page())
+  if (s:is_wiki_page() && !exists("b:mappings_loaded"))
     set textwidth=72
     nnoremap <buffer> <cr> :call <SID>follow_link_under_cursor(0)<cr> 
     nnoremap <buffer> <c-l> :call <SID>follow_link_under_cursor(2)<cr> 
@@ -614,6 +615,7 @@ func! s:prep_buffer()
       au!
       autocmd BufWritePost <buffer> call s:save_revision() 
     augroup END
+    let b:mappings_loaded = 1
   endif
 endfunc
 
