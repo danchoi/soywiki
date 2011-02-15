@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# encoding: UTF-8
 require 'soywiki'
 
 oldname, newname = *ARGV
@@ -14,11 +15,15 @@ def change_all_absolute_links(oldname, newname)
   target_files = `grep -rlF '#{oldname.to_page_title}' *`.strip.split(/\n/)
   target_files.each do |file|
     text = File.read(file)
-    regex = /\b#{oldname.to_page_title}\b/
-    matches = text.scan(regex)
-    text.gsub!(regex, newname.to_page_title)
-    File.open(file, 'w') {|f| f.puts text}
-    report file, oldname.to_page_title, newname.to_page_title
+    begin
+      regex = /\b#{oldname.to_page_title}\b/
+      matches = text.scan(regex)
+      text.gsub!(regex, newname.to_page_title)
+      File.open(file, 'w') {|f| f.puts text}
+      report file, oldname.to_page_title, newname.to_page_title
+    rescue
+      puts "Error processing #{file}: #$!"
+    end
   end
 end
 
@@ -27,9 +32,13 @@ def change_unqualified_inbound_links_in_same_namespace(oldname, newname)
   target_files = `grep -rlF '[^.]#{oldname.short_page_title}' #{oldname.namespace}/*`.strip.split(/\n/)
   target_files.each do |file|
     text = File.read(file)
-    text.gsub!(/(\A|\s)#{oldname.short_page_title}\b/, "." + newname)
-    File.open(file, 'w') {|f| f.puts text}
-    report file, oldname.short_page_title, newname
+    begin
+      text.gsub!(/(\A|\s)#{oldname.short_page_title}\b/, "." + newname)
+      File.open(file, 'w') {|f| f.puts text}
+      report file, oldname.short_page_title, newname
+    rescue
+      puts "Error processing #{file}: #$!"
+    end
   end
 end
 
@@ -40,10 +49,14 @@ def absolutize_unqualified_outbound_links(oldname, newname)
   target_file = newname.to_file_path
   if File.exist?(target_file)
     text = File.read(target_file)
-    matches = text.scan(RELATIVE_LINK_REGEX)
-    text.gsub!(RELATIVE_LINK_REGEX, oldname.namespace + '.\1')
-    File.open(target_file, 'w') {|f| f.puts text}
-    MEMO <<  "  - In file #{target_file}: Absolutized these unqualified links: #{matches.inspect}"
+    begin
+      matches = text.scan(RELATIVE_LINK_REGEX)
+      text.gsub!(RELATIVE_LINK_REGEX, oldname.namespace + '.\1')
+      File.open(target_file, 'w') {|f| f.puts text}
+      MEMO <<  "  - In file #{target_file}: Absolutized these unqualified links: #{matches.inspect}"
+    rescue
+      puts "Error processing #{file}: #$!"
+    end
   end
 end
 
@@ -60,9 +73,13 @@ if oldname.namespace == newname.namespace
   target_files = `grep -rlF '#{oldname.short_page_title}' #{oldname.namespace}/*`.strip.split(/\n/)
   target_files.each do |file|
     text = File.read(file)
-    text.gsub!(/(\A\s)(#{oldname.short_page_title})\b/, newname.short_page_title)
-    File.open(file, 'w') {|f| f.puts text}
-    report file, oldname.short_page_title, newname.short_page_title
+    begin
+      text.gsub!(/(\A\s)(#{oldname.short_page_title})\b/, newname.short_page_title)
+      File.open(file, 'w') {|f| f.puts text}
+      report file, oldname.short_page_title, newname.short_page_title
+    rescue
+      puts "Error processing #{file}: #$!"
+    end
   end
 end
 

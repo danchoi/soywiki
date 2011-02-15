@@ -236,6 +236,7 @@ func! s:rename_page(page_path_or_title)
     return
   endif
   if s:valid_wiki_word(page_title)
+    write!
     let original_file = bufname('')
     echo system("git mv " . original_file . " " .  newfile)
     exec "!" . s:rename_links_command . original_file . " " . newfile
