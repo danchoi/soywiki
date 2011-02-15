@@ -239,8 +239,9 @@ func! s:rename_page(page_path_or_title)
     write!
     let original_file = bufname('')
     echo system("git mv " . original_file . " " .  newfile)
+    call system("git commit -am 'rename wiki page'")
     exec "!" . s:rename_links_command . original_file . " " . newfile
-    call system("git commit -am 'rename wiki page and links'")
+    call system("git commit -am 'rename wiki links'")
     exec "e " . newfile
   else
     call s:display_invalid_wiki_word_error(page_title)
