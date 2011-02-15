@@ -414,7 +414,7 @@ Some people don't like the CamelCase (a.k.a. WikiCase) wiki link
 pattern. But SoyWiki embraces it and wants everyone to adopt it, for the
 following reasons:
 
-* Besides being the original, CamelCase is the most elegantly minimalist approach to linking wiki pages together -- "with no additional markup whatsoever," [as Ward Cunninghamb put it][ward]. 
+* Besides being the original, CamelCase is the most elegantly minimalist approach to linking wiki pages together -- "with no additional markup whatsoever," [as Ward Cunningham put it][ward]. 
 * It encourages you more than other wiki link patterns to create wiki pages with succinctly descriptive names that are easy to remember.
 * Because the link pattern is so minimal and succinct, writing 
 them interrupts your flow of thought less than other wiki link patterns.
