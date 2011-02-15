@@ -285,8 +285,8 @@ same wiki page.
 
 ## Search
 
-* `:SWSearch` [term]
-* `:SWNamespaceSearch` [term]
+* `:SWSearch [term]`
+* `:SWNamespaceSearch [term]`
 
 These commands search your SoyWiki wiki. `:SWNamespaceSearch` confines
 your search to the current namespace.
@@ -303,7 +303,7 @@ Examples:
     :SWNamespaceSearch gnu
 
 You can use `:SWS` as a shortcut for `:SWSearch`. You can also
-tab-complete `:SWNS` to `:SWSNamespaceSearch`.
+tab-complete `:SWN` to `:SWNamespaceSearch`.
 
 Searches are case-insensitve.  
 
@@ -414,10 +414,10 @@ following reasons:
 * Besides being the original, CamelCase is the most elegantly minimalist approach to linking wiki pages together -- "with no additional markup whatsoever," [as Ward Cunninghamb put it][ward]. 
 * It encourages you more than other wiki link patterns to create wiki pages with succinctly descriptive names that are easy to remember.
 * Because the link pattern is so minimal and succinct, writing 
-them interrupts your flow of thought less than other wiki patterns.
+them interrupts your flow of thought less than other wiki link patterns.
 * It is very conducive to storing
 wiki pages in plain text files: the page names can map directly to Unix
-file names without any awkward character escaping or other munging.
+file names without any awkward character escaping or munging.
 
 [ward]:http://c2.com/cgi/wiki?WikiCase
 
