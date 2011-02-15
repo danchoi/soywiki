@@ -344,6 +344,10 @@ some server for all your computers to push to and pull from.
 
 [git-sync]:http://www-cs-students.stanford.edu/~blynn/gitmagic/ch03.html
 
+If you want something simpler, you could also try keeping your wiki
+folder in a [Dropbox][dropbox] folder.
+
+[dropbox]:http://stevelosh.com/projects/t/#it-does-the-simplest-thing-that-could-possibly-work
 
 If you want to edit a common SoyWiki with many other people, it's
 probably best to set up a common upstream Git repository (e.g. on
