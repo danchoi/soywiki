@@ -433,7 +433,7 @@ following reasons:
 * Besides being the original, CamelCase is the most elegantly minimalist approach to linking wiki pages together -- "with no additional markup whatsoever," [as Ward Cunningham put it][ward]. 
 * It encourages you more than other wiki link patterns to create wiki pages with succinctly descriptive names that are easy to remember.
 * Because the link pattern is so minimal and succinct, writing wiki links interrupts your flow of thought less than other wiki link patterns.
-* CamelCase Wiki links are less noisy than other link patterns in raw plain text form. This also contributes to flow.
+* CamelCase wiki links are less noisy than other link patterns in raw plain text form. This also contributes to flow.
 * It is very conducive to storing
 wiki pages in plain text files: the page names can map directly to Unix
 file names without any awkward character escaping or munging.
