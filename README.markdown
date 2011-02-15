@@ -390,7 +390,20 @@ dreams within dreams.
 ## Exporting to HTML
 
 Want to share your wiki with non-Vim-users?  You can export your wiki into a directory
-of html pages. Type `soywiki --html` from the root directory of your wiki.
+of HTML pages. Type `soywiki --html` from the root directory of your wiki.
+
+The HTML export feature just wraps your content in &lt;pre&gt; tags.
+
+Aside from WikiWords, SoyWiki uses no markup system whatsoever. You can
+write your content in whatever markup system you want, or no markup
+system at all. It's all plain text to SoyWiki.
+
+In the future, the HTML export feature may let you specify a markup
+system for rendering your content. Another possible feature is a Sinatra
+application that translates wiki pages into web pages upon request. 
+
+If you want to contribute such features, please feel free to implement
+them and submit a pull request.
 
 
 ## Extra macros
@@ -424,18 +437,21 @@ file names without any awkward character escaping or munging.
 
 [ward]:http://c2.com/cgi/wiki?WikiCase
 
-
-## How to contact the developer
-
-My name is Daniel Choi. I am based in Cambridge, Massachusetts, USA, and you
-can email me at dhchoi {at} gmail.com.  
-
-## How to support the SoyWiki project
+## Bug reports and feature requests
 
 SoyWiki is very new, so there are kinks and bugs to iron out and lot of
 desirable features to add.  If you have a bug to report or a good feature to
 suggest, please file it on the [issue tracker][1].  That will help a lot.
 
 [1]:https://github.com/danchoi/soywiki/issues
+
+You can also join the [Google Group][group] and comment there.
+
+[group]:http://groups.google.com/group/soywiki-users?msg=new&lnk=gcis
+
+## How to contact the developer
+
+My name is Daniel Choi. I am based in Cambridge, Massachusetts, USA, and you
+can email me at dhchoi {at} gmail.com.  
 
 
