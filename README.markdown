@@ -434,9 +434,7 @@ following reasons:
 * It encourages you more than other wiki link patterns to create wiki pages with succinctly descriptive names that are easy to remember.
 * Because the link pattern is so minimal and succinct, writing wiki links interrupts your flow of thought less than other wiki link patterns.
 * CamelCase wiki links are less noisy than other link patterns in raw plain text form. This also contributes to flow.
-* It is very conducive to storing
-wiki pages in plain text files: the page names can map directly to Unix
-file names without any awkward character escaping or munging.
+* The CamelCase link pattern is very conducive to storing wiki pages in plain text files: the page names can map directly to Unix file names without any awkward character escaping or munging.
 
 [ward]:http://c2.com/cgi/wiki?WikiCase
 
