@@ -127,6 +127,11 @@ func! s:find_next_wiki_link(backward)
 endfunc
 
 func! s:follow_link_under_cursor(split)
+  if expand("<cWORD>>") == ''
+    " just switch windows
+    wincmd p
+    return
+  endif
   if match(expand("<cWORD>>"), s:http_link_pattern) != -1
     call s:open_href_under_cursor()
     return
