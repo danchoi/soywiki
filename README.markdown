@@ -431,7 +431,7 @@ them and submit a pull request.
 SoyWiki adds a few convenient Vim macros. 
 
 * `\` in normal mode reformats the current paragraph. It is equivalent to
-`gwap`. (`:help formatting`)
+`gqap`. (`:help formatting`)
 * `,-` inserts a long dashed line
 * `,d` inserts the current date and time 
  

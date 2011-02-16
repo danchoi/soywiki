@@ -611,7 +611,7 @@ func! s:prep_buffer()
 
     noremap <silent> <leader>? :call <SID>show_help()<cr>
 
-    nnoremap <buffer> \ gwap 
+    nnoremap <buffer> \ gqap 
     nnoremap <buffer> <Leader>- o<Esc>k72i-<Esc><CR>
     nnoremap <buffer> <Leader>d :r !date<CR>o
 
