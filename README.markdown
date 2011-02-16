@@ -210,14 +210,14 @@ http:// or https://. You can also use `ENTER` when the cursor is over a
 web hyperlink.
 
 Under the covers, SoyWiki uses the command `gnome-open` or `open` to
-launch your web browser. This should cover Linux Gnome desktop and OS X
-users. You can change the command SoyWiki uses to open a hyperlink by
-adding this to your `~/.vimrc`:
+launch your external web browser. This should cover Linux Gnome desktop
+and OS X users. You can change the command SoyWiki uses to open a
+hyperlink by adding this to your `~/.vimrc`:
 
     let g:SoyWiki#browser_command = "your browser command here"
 
 If your Vim has `netrw` installed, you can open a hyperlink directly in
-Vim by putting the cursor on a web hyperlink and typing `gf', `CTRL-W f`
+Vim by putting the cursor on a web hyperlink and typing `gf`, `CTRL-W f`
 or `,O` (capital O). All these commands open the webpage inside your Vim
 session using `elinks` or whatever browser you set as your
 `g:netrw_http_cmd`.  See `:help netrw` for more information.
