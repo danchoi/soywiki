@@ -223,10 +223,11 @@ or `,O` (capital O). All these commands open the webpage inside your Vim
 session using `elinks` or whatever browser you set as your
 `g:netrw_http_cmd`.  See `:help netrw` for more information.
 
-Tip: I personally like using `netrw` (configured to use elinks) a lot
-more than using a conventional web browser, because it lets me keep all
-my URL bookmarks in regular text files and open, clip, and annotate them
-all in SoyWiki and Vim.
+Tip: I personally prefer using `netrw` (configured to use elinks) to
+launch URLs in an external web browser. This lets me keep all my URL
+bookmarks in regular text files and open, clip, and annotate them all in
+SoyWiki and Vim. Using `netrw` helps your text editor rather than your
+web browser dominate your workflow. 
 
 
 ## WikiLink autocompletion
