@@ -119,7 +119,12 @@ endfunc
 func! s:find_next_wiki_link(backward)
   let n = 0
   " don't wrap
-  let result = search(s:wiki_link_pattern, 'W' . (a:backward == 1 ? 'b' : ''))
+  if a:backward == 1 
+    normal b
+    let result = search(s:wiki_link_pattern, 'Wb') 
+  else
+    let result = search(s:wiki_link_pattern, 'W')
+  endif
   if (result == 0) 
     return ""
   end
