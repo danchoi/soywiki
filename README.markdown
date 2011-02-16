@@ -200,7 +200,8 @@ that link in to it, press `,M`. If there is only one page that links in,
 you'll be taken there automatically.
 
 * `,o` opens the first web hyperlink on or after the cursor in the default external web browser
-* `,O` opens the first web hyperlink on or after the cursor in Vim using `netrw`
+* `,O` opens the web hyperlink under the cursor in a vertical split window
+* `CTRL-w f` opens the web hyperlink under the cursor in a normal split window 
 
 `,o` opens the next hyperlink on or after the cursor. These are the URLs
 that begin with http:// or https://. You can also use `ENTER` when the
