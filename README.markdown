@@ -222,11 +222,13 @@ or `,O` (capital O). All these commands open the webpage inside your Vim
 session using `elinks` or whatever browser you set as your
 `g:netrw_http_cmd`.  See `:help netrw` for more information.
 
-Tip: I personally prefer using `netrw` (configured to use elinks) to
+TIP: I personally prefer using `netrw` (configured to use elinks) to
 launching URLs in an external web browser. This lets me keep all my URL
 bookmarks in regular text files and open, clip, and annotate them all in
 SoyWiki and Vim. Using `netrw` helps your text editor rather than your
-web browser dominate your workflow. 
+web browser dominate your workflow.  And you tend to stay focused on
+your task rather than going down the rabbit hole off internet
+distractions.
 
 
 ## WikiLink autocompletion
@@ -255,7 +257,7 @@ page. The form of the argument here should be `namespace/WikiWord`. You
 may use command line file path autocomplete to fill out the namespace
 subdirectory if it already exists.
 
-Tip: I recommend not using :SWCreate to create wiki pages. Prefer the
+TIP: I recommend not using :SWCreate to create wiki pages. Prefer the
 method of writing a WikiLink and then traversing it. This will make your
 wiki more interlinked, better organized, and easier to traverse in an
 organic way.
@@ -326,7 +328,7 @@ Under the hood, `:SWSearch` is just a thin wrapper around the `:vimgrep`
 command. Use `:vimgrep` directly if you want to do anything more
 specific.
 
-Tip: You can flag important notes in your wiki content by typing flags
+TIP: You can flag important notes in your wiki content by typing flags
 like TODO or IMPORTANT! on the same line, and then use `:SWSearch` and
 `:cl` to see all instances of them across your entire wiki.
 
