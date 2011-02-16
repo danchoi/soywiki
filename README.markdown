@@ -202,10 +202,12 @@ you'll be taken there automatically.
 * `,o` opens the first web hyperlink on or after the cursor in the default external web browser
 * `,O` opens the web hyperlink under the cursor in a vertical split window
 * `CTRL-w f` opens the web hyperlink under the cursor in a normal split window 
+* `gf` opens the web hyperlink under the cursor in the same Vim window
 
-`,o` opens the next hyperlink on or after the cursor. These are the URLs
-that begin with http:// or https://. You can also use `ENTER` when the
-cursor is over a web hyperlink.
+`,o` opens the next web hyperlink on or after the cursor in your default
+external web browser. Web hyperlinks  are the URLs that begin with
+http:// or https://. You can also use `ENTER` when the cursor is over a
+web hyperlink.
 
 Under the covers, SoyWiki uses the command `gnome-open` or `open` to
 launch your web browser. This should cover Linux Gnome desktop and OS X
@@ -215,10 +217,10 @@ adding this to your `~/.vimrc`:
     let g:SoyWiki#browser_command = "your browser command here"
 
 If your Vim has `netrw` installed, you can open a hyperlink directly in
-same Vim window by putting the cursor on a web hyperlink and typing `,O`
-(capital O). This will open the webpage in a vertical split window,
-using `elinks` or whatever browser you set as your `g:netrw_http_cmd`.
-See `:help netrw` for more information.
+Vim by putting the cursor on a web hyperlink and typing `gf', `CTRL-W f`
+or `,O` (capital O). All these commands open the webpage inside your Vim
+session using `elinks` or whatever browser you set as your
+`g:netrw_http_cmd`.  See `:help netrw` for more information.
 
 Tip: I personally like using `netrw` (configured to use elinks) a lot
 more than using a conventional web browser, because it lets me keep all
