@@ -120,7 +120,7 @@ func! s:find_next_wiki_link(backward)
   let n = 0
   " don't wrap
   if a:backward == 1 
-    normal b
+    normal lb
     let result = search(s:wiki_link_pattern, 'Wb') 
   else
     let result = search(s:wiki_link_pattern, 'W')
