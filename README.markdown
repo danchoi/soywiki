@@ -199,7 +199,8 @@ When you're on a wiki page and you want to see all the other wiki pages
 that link in to it, press `,M`. If there is only one page that links in,
 you'll be taken there automatically.
 
-* `,o` opens the first web hyperlink on or after the cursor in the default external web browser
+* `,o` opens the first web hyperlink under or after the cursor in the default external web browser
+* `ENTER` opens the web hyperlink under the cursor in the default external web browser
 * `,O` opens the web hyperlink under the cursor in a vertical split window
 * `CTRL-w f` opens the web hyperlink under the cursor in a normal split window 
 * `gf` opens the web hyperlink under the cursor in the same Vim window
