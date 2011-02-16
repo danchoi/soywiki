@@ -343,9 +343,9 @@ common wiki this way, in peer to peer fashion.
 SoyWiki provides a few convenient key mappings to view the revision
 history of a wiki page: 
 
-* `,l` shows a `git-log` view of the revision history of the current page
+* `,lp` shows a `git-log -p` view of the revision history of the current page
+* `,ls` shows a `git log --stat` view of the current page's revision history
 * `,b` shows a `git-blame` view of the current page, which shows when each line was added and by whom.
-* `:SWLogStat` shows a `git log --stat` view of the current page's revision history
 
 You can always bypass Vim and SoyWiki altogether and use Git directly to
 inspect your revision history. The Git repo for your SoyWiki wiki will

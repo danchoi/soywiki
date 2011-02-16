@@ -278,7 +278,7 @@ func! s:show_revision_history(stat)
   if (a:stat)
     exec ":!git log --stat " . bufname('%')
   else
-    exec ":!git log --color-words -p " . bufname('%')
+    exec ":!git log  -p " . bufname('%')
   end
 endfunc
 
@@ -598,8 +598,9 @@ func! s:prep_buffer()
     command! -buffer SWDelete :call s:delete_page()
 
     command! -buffer SWLog :call s:show_revision_history(0)
-    noremap <buffer> <leader>l :call <SID>show_revision_history(0)<CR>
+    noremap <buffer> <leader>lp :call <SID>show_revision_history(0)<CR>
     command! -buffer SWLogStat :call s:show_revision_history(1)
+    noremap <buffer> <leader>ls :call <SID>show_revision_history(1)<CR>
     command! -buffer SWBlame :call s:show_blame()
     noremap <buffer> <leader>b :call <SID>show_blame()<CR>
 
