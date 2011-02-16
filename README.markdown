@@ -169,7 +169,6 @@ commands:
 
 * `CTRL-j` and `CTRL-k` move the cursor directly to the next or previous WikiLink on the page
 * `ENTER` follows the WikiLink under the cursor
-* If there is no WikiLink under the cursor and the cursor is not on the top line, `ENTER` is equivalent to `CTRL-w p` and moves the cursor to the last accessed window
 * `,f` follows the first WikiLink after the cursor
 * `CTRL-l` opens a WikiLink in a vertical split window; press `CTRL-l` again
 while the cursor is on the top line to close the new window 

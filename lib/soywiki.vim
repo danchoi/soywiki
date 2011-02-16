@@ -139,9 +139,7 @@ func! s:follow_link_under_cursor(split)
   endif
   let link = s:link_under_cursor()
   if link == ""
-    " just switch windows
-    silent wincmd p
-    echom "'" . word  . "' is not a wiki link. " . (winnr('$') > 1 ? "Switched to last accessed window." : "")
+    echom ""
     return ""
   elseif line('.') == 1
     " SPECIAL CASE
