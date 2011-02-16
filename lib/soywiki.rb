@@ -16,8 +16,8 @@ Usage: soywiki
 
 Run the command in a directory you've made to contain soywiki files.
 
-Specifying a wiki file is optional. If you don't specify a file, soywiki will
-open the most recently modified wiki file. 
+Soywiki will open the most recently modified wiki file or create a file
+called main/HomePage. 
 ---
 END
       exit
