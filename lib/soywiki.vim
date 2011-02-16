@@ -619,7 +619,7 @@ func! s:prep_buffer()
     setlocal completefunc=CompletePageTitle
     augroup <buffer>
       au!
-      autocmd BufWritePost <buffer> call s:save_revision() 
+      autocmd BufWritePost,VimLeavePre <buffer> call s:save_revision() 
     augroup END
     let b:mappings_loaded = 1
   endif
