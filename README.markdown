@@ -327,7 +327,7 @@ command. Use `:vimgrep` directly if you want to do anything more
 specific.
 
 Tip: You can flag important notes in your wiki content by typing flags
-like TODO or IMPORTANT on the same line, and then use `:SWSearch` and
+like TODO or IMPORTANT! on the same line, and then use `:SWSearch` and
 `:cl` to see all instances of them across your entire wiki.
 
 ## Revision history and distributed workflows
