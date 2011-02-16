@@ -192,9 +192,9 @@ func! s:load_page(page, split)
     call writefile([title, '', ''], file) 
   endif
   if (a:split == 2) 
-    exec "rightbelow vsplit ". file
+    exec "botright vsplit ". file
   elseif (a:split == 1)
-    exec "rightbelow split ". file
+    exec "botright split ". file
   elseif (a:split == 0) 
     exec "e ".file
   endif
@@ -475,7 +475,7 @@ func! s:extract(...) range
       endif
       call writefile([page_title, '', ''], file) 
     endif
-    exec "rightbelow vsplit ".file
+    exec "botright vsplit ".file
   else
     let targetWindow = bufwinnr(bufnr(file))
     exe targetWindow."wincmd w"
@@ -527,7 +527,7 @@ func! s:expand(seamless, vertical)
     let res = system(s:expand_command . " seamful " . bufname('%'))
   endif
   if a:vertical
-    rightbelow vnew 
+    botright vnew 
   else
     new 
   endif
@@ -567,7 +567,7 @@ func! s:global_mappings()
   noremap <silent> <leader>o :call <SID>find_next_href_and_open()<cr> 
   nnoremap <silent> q :close<cr>
   " for netrw vertical split
-  nnoremap ,O :exec "silent rightbelow vsplit ". expand("<cWORD>")<cr>
+  nnoremap ,O :exec "silent botright vsplit ". expand("<cWORD>")<cr>
 
   command! -bar -nargs=1 -range -complete=file SWAppend :<line1>,<line2>call s:extract(<f-args>, 'append', 0)
   command! -bar -nargs=1 -range -complete=file SWInsert :<line1>,<line2>call s:extract(<f-args>, 'insert', 0)
