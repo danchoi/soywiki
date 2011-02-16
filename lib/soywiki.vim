@@ -271,7 +271,7 @@ endfunc
 
 func! s:save_revision()
   call system("git add " . bufname('%'))
-  call system("git commit " . bufname('%') . " -m 'edit'")
+  call system("git commit -a -m 'edit'")
 endfunc
 
 func! s:show_revision_history(stat)
@@ -619,7 +619,7 @@ func! s:prep_buffer()
     setlocal completefunc=CompletePageTitle
     augroup <buffer>
       au!
-      autocmd BufWritePost,VimLeavePre <buffer> call s:save_revision() 
+      autocmd BufWritePost,BufUnload <buffer> call s:save_revision() 
     augroup END
     let b:mappings_loaded = 1
   endif
