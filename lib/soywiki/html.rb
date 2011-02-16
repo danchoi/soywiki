@@ -86,7 +86,7 @@ module Soywiki
       `rm -rf #{HTML_DIR}/*`
       namespaces = Dir["*"].select {|f| 
         File.directory?(f) && f != HTML_DIR
-      }.map {|namespace|
+      }.sort.map {|namespace|
         count = Dir["#{namespace}/*"].select {|f| wiki_page?(f)}.size
         [namespace, count]
       }
