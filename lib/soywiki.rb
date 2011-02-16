@@ -12,7 +12,7 @@ module Soywiki
       puts
       puts <<END
 ---
-Usage: soywiki [wiki file]
+Usage: soywiki 
 
 Run the command in a directory you've made to contain soywiki files.
 
@@ -27,7 +27,7 @@ END
     else
       vim = ENV['SOYWIKI_VIM'] || 'vim'
       vimscript = File.expand_path("../soywiki.vim", __FILE__)
-      vim_command = "#{vim} -S #{vimscript} #{ARGV.first}"
+      vim_command = "#{vim} -S #{vimscript}"
       exec vim_command
     end
   end
