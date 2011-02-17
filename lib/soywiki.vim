@@ -552,6 +552,15 @@ func! s:find_next_href_and_open()
   endif
 endfunc
 
+func! s:goto_homepage()
+  let namespace_home = s:page_namespace()."/HomePage" 
+  if (filereadable(namespace_home)) && bufname('%') != namespace_home
+    call s:load_page(namespace_home, 0)
+  else
+    call s:load_page("main.HomePage", 0)
+  endif
+endfunc
+
 " -------------------------------------------------------------------------------- 
 "  HELP
 func! s:show_help()
@@ -607,6 +616,8 @@ func! s:prep_buffer()
     noremap <buffer> <leader>X :call <SID>expand(1,1)<CR>
     noremap <buffer> <leader>hx :call <SID>expand(0,0)<CR>
     noremap <buffer> <leader>hX :call <SID>expand(1,0)<CR>
+
+    noremap <buffer> <leader>H :call <SID>goto_homepage()<CR>
 
     noremap <silent> <leader>? :call <SID>show_help()<cr>
 
