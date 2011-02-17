@@ -42,7 +42,7 @@ def change_unqualified_inbound_links_in_same_namespace(oldname, newname)
   end
 end
 
-RELATIVE_LINK_REGEX =/(\A|\s)([A-Z][a-z]+[A-Z]\w*)/
+RELATIVE_LINK_REGEX = /(\A|\s)([A-Z][a-z]+[A-Z]\w*)/
 
 def absolutize_unqualified_outbound_links(oldname, newname)
   MEMO << "Absolutizing unqualified inbound links"
@@ -50,14 +50,24 @@ def absolutize_unqualified_outbound_links(oldname, newname)
   if File.exist?(target_file)
     text = File.read(target_file)
     begin
-      matches = text.scan(RELATIVE_LINK_REGEX).select {|match| File.exist?( oldname.namespace + ".#{match}" ) }
-      matches.each do |match|
-        text = text.gsub(match, oldname.namespace + '.\1')
+      matches = text.scan(RELATIVE_LINK_REGEX).map {|x| x[1]}.
+        select {|match| match.strip != "" }.
+        select {|match| File.exist?( oldname.namespace + "/#{match}" ) }
+      puts MEMO << "  - In file #{target_file}: matches: #{matches.inspect}"
+
+      text = text.gsub(RELATIVE_LINK_REGEX) do |match|
+        if matches.include?($2)
+          res = "#$1#{oldname.namespace}.#{$2}"
+          MEMO <<  "  - In file #{target_file}: #{$2} -> #{res.strip}"
+          res
+        else
+          MEMO <<  "  - In file #{target_file}: skipping #{$2}"
+          match
+        end
       end
       File.open(target_file, 'w') {|f| f.puts text}
-      MEMO <<  "  - In file #{target_file}: Absolutized these unqualified links: #{matches.inspect}"
     rescue
-      puts "Error processing #{file}: #$!"
+      puts "Error processing #{target_file}: #$!"
     end
   end
 end
