@@ -66,9 +66,9 @@ installed. But the revision history commands will not.
 
 Test your installation by typing `soywiki -h`. You should see SoyWiki's help.
 
-If you run into any PATH errors, try installing the RVM Version Manager,
-then install Ruby 1.9.2 through RVM, then run `gem install soywiki`.
-This should solve any installation issues.
+If you run into any PATH errors, try the following: Install the RVM
+Version Manager, then install Ruby 1.9.2 through RVM, and then run `gem
+install soywiki`.  This should solve any installation issues.
 
 On some systems you may run into a PATH issue, where the system can't find the
 `soywiki` command after installation. 
