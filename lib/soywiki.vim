@@ -354,6 +354,9 @@ function! s:page_list_window(page_match_list, buffer_name, prompt)
   inoremap <buffer> <Tab> <Esc>:call <SID>reduce_matches()<cr>
   noremap <buffer> q <Esc>:close<cr>
   inoremap <buffer> <Esc> <Esc>:close<cr>
+  
+  "  Bad, gets buggy with frag "dai"
+  "  autocmd CursorMovedI <buffer> call feedkeys("\<C-x>\<C-u>\<C-p>", "n")
   " c-p clears the line
   call setline(1, a:prompt)
   normal $
