@@ -53,6 +53,10 @@ The current version of SoyWiki assumes a Unix environment.
 
 To use SoyWiki you should be fairly good at using Vim. 
 
+To install Ruby 1.9.2, I recommend using the [RVM Version Manager][rvm].
+
+[rvm]:http://rvm.beginrescueend.com
+
 Most of SoyWiki's commands should work even if you don't have Git
 installed. But the revision history commands will not.
 
@@ -62,11 +66,14 @@ installed. But the revision history commands will not.
 
 Test your installation by typing `soywiki -h`. You should see SoyWiki's help.
 
-On some systems you may run into a PATH issue, where the system can't find the
-`soywiki` command after installation. Please report this if you encounter this
-problem, and mention what system you're using. You might want to try 
+If you run into any PATH errors, try installing the RVM Version Manager,
+then install Ruby 1.9.2 through RVM, then run `gem install soywiki`.
+This should solve any installation issues.
 
-    sudo gem install soywiki
+On some systems you may run into a PATH issue, where the system can't find the
+`soywiki` command after installation. 
+
+
 
 If you ever want to uninstall SoyWiki from your system, execute this command:
 
