@@ -561,9 +561,9 @@ endfunc
 "------------------------------------------------------------------------
 
 func! s:global_mappings()
-  noremap <leader>m :call <SID>list_pages()<CR>
-  noremap  <leader>M :call <SID>list_pages_linking_in()<CR>
-  noremap <silent> <leader>o :call <SID>find_next_href_and_open()<cr> 
+  nnoremap <leader>m :call <SID>list_pages()<CR>
+  nnoremap <leader>M :call <SID>list_pages_linking_in()<CR>
+  nnoremap <silent> <leader>o :call <SID>find_next_href_and_open()<cr> 
   nnoremap <silent> q :close<cr>
   " for netrw vertical split
   nnoremap ,O :exec "silent botright vsplit ". expand("<cWORD>")<cr>
