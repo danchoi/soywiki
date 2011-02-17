@@ -2,6 +2,8 @@
 " Maintainer:	Daniel Choi <dhchoi@gmail.com>
 " License: MIT License (c) 2011 Daniel Choi
 
+let mapleader = ','
+
 " This regex matches namedspaced WikiWords and unqualified WikiWords 
 let s:wiki_link_pattern =  '\C\m\<\([a-z][[:alnum:]_]\+\.\)\?[A-Z][a-z]\+[A-Z]\w*\>'
 let s:http_link_pattern = 'https\?:[^ >)\]]\+'
@@ -672,7 +674,6 @@ else
   call s:load_page(bufname("%"), 0)
 endif
 syntax enable
-let mapleader = ','
 call s:highlight_wikiwords() 
 
 
