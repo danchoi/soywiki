@@ -33,7 +33,7 @@ def change_unqualified_inbound_links_in_same_namespace(oldname, newname)
   target_files.select {|f| f !~ /(\.swp|\.swo)$/}.each do |file|
     text = File.read(file)
     begin
-      text = text.gsub(/(\A|\s)#{oldname.short_page_title}\b/, "." + newname)
+      text = text.gsub(/(\A|\s)#{oldname.short_page_title}\b/, newname.to_page_title)
       File.open(file, 'w') {|f| f.puts text}
       report file, oldname.short_page_title, newname
     rescue
