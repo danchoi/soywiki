@@ -586,7 +586,8 @@ func! s:global_mappings()
   command! -bar -nargs=1 SWNamespaceSearch :call s:wiki_search(<f-args>, 1)
 
   autocmd  BufReadPost,BufNewFile,WinEnter,BufEnter,BufNew,BufAdd * call s:highlight_wikiwords() 
-  autocmd  BufEnter * call s:prep_buffer() 
+  autocmd  BufReadPost,BufNewFile,WinEnter,BufEnter,BufNew,BufAdd * call s:prep_buffer() 
+  " autocmd  BufEnter * call s:prep_buffer() 
 endfunc 
 
 " this checks if the buffer is a SoyWiki file (from firstline)
@@ -624,7 +625,6 @@ func! s:prep_buffer()
     nnoremap <buffer> \ gqap 
     nnoremap <buffer> <Leader>- o<Esc>k72i-<Esc><CR>
     nnoremap <buffer> <Leader>d :r !date<CR>o
-
     "   set nu
     setlocal completefunc=CompletePageTitle
     augroup <buffer>
