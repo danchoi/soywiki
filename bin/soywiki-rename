@@ -29,7 +29,7 @@ end
 
 def change_unqualified_inbound_links_in_same_namespace(oldname, newname)
   MEMO << "- Updating unqualified inbound links"
-  target_files = `grep -rlF '[^.]#{oldname.short_page_title}' #{oldname.namespace}/*`.strip.split(/\n/)
+  target_files = `grep -rlF '#{oldname.short_page_title}' #{oldname.namespace}/*`.strip.split(/\n/)
   target_files.select {|f| f !~ /(\.swp|\.swo)$/}.each do |file|
     text = File.read(file)
     begin
