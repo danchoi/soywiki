@@ -5,6 +5,8 @@
 " This regex matches namedspaced WikiWords and unqualified WikiWords 
 let s:wiki_link_pattern =  '\C\m\<\([a-z][[:alnum:]_]\+\.\)\?[A-Z][a-z]\+[A-Z]\w*\>'
 let s:http_link_pattern = 'https\?:[^ >)\]]\+'
+let s:wiki_or_web_link_pattern =  '\C\<\([a-z][[:alnum:]_]\+\.\)\?[A-Z][a-z]\+[A-Z]\w*\>\|https\?:[^ >)\]]\+'
+
 let s:rename_links_command = 'soywiki-rename '
 let s:find_pages_linking_in_command = 'soywiki-pages-linking-in '
 let s:expand_command = 'soywiki-expand '
@@ -121,9 +123,9 @@ func! s:find_next_wiki_link(backward)
   " don't wrap
   if a:backward == 1 
     normal lb
-    let result = search(s:wiki_link_pattern, 'Wb') 
+    let result = search(s:wiki_or_web_link_pattern, 'Wb') 
   else
-    let result = search(s:wiki_link_pattern, 'W')
+    let result = search(s:wiki_or_web_link_pattern, 'W')
   endif
   if (result == 0) 
     return ""
