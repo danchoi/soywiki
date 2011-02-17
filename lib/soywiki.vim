@@ -199,8 +199,6 @@ func! s:load_page(page, split)
   if s:search_for_link != ''
     let res = search(s:search_for_link, 'cw')
     let s:search_for_link = ''
-  else 
-    normal gg
   endif
 endfunc
 
