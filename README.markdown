@@ -181,7 +181,7 @@ commands:
 while the cursor is on the top line to close the new window 
 * `CTRL-h` does the same, but in a regular split window
 * `q` closes a split window 
-* `,H` takes you to the `HomePage` of the current namespace if it exists and you're not already on it. Otherwise, it takes you to `main.Homepage`.
+* `,H` takes you to the `HomePage` of the current namespace if it exists and you're not already on it. Otherwise, it takes you to `main.HomePage`.
 
 These key mappings may not be very mnemonic, but they are easy to
 memorize through muscle memory and were chosen to keep the hands
