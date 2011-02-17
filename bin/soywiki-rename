@@ -50,8 +50,10 @@ def absolutize_unqualified_outbound_links(oldname, newname)
   if File.exist?(target_file)
     text = File.read(target_file)
     begin
-      matches = text.scan(RELATIVE_LINK_REGEX)
-      text = text.gsub(RELATIVE_LINK_REGEX, oldname.namespace + '.\1')
+      matches = text.scan(RELATIVE_LINK_REGEX).select {|match| File.exist?( oldname.namespace + ".#{match}" ) }
+      matches.each do |match|
+        text = text.gsub(match, oldname.namespace + '.\1')
+      end
       File.open(target_file, 'w') {|f| f.puts text}
       MEMO <<  "  - In file #{target_file}: Absolutized these unqualified links: #{matches.inspect}"
     rescue
