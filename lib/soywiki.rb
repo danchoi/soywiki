@@ -24,6 +24,12 @@ END
     elsif ARGV.first == '--html'
       self.html_export 
       exit
+    elsif ARGV.first == '--install-plugin'
+      require 'erb'
+      plugin_template = File.read(File.join(File.dirname(__FILE__), 'plugin.erb'))
+      vimscript_file = File.join(File.dirname(__FILE__), 'soywiki.vim')
+      plugin_body = ERB.new(plugin_template).result(binding)
+      File.open("#{ENV['HOME']}/.vim/plugin/soywiki_starter.vim", "w") {|f| f.write plugin_body}
     else
       vim = ENV['SOYWIKI_VIM'] || 'vim'
       vimscript = File.expand_path("../soywiki.vim", __FILE__)

@@ -681,5 +681,5 @@ else
 endif
 syntax enable
 call s:highlight_wikiwords() 
-
+call s:prep_buffer()
 
