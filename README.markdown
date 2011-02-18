@@ -478,7 +478,7 @@ SoyWiki adds a few convenient Vim macros.
 Typing `,?` will open the help webpage in a browser.
 
 
-## Why CamelCase WikiLinks rule
+## CamelCase WikiLinks rule!
 
 Some people don't like the CamelCase (a.k.a. WikiCase) wiki link
 pattern. But SoyWiki embraces it and wants everyone to adopt it, for the
