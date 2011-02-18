@@ -229,6 +229,9 @@ you'll be taken there automatically.
 `,n` lets you select from your namespaces. Choosing one will take you to
 the `HomePage` of that namespace.
 
+
+## Opening web hyperlinks
+
 * `,o` opens the first web hyperlink under or after the cursor in the default external web browser
 * `ENTER` opens the web hyperlink under the cursor in the default external web browser
 * `,O` opens the web hyperlink under the cursor in a vertical split window
