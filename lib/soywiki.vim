@@ -652,7 +652,9 @@ func! s:prep_buffer()
 
     nnoremap <buffer> \ gqap 
     nnoremap <buffer> <Leader>- o<Esc>k72i-<Esc><CR>
-    nnoremap <buffer> <Leader>d :r !date<CR>o
+    nnoremap <buffer> <Leader>d :r !date<CR>o<Esc>
+    nnoremap <Leader>D :r !date<CR><Esc>k72i-<Esc>jo<Esc>
+
     "   set nu
     setlocal completefunc=CompletePageTitle
     augroup <buffer>

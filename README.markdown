@@ -470,6 +470,7 @@ SoyWiki adds a few convenient Vim macros.
 `gqap`. (`:help formatting`)
 * `,-` inserts a long dashed line
 * `,d` inserts the current date and time 
+* `,D` inserts a long dashed line, followed by the current date and time 
  
 
 ## Getting help
