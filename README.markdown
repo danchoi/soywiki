@@ -113,7 +113,7 @@ first install or update SoyWiki, and then run
 Please note that you will need to run this command after each time you update
 SoyWiki to a newer version.
 
-Assuming the plugin is install, you can start SoyWiki from within a
+Assuming the plugin is installed, you can start SoyWiki from within a
 running Vim session by typing the command
 
     :Soywiki
