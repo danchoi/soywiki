@@ -481,8 +481,7 @@ Typing `,?` will open the help webpage in a browser.
 ## CamelCase WikiLinks rule!
 
 Some people don't like the CamelCase (a.k.a. WikiCase) wiki link
-pattern. But SoyWiki embraces it and wants everyone to adopt it, for the
-following reasons:
+pattern. But SoyWiki stands with CamelCase. 
 
 * Besides being the original, CamelCase is the most elegantly minimalist approach to linking wiki pages together -- "with no additional markup whatsoever," [as Ward Cunningham put it][ward]. 
 * It encourages you more than other wiki link patterns to create wiki pages with succinctly descriptive names that are easy to remember.
@@ -491,6 +490,11 @@ following reasons:
 * The CamelCase link pattern is very conducive to storing wiki pages in plain text files: the page names can map directly to Unix file names without any awkward character escaping or munging.
 
 [ward]:http://c2.com/cgi/wiki?WikiCase
+
+No wiki link pattern is perfect! All involve trade-offs. Many
+writability for the ability to include whitespace between words.
+SoyWiki puts writability ahead of that sort of fussiness.
+
 
 ## Bug reports and feature requests
 
