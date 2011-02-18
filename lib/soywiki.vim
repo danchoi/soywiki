@@ -241,7 +241,7 @@ func! s:delete_page()
   endif
 
   echo system("git rm " . file)
-  call system("git commit " . file . " -m 'deletion'")
+  call system("git commit -am 'page deletion'")
   exec "bdelete " . bufnr
   redraw
   echom  "Deleted " . file
@@ -256,6 +256,7 @@ func! s:rename_page(page_path_or_title)
   endif
   if s:valid_wiki_word(page_title)
     write!
+    call system("mkdir -p " . s:namespace_of_title(page_title))
     let original_file = bufname('')
     echo system("git mv " . original_file . " " .  newfile)
     call system("git commit -am 'rename wiki page'")
