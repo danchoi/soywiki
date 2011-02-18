@@ -24,11 +24,11 @@ func! s:page_title()
   return substitute(bufname(''), '\/', '.', '')
 endfunc
 
-func! s:display_missing_namespace_error(num_segments)
+func! s:display_missing_namespace_error(num_segments, page_title)
   if a:num_segments == 1
-    call s:error("Invalid wiki page: missing a namespace. Put it in a namespace subdirectory.")
+    call s:error("Invalid wiki page: ".a:page_title." is missing a namespace. Put it in a namespace subdirectory.")
   elseif a:num_segments > 2
-    call s:error("Invalid wiki page: nested too deeply. Namespaces are limited to one level.")
+    call s:error("Invalid wiki page: ".a:page_title." is nested too deeply. Namespaces are limited to one level.")
   endif 
 endfunc
 
@@ -37,12 +37,12 @@ func! s:display_invalid_wiki_word_error(word)
 endfunc
 
 func! s:namespace_of_title(page_title)
-  let segments = split(a:page_title, '\.')
+  let segments = split(a:page_title, '[./]')
   " page must have namespace
   if len(segments) == 2
     return get(segments, 0)
   else
-    call s:display_missing_namespace_error(len(segments))
+    call s:display_missing_namespace_error(len(segments), a:page_title)
     return ""
   endif
 endfunc
@@ -56,7 +56,7 @@ func! s:title_without_namespace(page_title)
   if len(segments) == 2
     return "." . get(segments, 1)
   else
-    call s:display_missing_namespace_error(len(segments))
+    call s:display_missing_namespace_error(len(segments), a:page_title)
   endif
 endfunc
 
@@ -556,12 +556,12 @@ func! s:find_next_href_and_open()
   endif
 endfunc
 
-func! s:goto_homepage()
-  let namespace_home = s:page_namespace()."/HomePage" 
-  if (filereadable(namespace_home)) && bufname('%') != namespace_home
-    call s:load_page(namespace_home, 0)
-  else
+func! s:goto_homepage(main)
+  if a:main
     call s:load_page("main.HomePage", 0)
+  else
+    let namespace_home = s:page_namespace()."/HomePage" 
+    call s:load_page(namespace_home, 0)
   endif
 endfunc
 
@@ -622,7 +622,8 @@ func! s:prep_buffer()
     noremap <buffer> <leader>hx :call <SID>expand(0,0)<CR>
     noremap <buffer> <leader>hX :call <SID>expand(1,0)<CR>
 
-    noremap <buffer> <leader>H :call <SID>goto_homepage()<CR>
+    noremap <buffer> <leader>h :call <SID>goto_homepage(0)<CR>
+    noremap <buffer> <leader>H :call <SID>goto_homepage(1)<CR>
 
     noremap <silent> <leader>? :call <SID>show_help()<cr>
 
