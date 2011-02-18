@@ -106,14 +106,12 @@ just run `soywiki`.
 
 
 You can start SoyWiki from within a running Vim session. To set this up,
-first install or update SoyWiki, and then install the
-soywiki_starter.vim Vim plugin with this command:
+first install or update SoyWiki, and then run
 
     soywiki --install-plugin
 
-Please note that you need to run this command after each time you update
-SoyWiki to a newer version, if you want to launch the latest version of
-SoyWiki from within a pre-existing Vim session.
+Please note that you will need to run this command after each time you update
+SoyWiki to a newer version.
 
 Assuming the plugin is install, you can start SoyWiki from within a
 running Vim session by typing the command
