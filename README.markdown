@@ -137,8 +137,8 @@ link them together. You'll be surprised at how powerful this simple mechanism
 is for organizing your notes. 
 
 In SoyWiki, a wiki page is a simple text file that has a WikiWord title
-on the first line and any text your want to insert below that.  (You may
-alter the title line at the top, but it helps you see what wiki page
+on the first line. Beyond that, you can append any text you want.  (You
+may alter the title line at the top, but it helps you see what wiki page
 you're on.) SoyWiki will create stub WikiPages for you automatically as
 you traverse WikiLinks that don't yet reference any content.
 
