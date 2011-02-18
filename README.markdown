@@ -17,6 +17,7 @@ A quick overview of SoyWiki's characteristics and features:
 * autocompletion of wiki words
 * automated global renaming of wiki words
 * syntax colored wiki words
+* can open web hyperlinks in external browser or inside Vim
 * outliner-like capability with expansion commands
 * operates on all POSIX systems (e.g. OS X, Linux, FreeBSD)
 
