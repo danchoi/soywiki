@@ -491,9 +491,8 @@ pattern. But SoyWiki stands with CamelCase.
 
 [ward]:http://c2.com/cgi/wiki?WikiCase
 
-No wiki link pattern is perfect! All involve trade-offs. Many impair
-writeability for the ability to include whitespace between words.
-SoyWiki puts writeability ahead of that sort of fussiness.
+No wiki link pattern is perfect! All involve trade-offs. The CamelCase
+pattern gets a lot in return for its particular compromises. 
 
 
 ## Bug reports and feature requests
