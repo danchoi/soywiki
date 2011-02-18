@@ -2,6 +2,11 @@
 " Maintainer:	Daniel Choi <dhchoi@gmail.com>
 " License: MIT License (c) 2011 Daniel Choi
 
+if exists("g:SoyWikiLoaded") || &cp || version < 700
+  finish
+endif
+let g:SoyWikiLoaded = 1
+
 let mapleader = ','
 
 " This regex matches namedspaced WikiWords and unqualified WikiWords 
