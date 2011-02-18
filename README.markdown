@@ -490,7 +490,7 @@ pattern. But SoyWiki stands with CamelCase.
 [ward]:http://c2.com/cgi/wiki?WikiCase
 
 No wiki link pattern is perfect! All involve trade-offs. The CamelCase
-pattern gets a lot in return for its particular compromises. 
+pattern gives you a lot in return for its particular compromises. 
 
 
 ## Bug reports and feature requests
