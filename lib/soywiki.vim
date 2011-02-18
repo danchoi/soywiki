@@ -106,6 +106,12 @@ func! s:list_pages()
   end
 endfunc
 
+func! s:list_namespaces()
+  let s:search_for_link = ""
+  let pages = s:get_namespace_list()
+  call s:page_list_window(pages, 'select-page', "Select namespace: ")
+endfunc
+
 func! s:trim_link(link)
   let link = matchstr(a:link, s:wiki_link_pattern)
   return link
@@ -303,7 +309,7 @@ func! s:omit_this_page(page_list)
   endif
 endfunc
 
-" This function both sets a script variable and returns the value.
+" 
 func! s:get_page_list()
   " no file current in buffer
   if len(bufname('')) == 0
@@ -315,6 +321,11 @@ func! s:get_page_list()
     "let pages = s:omit_this_page(split(system(s:ls_command), "\n"))
     let pages = split(system(s:ls_command), "\n")
   endif
+  return pages
+endfunction
+
+func! s:get_namespace_list()
+  let pages = split(system(s:ls_command . " -n"), "\n")
   return pages
 endfunction
 
@@ -385,7 +396,7 @@ function! CompletePageTitle(findstart, base)
   else
     let base = s:trimString(a:base)
     if (base == '')
-      return s:get_page_list()
+      return s:matching_pages
     else
       let res = []
       if bufname('') == 'select-page'
@@ -397,7 +408,7 @@ function! CompletePageTitle(findstart, base)
         endfor
       else
         " autocomplete inline
-        let pages = base =~ '\C^[a-z]' ? s:get_page_list() : s:pages_in_this_namespace(s:get_page_list())
+        let pages = base =~ '\C^[a-z]' ? s:matching_pages : s:pages_in_this_namespace(s:matching_pages)
         for m in pages
           if m =~ '^\c' . base 
             call add(res, m)
@@ -416,9 +427,13 @@ function! s:select_page()
   if (page == '') " no selection
     return
   end
-  let match = ""
+  " if time is just a namespace, append .HomePage to it
+  if page =~ '^[a-z][[:alnum:]_]\+$'
+    let page = page . ".HomePage"
+  endif
+
 	for item in s:matching_pages
-	  if (item == page)
+	  if (page =~ item)
       call s:load_page(page, 0)
       break
     end
@@ -581,6 +596,8 @@ endfunc
 func! s:global_mappings()
   nnoremap <leader>m :call <SID>list_pages()<CR>
   nnoremap <leader>M :call <SID>list_pages_linking_in()<CR>
+  nnoremap <leader>n :call <SID>list_namespaces()<CR>
+
   nnoremap <silent> <leader>o :call <SID>find_next_href_and_open()<cr> 
   nnoremap <silent> q :close<cr>
   " for netrw vertical split

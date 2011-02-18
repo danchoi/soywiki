@@ -213,6 +213,7 @@ this. You can press `CTRL-^` to toggle between the current page and the
 last page you looked at.
 
 * `,m` opens the page list
+* `,n` opens the namespace list
 * `,M` opens the inbound links page list 
 
 You can view all the pages in your wiki, most recently modified first,
@@ -224,6 +225,9 @@ further instructions.
 When you're on a wiki page and you want to see all the other wiki pages
 that link in to it, press `,M`. If there is only one page that links in,
 you'll be taken there automatically.
+
+`,n` lets you select from your namespaces. Choosing one will take you to
+the `HomePage` of that namespace.
 
 * `,o` opens the first web hyperlink under or after the cursor in the default external web browser
 * `ENTER` opens the web hyperlink under the cursor in the default external web browser

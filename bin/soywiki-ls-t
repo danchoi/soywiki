@@ -10,4 +10,8 @@ xs = Dir.glob('*/*').
     sort_by {|x| File.stat(x).mtime }.
     reverse.map {|x| x.to_page_title }
 
+if ARGV.first == '-n'
+  xs = xs.map {|x| x.namespace}.uniq.sort
+end
+
 puts xs.join("\n")
