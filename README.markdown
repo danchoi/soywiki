@@ -262,7 +262,7 @@ launching URLs in an external web browser. This lets me keep all my URL
 bookmarks in regular text files and open, clip, and annotate them all in
 SoyWiki and Vim. Using `netrw` helps your text editor rather than your
 web browser dominate your workflow.  And you tend to stay focused on
-your task rather than going down the rabbit hole off internet
+your task rather than going down the rabbit hole of internet
 distractions.
 
 
