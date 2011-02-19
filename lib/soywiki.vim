@@ -365,7 +365,7 @@ function! s:page_list_window(page_match_list, buffer_name, prompt)
   let s:return_to_winnr = winnr()
   let s:return_to_bufname = s:filename2pagetitle(bufname(''))
   let s:matching_pages = a:page_match_list
-  exec "topleft split ".a:buffer_name
+  exec "leftabove split ".a:buffer_name
   setlocal completefunc=CompletePageTitle 
   setlocal buftype=nofile
   setlocal noswapfile
