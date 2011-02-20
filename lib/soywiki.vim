@@ -645,8 +645,8 @@ func! s:prep_buffer()
     noremap <buffer> <leader>hx :call <SID>expand(0,0)<CR>
     noremap <buffer> <leader>hX :call <SID>expand(1,0)<CR>
 
-    noremap <buffer> <leader>h :call <SID>goto_homepage(0)<CR>
-    noremap <buffer> <leader>H :call <SID>goto_homepage(1)<CR>
+    noremap <buffer> <leader>H :call <SID>goto_homepage(0)<CR>
+    noremap <buffer> <leader>h :call <SID>goto_homepage(1)<CR>
 
     noremap <silent> <leader>? :call <SID>show_help()<cr>
 
