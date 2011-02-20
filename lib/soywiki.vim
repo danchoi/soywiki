@@ -207,7 +207,7 @@ func! s:load_page(page, split)
   if (a:split == 2) 
     exec "botright vsplit ". file
   elseif (a:split == 1)
-    exec "botright split ". file
+    exec "rightbelow split ". file
   elseif (a:split == 0) 
     exec "e ".file
   endif
