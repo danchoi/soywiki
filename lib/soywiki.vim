@@ -657,9 +657,9 @@ func! s:prep_buffer()
 
     "   set nu
     setlocal completefunc=CompletePageTitle
-    augroup <buffer>
+    augroup save_revision
       au!
-      autocmd BufWritePost,BufUnload <buffer> call s:save_revision() 
+      autocmd FileWritePost,BufWritePost,BufUnload <buffer> call s:save_revision() 
     augroup END
     let b:mappings_loaded = 1
   endif
