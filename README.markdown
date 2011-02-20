@@ -198,8 +198,8 @@ commands:
 while the cursor is on the top line to close the new window 
 * `CTRL-h` does the same, but in a regular split window
 * `q` closes a split window 
-* `,H` takes you to the `HomePage` of the current namespace
-* `,h` takes you to `main.HomePage` 
+* `,h` takes you to the `HomePage` of the current namespace
+* `,H` takes you to `main.HomePage` 
 
 These key mappings may not be very mnemonic, but they are easy to
 memorize through muscle memory and were chosen to keep the hands
@@ -427,8 +427,8 @@ anything, and it erases the WikiWord that got expanded.
 
 * `,x` expands a wiki page seamfully and opens on a vertical split
 * `,X` expands a wiki page seamlessly and opens on a vertical split
-* `,hx` expands a wiki page seamfully and opens on normal split
-* `,hX` expands a wiki page seamlessly and opens on a normal split
+* `,xx` expands a wiki page seamfully and opens on normal split
+* `,XX` expands a wiki page seamlessly and opens on a normal split
 * `q` closes the expanded view window
 
 Both modes of expansion are useful when you want to assemble a long
