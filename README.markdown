@@ -452,11 +452,16 @@ system at all. It's all plain text to SoyWiki.  The HTML export feature
 just wraps your content in &lt;pre&gt; tags after turning your WikiWords
 into hyperlinks, so no markup system is really necessary.
 
-In the future, the HTML export feature may let you specify a markup
-system for rendering your content. Another possible feature is a Sinatra
-application that translates wiki pages into web pages upon request. 
+HTML export is no-frills and basic. Hopefully, someday, SoyWiki will be
+able to
 
-If you want to contribute such features, please feel free to implement
+* sport an alternative web interface that is as cool as [TiddlyWiki's][tiddly]
+* let you specify a markup system for rendering the HTML version of your content
+* come bundled with a Sinatra application that translates wiki pages into web pages upon request
+
+[tiddly]:http://www.tiddlywiki.com/
+
+If you want to contribute any of these features, please feel free to implement
 them and submit a pull request.
 
 
