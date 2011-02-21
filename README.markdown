@@ -455,11 +455,12 @@ into hyperlinks, so no markup system is really necessary.
 HTML export is no-frills and basic. Hopefully, someday, SoyWiki will be
 able to
 
-* sport an alternative web interface that is as cool as [TiddlyWiki's][tiddly]
+* sport an alternative web interface that is as cool as [TiddlyWiki's][tiddly] and [GTDTiddlyWiki's][gtd] 
 * let you specify a markup system for rendering the HTML version of your content
 * come bundled with a Sinatra application that translates wiki pages into web pages upon request
 
 [tiddly]:http://www.tiddlywiki.com/
+[gtd]:http://nathanbowers.com/gtdtw/
 
 If you want to contribute any of these features, please feel free to implement
 them and submit a pull request.
