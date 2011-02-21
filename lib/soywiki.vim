@@ -413,7 +413,7 @@ function! CompletePageTitle(findstart, base)
         if ! exists("s:matching_pages") 
           let s:matching_pages = s:get_page_list()
         endif
-        let pages = base =~ '\C^[a-z]' ? s:matching_pages : s:pages_in_this_namespace(s:matching_pages)
+        let pages = base =~ '\C^[a-z]' ? s:matching_pages[:] : s:pages_in_this_namespace(s:matching_pages[:])
         for m in pages
           if m =~ '^\c' . base 
             call add(res, m)
