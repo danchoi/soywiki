@@ -370,6 +370,7 @@ function! s:page_list_window(page_match_list, buffer_name, prompt)
   setlocal buftype=nofile
   setlocal noswapfile
   setlocal modifiable
+  setlocal textwidth=0
   resize 1
   inoremap <silent> <buffer> <cr> <Esc>:call <SID>select_page()<CR> 
   inoremap <buffer> <Tab> <Esc>:call <SID>reduce_matches()<cr>
