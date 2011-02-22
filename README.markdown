@@ -4,6 +4,8 @@ SoyWiki turns Vim into a powerful, lean, and fast wiki.  It's got all the
 protein of a more conventional wiki, but less saturated fat and no
 cholesterol. 
 
+[screenshots]
+
 A quick overview of SoyWiki's characteristics and features:
 
 * flat text files
@@ -70,9 +72,6 @@ Test your installation by typing `soywiki -h`. You should see SoyWiki's help.
 If you run into any PATH errors, try the following: Install the RVM
 Version Manager, then install Ruby 1.9.2 through RVM, and then run `gem
 install soywiki`.  This should solve any installation issues.
-
-
-
 
 If you ever want to uninstall SoyWiki from your system, execute this command:
 

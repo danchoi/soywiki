@@ -30,28 +30,23 @@ end
 desc "build and push website"
 task :web => :build_webpage do
   puts "Building and pushing website"
-  `scp website/soywiki.html zoe2@instantwatcher.com:~/danielchoi.com/public/software/`
-  `scp -r website/images-soywiki zoe2@instantwatcher.com:~/danielchoi.com/public/software/`
-  `open http://danielchoi.com/software/soywiki.html`
-end
-
-desc "build website locally"
-task :build_web_locally => :build_webpage do
-  Dir.chdir("website") do
-    `open soywiki.html`
+  Dir.chdir "../project-webpages" do
+    `scp out/soywiki.html zoe2@instantwatcher.com:~/danielchoi.com/public/software/`
+    `rsync -avz out/images-soywiki zoe2@instantwatcher.com:~/danielchoi.com/public/software/`
+    `rsync -avz out/stylesheets zoe2@instantwatcher.com:~/danielchoi.com/public/software/`
+    `rsync -avz out/lightbox2 zoe2@instantwatcher.com:~/danielchoi.com/public/software/`
   end
+  `open http://danielchoi.com/software/soywiki.html`
 end
 
 desc "build webpage"
 task :build_webpage do
-  $LOAD_PATH.unshift 'website'
-  require 'gen'
-  Dir.chdir("website") do
-    html = Webpage.generate(Soywiki::VERSION)
-    File.open('soywiki.html', 'w') {|f| f.puts html}
+  `cp README.markdown ../project-webpages/src/soywiki.README.markdown`
+  Dir.chdir "../project-webpages" do
+    puts `ruby gen.rb soywiki #{Soywiki::VERSION}`
+    #`open out/soywiki.html`
   end
 end
-
 
 desc "Run tests"
 task :test do 
