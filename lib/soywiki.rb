@@ -23,9 +23,10 @@ END
       exit
     elsif ARGV.first == '--html'
       if ARGV[1] == '--markdown'
-        puts "got true"
+        puts "Exporting html using markdown"
         self.html_export(true)
       else
+        puts "Exporting html"
         self.html_export
       end
       exit
