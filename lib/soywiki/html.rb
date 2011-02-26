@@ -1,4 +1,5 @@
 require 'haml'
+require 'rdiscount'
 module Soywiki
   module Html
 
@@ -29,11 +30,18 @@ module Soywiki
 
     def self.generate_page(text, namespace, pages, namespaces)
       title = text.split("\n")[0]
-      body = process(text.split("\n")[1..-1].join("\n").strip)
+      body = if @markdown
+               RDiscount.new(text.split("\n")[1..-1].join("\n").strip)
+             else
+               process(text.split("\n")[1..-1].join("\n").strip)
+             end
+
       Haml::Engine.new(PAGE_TEMPLATE).render(nil, :body => body, 
                                              :title => title, 
                                              :namespace => namespace,
-                                             :namespaces => namespaces, :pages => pages)
+                                             :namespaces => namespaces,
+                                             :pages => pages,
+                                             :markdown => @markdown)
     end
 
 
@@ -82,7 +90,9 @@ module Soywiki
       # puts "=> Writing #{outfile}"
     end
 
-    def self.export
+    def self.export(markdown)
+      @markdown = markdown
+
       `rm -rf #{HTML_DIR}/*`
       namespaces = Dir["*"].select {|f| 
         File.directory?(f) && f != HTML_DIR

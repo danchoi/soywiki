@@ -24,4 +24,7 @@
             %a{:href => "#{page}.html"}= page
     .main
       %h2= title
-      %pre= body
+      - if markdown
+        != body.to_html
+      - else
+        %pre= body

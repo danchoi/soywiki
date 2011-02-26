@@ -20,4 +20,5 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency 'haml'
+  s.add_dependency 'rdiscount'
 end

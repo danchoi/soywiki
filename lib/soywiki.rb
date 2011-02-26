@@ -22,7 +22,12 @@ called main/HomePage.
 END
       exit
     elsif ARGV.first == '--html'
-      self.html_export 
+      if ARGV[1] == '--markdown'
+        puts "got true"
+        self.html_export(true)
+      else
+        self.html_export
+      end
       exit
     elsif ARGV.first == '--install-plugin'
       require 'erb'
@@ -39,9 +44,9 @@ END
     end
   end
 
-  def self.html_export
+  def self.html_export(markdown=false)
     require 'soywiki/html'
-    Html.export
+    Html.export(markdown)
   end
 end
 
