@@ -440,6 +440,7 @@ dreams within dreams.
 ## Exporting to HTML
 
 * `soywiki --html` 
+* `soywiki --html --markdown` 
 
 Want to share your wiki with non-Vim-users?  You can export your wiki
 into a directory of HTML pages. Type `soywiki --html` from the root
@@ -447,22 +448,13 @@ directory of your wiki.
 
 Aside from WikiWords, SoyWiki uses no markup system whatsoever. You can
 write your content in whatever markup system you want, or no markup
-system at all. It's all plain text to SoyWiki.  The HTML export feature
-just wraps your content in &lt;pre&gt; tags after turning your WikiWords
-into hyperlinks, so no markup system is really necessary.
+system at all. 
 
-HTML export is no-frills and basic. Hopefully, someday, SoyWiki will be
-able to
+By default, the HTML export feature just wraps your content in
+&lt;pre&gt; tags after turning your WikiWords into hyperlinks.
 
-* sport an alternative web interface that is as cool as [TiddlyWiki's][tiddly] and [GTDTiddlyWiki's][gtd] 
-* let you specify a markup system for rendering the HTML version of your content
-* come bundled with a Sinatra application that translates wiki pages into web pages upon request
-
-[tiddly]:http://www.tiddlywiki.com/
-[gtd]:http://nathanbowers.com/gtdtw/
-
-If you want to contribute any of these features, please feel free to implement
-them and submit a pull request.
+If instead you want to write your pages using Markdown, you can process
+Markdown by adding the `--markdown` flag.
 
 
 ## Extra macros
