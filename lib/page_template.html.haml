@@ -3,8 +3,8 @@
   %head
     :css
       h3 { margin-top: 0 }
-      .sidebar { float:left; width: 20%; font-size: small }
-      .main { margin-left: 22%; width: 70% }
+      .sidebar { float:left; width: 15%; font-size: small }
+      .main { margin-left: 32%; width: 65% }
       ul { list-style-type: none; margin-left: 0; padding-left: 0 }
       .page-count { font-size: smaller; color: #CCC }
 
@@ -17,6 +17,7 @@
             %a{:href => "../#{namespace}/index.html"}= namespace 
             %span.page-count
               = count
+    .sidebar
       %h3= namespace
       %ul
         - pages.each do |page|

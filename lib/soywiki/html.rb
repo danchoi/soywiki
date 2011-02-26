@@ -3,6 +3,9 @@ require 'rdiscount'
 module Soywiki
   module Html
 
+    HTML_DIR = 'html-export'
+    INDEX_PAGE_TEMPLATE = File.read(File.join(File.dirname(__FILE__), '..', 'index_template.html.haml'))
+
     def self.href_wiki_links(text)
       text = text.gsub(WIKI_WORD) {|match|
         href = if match =~ /\w\./ # namespace
@@ -45,8 +48,6 @@ module Soywiki
     end
 
 
-    HTML_DIR = 'soywiki-html-export'
-    INDEX_PAGE_TEMPLATE = File.read(File.join(File.dirname(__FILE__), '..', 'index_template.html.haml'))
 
     def self.wiki_page?(file)
       file.gsub("/", '.') =~ WIKI_WORD

@@ -3,8 +3,7 @@
   %head
     :css
       h3 { margin-top: 0 }
-      .sidebar { float:left; width: 20%; font-size: small }
-      .main { margin-left: 22%; width: 70% }
+      .sidebar { float:left; width: 15%; font-size: small }
       ul { list-style-type: none; margin-left: 0; padding-left: 0 }
       .page-count { font-size: smaller; color: #CCC }
   %body
@@ -19,6 +18,7 @@
               %a{:href => "../#{namespace}/index.html"}= namespace 
             %span.page-count
               = count
+    .sidebar
       - if ! root
         %h3= namespace
         %ul
