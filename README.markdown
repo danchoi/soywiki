@@ -343,8 +343,7 @@ your search to the current namespace.
 Vim will load any matches in the quickfix list window.  If there are
 matches, you can use `:cn` and `:cp` to go from match to match, `:cl` to
 list the matches, and `:cc [item number]` to see a particular match ln
-the list.  See `:help quickfix` to see the list of matches. for more
-QuickFix commands. 
+the list.  See `:help quickfix` or more QuickFix commands. 
 
 Examples:
 
