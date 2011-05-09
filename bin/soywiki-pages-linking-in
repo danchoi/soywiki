@@ -4,7 +4,7 @@ require 'soywiki'
 
 def contains_links_to?(file, page_title)
   return false unless File.file?(file)
-  return false if (file =~ /(\.swo|\.swp)$/ || file =~ /^\./)
+  return false if (file =~ /(\.swo|\.swp|\.txt|Notes\ &\ Settings)$/ || file =~ /^\./)
   body =   File.read(file)
   # '.' must be escaped in the regular expression to match literal
   body =~ /[\A\s\n\b]#{page_title.gsub(".", "\.")}\b/
