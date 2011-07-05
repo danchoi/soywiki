@@ -449,6 +449,8 @@ Aside from WikiWords, SoyWiki uses no markup system whatsoever. You can
 write your content in whatever markup system you want, or no markup
 system at all. 
 
+Please note that you need `haml` and `rdiscount` install on your system to
+export to HTML.
 By default, the HTML export feature just wraps your content in
 &lt;pre&gt; tags after turning your WikiWords into hyperlinks.
 
