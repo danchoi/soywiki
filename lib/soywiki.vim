@@ -241,6 +241,7 @@ func! s:delete_page()
   endif
 
   echo system("git rm " . file)
+  echo system("rm " . file)
   call system("git commit -am 'page deletion'")
   exec "bdelete " . bufnr
   redraw
