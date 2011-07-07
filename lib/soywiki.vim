@@ -259,7 +259,11 @@ func! s:rename_page(page_path_or_title)
     write!
     call system("mkdir -p " . s:namespace_of_title(page_title))
     let original_file = bufname('')
-    echo system("git mv " . original_file . " " .  newfile)
+    if executable("git"
+      echo system("git mv " . original_file . " " .  newfile)
+    else
+      echo system("mv " . original_file . " " .  newfile)
+    endif
     call system("git commit -am 'rename wiki page'")
     exec "!" . s:rename_links_command . original_file . " " . newfile
     call system("git commit -am 'rename wiki links'")
