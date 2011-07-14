@@ -631,7 +631,7 @@ endfunc
 func! s:prep_buffer()
   if (s:is_wiki_page() && !exists("b:mappings_loaded"))
     " let user decide on the textwidth
-    " set textwidth=72 
+    set filetype=txt
     nnoremap <buffer> <cr> :call <SID>follow_link_under_cursor(0)<cr> 
     nnoremap <buffer> <c-l> :call <SID>follow_link_under_cursor(2)<cr> 
     nnoremap <buffer> <c-h> :call <SID>follow_link_under_cursor(1)<cr> 
