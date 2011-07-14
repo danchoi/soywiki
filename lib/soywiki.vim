@@ -630,7 +630,8 @@ endfunc
 " and then turns on syntax coloring and mappings as necessary
 func! s:prep_buffer()
   if (s:is_wiki_page() && !exists("b:mappings_loaded"))
-    set textwidth=72
+    " let user decide on the textwidth
+    " set textwidth=72 
     nnoremap <buffer> <cr> :call <SID>follow_link_under_cursor(0)<cr> 
     nnoremap <buffer> <c-l> :call <SID>follow_link_under_cursor(2)<cr> 
     nnoremap <buffer> <c-h> :call <SID>follow_link_under_cursor(1)<cr> 
