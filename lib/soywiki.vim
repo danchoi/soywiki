@@ -44,6 +44,8 @@ endfunc
 func! s:namespace_of_title(page_title)
   let segments = split(a:page_title, '[./]')
   " page must have namespace
+  echom "Segments: ".len(segments)
+  echom "pageTitle: ".a:page_title
   if len(segments) == 2
     return get(segments, 0)
   else
