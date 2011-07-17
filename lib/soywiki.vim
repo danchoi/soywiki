@@ -677,7 +677,7 @@ endfunc
 
 func! s:highlight_wikiwords()
   if (s:is_wiki_page()) 
-    syntax clear
+    "syntax clear
     exe "syn match Comment /". s:wiki_link_pattern. "/"
     exe "syn match Constant /". s:http_link_pattern . "/"
   endif
