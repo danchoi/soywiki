@@ -259,7 +259,7 @@ func! s:rename_page(page_path_or_title)
     write!
     call system("mkdir -p " . s:namespace_of_title(page_title))
     let original_file = bufname('')
-    if executable("git"
+    if executable("git")
       echo system("git mv " . original_file . " " .  newfile)
     else
       echo system("mv " . original_file . " " .  newfile)
