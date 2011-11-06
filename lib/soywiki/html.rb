@@ -32,15 +32,19 @@ module Soywiki
     PAGE_TEMPLATE = File.read(File.join(File.dirname(__FILE__), '..', 'page_template.html.haml'))
 
     def self.generate_page(text, namespace, pages, namespaces)
-      title = text.split("\n")[0]
-      body = if @markdown
-               RDiscount.new(text.split("\n")[1..-1].join("\n").strip)
+      text = text.split("\n")
+
+      title = text.shift || ''
+      body = if text.empty?
+               ''
+             elsif @markdown
+               RDiscount.new(text.join("\n").strip)
              else
-               process(text.split("\n")[1..-1].join("\n").strip)
+               process(text.join("\n").strip)
              end
 
-      Haml::Engine.new(PAGE_TEMPLATE).render(nil, :body => body, 
-                                             :title => title, 
+      Haml::Engine.new(PAGE_TEMPLATE).render(nil, :body => body,
+                                             :title => title,
                                              :namespace => namespace,
                                              :namespaces => namespaces,
                                              :pages => pages,
