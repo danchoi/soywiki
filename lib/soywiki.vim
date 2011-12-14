@@ -211,6 +211,7 @@ func! s:load_page(page, split)
   elseif (a:split == 0) 
     exec "e ".file
   endif
+  normal 3G0
   if s:search_for_link != ''
     let res = search(s:search_for_link, 'cw')
     let s:search_for_link = ''
@@ -632,9 +633,9 @@ func! s:prep_buffer()
   if (s:is_wiki_page() && !exists("b:mappings_loaded"))
     " let user decide on the textwidth
     set filetype=txt
-    nnoremap <buffer> <cr> :call <SID>follow_link_under_cursor(0)<cr> 
-    nnoremap <buffer> <c-l> :call <SID>follow_link_under_cursor(2)<cr> 
-    nnoremap <buffer> <c-h> :call <SID>follow_link_under_cursor(1)<cr> 
+    nnoremap <buffer> <cr> :call <SID>follow_link_under_cursor(0)<cr>
+    nnoremap <buffer> <c-l> :call <SID>follow_link_under_cursor(2)<cr>
+    nnoremap <buffer> <c-h> :call <SID>follow_link_under_cursor(1)<cr>
     noremap <buffer> <leader>f :call <SID>fuzzy_follow_link(0)<CR>
     noremap <buffer> <c-j> :call <SID>find_next_wiki_link(0)<CR>
     noremap <buffer> <c-k> :call <SID>find_next_wiki_link(1)<CR>
