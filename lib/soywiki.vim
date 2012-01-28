@@ -686,7 +686,8 @@ endfunc
 
 call s:global_mappings()
 
-if (!isdirectory(".git"))
+" also catch detched git directories
+if (!isdirectory(".git")&&!filereadable(".git"))
   call system("git init")
   echom "Created .git repository to store revisions"
 endif
