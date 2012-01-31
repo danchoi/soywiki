@@ -10,9 +10,9 @@ let g:SoyWikiLoaded = 1
 let mapleader = ','
 
 " This regex matches namedspaced WikiWords and unqualified WikiWords 
-let s:wiki_link_pattern =  '\C\m\<\([a-z][[:alnum:]_]\+\.\)\?[A-Z][a-z]\+[A-Z0-9]\w*\>'
+let s:wiki_link_pattern =  '\C\m\<\([a-z0-9][[:alnum:]_]\+\.\)\?[A-Z][a-z]\+[A-Z0-9]\w*\>'
 let s:http_link_pattern = 'https\?:[^ >)\]]\+'
-let s:wiki_or_web_link_pattern =  '\C\<\([a-z][[:alnum:]_]\+\.\)\?[A-Z][a-z]\+[A-Z]\w*\>\|https\?:[^ >)\]]\+'
+let s:wiki_or_web_link_pattern =  '\C\<\([a-z0-9][[:alnum:]_]\+\.\)\?[A-Z][a-z]\+[A-Z0-9]\w*\>\|https\?:[^ >)\]]\+'
 
 let s:rename_links_command = 'soywiki-rename '
 let s:find_pages_linking_in_command = 'soywiki-pages-linking-in '

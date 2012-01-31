@@ -6,7 +6,7 @@ require 'soywiki'
 # this is different from Soywiki::WIKI_WORD in that it requires ^\s* before the
 # first letter
 
-WIKI_LINK_PATTERN =  /^\s*([a-z]\w+\.)?[A-Z][a-z]+[A-Z]\w*\s*$/
+WIKI_LINK_PATTERN =  /^\s*([a-z0-9]\w+\.)?[A-Z][a-z]+[A-Z0-9]\w*\s*$/
 
 PROCESSED_FILES = []
 

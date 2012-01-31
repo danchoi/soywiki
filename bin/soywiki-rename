@@ -42,7 +42,7 @@ def change_unqualified_inbound_links_in_same_namespace(oldname, newname)
   end
 end
 
-RELATIVE_LINK_REGEX = /(\A|\s)([A-Z][a-z]+[A-Z]\w*)/
+RELATIVE_LINK_REGEX = /(\A|\s)([A-Z][a-z]+[A-Z0-9]\w*)/
 
 def absolutize_unqualified_outbound_links(oldname, newname)
   MEMO << "Absolutizing unqualified inbound links"
