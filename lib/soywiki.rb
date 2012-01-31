@@ -1,8 +1,8 @@
 require 'string_ext'
 
 module Soywiki
-  VERSION = '0.8.5'
-  WIKI_WORD = /\b([a-z][\w_]+\.)?[A-Z][a-z]+[A-Z]\w*\b/
+  VERSION = '0.9.0'
+  WIKI_WORD = /\b([a-z][\w_]+\.)?[A-Z][a-z]+[A-Z0-9]\w*\b/
   HYPERLINK = %r|\bhttps?://[^ >)\n\]]+|
 
   def self.run

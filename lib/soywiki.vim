@@ -10,7 +10,7 @@ let g:SoyWikiLoaded = 1
 let mapleader = ','
 
 " This regex matches namedspaced WikiWords and unqualified WikiWords 
-let s:wiki_link_pattern =  '\C\m\<\([a-z][[:alnum:]_]\+\.\)\?[A-Z][a-z]\+[A-Z]\w*\>'
+let s:wiki_link_pattern =  '\C\m\<\([a-z][[:alnum:]_]\+\.\)\?[A-Z][a-z]\+[A-Z0-9]\w*\>'
 let s:http_link_pattern = 'https\?:[^ >)\]]\+'
 let s:wiki_or_web_link_pattern =  '\C\<\([a-z][[:alnum:]_]\+\.\)\?[A-Z][a-z]\+[A-Z]\w*\>\|https\?:[^ >)\]]\+'
 
