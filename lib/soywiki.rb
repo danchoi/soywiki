@@ -49,6 +49,15 @@ END
     require 'soywiki/html'
     Html.export(markdown)
   end
+
+  def self.set_substitute const, substitute_path
+    substitute = File.read(substitute_path)
+    module Soywiki
+      module Html
+        const_set const.to_sym, substitute
+      end
+    end
+  end
 end
 
 if __FILE__ == $0

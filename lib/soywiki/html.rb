@@ -42,7 +42,12 @@ module Soywiki
                process(text.join("\n").strip)
              end
 
-      Haml::Engine.new(PAGE_TEMPLATE).render(nil, :body => body,
+      page_template = if defined?(PAGE_TEMPLATE_SUB)
+                        PAGE_TEMPLATE_SUB
+                      else
+                        PAGE_TEMPLATE
+                      end
+      Haml::Engine.new(page_template).render(nil, :body => body,
                                              :title => title,
                                              :namespace => namespace,
                                              :namespaces => namespaces,
@@ -57,8 +62,13 @@ module Soywiki
     end
 
     def self.make_index_page(dir, pages, namespaces)
+      index_page_template = if defined?(INDEX_PAGE_TEMPLATE_SUB)
+                              INDEX_PAGE_TEMPLATE_SUB
+                            else
+                              INDEX_PAGE_TEMPLATE
+                            end
       outfile = File.join(HTML_DIR, dir, 'index.html')
-      html = Haml::Engine.new(INDEX_PAGE_TEMPLATE).render(nil, 
+      html = Haml::Engine.new(index_page_template).render(nil, 
                                              :namespace => dir, 
                                              :root => false,
                                              :pages => pages.map {|p| p.split('/')[1]}.sort, 
@@ -85,7 +95,11 @@ module Soywiki
 
     def self.make_root_index_page(namespaces)
       outfile = File.join(HTML_DIR, 'index.html')
-      html = Haml::Engine.new(INDEX_PAGE_TEMPLATE).render(nil, 
+      index_page_template = if defined?(INDEX_PAGE_TEMPLATE_SUB)
+                              INDEX_PAGE_TEMPLATE_SUB
+                            else
+                              INDEX_PAGE_TEMPLATE
+      html = Haml::Engine.new(index_page_template).render(nil, 
                                              :namespace => nil, 
                                              :pages => [], 
                                              :root => true,
