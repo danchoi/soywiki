@@ -6,7 +6,18 @@ module Soywiki
   HYPERLINK = %r|\bhttps?://[^ >)\n\]]+|
 
   def self.run
-    if %W( -v --version -h --help).include?(ARGV.first)
+    require 'getoptlong'
+
+    opts = GetoptLong.new(
+      [ '--help',    '-h',     GetoptLong::NO_ARGUMENT],
+      [ '--version', '-v',     GetoptLong::NO_ARGUMENT],
+      [ '--html',              GetoptLong::NO_ARGUMENT],
+      [ '--markdown',          GetoptLong::NO_ARGUMENT],
+      [ '--page',              GetoptLong::REQUIRED_ARGUMENT],
+      [ '--index',             GetoptLong::REQUIRED_ARGUMENT],
+    )
+
+    usage =->  do
       puts "soywiki #{Soywiki::VERSION}"
       puts "by Daniel Choi dhchoi@gmail.com"
       puts
@@ -21,16 +32,26 @@ called main/HomePage.
 ---
 END
       exit
-    elsif ARGV.first == '--html'
-      if ARGV[1] == '--markdown'
-        puts "Exporting html using markdown"
-        self.html_export(true)
-      else
-        puts "Exporting html"
-        self.html_export
+    end
+    install_plugin = false
+    html           = false
+    md             = false
+    index = page = nil
+    opts.each do |opt, arg|
+      case opt
+        when '--help' then usage[]
+        when '--version' then usage[]
+        when '--html' then html = true
+        when '--markdown' then md = true
+        when '--install-plugin' then install_plugin = true
+        when '--page' then page = arg
+        when '--index' then index = arg
       end
-      exit
-    elsif ARGV.first == '--install-plugin'
+    end
+    self.set_substitute %{INDEX_PAGE_TEMPLATE_SUB}.to_sym, index if index
+    self.set_substitute %{PAGE_TEMPLATE_SUB}.to_sym, page if page
+    self.html_export md if html
+    if install_plugin
       require 'erb'
       plugin_template = File.read(File.join(File.dirname(__FILE__), 'plugin.erb'))
       vimscript_file = File.join(File.dirname(__FILE__), 'soywiki.vim')
@@ -42,7 +63,7 @@ END
       vimscript = File.expand_path("../soywiki.vim", __FILE__)
       vim_command = "#{vim} -S #{vimscript}"
       exec vim_command
-    end
+    end unless html
   end
 
   def self.html_export(markdown=false)

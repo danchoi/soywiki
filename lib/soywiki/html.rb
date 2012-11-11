@@ -100,6 +100,7 @@ module Soywiki
                               INDEX_PAGE_TEMPLATE_SUB
                             else
                               INDEX_PAGE_TEMPLATE
+                            end
       html = Haml::Engine.new(index_page_template).render(nil, 
                                              :namespace => nil, 
                                              :pages => [], 
