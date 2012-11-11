@@ -1,5 +1,5 @@
 require 'string_ext'
-
+module Template_Substitution; end
 module Soywiki
   VERSION = '0.9.1'
   WIKI_WORD = /\b([a-z0-9][\w_]+\.)?[A-Z][a-z]+[A-Z0-9]\w*\b/
@@ -52,11 +52,7 @@ END
 
   def self.set_substitute const, substitute_path
     substitute = File.read(substitute_path)
-    module Soywiki
-      module Html
-        const_set const.to_sym, substitute
-      end
-    end
+    Template_Substitution.const_set const.to_sym, substitute
   end
 end
 
