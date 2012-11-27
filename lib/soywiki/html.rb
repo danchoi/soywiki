@@ -30,7 +30,6 @@ module Soywiki
     end
 
     PAGE_TEMPLATE = File.read(File.join(File.dirname(__FILE__), '..', 'page_template.html.haml'))
-
     def self.generate_page(text, namespace, pages, namespaces)
       text = text.split("\n")
 
@@ -38,7 +37,7 @@ module Soywiki
       body = if text.empty?
                ''
              elsif @markdown
-               RDiscount.new(text.join("\n").strip)
+               RDiscount.new(text.join("\n").strip).to_html.gsub("<pre><code>","<pre><code>\n") 
              else
                process(text.join("\n").strip)
              end

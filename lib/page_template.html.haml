@@ -1,6 +1,7 @@
 !!!
 %html
   %head
+    %meta{'http-equiv'=>'Content-Type', content:'text/html; charset=UTF-8'} 
     :css
       h3 { margin-top: 0 }
       .sidebar { float:left; width: 15%; font-size: small }
@@ -26,6 +27,6 @@
     .main
       %h2= title
       - if markdown
-        != body.to_html
+        != body
       - else
         %pre= body
