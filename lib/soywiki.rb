@@ -29,6 +29,15 @@ Run the command in a directory you've made to contain soywiki files.
 
 Soywiki will open the most recently modified wiki file or create a file
 called main/HomePage. 
+
+Parse to html:
+-- html
+  assume that wiki-files are in markdown syntax:
+  --markdown 
+  replace default haml-page-template with the one supplied:
+  --page template-file
+  replace default haml-index-template with the one supplied:
+  --index template-file
 ---
 END
       exit
