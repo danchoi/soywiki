@@ -574,7 +574,8 @@ func! s:expand(seamless, vertical)
 endfunc
 "------------------------------------------------------------------------
 func! s:open_href_under_cursor()
-  let href = expand("<cWORD>") 
+  let word = expand("<cWORD>")
+  let href = matchstr(word, s:http_link_pattern)
   let command = g:SoyWiki#browser_command . " '" . href . "' "
   call system(command)
   echom command 
