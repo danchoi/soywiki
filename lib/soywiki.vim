@@ -11,7 +11,7 @@ let mapleader = ','
 
 " This regex matches namedspaced WikiWords and unqualified WikiWords 
 let s:wiki_link_pattern =  '\C\m\<\([a-z0-9][[:alnum:]_]\+\.\)\?[A-Z][a-z]\+[A-Z0-9]\w*\>'
-let s:http_link_pattern = 'https\?:[^ >)\]]\+'
+let s:http_link_pattern = '\(https\?:[^ >\)\]]\+\)\|\[[^\]]\+\](\([^>\)\]]\+\))'
 let s:wiki_or_web_link_pattern =  '\C\<\([a-z0-9][[:alnum:]_]\+\.\)\?[A-Z][a-z]\+[A-Z0-9]\w*\>\|https\?:[^ >)\]]\+'
 
 let s:rename_links_command = 'soywiki-rename '
@@ -575,7 +575,8 @@ endfunc
 "------------------------------------------------------------------------
 func! s:open_href_under_cursor()
   let word = expand("<cWORD>")
-  let href = matchstr(word, s:http_link_pattern)
+  " use the first non-empty subgroup
+  let href = filter(matchlist(word, s:http_link_pattern), 'v:val != ""')[1]
   let command = g:SoyWiki#browser_command . " '" . href . "' "
   call system(command)
   echom command 
