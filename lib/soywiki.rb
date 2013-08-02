@@ -1,7 +1,7 @@
 require 'string_ext'
 module Template_Substitution; end
 module Soywiki
-  VERSION = '0.9.3'
+  VERSION = '0.9.4'
   WIKI_WORD = /\b([a-z0-9][\w_]+\.)?[A-Z][a-z]+[A-Z0-9]\w*\b/
   HYPERLINK = %r|\bhttps?://[^ >)\n\]]+|
 
