@@ -5,6 +5,7 @@
 if exists("g:SoyWikiLoaded") || &cp || version < 700
   finish
 endif
+
 let g:SoyWikiLoaded = 1
 
 let mapleader = ','
@@ -27,6 +28,11 @@ endfunc
 
 func! s:page_title()
   return substitute(bufname(''), '\/', '.', '')
+endfunc
+
+func! s:wiki_root()
+  let root_path = split(system("git rev-parse --show-toplevel"), "\n")[0] . '/'
+  return root_path
 endfunc
 
 func! s:display_missing_namespace_error(num_segments, page_title)
