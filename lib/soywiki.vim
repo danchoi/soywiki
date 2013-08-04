@@ -27,7 +27,10 @@ func! s:trimString(string)
 endfunc
 
 func! s:page_title()
-  return substitute(bufname(''), '\/', '.', '')
+  let path = s:wiki_root()
+  let raw_title = substitute(expand('%:p'), path, '', '')
+  let page_title = substitute(raw_title, '\/', '.', '')
+  return page_title
 endfunc
 
 func! s:wiki_root()
@@ -101,11 +104,15 @@ func! s:is_wiki_page()
 endfunc
 
 func! s:pagetitle2file(page)
-  return substitute(a:page, '\.', '/', 'g')
+  let path = s:wiki_root()
+  let filepath =  path . substitute(a:page, '\.', '/', 'g')
+  return filepath
 endfunc
 
 func! s:filename2pagetitle(page)
-  return substitute(a:page, '/', '.', 'g')
+  let path = s:wiki_root()
+  let title = substitute(substitute(a:page, path, '', 'g'), '/', '.', 'g')
+  return title
 endfunc
 
 func! s:list_pages()
@@ -213,7 +220,8 @@ func! s:load_page(page, split)
     if namespace == ""
       return
     end
-    call system("mkdir -p " . namespace)
+    let namespace_path = s:namespace_path_of_title(a:page)
+    call system("mkdir -p " . namespace_path)
     call writefile([title, '', ''], file) 
   endif
   if (a:split == 2) 
