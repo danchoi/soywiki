@@ -58,6 +58,12 @@ func! s:namespace_of_title(page_title)
   endif
 endfunc
 
+func! s:namespace_path_of_title(page_title)
+  let namespace = s:namespace_of_title(a:page_title)
+  let root_path = s:wiki_root()
+  return root_path . namespace
+endfunc
+
 func! s:page_namespace()
   return s:namespace_of_title(s:page_title())
 endfunc
