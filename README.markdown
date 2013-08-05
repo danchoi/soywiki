@@ -503,9 +503,13 @@ You can also join the [Google Group][group] and comment there.
 
 [group]:http://groups.google.com/group/soywiki-users?msg=new&lnk=gcis
 
-## How to contact the developer
+## Maintainer
 
-My name is Daniel Choi. I am based in Cambridge, Massachusetts, USA, and you
-can email me at dhchoi {at} gmail.com.  
+The original version of Soywiki was created by Daniel Choi (email: dhchoi at gmail.com).  
+
+Soywiki is now being maintained and extended by Tim r. Reddehase (github: [@0robustus1][tim]).
+
+[tim]:https://github.com/0robustus1
+
 
 
