@@ -19,6 +19,16 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
+  additional_info = <<-INFO
+For optional compilation of the wiki to html you will need:
+ - haml
+and for markdown support:
+ - rdiscount
+  INFO
+
+  s.requirements = additional_info
+  s.post_install_message = additional_info
+
   #s.add_dependency 'haml'
   #s.add_dependency 'rdiscount'
 end

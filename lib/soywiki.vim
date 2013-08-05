@@ -5,6 +5,7 @@
 if exists("g:SoyWikiLoaded") || &cp || version < 700
   finish
 endif
+
 let g:SoyWikiLoaded = 1
 
 let mapleader = ','
@@ -26,7 +27,15 @@ func! s:trimString(string)
 endfunc
 
 func! s:page_title()
-  return substitute(bufname(''), '\/', '.', '')
+  let path = s:wiki_root()
+  let raw_title = substitute(expand('%:p'), path, '', '')
+  let page_title = substitute(raw_title, '\/', '.', '')
+  return page_title
+endfunc
+
+func! s:wiki_root()
+  let root_path = split(system("git rev-parse --show-toplevel"), "\n")[0] . '/'
+  return root_path
 endfunc
 
 func! s:display_missing_namespace_error(num_segments, page_title)
@@ -50,6 +59,12 @@ func! s:namespace_of_title(page_title)
     call s:display_missing_namespace_error(len(segments), a:page_title)
     return ""
   endif
+endfunc
+
+func! s:namespace_path_of_title(page_title)
+  let namespace = s:namespace_of_title(a:page_title)
+  let root_path = s:wiki_root()
+  return root_path . namespace
 endfunc
 
 func! s:page_namespace()
@@ -89,11 +104,15 @@ func! s:is_wiki_page()
 endfunc
 
 func! s:pagetitle2file(page)
-  return substitute(a:page, '\.', '/', 'g')
+  let path = s:wiki_root()
+  let filepath =  path . substitute(a:page, '\.', '/', 'g')
+  return filepath
 endfunc
 
 func! s:filename2pagetitle(page)
-  return substitute(a:page, '/', '.', 'g')
+  let path = s:wiki_root()
+  let title = substitute(substitute(a:page, path, '', 'g'), '/', '.', 'g')
+  return title
 endfunc
 
 func! s:list_pages()
@@ -201,7 +220,8 @@ func! s:load_page(page, split)
     if namespace == ""
       return
     end
-    call system("mkdir -p " . namespace)
+    let namespace_path = s:namespace_path_of_title(a:page)
+    call system("mkdir -p " . namespace_path)
     call writefile([title, '', ''], file) 
   endif
   if (a:split == 2) 

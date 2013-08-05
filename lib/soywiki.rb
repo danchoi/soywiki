@@ -1,7 +1,7 @@
 require 'string_ext'
 module Template_Substitution; end
 module Soywiki
-  VERSION = '0.9.3'
+  VERSION = '0.9.5'
   WIKI_WORD = /\b([a-z0-9][\w_]+\.)?[A-Z][a-z]+[A-Z0-9]\w*\b/
   HYPERLINK = %r|\bhttps?://[^ >)\n\]]+|
 
@@ -13,15 +13,17 @@ module Soywiki
       [ '--version', '-v',     GetoptLong::NO_ARGUMENT],
       [ '--html',              GetoptLong::NO_ARGUMENT],
       [ '--markdown',          GetoptLong::NO_ARGUMENT],
+      [ '--install-plugin',    GetoptLong::NO_ARGUMENT],
       [ '--page',              GetoptLong::REQUIRED_ARGUMENT],
       [ '--index',             GetoptLong::REQUIRED_ARGUMENT],
     )
 
-    usage =->  do
+    usage =->(version_only=false)  do
       puts "soywiki #{Soywiki::VERSION}"
       puts "by Daniel Choi dhchoi@gmail.com"
+      exit if version_only
       puts
-      puts <<END
+      puts <<-END
 ---
 Usage: soywiki 
 
@@ -31,15 +33,21 @@ Soywiki will open the most recently modified wiki file or create a file
 called main/HomePage. 
 
 Parse to html:
--- html
-  assume that wiki-files are in markdown syntax:
-  --markdown 
-  replace default haml-page-template with the one supplied:
-  --page template-file
-  replace default haml-index-template with the one supplied:
-  --index template-file
+  --html
+    assume that wiki-files are in markdown syntax:
+      --markdown
+    replace default haml-page-template with the one supplied:
+      --page template-file
+    replace default haml-index-template with the one supplied:
+      --index template-file
+Install the soywiki vim plugin:
+  --install-plugin
+Show this help:
+  [--help, -h]
+Show version info:
+  [--version, -v]
 ---
-END
+      END
       exit
     end
     install_plugin = false
@@ -49,7 +57,7 @@ END
     opts.each do |opt, arg|
       case opt
         when '--help' then usage[]
-        when '--version' then usage[]
+        when '--version' then usage[true]
         when '--html' then html = true
         when '--markdown' then md = true
         when '--install-plugin' then install_plugin = true
