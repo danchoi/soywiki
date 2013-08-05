@@ -497,7 +497,7 @@ SoyWiki is very new, so there are kinks and bugs to iron out and lot of
 desirable features to add.  If you have a bug to report or a good feature to
 suggest, please file it on the [issue tracker][1].  That will help a lot.
 
-[1]:https://github.com/0robustus1/soywiki/issues
+[1]:https://github.com/danchoi/soywiki/issues
 
 You can also join the [Google Group][group] and comment there.
 
@@ -507,16 +507,5 @@ You can also join the [Google Group][group] and comment there.
 
 My name is Daniel Choi. I am based in Cambridge, Massachusetts, USA, and you
 can email me at dhchoi {at} gmail.com.  
-
-## Maintainer of project
-
-Since Daniel doesn't have the time anymore, the project will be maintained
-by Tim Reddehase. You can contact me via email at
-robustus {at} rightsrestricted.com.
-
-This also means, that current development and changes will be done
-from my [fork][2] at github.
-
-[2]: https://github.com/0robustus1/soywiki
 
 
