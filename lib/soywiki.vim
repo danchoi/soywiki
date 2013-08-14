@@ -12,7 +12,7 @@ let mapleader = ','
 " This regex matches namedspaced WikiWords and unqualified WikiWords 
 let s:wiki_link_pattern =  '\C\m\<\([a-z0-9][[:alnum:]_]\+\.\)\?[A-Z][a-z]\+[A-Z0-9]\w*\>'
 let s:http_link_pattern = '\(https\?:[^ >\)\]]\+\)\|\[[^\]]\+\](\([^>\)\]]\+\))'
-let s:wiki_or_web_link_pattern =  '\C\<\([a-z0-9][[:alnum:]_]\+\.\)\?[A-Z][a-z]\+[A-Z0-9]\w*\>\|https\?:[^ >)\]]\+'
+let s:wiki_or_web_link_pattern = '\C\<\([a-z0-9][[:alnum:]_]\+\.\)\?[A-Z][a-z]\+[A-Z0-9]\w*\>\|https\?:[^ >)\]]\+'
 
 let s:rename_links_command = 'soywiki-rename '
 let s:find_pages_linking_in_command = 'soywiki-pages-linking-in '
@@ -681,8 +681,17 @@ endfunc
 func! s:highlight_wikiwords()
   if (s:is_wiki_page()) 
     "syntax clear
-    exe "syn match Comment /". s:wiki_link_pattern. "/"
-    exe "syn match Constant /". s:http_link_pattern . "/"
+    exe "syn match wikiLink /". s:wiki_link_pattern. "/"
+    exe "syn match externalLink /".s:http_link_pattern."/ contains=mdTitleRegion,mdRefRegion"
+    exe "syn region mdTitleRegion start='\\[' end='\\]' contains=mdTitle contained"
+    exe "syn region mdRefRegion start='(' end=')' contains=mdRef contained"
+    exe "syn match mdTitle /[^\]\[]/ contained"
+    exe "syn match mdRef /[^)(]/ contained"
+    exe "hi link externalLink Constant"
+    exe "hi link mdTitleRegion Constant"
+    exe "hi link mdRefRegion Constant"
+    exe "hi link mdRef Constant"
+    exe "hi link wikiLink Comment"
   endif
 endfunc
 
