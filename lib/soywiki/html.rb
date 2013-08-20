@@ -6,6 +6,7 @@ module Soywiki
 
     HTML_DIR = 'html-export'
     INDEX_PAGE_TEMPLATE = File.read(File.join(File.dirname(__FILE__), '..', 'index_template.html.haml'))
+    BROKEN_MARKDOWN_HYPERLINK = %r|\[([^\]]+)\]\(\[(#{HYPERLINK})\]\(\2\)\)|
 
     def self.href_wiki_links(text)
       text = text.gsub(WIKI_WORD) {|match|
@@ -20,9 +21,11 @@ module Soywiki
     end
 
     def self.href_hyperlinks(text)
-      text = text.gsub(HYPERLINK) {|match|
-        %{<a href="#{match}">#{match}</a>}
-      }
+      substitute = if @markdown then '[\\0](\\0)' else '<a href="\\0">\\0</a>' end
+      text = text.gsub(HYPERLINK, substitute)
+      if @markdown
+          text = text.gsub(BROKEN_MARKDOWN_HYPERLINK, '[\\1](\\2)')
+      end
       return text
     end
 
@@ -35,13 +38,13 @@ module Soywiki
       text = text.split("\n")
 
       title = text.shift || ''
-      body = if text.empty?
-               ''
-             elsif @markdown
-               RDiscount.new(text.join("\n").strip).to_html.gsub("<pre><code>","<pre><code>\n") 
-             else
-               process(text.join("\n").strip)
-             end
+      body = ''
+      if not text.empty?
+        body = self.process(text.join("\n").strip)
+        if @markdown
+             body = RDiscount.new(body).to_html.gsub("<pre><code>","<pre><code>\n") 
+        end
+      end
 
       page_template = if defined?(PAGE_TEMPLATE_SUB)
                         PAGE_TEMPLATE_SUB
