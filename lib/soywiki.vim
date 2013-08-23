@@ -602,8 +602,9 @@ endfunc
 "------------------------------------------------------------------------
 func! s:open_href_under_cursor()
   let word = expand("<cWORD>")
-  let href = matchstr(word, s:uri_link_pattern)
-  let command = g:SoyWiki#browser_command . " '" . href . "' "
+  let soyuri = matchstr(word, s:uri_link_pattern)
+  let uri = s:expand_iana_uri(soyuri)
+  let command = g:SoyWiki#browser_command . " '" . uri . "' "
   call system(command)
   echom command 
 endfunc
