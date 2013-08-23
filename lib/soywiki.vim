@@ -12,7 +12,7 @@ let mapleader = ','
 
 " This regex matches namedspaced WikiWords and unqualified WikiWords 
 let s:wiki_link_pattern =  '\C\m\<\([a-z0-9][[:alnum:]_]\+\.\)\?[A-Z][a-z]\+[A-Z0-9]\w*\>'
-let s:http_link_pattern = '\v(https|http|file|):[^ >)\]]+\V'
+let s:uri_link_pattern = '\v(https|http|file|soyfile):[^ >)\]]+\V'
 let s:wiki_or_web_link_pattern =  '\C\<\([a-z0-9][[:alnum:]_]\+\.\)\?[A-Z][a-z]\+[A-Z0-9]\w*\>\|https\?:[^ >)\]]\+'
 
 let s:rename_links_command = 'soywiki-rename '
@@ -167,7 +167,7 @@ endfunc
 
 func! s:follow_link_under_cursor(split)
   let word = expand("<cWORD>")
-  if match(word, s:http_link_pattern) != -1
+  if match(word, s:uri_link_pattern) != -1
     call s:open_href_under_cursor()
     return
   endif
@@ -595,14 +595,14 @@ endfunc
 "------------------------------------------------------------------------
 func! s:open_href_under_cursor()
   let word = expand("<cWORD>")
-  let href = matchstr(word, s:http_link_pattern)
+  let href = matchstr(word, s:uri_link_pattern)
   let command = g:SoyWiki#browser_command . " '" . href . "' "
   call system(command)
   echom command 
 endfunc
 
 func! s:find_next_href_and_open()
-  let res = search(s:http_link_pattern, 'cw')
+  let res = search(s:uri_link_pattern, 'cw')
   if res != 0
     call s:open_href_under_cursor()
   endif
@@ -701,7 +701,7 @@ func! s:highlight_wikiwords()
   if (s:is_wiki_page()) 
     "syntax clear
     exe "syn match Comment /". s:wiki_link_pattern. "/"
-    exe "syn match Constant /". s:http_link_pattern . "/"
+    exe "syn match Constant /". s:uri_link_pattern . "/"
   endif
 endfunc
 
