@@ -623,16 +623,24 @@ func! s:expand_iana_uri(soyuri)
 
     let filepath = substitute(a:soyuri, 'soyfile://', '', '')
 
+    " the case that the soyfile is actually an absolute path
+    if match(filepath, '\v^/') != -1
+      return "file://" . filepath
+    endif
+
     let autochdir_path = fnamemodify(autochdir_rel_path . '/' . filepath, ':p')
     let wiki_path = fnamemodify(wiki_rel_path . '/' . filepath, ':p')
     let uri_path_part = wiki_path
 
+    " the case that the path supplied was relative to
+    " the current namespace directory (autochdir-option)
     if filereadable(autochdir_path)
       let uri_path_part = autochdir_path
     endif
 
     return 'file://' . uri_path_part
   else
+    " return non-soyfile uris unchanged
     return a:soyuri
   end
 endfunc
