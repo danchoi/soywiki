@@ -12,7 +12,8 @@ let mapleader = ','
 
 " This regex matches namedspaced WikiWords and unqualified WikiWords 
 let s:wiki_link_pattern =  '\C\m\<\([a-z0-9][[:alnum:]_]\+\.\)\?[A-Z][a-z]\+[A-Z0-9]\w*\>'
-let s:http_link_pattern = '\v(https|http|file|):[^ >)\]]+\V'
+let s:uri_link_pattern = '\v(https|http|file|soyfile):[^ >)\]]+\V'
+let s:soyfile_pattern = '\v^soyfile:[^ >)\]]+\V'
 let s:wiki_or_web_link_pattern =  '\C\<\([a-z0-9][[:alnum:]_]\+\.\)\?[A-Z][a-z]\+[A-Z0-9]\w*\>\|https\?:[^ >)\]]\+'
 
 let s:rename_links_command = 'soywiki-rename '
@@ -31,6 +32,12 @@ func! s:page_title()
   let raw_title = substitute(expand('%:p'), path, '', '')
   let page_title = substitute(raw_title, '\/', '.', '')
   return page_title
+endfunc
+
+func! s:current_namespace_path()
+  let absolutepath = expand('%:p')
+  let dir_path = fnamemodify(absolutepath, ':h')
+  return dir_path
 endfunc
 
 func! s:wiki_root()
@@ -167,7 +174,7 @@ endfunc
 
 func! s:follow_link_under_cursor(split)
   let word = expand("<cWORD>")
-  if match(word, s:http_link_pattern) != -1
+  if match(word, s:uri_link_pattern) != -1
     call s:open_href_under_cursor()
     return
   endif
@@ -595,17 +602,47 @@ endfunc
 "------------------------------------------------------------------------
 func! s:open_href_under_cursor()
   let word = expand("<cWORD>")
-  let href = matchstr(word, s:http_link_pattern)
-  let command = g:SoyWiki#browser_command . " '" . href . "' "
+  let soyuri = matchstr(word, s:uri_link_pattern)
+  let uri = s:expand_iana_uri(soyuri)
+  let command = g:SoyWiki#browser_command . " '" . uri . "' "
   call system(command)
   echom command 
 endfunc
 
 func! s:find_next_href_and_open()
-  let res = search(s:http_link_pattern, 'cw')
+  let res = search(s:uri_link_pattern, 'cw')
   if res != 0
     call s:open_href_under_cursor()
   endif
+endfunc
+
+func! s:expand_iana_uri(soyuri)
+  if match(a:soyuri, s:soyfile_pattern) != -1
+    let autochdir_rel_path = s:current_namespace_path()
+    let wiki_rel_path = s:wiki_root()
+
+    let filepath = substitute(a:soyuri, 'soyfile://', '', '')
+
+    " the case that the soyfile is actually an absolute path
+    if match(filepath, '\v^/') != -1
+      return "file://" . filepath
+    endif
+
+    let autochdir_path = fnamemodify(autochdir_rel_path . '/' . filepath, ':p')
+    let wiki_path = fnamemodify(wiki_rel_path . '/' . filepath, ':p')
+    let uri_path_part = wiki_path
+
+    " the case that the path supplied was relative to
+    " the current namespace directory (autochdir-option)
+    if filereadable(autochdir_path)
+      let uri_path_part = autochdir_path
+    endif
+
+    return 'file://' . uri_path_part
+  else
+    " return non-soyfile uris unchanged
+    return a:soyuri
+  end
 endfunc
 
 func! s:goto_homepage(main)
@@ -701,7 +738,7 @@ func! s:highlight_wikiwords()
   if (s:is_wiki_page()) 
     "syntax clear
     exe "syn match Comment /". s:wiki_link_pattern. "/"
-    exe "syn match Constant /". s:http_link_pattern . "/"
+    exe "syn match Constant /". s:uri_link_pattern . "/"
   endif
 endfunc
 

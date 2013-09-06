@@ -7,6 +7,7 @@ module Soywiki
     HTML_DIR = 'html-export'
     INDEX_PAGE_TEMPLATE = File.read(File.join(File.dirname(__FILE__), '..', 'index_template.html.haml'))
     BROKEN_MARKDOWN_HYPERLINK = %r|\[([^\]]+)\]\(\[(#{HYPERLINK})\]\(\2\)\)|
+    @current_namespace = nil
 
     def self.href_wiki_links(text)
       text = text.gsub(WIKI_WORD) {|match|
@@ -24,9 +25,29 @@ module Soywiki
       substitute = if @markdown then '[\\0](\\0)' else '<a href="\\0">\\0</a>' end
       text = text.gsub(HYPERLINK, substitute)
       if @markdown
-          text = text.gsub(BROKEN_MARKDOWN_HYPERLINK, '[\\1](\\2)')
+        text = text.gsub(BROKEN_MARKDOWN_HYPERLINK, '[\\1](\\2)')
       end
+      text = text.gsub(HYPERLINK) { |uri| soyfile_to_uri(uri) }
       return text
+    end
+
+    def self.soyfile_to_uri(uri)
+      uri_after_scheme = %r{[^ >)\n\]]+}
+      if uri =~ %r{^soyfile://(#{uri_after_scheme})}
+        path = choose_soyfile_path($1)
+        return "file://#{path}" if path[0] == '/'
+      else
+        return uri
+      end
+    end
+
+    def self.choose_soyfile_path(path)
+      return path if path[0] == '/'
+      wiki_root = Dir.getwd
+      autochdir_path = File.absolute_path(
+        File.join(wiki_root, @current_namespace, path))
+      wiki_path = File.absolute_path(File.join(wiki_root, path))
+      File.exists?(autochdir_path) ? autochdir_path : wiki_path
     end
 
     def self.process(t)
@@ -35,6 +56,7 @@ module Soywiki
 
     PAGE_TEMPLATE = File.read(File.join(File.dirname(__FILE__), '..', 'page_template.html.haml'))
     def self.generate_page(text, namespace, pages, namespaces)
+      @current_namespace = namespace
       text = text.split("\n")
 
       title = text.shift || ''
@@ -123,11 +145,13 @@ module Soywiki
         count = Dir["#{namespace}/*"].select {|f| wiki_page?(f)}.size
         [namespace, count]
       }
+      @current_namespace = nil
       namespaces.each do |namespace_dir, count|
         make_pages namespace_dir, namespaces
       end
       # make root index page
       make_root_index_page namespaces
+      @current_namespace = nil
       puts "HTML files written to #{HTML_DIR}/"
     end
 
