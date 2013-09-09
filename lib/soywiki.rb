@@ -3,7 +3,8 @@ module Template_Substitution; end
 module Soywiki
   VERSION = '0.9.6'
   WIKI_WORD = /\b([a-z0-9][\w_]+\.)?[A-Z][a-z]+[A-Z0-9]\w*\b/
-  HYPERLINK = %r|\bhttps?://[^ >)\n\]]+|
+  SCHEMES = %w{https http file soyfile}
+  HYPERLINK = %r|\b(?:#{SCHEMES.join('|')})://[^ >)\n\]]+|
 
   def self.run
     require 'getoptlong'
