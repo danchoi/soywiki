@@ -490,6 +490,19 @@ pattern. But SoyWiki stands with CamelCase.
 No wiki link pattern is perfect! All involve trade-offs. The CamelCase
 pattern gives you a lot in return for its particular compromises. 
 
+## Hyperlinks
+
+There may come the time when you want to link to content, that
+isn't part of your wiki. The common link-syntax will allow
+you to refer to websites. But if you want to link
+to something in your own filesystem you can
+also use the `file://` schema. This schema
+actually only allows absolute file paths. To circumvent
+this problem we have added support for our own schema:
+`soyfile://` which allows to link to files relative
+to the wiki root or, if you use vim's
+*autochdir* option, relative to the current namespace.
+
 
 ## Bug reports and feature requests
 
