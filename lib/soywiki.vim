@@ -22,6 +22,10 @@ let s:expand_command = 'soywiki-expand '
 let s:ls_command = 'soywiki-ls-t '
 let s:search_for_link = ""
 
+if !exists("g:soywiki_filetype")
+	let g:soywiki_filetype = 'txt'
+endif
+
 func! s:trimString(string)
   let string = substitute(a:string, '\s\+$', '', '')
   return substitute(string, '^\s\+', '', '')
@@ -690,7 +694,7 @@ endfunc
 func! s:prep_buffer()
   if (s:is_wiki_page() && !exists("b:mappings_loaded"))
     " let user decide on the textwidth
-    set filetype=txt
+    let &filetype=g:soywiki_filetype
     nnoremap <buffer> <cr> :call <SID>follow_link_under_cursor(0)<cr>
     nnoremap <buffer> <c-l> :call <SID>follow_link_under_cursor(2)<cr>
     nnoremap <buffer> <c-h> :call <SID>follow_link_under_cursor(1)<cr>
