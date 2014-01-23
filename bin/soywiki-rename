@@ -1,10 +1,23 @@
 #!/usr/bin/env ruby
 # encoding: UTF-8
 require 'soywiki'
+require 'pathname'
 
-oldname, newname = *ARGV
+repo_path, oldname, newname = *ARGV
+repo_path = Pathname.new(repo_path)
 
 MEMO = ["Updating inbound and outbound links..."]
+
+define_method :portion do |full_path|
+  full_path = Pathname.new(full_path) if full_path.is_a?(String)
+  full_path.relative_path_from(repo_path).to_s
+end
+
+define_method :full do |path|
+  path = Pathname.new(path) if path.is_a?(String)
+  return path.to_s if path.absolute?
+  repo_path.join(path).to_s
+end
 
 def report(file, oldname, newname)
   MEMO <<  "  - In #{file}: #{oldname.to_page_title} -> #{newname.to_page_title}"
@@ -12,15 +25,15 @@ end
 
 def change_all_absolute_links(oldname, newname)
   MEMO << "- Updating all absolute links"
-  target_files = `grep -rlF '#{oldname.to_page_title}' *`.strip.split(/\n/)
+  target_files = `grep -rlF '#{portion(oldname).to_page_title}' #{full('')}`.strip.split(/\n/)
   target_files.select {|f| f !~ /(\.swp|\.swo)$/}.each do |file|
     text = File.read(file)
     begin
-      regex = /\b#{oldname.to_page_title}\b/
+      regex = /\b#{portion(oldname).to_page_title}\b/
       matches = text.scan(regex)
-      text = text.gsub(regex, newname.to_page_title)
+      text = text.gsub(regex, portion(newname).to_page_title)
       File.open(file, 'w') {|f| f.puts text}
-      report file, oldname.to_page_title, newname.to_page_title
+      report file, portion(oldname).to_page_title, portion(newname).to_page_title
     rescue
       puts "Error processing #{file}: #$!"
     end
@@ -29,13 +42,13 @@ end
 
 def change_unqualified_inbound_links_in_same_namespace(oldname, newname)
   MEMO << "- Updating unqualified inbound links"
-  target_files = `grep -rlF '#{oldname.short_page_title}' #{oldname.namespace}/*`.strip.split(/\n/)
+  target_files = `grep -rlF '#{portion(oldname).short_page_title}' #{full(portion(oldname).namespace)}`.strip.split(/\n/)
   target_files.select {|f| f !~ /(\.swp|\.swo)$/}.each do |file|
     text = File.read(file)
     begin
-      text = text.gsub(/(\A|\s)(#{oldname.short_page_title}\b)/, '\1' + newname.to_page_title)
+      text = text.gsub(/(\A|\s)(#{portion(oldname).short_page_title}\b)/, '\1' + portion(newname).to_page_title)
       File.open(file, 'w') {|f| f.puts text}
-      report file, oldname.short_page_title, newname
+      report file, portion(oldname).short_page_title, portion(newname)
     rescue
       puts "Error processing #{file}: #$!"
     end
@@ -46,18 +59,18 @@ RELATIVE_LINK_REGEX = /(\A|\s)([A-Z][a-z]+[A-Z0-9]\w*)/
 
 def absolutize_unqualified_outbound_links(oldname, newname)
   MEMO << "Absolutizing unqualified inbound links"
-  target_file = newname.to_file_path
+  target_file = full(newname).to_file_path
   if File.exist?(target_file)
     text = File.read(target_file)
     begin
       matches = text.scan(RELATIVE_LINK_REGEX).map {|x| x[1]}.
         select {|match| match.strip != "" }.
-        select {|match| File.exist?( oldname.namespace + "/#{match}" ) }
+        select {|match| File.exist?( portion(oldname).namespace + "/#{match}" ) }
       puts MEMO << "  - In file #{target_file}: matches: #{matches.inspect}"
 
       text = text.gsub(RELATIVE_LINK_REGEX) do |match|
         if matches.include?($2)
-          res = "#$1#{oldname.namespace}.#{$2}"
+          res = "#$1#{portion(oldname).namespace}.#{$2}"
           MEMO <<  "  - In file #{target_file}: #{$2} -> #{res.strip}"
           res
         else
@@ -80,23 +93,22 @@ end
 # In the directory for OldName's namespace, change all unqualified referenecs to
 # OldName to NewName
 
-if oldname.namespace == newname.namespace
+if portion(oldname).namespace == portion(newname).namespace
   MEMO << "- Updating unqualified links in same namespace"
-  target_files = `grep -rlF '#{oldname.short_page_title}' #{oldname.namespace}/*`.strip.split(/\n/)
+  target_files = `grep -rlF '#{portion(oldname).short_page_title}' #{full(portion(oldname).namespace)}`.strip.split(/\n/)
   target_files.select {|f| f !~ /(\.swp|\.swo)$/}.each do |file|
     text = File.read(file)
     begin
-      text = text.gsub(/(\A|\s)(#{oldname.short_page_title})\b/, '\1' + newname.short_page_title)
+      text = text.gsub(/(\A|\s)(#{portion(oldname).short_page_title})\b/, '\1' + portion(newname).short_page_title)
       File.open(file, 'w') {|f| f.puts text}
-      report file, oldname.short_page_title, newname.short_page_title
+      report file, portion(oldname).short_page_title, portion(newname).short_page_title
     rescue
       puts "Error processing #{file}: #$!"
     end
   end
-end
-
 # Case 2: newname is in different namespace from oldname
-if oldname.namespace != newname.namespace
+# oldname.namespace != newname.namespace
+else
   # In the directory for OldName's namespace, change all unqualified references to
   # OldName to newnamespace.NewName (i.e. NewName).
   change_unqualified_inbound_links_in_same_namespace(oldname, newname)
