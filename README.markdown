@@ -46,8 +46,8 @@ SoyWiki is free and open source.
 ## Prerequisites
 
 * a recent version of Vim (SoyWiki is developed against Vim 7.2 and 7.3)
-* a recent version of Ruby: Ruby 1.9.2 is recommended
-* RubyGems (if Ruby version is older than 1.9)
+* a recent version of Ruby: Ruby 2.1.0 is recommended
+* RubyGems (if Ruby version is older than 2.1.0)
 * a recent version of [Git][git] (1.7.0.4 or above to be safe)
 
 [git]:http://git-scm.com/
@@ -56,7 +56,7 @@ The current version of SoyWiki assumes a Unix environment.
 
 To use SoyWiki you should be fairly good at using Vim. 
 
-To install Ruby 1.9.2, I recommend using the [RVM Version Manager][rvm].
+To install Ruby 2.1.0, I recommend using the [RVM Version Manager][rvm].
 
 [rvm]:http://rvm.beginrescueend.com
 
@@ -70,7 +70,7 @@ installed. But the revision history commands will not.
 Test your installation by typing `soywiki -h`. You should see SoyWiki's help.
 
 If you run into any PATH errors, try the following: Install the RVM
-Version Manager, then install Ruby 1.9.2 through RVM, and then run `gem
+Version Manager, then install Ruby 2.1.0 through RVM, and then run `gem
 install soywiki`.  This should solve any installation issues.
 
 If you ever want to uninstall SoyWiki from your system, execute this command:
