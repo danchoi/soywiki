@@ -3,121 +3,171 @@
 require 'soywiki'
 require 'pathname'
 
-repo_path, oldname, newname = *ARGV
-repo_path = Pathname.new(repo_path)
+class Soywiki::Renamer
+  attr_reader :repo_path, :old_name, :new_name
+  attr_reader :memo
 
-MEMO = ["Updating inbound and outbound links..."]
+  def initialize(repo_path, old_name, new_name)
+    @repo_path = ensure_path(repo_path)
+    @old_path = ensure_path(old_name)
+    @new_path = ensure_path(new_name)
+    @old_name = repo_relative(@old_path).to_s
+    @new_name = repo_relative(@new_path).to_s
+    @memo = ["Updating inbound and outbound links..."]
+  end
 
-define_method :portion do |full_path|
-  full_path = Pathname.new(full_path) if full_path.is_a?(String)
-  full_path.relative_path_from(repo_path).to_s
-end
+  def namespace(query=nil)
+    self.instance_variable_get("@#{query}_name").namespace
+  rescue
+    nil
+  end
 
-define_method :full do |path|
-  path = Pathname.new(path) if path.is_a?(String)
-  return path.to_s if path.absolute?
-  repo_path.join(path).to_s
-end
+  def page_title(query=nil)
+    self.instance_variable_get("@#{query}_name").to_page_title
+  rescue
+    nil
+  end
 
-def report(file, oldname, newname)
-  MEMO <<  "  - In #{file}: #{oldname.to_page_title} -> #{newname.to_page_title}"
-end
+  def short_page_title(query=nil)
+    self.instance_variable_get("@#{query}_name").short_page_title
+  rescue
+    nil
+  end
 
-def change_all_absolute_links(oldname, newname)
-  MEMO << "- Updating all absolute links"
-  target_files = `grep -rlF '#{portion(oldname).to_page_title}' #{full('')}`.strip.split(/\n/)
-  target_files.select {|f| f !~ /(\.swp|\.swo)$/}.each do |file|
-    text = File.read(file)
-    begin
-      regex = /\b#{portion(oldname).to_page_title}\b/
-      matches = text.scan(regex)
-      text = text.gsub(regex, portion(newname).to_page_title)
-      File.open(file, 'w') {|f| f.puts text}
-      report file, portion(oldname).to_page_title, portion(newname).to_page_title
-    rescue
-      puts "Error processing #{file}: #$!"
+  def repo_relative(path)
+    ensure_path(path).relative_path_from(repo_path)
+  end
+
+  def in_repo(path)
+    repo_path.join(path)
+  end
+
+  def ensure_path(path)
+    path.is_a?(Pathname) ? path : Pathname.new(path)
+  end
+
+  def report(file, oldname, newname)
+    @memo <<  "  - In #{file}: #{oldname} -> #{newname}"
+  end
+
+  def memorize(message)
+    @memo ||= []
+    @memo << message if message.is_a?(String)
+    @memo += message if message.is_a?(Array)
+    message
+  end
+
+  def print_report
+    puts @memo.join("\n")
+  end
+
+  def grep_for_files(search, where, ignore=/(\.swp|\.swo)$/)
+    cmd = "grep -rlF '#{search}' #{where}"
+    puts cmd
+    files = `#{cmd}`.strip.split(/\n/)
+    ignore ? files.select { |f| f !~ ignore } : files
+  end
+
+  def change_all_absolute_links
+    memorize "- Updating all absolute links"
+    grep_for_files(page_title(:old), repo_path).each do |file|
+      text = File.read(file)
+      begin
+        regex = /\b#{page_title(:old)}\b/
+        matches = text.scan(regex)
+        text = text.gsub(regex, page_title(:new))
+        File.open(file, 'w') {|f| f.puts text}
+        report file, page_title(:old), page_title(:new)
+      rescue
+        puts "Error processing #{file}: #$!"
+      end
     end
   end
-end
 
-def change_unqualified_inbound_links_in_same_namespace(oldname, newname)
-  MEMO << "- Updating unqualified inbound links"
-  target_files = `grep -rlF '#{portion(oldname).short_page_title}' #{full(portion(oldname).namespace)}`.strip.split(/\n/)
-  target_files.select {|f| f !~ /(\.swp|\.swo)$/}.each do |file|
-    text = File.read(file)
-    begin
-      text = text.gsub(/(\A|\s)(#{portion(oldname).short_page_title}\b)/, '\1' + portion(newname).to_page_title)
-      File.open(file, 'w') {|f| f.puts text}
-      report file, portion(oldname).short_page_title, portion(newname)
-    rescue
-      puts "Error processing #{file}: #$!"
+  def change_unqualified_inbound_links_in_same_namespace
+    memorize "- Updating unqualified inbound links"
+    grep_for_files(short_page_title(:old), in_repo(namespace(:old))).each do |file|
+      text = File.read(file)
+      begin
+        text = text.gsub(/(\A|\s)(#{short_page_title(:old)}\b)/, '\1' + page_title(:new))
+        File.open(file, 'w') {|f| f.puts text}
+        report file, short_page_title(:old), new_name
+      rescue
+        puts "Error processing #{file}: #$!"
+      end
     end
   end
-end
 
-RELATIVE_LINK_REGEX = /(\A|\s)([A-Z][a-z]+[A-Z0-9]\w*)/
+  RELATIVE_LINK_REGEX = /(\A|\s)([A-Z][a-z]+[A-Z0-9]\w*)/
 
-def absolutize_unqualified_outbound_links(oldname, newname)
-  MEMO << "Absolutizing unqualified inbound links"
-  target_file = full(newname).to_file_path
-  if File.exist?(target_file)
-    text = File.read(target_file)
-    begin
-      matches = text.scan(RELATIVE_LINK_REGEX).map {|x| x[1]}.
-        select {|match| match.strip != "" }.
-        select {|match| File.exist?( portion(oldname).namespace + "/#{match}" ) }
-      puts MEMO << "  - In file #{target_file}: matches: #{matches.inspect}"
+  def absolutize_unqualified_outbound_links
+    memorize "Absolutizing unqualified inbound links"
+    target_file = ensure_path(in_repo(new_name).to_s.to_file_path)
+    if target_file.exist?
+      text = target_file.read
+      begin
+        matches = text.scan(RELATIVE_LINK_REGEX).map {|x| x[1]}.
+          select {|match| match.strip != "" }.
+          select {|match| in_repo("#{namespace(:old)}/#{match}").exist? }
+        puts memorize("  - In file #{target_file}: matches: #{matches.inspect}")
 
-      text = text.gsub(RELATIVE_LINK_REGEX) do |match|
-        if matches.include?($2)
-          res = "#$1#{portion(oldname).namespace}.#{$2}"
-          MEMO <<  "  - In file #{target_file}: #{$2} -> #{res.strip}"
-          res
-        else
-          MEMO <<  "  - In file #{target_file}: skipping #{$2}"
-          match
+        text = text.gsub(RELATIVE_LINK_REGEX) do |match|
+          if matches.include?($2)
+            res = "#$1#{namespace(:old)}.#{$2}"
+            memorize "  - In file #{target_file}: #{$2} -> #{res.strip}"
+            res
+          else
+            memorize  "  - In file #{target_file}: skipping #{$2}"
+            match
+          end
+        end
+        File.open(target_file, 'w') {|f| f.puts text}
+      rescue
+        puts "Error processing #{target_file}: #$!"
+      end
+    end
+  end
+
+  def rename
+    # Three other cases to cover, involving namespaces:
+    #
+    # Case 1: newname is in same namespace as oldname
+    #
+    # In the directory for OldName's namespace, change all unqualified references to
+    # OldName to NewName
+
+    if namespace(:old) == namespace(:new)
+      memorize "- Updating unqualified links in same namespace"
+      grep_for_files(short_page_title(:old), in_repo(namespace(:old))).each do |file|
+        text = File.read(file)
+        begin
+          text = text.gsub(/(\A|\s)(#{short_page_title(:old)})\b/, '\1' + short_page_title(:new))
+          File.open(file, 'w') {|f| f.puts text}
+          report file, short_page_title(:old), short_page_title(:new)
+        rescue
+          puts "Error processing #{file}: #$!"
         end
       end
-      File.open(target_file, 'w') {|f| f.puts text}
-    rescue
-      puts "Error processing #{target_file}: #$!"
+      # Case 2: newname is in different namespace from oldname
+      # oldname.namespace != newname.namespace
+    else
+      # In the directory for OldName's namespace, change all unqualified references to
+      # OldName to newnamespace.NewName (i.e. NewName).
+      change_unqualified_inbound_links_in_same_namespace
+      # And in the renamed file, change all unqualified references to
+      # PageName to oldnamespace.PageName
+      absolutize_unqualified_outbound_links
     end
+
+    # Finally,
+    change_all_absolute_links
   end
+
 end
 
+repo_path, old_name, new_name = *ARGV
+repo_path = Pathname.new(repo_path)
+renamer = Soywiki::Renamer.new(repo_path, old_name, new_name)
 
-# Three other cases to cover, involving namespaces:
-#
-# Case 1: newname is in same namespace as oldname
-#
-# In the directory for OldName's namespace, change all unqualified referenecs to
-# OldName to NewName
-
-if portion(oldname).namespace == portion(newname).namespace
-  MEMO << "- Updating unqualified links in same namespace"
-  target_files = `grep -rlF '#{portion(oldname).short_page_title}' #{full(portion(oldname).namespace)}`.strip.split(/\n/)
-  target_files.select {|f| f !~ /(\.swp|\.swo)$/}.each do |file|
-    text = File.read(file)
-    begin
-      text = text.gsub(/(\A|\s)(#{portion(oldname).short_page_title})\b/, '\1' + portion(newname).short_page_title)
-      File.open(file, 'w') {|f| f.puts text}
-      report file, portion(oldname).short_page_title, portion(newname).short_page_title
-    rescue
-      puts "Error processing #{file}: #$!"
-    end
-  end
-# Case 2: newname is in different namespace from oldname
-# oldname.namespace != newname.namespace
-else
-  # In the directory for OldName's namespace, change all unqualified references to
-  # OldName to newnamespace.NewName (i.e. NewName).
-  change_unqualified_inbound_links_in_same_namespace(oldname, newname)
-  # And in the renamed file, change all unqualified references to
-  # PageName to oldnamespace.PageName
-  absolutize_unqualified_outbound_links(oldname, newname)
-end
-
-# Finally,
-change_all_absolute_links oldname, newname
-
-puts MEMO.join("\n")
+renamer.rename
+renamer.print_report
