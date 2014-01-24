@@ -46,8 +46,7 @@ SoyWiki is free and open source.
 ## Prerequisites
 
 * a recent version of Vim (SoyWiki is developed against Vim 7.2 and 7.3)
-* a recent version of Ruby: Ruby 1.9.2 is recommended
-* RubyGems (if Ruby version is older than 1.9)
+* a recent version of Ruby: at least Ruby 1.9.3, but we recommend 2.0.0 or above
 * a recent version of [Git][git] (1.7.0.4 or above to be safe)
 
 [git]:http://git-scm.com/
@@ -56,9 +55,11 @@ The current version of SoyWiki assumes a Unix environment.
 
 To use SoyWiki you should be fairly good at using Vim. 
 
-To install Ruby 1.9.2, I recommend using the [RVM Version Manager][rvm].
+To install Ruby we recommend using the a ruby version manager,
+like [RVM Version Manager][rvm] or [rbenv][rbenv].
 
 [rvm]:http://rvm.beginrescueend.com
+[rbenv]: https://github.com/sstephenson/rbenv
 
 Most of SoyWiki's commands should work even if you don't have Git
 installed. But the revision history commands will not.
@@ -70,7 +71,7 @@ installed. But the revision history commands will not.
 Test your installation by typing `soywiki -h`. You should see SoyWiki's help.
 
 If you run into any PATH errors, try the following: Install the RVM
-Version Manager, then install Ruby 1.9.2 through RVM, and then run `gem
+Version Manager, then install a recent version of ruby through RVM, and run `gem
 install soywiki`.  This should solve any installation issues.
 
 If you ever want to uninstall SoyWiki from your system, execute this command:
@@ -520,9 +521,16 @@ You can also join the [Google Group][group] and comment there.
 
 The original version of Soywiki was created by Daniel Choi (email: dhchoi at gmail.com).  
 
-Soywiki is now being maintained and extended by Tim r. Reddehase (github: [@0robustus1][tim]).
+Soywiki is now being maintained and extended by Tim Reddehase (github: [@0robustus1][tim]).
 
 [tim]:https://github.com/0robustus1
+
+## Roadmap
+
+There are some more git-related features (e.g. push from inside vim)
+we would like to implement before releasing 1.0.
+However with the 1.0 release we will no longer support
+ruby versions below `2.0.0`.
 
 
 
