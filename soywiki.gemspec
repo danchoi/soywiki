@@ -6,6 +6,7 @@ Gem::Specification.new do |s|
   s.name        = "soywiki"
   s.version     = Soywiki::VERSION
   s.platform    = Gem::Platform::RUBY
+  s.licenses    = ['MIT']
   s.authors     = ["Daniel Choi"]
   s.email       = ["dhchoi@gmail.com"]
   s.homepage    = "http://danielchoi.com/software/soywiki.html"
