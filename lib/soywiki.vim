@@ -297,6 +297,7 @@ func! s:rename_page(page_path_or_title)
       echo system("mv " . original_file . " " .  newfile)
     endif
     call system("git commit -am 'rename wiki page'")
+    let &buftype = "nofile"
     exec "!" . s:rename_links_command . s:wiki_root() . " " . original_file . " " . newfile
     call system("git commit -am 'rename wiki links'")
     exec "e " . newfile
