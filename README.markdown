@@ -363,6 +363,8 @@ specific.
 TIP: You can flag important notes in your wiki content by typing flags
 like TODO or IMPORTANT! on the same line, and then use `:SWSearch` and
 `:cl` to see all instances of them across your entire wiki.
+You can also use `:SWSearchList [term]` or `:SWSL [term]` to open a list of 
+matches directly. 
 
 ## Revision history and distributed workflows
 
