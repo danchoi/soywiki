@@ -18,8 +18,16 @@ class Soywiki::Expander
     @processed_files = []
   end
 
-  def indent(text, level, mode)
-    return text if mode == 'seamless'
+  def seamless?
+    mode == 'seamless'
+  end
+
+  def seamful?
+    mode == 'seamful'
+  end
+
+  def indent(text, level)
+    return text if seamless?
     return text if level == 0
     ('|' * level) + ' ' +  text
   end
@@ -31,9 +39,7 @@ class Soywiki::Expander
   def expand(level=0)
     processed_files << file
     lines = File.readlines(file)
-    if mode == 'seamless'
-      lines.shift   # strips title
-    end
+    lines.shift if seamless?   # strips title
     lines = lines.join.strip.split("\n")
     lines.each do |line|
       # note that the wiki link must be alone on the line to be expanded
@@ -44,22 +50,18 @@ class Soywiki::Expander
           link = [namespace, link].join('.')
         end
         if File.file?(link.to_file_path) && !processed_files.include?(link.to_file_path)
-          if mode == 'seamful'
-            divider
-          end
+          divider if seamful?
           expand(link.to_file_path, mode, level + 1) # recursive call
-          if mode == 'seamful'
-            divider
-          end
+          divider if seamful?
         elsif processed_files.include?(link)
-          puts indent("#{link} [[already expanded]]", level, mode)
+          puts indent("#{link} [[already expanded]]", level)
         elsif !File.file?(link.to_file_path)
-          puts indent("#{link} [[no file found]]", level, mode)
+          puts indent("#{link} [[no file found]]", level)
         else
-          puts indent("#{link}", level, mode)
+          puts indent("#{link}", level)
         end
       else
-        puts indent(line, level, mode)
+        puts indent(line, level)
       end
     end
   end
