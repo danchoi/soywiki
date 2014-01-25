@@ -1,4 +1,5 @@
 require 'string_ext'
+require 'path_helper'
 module Template_Substitution; end
 module Soywiki
   VERSION = '0.9.8'
