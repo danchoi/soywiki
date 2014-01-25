@@ -587,10 +587,10 @@ func! s:expand(seamless, vertical)
   if a:seamless == 1
     " seamful, the default
     echom "Expanding seamfully. Please wait."
-    let res = system(s:expand_command . " seamless " . bufname('%'))
+    let res = system(s:expand_command . " " . s:wiki_root() . " seamless " . bufname('%'))
   else " seamless
     echom "Expanding seamlessly. Please wait."
-    let res = system(s:expand_command . " seamful " . bufname('%'))
+    let res = system(s:expand_command . " " . s:wiki_root() . " seamful " . bufname('%'))
   endif
   if a:vertical
     botright vnew 

@@ -9,13 +9,16 @@ class Soywiki::Expander
   WIKI_LINK_PATTERN =  /^\s*([a-z0-9]\w+\.)?[A-Z][a-z]+[A-Z0-9]\w*\s*$/
 
   attr_reader :mode, :file, :processed_files
+  attr_reader :repo_path, :file_path
   attr_reader :expanded_text
 
   include PathHelper
 
-  def initialize(mode, file)
+  def initialize(repo_path, mode, file)
+    @repo_path = ensure_path(repo_path)
     @mode = mode
-    @file = file
+    @file_path = ensure_path(file)
+    @file = repo_relative(file).to_s
     @processed_files = []
   end
 
@@ -43,9 +46,9 @@ class Soywiki::Expander
     @expanded_text << full_text
   end
 
-  def recursive_expand(file, level=0)
-    processed_files << file
-    lines = File.readlines(file)
+  def recursive_expand(file_path, name, level=0)
+    processed_files << file_path
+    lines = file_path.readlines
     lines.shift if seamless?   # strips title
     lines = lines.join.strip.split("\n")
     lines.each do |line|
@@ -53,16 +56,16 @@ class Soywiki::Expander
       if line =~ WIKI_LINK_PATTERN
         link = line.strip
         if link =~ /(\A|\s)[A-Z]/ # short link in namespace (relative link)
-          namespace = file.namespace
-          link = [namespace, link].join('.')
+          link = [name.namespace, link].join('.')
         end
-        if File.file?(link.to_file_path) && !processed_files.include?(link.to_file_path)
+        link_file_path = in_repo(link.to_file_path)
+        if link_file_path.file? && !processed_files.include?(link_file_path)
           register_in_expansion divider if seamful?
-          recursive_expand(link.to_file_path, level + 1) # recursive call
+          recursive_expand(link_file_path, link, level + 1) # recursive call
           register_in_expansion divider if seamful?
-        elsif processed_files.include?(link)
+        elsif processed_files.include?(link_file_path)
           register_in_expansion indent("#{link} [[already expanded]]", level)
-        elsif !File.file?(link.to_file_path)
+        elsif !link_file_path.file?
           register_in_expansion indent("#{link} [[no file found]]", level)
         else
           register_in_expansion indent("#{link}", level)
@@ -74,12 +77,12 @@ class Soywiki::Expander
   end
 
   def expand
-    recursive_expand(file)
+    recursive_expand(file_path, file.to_page_title)
     expanded_text
   end
 
 end
 
-mode, file = *ARGV
-expander = Soywiki::Expander.new(mode, file)
+repo_path, mode, file = *ARGV
+expander = Soywiki::Expander.new(repo_path, mode, file)
 puts expander.expand
