@@ -1,11 +1,12 @@
 #!/usr/bin/env ruby
 # encoding: UTF-8
 require 'soywiki'
-require 'pathname'
 
 class Soywiki::Renamer
   attr_reader :repo_path, :old_name, :new_name
   attr_reader :memo
+
+  include PathHelper
 
   def initialize(repo_path, old_name, new_name)
     @repo_path = ensure_path(repo_path)
@@ -32,18 +33,6 @@ class Soywiki::Renamer
     self.instance_variable_get("@#{query}_name").short_page_title
   rescue
     nil
-  end
-
-  def repo_relative(path)
-    ensure_path(path).relative_path_from(repo_path)
-  end
-
-  def in_repo(path)
-    repo_path.join(path)
-  end
-
-  def ensure_path(path)
-    path.is_a?(Pathname) ? path : Pathname.new(path)
   end
 
   def report(file, oldname, newname)
