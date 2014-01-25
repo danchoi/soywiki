@@ -1,64 +1,71 @@
 #!/usr/bin/env ruby
 require 'soywiki'
 
-# Takes any wiki link that stands alone on a line and expands it
+class Soywiki::Expander
+  # Takes any wiki link that stands alone on a line and expands it
+  # this is different from Soywiki::WIKI_WORD in that it requires ^\s* before the
+  # first letter
 
-# this is different from Soywiki::WIKI_WORD in that it requires ^\s* before the
-# first letter
+  WIKI_LINK_PATTERN =  /^\s*([a-z0-9]\w+\.)?[A-Z][a-z]+[A-Z0-9]\w*\s*$/
 
-WIKI_LINK_PATTERN =  /^\s*([a-z0-9]\w+\.)?[A-Z][a-z]+[A-Z0-9]\w*\s*$/
+  attr_reader :mode, :file, :processed_files
 
-PROCESSED_FILES = []
+  include PathHelper
 
-def indent(text, level, mode)
-  return text if mode == 'seamless'
-  return text if level == 0
-  ('|' * level) + ' ' +  text
-
-end
-
-def divider
-  puts '+' + '-' * 78 + '+'
-end
-
-def expand(file, mode, level=0)
-  PROCESSED_FILES << file
-  lines = File.readlines(file)
-  if mode == 'seamless'
-    lines.shift   # strips title
+  def initialize(mode, file)
+    @mode = mode
+    @file = file
+    @processed_files = []
   end
-  lines = lines.join.strip.split("\n")
-  lines.each do |line|
-    # note that the wiki link must be alone on the line to be expanded
-    if line =~ WIKI_LINK_PATTERN 
-      link = line.strip
-      if link =~ /(\A|\s)[A-Z]/ # short link in namespace (relative link)
-        namespace = file.namespace
-        link = [namespace, link].join('.')
-      end
-      if File.file?(link.to_file_path) && !PROCESSED_FILES.include?(link.to_file_path) 
-        if mode == 'seamful'
-          divider
+
+  def indent(text, level, mode)
+    return text if mode == 'seamless'
+    return text if level == 0
+    ('|' * level) + ' ' +  text
+  end
+
+  def divider
+    puts '+' + '-' * 78 + '+'
+  end
+
+  def expand(level=0)
+    processed_files << file
+    lines = File.readlines(file)
+    if mode == 'seamless'
+      lines.shift   # strips title
+    end
+    lines = lines.join.strip.split("\n")
+    lines.each do |line|
+      # note that the wiki link must be alone on the line to be expanded
+      if line =~ WIKI_LINK_PATTERN
+        link = line.strip
+        if link =~ /(\A|\s)[A-Z]/ # short link in namespace (relative link)
+          namespace = file.namespace
+          link = [namespace, link].join('.')
         end
-        expand(link.to_file_path, mode, level + 1) # recursive call
-        if mode == 'seamful'
-          divider
+        if File.file?(link.to_file_path) && !processed_files.include?(link.to_file_path)
+          if mode == 'seamful'
+            divider
+          end
+          expand(link.to_file_path, mode, level + 1) # recursive call
+          if mode == 'seamful'
+            divider
+          end
+        elsif processed_files.include?(link)
+          puts indent("#{link} [[already expanded]]", level, mode)
+        elsif !File.file?(link.to_file_path)
+          puts indent("#{link} [[no file found]]", level, mode)
+        else
+          puts indent("#{link}", level, mode)
         end
-      elsif PROCESSED_FILES.include?(link) 
-        puts indent("#{link} [[already expanded]]", level, mode)
-      elsif !File.file?(link.to_file_path)
-        puts indent("#{link} [[no file found]]", level, mode)
       else
-        puts indent("#{link}", level, mode)
+        puts indent(line, level, mode)
       end
-    else
-      puts indent(line, level, mode)
     end
   end
+
 end
 
 mode, file = *ARGV
-
-expand(file, mode)
-
-
+expander = Soywiki::Expander.new(mode, file)
+expander.expand
