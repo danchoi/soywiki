@@ -49,8 +49,12 @@ class Soywiki::Expander
   def recursive_expand(file_path, name, level=0)
     processed_files << file_path
     lines = file_path.readlines
-    lines.shift if seamless?   # strips title
+    title = lines.shift # takes title
     lines = lines.join.strip.split("\n")
+    if seamful?
+      register_in_expansion divider unless level == 0
+      register_in_expansion indent(title, level)
+    end
     lines.each do |line|
       # note that the wiki link must be alone on the line to be expanded
       if line =~ WIKI_LINK_PATTERN
@@ -60,9 +64,7 @@ class Soywiki::Expander
         end
         link_file_path = in_repo(link.to_file_path)
         if link_file_path.file? && !processed_files.include?(link_file_path)
-          register_in_expansion divider if seamful?
           recursive_expand(link_file_path, link, level + 1) # recursive call
-          register_in_expansion divider if seamful?
         elsif processed_files.include?(link_file_path)
           register_in_expansion indent("#{link} [[already expanded]]", level)
         elsif !link_file_path.file?
@@ -74,6 +76,7 @@ class Soywiki::Expander
         register_in_expansion indent(line, level)
       end
     end
+    register_in_expansion divider if seamful? && level != 0
   end
 
   def expand
