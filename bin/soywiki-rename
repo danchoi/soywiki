@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # encoding: UTF-8
 require 'soywiki'
-require 'renamer'
+require 'soywiki/renamer'
 
 repo_path, old_name, new_name = *ARGV
 repo_path = Pathname.new(repo_path)
