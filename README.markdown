@@ -364,6 +364,14 @@ TIP: You can flag important notes in your wiki content by typing flags
 like TODO or IMPORTANT! on the same line, and then use `:SWSearch` and
 `:cl` to see all instances of them across your entire wiki.
 
+It also exists a version of the `:SWSearch`-command which directly
+opens a navigatable list of the matches:
+
+- `:SWSearchList [term]`
+- `:SWSL [term]` is an alias
+
+For more information about the list you can try `:h copen` and `:h clist`.
+
 ## Revision history and distributed workflows
 
 SoyWiki delegates revision-tracking, syncing, and collaboration
