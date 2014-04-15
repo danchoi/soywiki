@@ -693,6 +693,7 @@ func! s:global_mappings()
 
   autocmd  BufReadPost,BufNewFile,WinEnter,BufEnter,BufNew,BufAdd * call s:highlight_wikiwords() 
   autocmd  BufReadPost,BufNewFile,WinEnter,BufEnter,BufNew,BufAdd * call s:prep_buffer() 
+  autocmd BufReadPost quickfix nnoremap <buffer> <space> <CR>:copen<CR>
   " autocmd  BufEnter * call s:prep_buffer() 
 endfunc 
 
