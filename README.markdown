@@ -372,6 +372,12 @@ opens a navigatable list of the matches:
 
 For more information about the list you can try `:h copen` and `:h clist`.
 
+In the navigation-list you can select an element with normal navigation
+(`h`, `j`, `k`, `l`, or arrows) and press `<Enter>` to open the page.
+To open the page but staying on the selection (instead of jumping to
+the now opened page) you can instead press `<space>`.
+
+
 ## Revision history and distributed workflows
 
 SoyWiki delegates revision-tracking, syncing, and collaboration
