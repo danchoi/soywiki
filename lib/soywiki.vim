@@ -738,10 +738,17 @@ func! s:prep_buffer()
 
     "   set nu
     setlocal completefunc=CompletePageTitle
-    augroup save_revision
-      au!
-      autocmd FileWritePost,BufWritePost,BufUnload <buffer> call s:save_revision() 
-    augroup END
+
+    if !exists('g:soywiki_autosave')
+      let g:soywiki_autosave = 1
+    endif
+
+    if g:soywiki_autosave
+      augroup save_revision
+        au!
+        autocmd FileWritePost,BufWritePost,BufUnload <buffer> call s:save_revision()
+      augroup END
+    endif
     let b:mappings_loaded = 1
   endif
 endfunc

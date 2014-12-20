@@ -143,6 +143,14 @@ you traverse WikiLinks that don't yet reference any content.
 
 That's all you need to know to get started. 
 
+### Configuring further
+
+You can configure soywiki's vim-handling by setting certain variables
+inside of your `~/.vimrc`. This is a list of the supported settings:
+
+- `let g:soywiki_autosave = 1`  
+  activates autosaving (the default), deactivate by setting `0`.
+
 ## Namespaced WikiWords
 
 Every WikiWord in SoyWiki is implicitly or explicitly namespaced.
