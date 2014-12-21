@@ -697,10 +697,79 @@ func! s:global_mappings()
   " autocmd  BufEnter * call s:prep_buffer() 
 endfunc 
 
+func! s:prep_mapping_default()
+  if !exists('g:soywiki_mapping_follow_link_under_cursor_here')
+    let g:soywiki_mapping_follow_link_under_cursor_here = '<cr>'
+  endif
+  if !exists('g:soywiki_mapping_follow_link_under_cursor_vertical')
+    let g:soywiki_mapping_follow_link_under_cursor_vertical = '<c-l>'
+  endif
+  if !exists('g:soywiki_mapping_follow_link_under_cursor_horizontal')
+    let g:soywiki_mapping_follow_link_under_cursor_horizontal = '<c-h>'
+  endif
+  if !exists('g:soywiki_mapping_fuzzy_follow')
+    let g:soywiki_mapping_fuzzy_follow = '<leader>f'
+  endif
+  if !exists('g:soywiki_mapping_next_link')
+    let g:soywiki_mapping_next_link = '<c-j>'
+  endif
+  if !exists('g:soywiki_mapping_previous_link')
+    let g:soywiki_mapping_previous_link = '<c-k>'
+  endif
+
+  if !exists('g:soywiki_mapping_show_history')
+    let g:soywiki_mapping_show_history = '<leader>lp'
+  endif
+  if !exists('g:soywiki_mapping_show_files_history')
+    let g:soywiki_mapping_show_files_history = '<leader>ls'
+  endif
+  if !exists('g:soywiki_mapping_show_blame')
+    let g:soywiki_mapping_show_blame = '<leader>b'
+  endif
+
+  if !exists('g:soywiki_mapping_expand_seamless_vertical')
+    let g:soywiki_mapping_expand_seamless_vertical = '<leader>x'
+  endif
+  if !exists('g:soywiki_mapping_expand_seamful_vertical')
+    let g:soywiki_mapping_expand_seamful_vertical = '<leader>X'
+  endif
+  if !exists('g:soywiki_mapping_expand_seamless_horizontal')
+    let g:soywiki_mapping_expand_seamless_horizontal = '<leader>xx'
+  endif
+  if !exists('g:soywiki_mapping_expand_seamful_horizontal')
+    let g:soywiki_mapping_expand_seamful_horizontal = '<leader>XX'
+  endif
+
+  if !exists('g:soywiki_mapping_goto_homepage')
+    let g:soywiki_mapping_goto_homepage = '<leader>h'
+  endif
+  if !exists('g:soywiki_mapping_goto_main_homepage')
+    let g:soywiki_mapping_goto_main_homepage = '<leader>H'
+  endif
+
+  if !exists('g:soywiki_mapping_show_help')
+    let g:soywiki_mapping_show_help = '<leader>?'
+  endif
+
+  if !exists('g:soywiki_mapping_format')
+    let g:soywiki_mapping_format = '\'
+  endif
+  if !exists('g:soywiki_mapping_add_delimiter_line')
+    let g:soywiki_mapping_add_delimiter_line = '<leader>-'
+  endif
+  if !exists('g:soywiki_mapping_add_date')
+    let g:soywiki_mapping_add_date = '<leader>d'
+  endif
+  if !exists('g:soywiki_mapping_add_date_and_delimiter_line')
+    let g:soywiki_mapping_add_date_and_delimiter_line = '<leader>D'
+  endif
+endfunc
+
 " this checks if the buffer is a SoyWiki file (from firstline)
 " and then turns on syntax coloring and mappings as necessary
 func! s:prep_buffer()
   if (s:is_wiki_page() && !exists("b:mappings_loaded"))
+    call s:prep_mapping_default()
     " let user decide on the textwidth
     let &filetype=g:soywiki_filetype
     nnoremap <buffer> <cr> :call <SID>follow_link_under_cursor(0)<cr>
