@@ -111,26 +111,48 @@ module Soywiki
       if markdown
         text = text.gsub(BROKEN_MARKDOWN_HYPERLINK, '[\\1](\\2)')
       end
-      text.gsub(HYPERLINK) { |uri| soyfile_to_uri(uri) }
+      text.gsub(HYPERLINK) { |uri| soyfile_to_href(uri) }
     end
 
-    def soyfile_to_uri(uri)
-      uri_after_scheme = %r{[^ >)\n\]]+}
-      if uri =~ %r{^soyfile://(#{uri_after_scheme})}
-        path = choose_soyfile_path($1)
-        "file://#{path}" if path[0] == '/'
+    def soyfile_to_href(uri)
+      match = soyfile_match(uri)
+      if match
+        path = choose_soyfile_path(match[1])
+        path[0] == '/' ? "file://#{path}" : path
       else
         uri
       end
     end
 
+    def soyfile_match(uri)
+      uri_after_scheme = %r{[^ >)\n\]]+}
+      regex = %r{^soyfile://(#{uri_after_scheme})}
+      uri.match(regex)
+    end
+
     def choose_soyfile_path(path)
+      absolute_path = absolute_soyfile_path(path)
+      if relative_soyfile
+        Pathname.new(absolute_path).
+          relative_path_from(Pathname.new(wiki_root)).to_s
+      else
+        absolute_path
+      end
+    end
+
+    def absolute_soyfile_path(path)
       return path if path[0] == '/'
-      wiki_root = Dir.getwd
-      autochdir_path = File.
-        absolute_path(File.join(wiki_root, current_namespace, path))
-      wiki_path = File.absolute_path(File.join(wiki_root, path))
+      autochdir_path = absolutify("#{current_namespace}/#{path}")
+      wiki_path = absolutify(path)
       File.exists?(autochdir_path) ? autochdir_path : wiki_path
+    end
+
+    def absolutify(path)
+      File.absolute_path(File.join(wiki_root, path))
+    end
+
+    def wiki_root
+      Dir.getwd
     end
 
     def markdownify(text)
