@@ -151,6 +151,38 @@ inside of your `~/.vimrc`. This is a list of the supported settings:
 - `let g:soywiki_autosave = 1`  
   activates autosaving (the default), deactivate by setting `0`.
 
+#### Mappings
+
+Default mappings can be overridden by providing a custom mapping in your vimrc,
+e.g. like this:
+
+```vim
+let g:soywiki_mapping_follow_link_under_cursor_here = '<c-f>'
+```
+
+This is a list of the standard mappings with their default values:
+
+- `g:soywiki_mapping_follow_link_under_cursor_here` *defaults* to `<cr>`
+- `g:soywiki_mapping_follow_link_under_cursor_vertical` *defaults* to `<c-l>`
+- `g:soywiki_mapping_follow_link_under_cursor_horizontal` *defaults* to `<c-h>`
+- `g:soywiki_mapping_fuzzy_follow` *defaults* to `<leader>f`
+- `g:soywiki_mapping_next_link` *defaults* to `<c-j>`
+- `g:soywiki_mapping_next_link` *defaults* to `<c-k>`
+- `g:soywiki_mapping_show_history` *defaults* to `<leader>lp`
+- `g:soywiki_mapping_show_files_history` *defaults* to `<leader>ls`
+- `g:soywiki_mapping_show_blame` *defaults* to `<leader>b`
+- `g:soywiki_mapping_expand_seamless_vertical` *defaults* to `<leader>x`
+- `g:soywiki_mapping_expand_seamful_vertical` *defaults* to `<leader>X`
+- `g:soywiki_mapping_expand_seamless_horizontal` *defaults* to `<leader>xx`
+- `g:soywiki_mapping_expand_seamful_horizontal` *defaults* to `<leader>XX`
+- `g:soywiki_mapping_goto_homepage` *defaults* to `<leader>h`
+- `g:soywiki_mapping_goto_main_homepage` *defaults* to `<leader>H`
+- `g:soywiki_mapping_show_help` *defaults* to `<leader>?`
+- `g:soywiki_mapping_format` *defaults* to `\`
+- `g:soywiki_mapping_add_delimiter_line` *defaults* to `<leader>-`
+- `g:soywiki_mapping_add_date` *defaults* to `<leader>d`
+- `g:soywiki_mapping_add_date_and_delimiter_line` *defaults* to `<leader>D`
+
 ## Namespaced WikiWords
 
 Every WikiWord in SoyWiki is implicitly or explicitly namespaced.
