@@ -558,6 +558,14 @@ this problem we have added support for our own schema:
 to the wiki root or, if you use vim's
 *autochdir* option, relative to the current namespace.
 
+If you want to generate html output in order to upload it
+to a webpage you need to generate relative links if you are using
+`soyfile://` (the default is to generate absolute `file://` links).
+You can achieve this by calling:
+
+- `soywiki --html --relative`
+- `soywiki --html --markdown --relative`
+
 
 ## Bug reports and feature requests
 

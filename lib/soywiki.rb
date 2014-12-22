@@ -15,6 +15,8 @@ module Soywiki
       [ '--version', '-v',     GetoptLong::NO_ARGUMENT],
       [ '--html',              GetoptLong::NO_ARGUMENT],
       [ '--markdown',          GetoptLong::NO_ARGUMENT],
+      [ '--absolute',          GetoptLong::NO_ARGUMENT],
+      [ '--relative',          GetoptLong::NO_ARGUMENT],
       [ '--install-plugin',    GetoptLong::NO_ARGUMENT],
       [ '--page',              GetoptLong::REQUIRED_ARGUMENT],
       [ '--index',             GetoptLong::REQUIRED_ARGUMENT],
@@ -42,6 +44,10 @@ Parse to html:
       --page template-file
     replace default haml-index-template with the one supplied:
       --index template-file
+      --absolute
+      generate absolute file://-style links
+      --relative
+      generate relative ../-style links
 Install the soywiki vim plugin:
   --install-plugin
 Show this help:
@@ -56,6 +62,7 @@ Show version info:
     html           = false
     md             = false
     index = page = nil
+    relative_soyfile = false
     opts.each do |opt, arg|
       case opt
         when '--help' then usage[]
@@ -65,11 +72,13 @@ Show version info:
         when '--install-plugin' then install_plugin = true
         when '--page' then page = arg
         when '--index' then index = arg
+        when '--absolute' then relative_soyfile = false
+        when '--relative' then relative_soyfile = true
       end
     end
     self.set_substitute %{INDEX_PAGE_TEMPLATE_SUB}.to_sym, index if index
     self.set_substitute %{PAGE_TEMPLATE_SUB}.to_sym, page if page
-    self.html_export md if html
+    self.html_export(md, relative_soyfile) if html
     if install_plugin
       require 'erb'
       plugin_template = File.read(File.join(File.dirname(__FILE__), 'plugin.erb'))
@@ -85,9 +94,9 @@ Show version info:
     end unless html
   end
 
-  def self.html_export(markdown=false)
+  def self.html_export(markdown, relative_soyfile)
     require 'soywiki/html'
-    Html.export(markdown)
+    Html.export(markdown, relative_soyfile)
   end
 
   def self.set_substitute const, substitute_path
