@@ -2,7 +2,7 @@ require 'string_ext'
 require 'path_helper'
 module Template_Substitution; end
 module Soywiki
-  VERSION = '0.9.8.2'
+  VERSION = '0.9.8.3'
   WIKI_WORD = /\b([a-z0-9][\w_]+\.)?[A-Z][a-z]+[A-Z0-9]\w*\b/
   SCHEMES = %w{https http file soyfile}
   HYPERLINK = %r|\b(?:#{SCHEMES.join('|')})://[^ >)\n\]]+|
