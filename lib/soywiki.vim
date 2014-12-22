@@ -772,38 +772,38 @@ func! s:prep_buffer()
     call s:prep_mapping_default()
     " let user decide on the textwidth
     let &filetype=g:soywiki_filetype
-    nnoremap <buffer> <cr> :call <SID>follow_link_under_cursor(0)<cr>
-    nnoremap <buffer> <c-l> :call <SID>follow_link_under_cursor(2)<cr>
-    nnoremap <buffer> <c-h> :call <SID>follow_link_under_cursor(1)<cr>
-    noremap <buffer> <leader>f :call <SID>fuzzy_follow_link(0)<CR>
-    noremap <buffer> <c-j> :call <SID>find_next_wiki_link(0)<CR>
-    noremap <buffer> <c-k> :call <SID>find_next_wiki_link(1)<CR>
+    execute 'nnoremap <buffer> '.g:soywiki_mapping_follow_link_under_cursor_here.' :call <SID>follow_link_under_cursor(0)<cr>'
+    execute 'nnoremap <buffer> '.g:soywiki_mapping_follow_link_under_cursor_vertical.' :call <SID>follow_link_under_cursor(2)<cr>'
+    execute 'nnoremap <buffer> '.g:soywiki_mapping_follow_link_under_cursor_horizontal.' :call <SID>follow_link_under_cursor(1)<cr>'
+    execute 'noremap <buffer> '.g:soywiki_mapping_fuzzy_follow.' :call <SID>fuzzy_follow_link(0)<CR>'
+    execute 'noremap <buffer> '.g:soywiki_mapping_next_link.' :call <SID>find_next_wiki_link(0)<CR>'
+    execute 'noremap <buffer> '.g:soywiki_mapping_previous_link.' :call <SID>find_next_wiki_link(1)<CR>'
 
     command! -bar -nargs=1 -range -complete=file SWCreate :call <SID>create_page(<f-args>)
     command! -bar -nargs=1 -range -complete=file SWRenameTo :call <SID>rename_page(<f-args>)
     command! -buffer SWDelete :call s:delete_page()
 
     command! -buffer SWLog :call s:show_revision_history(0)
-    noremap <buffer> <leader>lp :call <SID>show_revision_history(0)<CR>
+    execute 'noremap <buffer> '.g:soywiki_mapping_show_history.' :call <SID>show_revision_history(0)<CR>'
     command! -buffer SWLogStat :call s:show_revision_history(1)
-    noremap <buffer> <leader>ls :call <SID>show_revision_history(1)<CR>
+    execute 'noremap <buffer> '.g:soywiki_mapping_show_files_history.' :call <SID>show_revision_history(1)<CR>'
     command! -buffer SWBlame :call s:show_blame()
-    noremap <buffer> <leader>b :call <SID>show_blame()<CR>
+    execute 'noremap <buffer> '.g:soywiki_mapping_show_blame.' :call <SID>show_blame()<CR>'
 
-    noremap <buffer> <leader>x :call <SID>expand(0,1)<CR>
-    noremap <buffer> <leader>X :call <SID>expand(1,1)<CR>
-    noremap <buffer> <leader>xx :call <SID>expand(0,0)<CR>
-    noremap <buffer> <leader>XX :call <SID>expand(1,0)<CR>
+    execute 'noremap <buffer> '.g:soywiki_mapping_expand_seamless_vertical.' :call <SID>expand(0,1)<CR>'
+    execute 'noremap <buffer> '.g:soywiki_mapping_expand_seamful_vertical.' :call <SID>expand(1,1)<CR>'
+    execute 'noremap <buffer> '.g:soywiki_mapping_expand_seamless_horizontal.' :call <SID>expand(0,0)<CR>'
+    execute 'noremap <buffer> '.g:soywiki_mapping_expand_seamful_horizontal.' :call <SID>expand(1,0)<CR>'
 
-    noremap <buffer> <leader>h :call <SID>goto_homepage(0)<CR>
-    noremap <buffer> <leader>H :call <SID>goto_homepage(1)<CR>
+    execute 'noremap <buffer> '.g:soywiki_mapping_goto_homepage.' :call <SID>goto_homepage(0)<CR>'
+    execute 'noremap <buffer> '.g:soywiki_mapping_goto_main_homepage.' :call <SID>goto_homepage(1)<CR>'
 
-    noremap <silent> <leader>? :call <SID>show_help()<cr>
+    execute 'noremap <silent> '.g:soywiki_mapping_show_help.' :call <SID>show_help()<cr>'
 
-    nnoremap <buffer> \ gqap 
-    nnoremap <buffer> <Leader>- o<Esc>k72i-<Esc><CR>
-    nnoremap <buffer> <Leader>d :r !date<CR>o<Esc>
-    nnoremap <Leader>D :r !date<CR><Esc>k72i-<Esc>jo<Esc>
+    execute 'nnoremap <buffer> '.g:soywiki_mapping_format.' gqap '
+    execute 'nnoremap <buffer> '.'.g:soywiki_mapping_add_delimiter_line o<Esc>k72i-<Esc><CR>'
+    execute 'nnoremap <buffer> '.g:soywiki_mapping_add_date.' :r !date<CR>o<Esc>'
+    execute 'nnoremap '.g:soywiki_mapping_add_date_and_delimiter_line.' :r !date<CR><Esc>k72i-<Esc>jo<Esc>'
 
     "   set nu
     setlocal completefunc=CompletePageTitle
