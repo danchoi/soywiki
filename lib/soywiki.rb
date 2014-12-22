@@ -78,7 +78,7 @@ Show version info:
     end
     self.set_substitute %{INDEX_PAGE_TEMPLATE_SUB}.to_sym, index if index
     self.set_substitute %{PAGE_TEMPLATE_SUB}.to_sym, page if page
-    self.html_export md if html
+    self.html_export(md, relative_soyfile) if html
     if install_plugin
       require 'erb'
       plugin_template = File.read(File.join(File.dirname(__FILE__), 'plugin.erb'))
@@ -94,9 +94,9 @@ Show version info:
     end unless html
   end
 
-  def self.html_export(markdown=false)
+  def self.html_export(markdown, relative_soyfile)
     require 'soywiki/html'
-    Html.export(markdown)
+    Html.export(markdown, relative_soyfile)
   end
 
   def self.set_substitute const, substitute_path
