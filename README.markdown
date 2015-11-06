@@ -58,7 +58,7 @@ To use SoyWiki you should be fairly good at using Vim.
 To install Ruby we recommend using the a ruby version manager,
 like [RVM Version Manager][rvm] or [rbenv][rbenv].
 
-[rvm]:http://rvm.beginrescueend.com
+[rvm]:https://rvm.io
 [rbenv]: https://github.com/sstephenson/rbenv
 
 Most of SoyWiki's commands should work even if you don't have Git
