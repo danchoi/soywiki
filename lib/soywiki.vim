@@ -763,6 +763,9 @@ func! s:prep_mapping_default()
   if !exists('g:soywiki_mapping_add_date_and_delimiter_line')
     let g:soywiki_mapping_add_date_and_delimiter_line = '<leader>D'
   endif
+  if !exists('g:soywiki_mapping_add_date_note_page')
+    let g:soywiki_mapping_add_date_note_page = '<leader>dp'
+  endif
 endfunc
 
 " this checks if the buffer is a SoyWiki file (from firstline)
@@ -804,6 +807,7 @@ func! s:prep_buffer()
     execute 'nnoremap <buffer> '.'.g:soywiki_mapping_add_delimiter_line o<Esc>k72i-<Esc><CR>'
     execute 'nnoremap <buffer> '.g:soywiki_mapping_add_date.' :r !date<CR>o<Esc>'
     execute 'nnoremap '.g:soywiki_mapping_add_date_and_delimiter_line.' :r !date<CR><Esc>k72i-<Esc>jo<Esc>'
+    execute 'nnoremap '.g:soywiki_mapping_add_date_note_page.' :pu=strftime(\"%Y%m%d\")<Esc>i[Date<Esc>$a<Esc>a]<CR><Esc>'
 
     "   set nu
     setlocal completefunc=CompletePageTitle
