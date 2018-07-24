@@ -766,6 +766,9 @@ func! s:prep_mapping_default()
   if !exists('g:soywiki_mapping_add_date_note_page')
     let g:soywiki_mapping_add_date_note_page = '<leader>dp'
   endif
+  if !exists('g:soywiki_mapping_push_and_quit')
+    let g:soywiki_mapping_push_and_quit = '<leader>qp'
+  endif
 endfunc
 
 " this checks if the buffer is a SoyWiki file (from firstline)
@@ -808,6 +811,7 @@ func! s:prep_buffer()
     execute 'nnoremap <buffer> '.g:soywiki_mapping_add_date.' :r !date<CR>o<Esc>'
     execute 'nnoremap '.g:soywiki_mapping_add_date_and_delimiter_line.' :r !date<CR><Esc>k72i-<Esc>jo<Esc>'
     execute 'nnoremap '.g:soywiki_mapping_add_date_note_page.' :pu=strftime(\"%Y%m%d\")<Esc>i[Date<Esc>$a<Esc>a]<CR><Esc>'
+    execute 'nnoremap '.g:soywiki_mapping_push_and_quit.' :w<Esc>:!git push<Esc>:q<CR>'
 
     "   set nu
     setlocal completefunc=CompletePageTitle
@@ -820,6 +824,7 @@ func! s:prep_buffer()
       augroup save_revision
         au!
         autocmd FileWritePost,BufWritePost,BufUnload <buffer> call s:save_revision()
+        autocmd VimLeave * :!git push
       augroup END
     endif
     let b:mappings_loaded = 1
@@ -864,4 +869,3 @@ endif
 syntax enable
 call s:highlight_wikiwords() 
 call s:prep_buffer()
-
