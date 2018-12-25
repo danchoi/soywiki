@@ -1,5 +1,7 @@
 # SoyWiki
 
+**This project is no longer being actively maintained**
+
 SoyWiki turns Vim into a powerful, lean, and fast wiki.  It's got all the
 protein of a more conventional wiki, but less saturated fat and no
 cholesterol. 
@@ -583,9 +585,9 @@ You can also join the [Google Group][group] and comment there.
 
 The original version of Soywiki was created by Daniel Choi (email: dhchoi at gmail.com).  
 
-Soywiki is now being maintained and extended by Tim Reddehase (github: [@0robustus1][tim]).
-
-[tim]:https://github.com/0robustus1
+* maintained until August 2013 by Daniel Choi
+* maintained until November 2015 by Tim Reddehase
+* no longer actively maintained
 
 ## Roadmap
 
